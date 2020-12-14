@@ -1,0 +1,9 @@
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: $font-primary;
+  color: map_get($colors, gray800);
+  background-color: black;
+}
