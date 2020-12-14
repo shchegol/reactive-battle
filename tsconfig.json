@@ -17,7 +17,9 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "paths": {
-      "@root/*": ["src/*"]
+      "@root/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@styles/*": ["src/styles/*"]
     }
   },
   "exclude": [
@@ -25,7 +27,6 @@
     "build",
     "scripts",
     "acceptance-tests",
-    "webpack",
-    "jest",
+    "jest"
   ]
 }

@@ -1,6 +1,8 @@
 .idea/
 node_modules/
 
+.eslintcache
+
 docs/
 build/
 dist/

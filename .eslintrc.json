@@ -7,7 +7,7 @@
     "jest": true
   },
   "extends": [
-    "airbnb-typescript/base"
+    "airbnb-typescript"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -19,15 +19,6 @@
   ],
   "rules": {
     "no-underscore-dangle": 0,
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
-    ]
+    "import/no-extraneous-dependencies": 0
   }
 }

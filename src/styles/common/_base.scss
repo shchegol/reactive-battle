@@ -4,5 +4,6 @@ html {
 
 body {
   font-family: $font-primary;
-  color: map_get($colors, text-main);
+  color: map_get($colors, gray800);
+  background-color: black;
 }

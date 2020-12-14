@@ -1,8 +1,9 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import '@root/styles/index.scss';
+import App from '@root/components/app/App';
+import '@styles/index.scss';
 
 ReactDOM.render(
-    <h1>Reactive Battle</h1>,
-    document.getElementById('root') as HTMLElement,
+  <App />,
+  document.getElementById('root') as HTMLElement,
 );

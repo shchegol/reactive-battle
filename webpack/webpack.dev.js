@@ -36,9 +36,8 @@ module.exports = merge(common, {
   devServer: {
     contentBase: util.resolve('dist'),
     port: 4000,
-    historyApiFallback: {
-      index: './dist/index.html',
-    },
+    hot: true,
+    open: true,
   },
   plugins: [
     new HtmlWebpackPlugin({

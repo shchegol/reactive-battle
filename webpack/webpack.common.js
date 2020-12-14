@@ -14,6 +14,8 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
     alias: {
       '@root': util.resolve('src'),
+      '@components': util.resolve('src/components'),
+      '@styles': util.resolve('src/styles'),
     },
   },
   module: {
@@ -25,11 +27,6 @@ module.exports = {
       },
       {
         test: /\.(ts|tsx)$/,
-        loader: 'ts-loader',
-      },
-      {
-        test: /\.ts$/,
-        exclude: /node_modules/,
         loader: 'ts-loader',
       },
       {
