@@ -1,0 +1,18 @@
+// colors
+// map_get($colors, text-main)
+$colors: (
+        gray100: #F5F5F5,
+        gray500: #9E9E9E,
+        gray800: #424242,
+        primary: #2196F3,
+        primary-hover: #1E88E5,
+        secondary: #424242,
+        secondary-hover: #616161,
+        success: #4CAF50,
+        success-hover: #4CAF50,
+        danger: #f44336,
+        danger-hover: #e53935,
+);
+
+// fonts
+$font-primary: Arial, sans-serif;
