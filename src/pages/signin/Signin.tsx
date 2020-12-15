@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import './login.scss';
+import './signin.scss';
 
 const logo = require('@root/svg/logo.svg').default;
 
-export default function Login() {
+export default function SignIn() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
 
   return (
-    <div className="login">
+    <div className="signin">
       <img src={logo} alt="Reactive Battle" />
       <h1 className="title">
         REACTIVE BATTLE
