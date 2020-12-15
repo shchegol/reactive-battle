@@ -1,4 +1,5 @@
 import Logo from '@root/components/logo';
+import Title from '@root/components/title';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -11,9 +12,7 @@ export default function SignIn() {
   return (
     <div className="signin">
       <Logo />
-      <h1 className="title">
-        REACTIVE BATTLE
-      </h1>
+      <Title />
       <div style={{ marginTop: 80 }}>
         <input
           className="input"
