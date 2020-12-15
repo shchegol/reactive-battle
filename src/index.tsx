@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import App from '@root/components/app/App';
 import '@styles/index.scss';
+import App from '@components/app/App';
 
 ReactDOM.render(
   <App />,

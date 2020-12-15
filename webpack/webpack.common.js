@@ -52,7 +52,7 @@ module.exports = {
       },
       {
         test: /\.(svg)$/,
-        exclude: util.resolve('src/fonts'),
+        exclude: util.resolve('src/svg'),
         use: [
           {
             loader: 'file-loader',
@@ -65,7 +65,7 @@ module.exports = {
       },
       {
         test: /.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
-        exclude: util.resolve('src/svg'),
+        exclude: util.resolve('src/fonts'),
         use: [
           {
             loader: 'file-loader',
