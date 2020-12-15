@@ -1,4 +1,4 @@
-# Reactive Battle [![License](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
+# [Reactive Battle](https://reactive-battle.herokuapp.com/) [![License](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
 Проект на стадии разработки...
 
 Релиз: https://reactive-battle.herokuapp.com/
