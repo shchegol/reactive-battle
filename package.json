@@ -20,7 +20,8 @@
   "homepage": "https://github.com/shchegol/reactive-battle#readme",
   "jest": {
     "transform": {
-      "^.+\\.(ts|tsx)$": "ts-jest"
+      "^.+\\.(ts|tsx)$": "ts-jest",
+      "^.+\\.svg$": "<rootDir>/svgTransform.js"
     },
     "moduleNameMapper": {
       ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "identity-obj-proxy",
