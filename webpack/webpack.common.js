@@ -39,7 +39,8 @@ module.exports = {
         loader: 'html-loader',
       },
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif|svg)$/,
+        exclude: util.resolve('src/fonts'),
         use: [
           {
             loader: 'file-loader',
@@ -51,21 +52,8 @@ module.exports = {
         ],
       },
       {
-        test: /\.(svg)$/,
-        exclude: util.resolve('src/fonts'),
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              outputPath: 'svg/',
-              name: '[name][contenthash].[ext]',
-            },
-          },
-        ],
-      },
-      {
         test: /.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
-        exclude: util.resolve('src/svg'),
+        exclude: util.resolve('src/images'),
         use: [
           {
             loader: 'file-loader',
