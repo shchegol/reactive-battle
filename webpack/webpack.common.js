@@ -1,4 +1,5 @@
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 const util = require('./webpack.utils');
 
 module.exports = {
@@ -20,11 +21,6 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.(ts|tsx)$/,
-        enforce: 'pre',
-        loader: 'eslint-loader',
-      },
       {
         test: /\.(ts|tsx)$/,
         loader: 'ts-loader',
@@ -79,6 +75,7 @@ module.exports = {
     ],
   },
   plugins: [
+    new ESLintPlugin(),
     new ImageMinimizerPlugin({
       minimizerOptions: {
         plugins: [
