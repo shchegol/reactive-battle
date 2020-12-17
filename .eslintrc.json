@@ -20,9 +20,6 @@
   "rules": {
     "no-underscore-dangle": 0,
     "import/no-extraneous-dependencies": 0,
-    "linebreak-style": [
-      "error",
-      "windows"
-    ]
+    "linebreak-style": 0
   }
 }
