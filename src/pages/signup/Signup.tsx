@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import './signup.scss';
 
-export default function Signup() {
+export default function SignUp() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
@@ -44,7 +44,7 @@ export default function Signup() {
         <button type="button" className="button" onClick={() => console.log('register')}>REGISTER</button>
       </div>
       <div style={{ marginTop: 40 }}>
-        <Link to="/login">SIGN IN</Link>
+        <Link to="/signin">SIGN IN</Link>
       </div>
     </div>
   );
