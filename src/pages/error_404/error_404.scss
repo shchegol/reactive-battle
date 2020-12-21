@@ -1,0 +1,20 @@
+@import "@styles/utilities/variables";
+
+.error_404 {
+  &__root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100vw;
+    height: 100vh;
+    background: url("../../images/wrong-way.jpg") no-repeat center center fixed;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 47px;
+    color: map_get($colors, primary);
+    margin-bottom: 50px;
+  }
+}
