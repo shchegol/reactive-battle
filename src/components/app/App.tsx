@@ -1,3 +1,4 @@
+import Game from '@root/pages/game/Game';
 import Leaderboard from '@root/pages/leaderborad/Leaderboard';
 import SignIn from '@root/pages/signin/Signin';
 import SignUp from '@root/pages/signup/Signup';
@@ -12,6 +13,7 @@ export default function App() {
         <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={SignUp} />
         <Route path="/leaderboard" component={Leaderboard} />
+        <Route path="/game" component={Game} />
       </Switch>
     </BrowserRouter>
   );
