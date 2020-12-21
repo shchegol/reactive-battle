@@ -1,0 +1,29 @@
+@import "@styles/utilities/variables";
+
+.leaders-item {
+    height: 40px;
+    margin: 5px 0 0px 0;
+    font-size: 18px;
+    border-width: 4px;
+    border-style: solid;
+    box-sizing: border-box;
+    color: map_get($colors, primary);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.position {
+    width: 50px;
+    margin: 5px;
+}
+
+.user {
+    width: 300px;
+    margin: 5px;
+}
+
+.score {
+    width: 100px;
+    margin: 5px;
+}

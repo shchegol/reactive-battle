@@ -1,0 +1,9 @@
+.search-box {
+    display: flex;
+    flex-direction: row;
+
+    &__button {
+        width: 100px;
+        margin-left: 5px;
+    }
+}

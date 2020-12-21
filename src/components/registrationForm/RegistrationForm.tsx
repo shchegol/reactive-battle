@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Button from '@components/button';
 
 import './RegistrationForm.scss';
 
@@ -37,7 +38,7 @@ export default function RegistrationForm() {
         />
       </div>
       <div style={{ marginTop: 40 }}>
-        <button type="button" className="button" onClick={() => console.log('register')}>REGISTER</button>
+        <Button onClick={() => console.log('register')}>REGISTER</Button>
       </div>
       <div style={{ marginTop: 40 }}>
         <Link to="/signin">SIGN IN</Link>
