@@ -3,7 +3,7 @@ import React from 'react';
 
 import './game.scss';
 
-export default function SignIn() {
+export default function Game() {
   return (
     <div className="game">
       <Playground />

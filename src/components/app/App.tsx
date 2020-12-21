@@ -1,3 +1,4 @@
+import Error5xx from '@root/pages/error_5xx';
 import Game from '@root/pages/game/Game';
 import Leaderboard from '@root/pages/leaderborad/Leaderboard';
 import SignIn from '@root/pages/signin/Signin';
@@ -14,6 +15,7 @@ export default function App() {
         <Route path="/signup" component={SignUp} />
         <Route path="/leaderboard" component={Leaderboard} />
         <Route path="/game" component={Game} />
+        <Route path="/error_5xx" component={Error5xx} />
       </Switch>
     </BrowserRouter>
   );
