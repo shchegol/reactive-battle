@@ -33,7 +33,8 @@ a {
   background-color: map-get($colors, secondary);
 }
 
-.input {
+.input,
+.error {
   font-size: 18px;
   width: 225px;
   height: 40px;
@@ -43,6 +44,11 @@ a {
   box-sizing: border-box;
   color: map_get($colors, primary);
   background-color: map_get($colors, background);
+}
+
+.error {
+  border: 0;
+  color: map_get($colors, danger);
 }
 
 .title {
