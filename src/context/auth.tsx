@@ -1,11 +1,11 @@
 import { createContext, useContext } from 'react';
 
-export interface AuthContextType {
+interface IAuthContext {
   userId: string,
   setUser: (id: string) => void
 }
 
-export const AuthContext = createContext<AuthContextType>({ userId: '', setUser: (id) => id });
+export const AuthContext = createContext<IAuthContext>({ userId: '', setUser: (id) => id });
 
 export function useAuth() {
   return useContext(AuthContext);
