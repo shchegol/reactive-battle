@@ -11,19 +11,31 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-}
 
-.position {
-    width: 50px;
-    margin: 5px;
-}
+    &__position {
+        width: 50px;
+        margin: 5px;
+    }
 
-.user {
-    width: 300px;
-    margin: 5px;
-}
+    &__user {
+        width: 300px;
+        margin: 5px;
+    }
 
-.score {
-    width: 100px;
-    margin: 5px;
+    &__score {
+        width: 100px;
+        margin: 5px;
+    }
+
+    &_color_first {
+        border-color: #e79c21;
+    }
+
+    &_color_second {
+        border-color: #c0c0c0;
+    }
+
+    &_color_third {
+        border-color: #bd4400;
+    }
 }

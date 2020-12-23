@@ -6,12 +6,11 @@ import { Props } from './types';
 
 const LeadersItem: FC<Props> = ({ leader = { position: 0, user: '', score: 0 } }: Props) => (
   <div
-    className="leaders-item"
-    style={{ borderColor: positionColor(leader.position) }}
+    className={`leaders-item leaders-item_color_${positionColor[leader.position - 1]}`}
   >
-    <span className="position">{leader.position}</span>
-    <span className="user">{leader.user}</span>
-    <span className="score">{leader.score}</span>
+    <span className="leaders-item__position">{leader.position}</span>
+    <span className="leaders-item__user">{leader.user}</span>
+    <span className="leaders-item__score">{leader.score}</span>
   </div>
 );
 

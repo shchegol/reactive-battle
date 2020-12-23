@@ -33,11 +33,11 @@ export default function App() {
           component={Game}
         />
         <Route
-          path="/error_404"
+          path="/error-404"
           component={Error404}
         />
         <Route
-          path="/error_5xx"
+          path="/error-5xx"
           component={Error5xx}
         />
       </Switch>

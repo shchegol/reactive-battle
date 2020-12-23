@@ -1,15 +1,13 @@
 @import "@styles/utilities/variables";
 
-.error_404 {
-  &__root {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    width: 100vw;
-    height: 100vh;
-    background: url("../../images/wrong-way.jpg") no-repeat center center fixed;
-  }
+.error-404 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100vw;
+  height: 100vh;
+  background: url("../../images/wrong-way.jpg") no-repeat center center fixed;
 
   &__title {
     text-align: center;

@@ -1,6 +1,3 @@
 import { ButtonHTMLAttributes } from 'react';
 
-type OwnProps = {
-};
-
-export type Props = OwnProps & ButtonHTMLAttributes<HTMLButtonElement>;
+export type Props = ButtonHTMLAttributes<HTMLButtonElement>;

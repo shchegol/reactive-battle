@@ -1,15 +1,13 @@
 @import "@styles/utilities/variables";
 
-.error_5xx {
-  &__root {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    width: 100vw;
-    height: 100vh;
-    background: url("../../images/bang.png") no-repeat center center fixed;
-  }
+.error-5xx {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100vw;
+  height: 100vh;
+  background: url("../../images/bang.png") no-repeat center center fixed;
 
   &__title {
     text-align: center;
