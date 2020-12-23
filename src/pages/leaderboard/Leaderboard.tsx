@@ -6,7 +6,7 @@ import React from 'react';
 
 import './leaderboard.scss';
 
-export default function SignIn() {
+export default function Leaderboard() {
   return (
     <div className="leaderboard">
       <Logo />

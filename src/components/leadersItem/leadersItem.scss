@@ -28,14 +28,18 @@
     }
 
     &_color_first {
-        border-color: #e79c21;
+        border-color: map_get($colors, gold);
     }
 
     &_color_second {
-        border-color: #c0c0c0;
+        border-color: map_get($colors, silver);
     }
 
     &_color_third {
-        border-color: #bd4400;
+        border-color: map_get($colors, bronze);
+    }
+
+    &_color_rest {
+        border-color: map_get($colors, primary);
     }
 }
