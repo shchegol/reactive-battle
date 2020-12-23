@@ -10,7 +10,11 @@ const Playground: FC = () => {
   });
 
   return (
-    <canvas ref={canvas} width={800} height={800} />
+    <canvas
+      ref={canvas}
+      width={800}
+      height={800}
+    />
   );
 };
 

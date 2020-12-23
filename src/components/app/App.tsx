@@ -11,13 +11,35 @@ export default function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={SignIn} />
-        <Route path="/signin" component={SignIn} />
-        <Route path="/signup" component={SignUp} />
-        <Route path="/leaderboard" component={Leaderboard} />
-        <Route path="/game" component={Game} />
-        <Route path="/error_404" component={Error404} />
-        <Route path="/error_5xx" component={Error5xx} />
+        <Route
+          exact
+          path="/"
+          component={SignIn}
+        />
+        <Route
+          path="/signin"
+          component={SignIn}
+        />
+        <Route
+          path="/signup"
+          component={SignUp}
+        />
+        <Route
+          path="/leaderboard"
+          component={Leaderboard}
+        />
+        <Route
+          path="/game"
+          component={Game}
+        />
+        <Route
+          path="/error_404"
+          component={Error404}
+        />
+        <Route
+          path="/error_5xx"
+          component={Error5xx}
+        />
       </Switch>
     </BrowserRouter>
   );

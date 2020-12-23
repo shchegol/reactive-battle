@@ -16,7 +16,12 @@ const LeadersTable: FC<Props> = ({ leaders = [], ...otherProps }) => {
         onSearch={() => console.log('search')}
       />
       <div>
-        {leaders.map((leader) => <LeadersItem key={leader.user} leader={leader} />)}
+        {leaders.map((leader) => (
+          <LeadersItem
+            key={leader.user}
+            leader={leader}
+          />
+        ))}
       </div>
     </div>
   );

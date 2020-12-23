@@ -13,7 +13,12 @@ const SearchBox: FC<Props> = ({ value = '', onChange = () => {}, onSearch: onCli
         onChange={(event) => onChange(event.target.value)}
         placeholder="NAME"
       />
-      <Button className="button search-box__button" onClick={() => onClick()}>SEARCH</Button>
+      <Button
+        className="button search-box__button"
+        onClick={() => onClick()}
+      >
+        SEARCH
+      </Button>
     </div>
   </form>
 );
