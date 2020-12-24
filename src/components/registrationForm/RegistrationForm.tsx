@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Button from '@components/button';
 import PropTypes, { InferProps } from 'prop-types';
 
 import './RegistrationForm.scss';
@@ -74,9 +75,16 @@ function RegistrationForm({
           placeholder="PHONE"
         />
       </div>
-      { !!errorMsg && <div className="error" style={{ marginTop: 25 }}>{errorMsg}</div> }
+      { !!errorMsg && (
+      <div
+        className="error"
+        style={{ marginTop: 25 }}
+      >
+        {errorMsg}
+      </div>
+      ) }
       <div style={{ marginTop: 40 }}>
-        <button type="submit" className="button">REGISTER</button>
+        <Button type="submit">REGISTER</Button>
       </div>
       <div style={{ marginTop: 40 }}>
         <Link to="/signin">SIGN IN</Link>

@@ -21,18 +21,6 @@ a {
   }
 }
 
-.button {
-  font-size: 18px;
-  height: 40px;
-  width: 225px;
-  border-width: 4px;
-  border-style: solid;
-  border-color: map_get($colors, primary);
-  box-sizing: border-box;
-  color: map_get($colors, primary);
-  background-color: map-get($colors, secondary);
-}
-
 .input,
 .error {
   font-size: 18px;

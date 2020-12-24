@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes, { InferProps } from 'prop-types';
+import Button from '@components/button';
 
 import './LoginForm.scss';
 
@@ -30,9 +31,16 @@ function LoginForm({ handleSubmit, errorMsg }: InferProps<typeof LoginForm.propT
           placeholder="PASSWORD"
         />
       </div>
-      { !!errorMsg && <div className="error" style={{ marginTop: 25 }}>{errorMsg}</div> }
+      { !!errorMsg && (
+      <div
+        className="error"
+        style={{ marginTop: 25 }}
+      >
+        {errorMsg}
+      </div>
+      ) }
       <div style={{ marginTop: 40 }}>
-        <button type="submit" className="button">SIGN IN</button>
+        <Button type="submit">LOGIN</Button>
       </div>
       <div style={{ marginTop: 40 }}>
         <Link to="/signup">REGISTER</Link>

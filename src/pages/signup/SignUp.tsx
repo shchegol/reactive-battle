@@ -27,14 +27,17 @@ export default function SignUp() {
   };
 
   if (isLoggedIn) {
-    return <Redirect to="/game" />;
+    return <Redirect to="/" />;
   }
 
   return (
     <div className="signup">
       <Logo />
       <Title />
-      <RegistrationForm handleSubmit={submitHandler} errorMsg={error} />
+      <RegistrationForm
+        handleSubmit={submitHandler}
+        errorMsg={error}
+      />
     </div>
   );
 }
