@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes, { InferProps } from 'prop-types';
 import Button from '@components/button';
 
 import './LoginForm.scss';
 
-export default function LoginForm() {
+function LoginForm({ handleSubmit, errorMsg }: InferProps<typeof LoginForm.propTypes>) {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
 
   return (
-    <form className="login-form">
+    <form
+      className="login-form"
+      onSubmit={(event) => handleSubmit(event, { login, password })}
+    >
       <div style={{ marginTop: 80 }}>
         <input
           className="input"
@@ -27,8 +31,9 @@ export default function LoginForm() {
           placeholder="PASSWORD"
         />
       </div>
+      { !!errorMsg && <div className="error" style={{ marginTop: 25 }}>{errorMsg}</div> }
       <div style={{ marginTop: 40 }}>
-        <Button onClick={() => console.log('login')}>LOGIN</Button>
+        <Button type="submit">LOGIN</Button>
       </div>
       <div style={{ marginTop: 40 }}>
         <Link to="/signup">REGISTER</Link>
@@ -36,3 +41,14 @@ export default function LoginForm() {
     </form>
   );
 }
+
+LoginForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  errorMsg: PropTypes.string,
+};
+
+LoginForm.defaultProps = {
+  errorMsg: '',
+};
+
+export default LoginForm;
