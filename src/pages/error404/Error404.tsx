@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import './error_404.scss';
+import './error404.scss';
 
 const Error404: FC = () => (
   <div className="error-404">

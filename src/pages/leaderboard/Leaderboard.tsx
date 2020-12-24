@@ -20,6 +20,9 @@ export default function Leaderboard() {
           { position: 2, user: 'Jon Snow', score: 56800 },
           { position: 3, user: 'Alex Fincher', score: 24600 },
           { position: 4, user: 'Willy Wonka', score: 20000 },
+          { position: 5, user: 'Willy Wonka1', score: 20000 },
+          { position: 6, user: 'Willy Wonka2', score: 20000 },
+          { position: 7, user: 'Willy Wonka3', score: 20000 },
         ]
       }
       />

@@ -1,5 +1,5 @@
-import Error404 from '@root/pages/error_404';
-import Error5xx from '@root/pages/error_5xx';
+import Error404 from '@root/pages/error404';
+import Error5xx from '@root/pages/error5xx';
 import Game from '@root/pages/game/Game';
 import Leaderboard from '@root/pages/leaderboard/Leaderboard';
 import SignIn from '@root/pages/signin/Signin';

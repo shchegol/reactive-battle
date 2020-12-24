@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Props } from './Types';
 
-import './error_5xx.scss';
+import './error5xx.scss';
 
 const Error5xx: FC<Props> = ({ errorCode = 500 }) => (
   <div className="error-5xx">

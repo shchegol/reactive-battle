@@ -38,8 +38,4 @@
     &_color_third {
         border-color: map_get($colors, bronze);
     }
-
-    &_color_rest {
-        border-color: map_get($colors, primary);
-    }
 }
