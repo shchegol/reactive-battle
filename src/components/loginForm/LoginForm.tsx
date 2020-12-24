@@ -1,18 +1,18 @@
-import Logo from '@root/components/logo';
-import Title from '@root/components/title';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes, { InferProps } from 'prop-types';
 
-import './signin.scss';
+import './LoginForm.scss';
 
-export default function SignIn() {
+function LoginForm({ handleSubmit, errorMsg }: InferProps<typeof LoginForm.propTypes>) {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
 
   return (
-    <div className="signin">
-      <Logo />
-      <Title />
+    <form
+      className="login-form"
+      onSubmit={(event) => handleSubmit(event, { login, password })}
+    >
       <div style={{ marginTop: 80 }}>
         <input
           className="input"
@@ -30,12 +30,24 @@ export default function SignIn() {
           placeholder="PASSWORD"
         />
       </div>
+      { !!errorMsg && <div className="error" style={{ marginTop: 25 }}>{errorMsg}</div> }
       <div style={{ marginTop: 40 }}>
-        <button type="button" className="button" onClick={() => console.log('login')}>SIGN IN</button>
+        <button type="submit" className="button">SIGN IN</button>
       </div>
       <div style={{ marginTop: 40 }}>
         <Link to="/signup">REGISTER</Link>
       </div>
-    </div>
+    </form>
   );
 }
+
+LoginForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  errorMsg: PropTypes.string,
+};
+
+LoginForm.defaultProps = {
+  errorMsg: '',
+};
+
+export default LoginForm;

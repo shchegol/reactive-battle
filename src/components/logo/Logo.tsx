@@ -1,6 +1,6 @@
 import React from 'react';
 
-const logo = require('@root/svg/logo.svg').default;
+const logo = require('@root/images/logo.svg').default;
 
 export default function Logo() {
   return (
