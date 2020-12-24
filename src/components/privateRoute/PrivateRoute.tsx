@@ -1,23 +1,21 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { Component } from 'react';
+import React from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { useAuth } from '@root/context/auth';
 
-function PrivateRoute<T extends RouteProps>({ component, ...rest }: T) {
+const PrivateRoute: React.FC<RouteProps> = (props) => {
   const authInfo = useAuth();
 
-  return (
-    <Route
-      {...rest}
-      render={(props) => (
-        authInfo.userId ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to="/signin" />
-        )
-      )}
-    />
-  );
-}
+  if (!authInfo.userId) {
+    return (
+      <Route
+        {...props}
+        component={() => <Redirect to={{ pathname: '/signin' }} />}
+        render={undefined}
+      />
+    );
+  }
+  return <Route {...props} />;
+};
 
 export default PrivateRoute;

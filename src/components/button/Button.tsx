@@ -9,8 +9,7 @@ const Button: FC<Props> = ({
   ...otherProps
 }) => (
   <button
-      /* eslint-disable-next-line react/button-has-type */
-    type={otherProps.type}
+    type={otherProps.type === 'submit' ? 'submit' : 'button'}
     className={className}
     onClick={otherProps.onClick}
   >

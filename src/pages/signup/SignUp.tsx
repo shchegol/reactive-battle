@@ -27,7 +27,7 @@ export default function SignUp() {
   };
 
   if (isLoggedIn) {
-    return <Redirect to="/game" />;
+    return <Redirect to="/" />;
   }
 
   return (

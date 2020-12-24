@@ -22,10 +22,10 @@ export default function App() {
     <AuthContext.Provider value={{ userId, setUser }}>
       <BrowserRouter>
         <Switch>
-          <Route
+          <PrivateRoute
             exact
             path="/"
-            component={SignIn}
+            component={Game}
           />
           <Route
             path="/signin"
