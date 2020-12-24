@@ -31,7 +31,14 @@ function LoginForm({ handleSubmit, errorMsg }: InferProps<typeof LoginForm.propT
           placeholder="PASSWORD"
         />
       </div>
-      { !!errorMsg && <div className="error" style={{ marginTop: 25 }}>{errorMsg}</div> }
+      { !!errorMsg && (
+      <div
+        className="error"
+        style={{ marginTop: 25 }}
+      >
+        {errorMsg}
+      </div>
+      ) }
       <div style={{ marginTop: 40 }}>
         <Button type="submit">LOGIN</Button>
       </div>

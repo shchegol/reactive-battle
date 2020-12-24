@@ -75,7 +75,14 @@ function RegistrationForm({
           placeholder="PHONE"
         />
       </div>
-      { !!errorMsg && <div className="error" style={{ marginTop: 25 }}>{errorMsg}</div> }
+      { !!errorMsg && (
+      <div
+        className="error"
+        style={{ marginTop: 25 }}
+      >
+        {errorMsg}
+      </div>
+      ) }
       <div style={{ marginTop: 40 }}>
         <Button type="submit">REGISTER</Button>
       </div>

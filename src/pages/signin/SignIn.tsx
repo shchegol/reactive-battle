@@ -34,7 +34,10 @@ export default function SignIn() {
     <div className="signin">
       <Logo />
       <Title />
-      <LoginForm handleSubmit={submitHandler} errorMsg={error} />
+      <LoginForm
+        handleSubmit={submitHandler}
+        errorMsg={error}
+      />
     </div>
   );
 }

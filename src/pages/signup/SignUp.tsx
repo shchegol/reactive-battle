@@ -34,7 +34,10 @@ export default function SignUp() {
     <div className="signup">
       <Logo />
       <Title />
-      <RegistrationForm handleSubmit={submitHandler} errorMsg={error} />
+      <RegistrationForm
+        handleSubmit={submitHandler}
+        errorMsg={error}
+      />
     </div>
   );
 }
