@@ -5,7 +5,7 @@ export default class SpritesManager {
 
   private isLoading: boolean;
 
-  public Load() {
+  public Init() {
     this.isLoading = true;
 
     console.log(this.isLoading);

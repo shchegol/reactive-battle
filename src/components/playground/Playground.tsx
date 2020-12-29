@@ -9,7 +9,7 @@ const Playground: FC = () => {
   const canvas = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    spritesManager.Load();
+    spritesManager.Init();
     keyboardManager.Init();
   }, []);
 
