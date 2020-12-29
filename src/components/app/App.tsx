@@ -8,6 +8,7 @@ import Game from '@root/pages/game/Game';
 import Leaderboard from '@root/pages/leaderboard/Leaderboard';
 import Error404 from '@root/pages/error404';
 import Error5xx from '@root/pages/error5xx';
+import ErrorBoundary from '@components/errorBoundary';
 
 export default function App() {
   const currentUserId = localStorage.getItem('userId') || '';
@@ -25,24 +26,40 @@ export default function App() {
           <PrivateRoute
             exact
             path="/"
-            component={Game}
-          />
+          >
+            <ErrorBoundary>
+              <Game />
+            </ErrorBoundary>
+          </PrivateRoute>
           <Route
             path="/signin"
-            component={SignIn}
-          />
+          >
+            <ErrorBoundary>
+              <SignIn />
+            </ErrorBoundary>
+          </Route>
           <Route
             path="/signup"
-            component={SignUp}
-          />
+          >
+            <ErrorBoundary>
+              <SignUp />
+            </ErrorBoundary>
+          </Route>
           <PrivateRoute
             path="/leaderboard"
             component={Leaderboard}
-          />
+          >
+            <ErrorBoundary>
+              <Leaderboard />
+            </ErrorBoundary>
+          </PrivateRoute>
           <PrivateRoute
             path="/game"
-            component={Game}
-          />
+          >
+            <ErrorBoundary>
+              <Game />
+            </ErrorBoundary>
+          </PrivateRoute>
           <Route
             path="/error-404"
             component={Error404}
