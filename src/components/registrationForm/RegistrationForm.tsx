@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Input from '@components/input';
 import Button from '@components/button';
 import PropTypes, { InferProps } from 'prop-types';
 
@@ -27,52 +28,58 @@ function RegistrationForm({
       }}
     >
       <div style={{ marginTop: 80 }}>
-        <input
-          className="input"
+        <Input
+          labelText="FIRST NAME"
           value={firstName}
           onChange={(event) => setFirstName(event.target.value)}
           placeholder="FIRST NAME"
+          required
         />
       </div>
-      <div style={{ marginTop: 25 }}>
-        <input
-          className="input"
+      <div>
+        <Input
+          labelText="SECOND NAME"
           value={secondName}
           onChange={(event) => setSecondName(event.target.value)}
           placeholder="SECOND NAME"
+          required
         />
       </div>
-      <div style={{ marginTop: 25 }}>
-        <input
-          className="input"
+      <div>
+        <Input
+          labelText="LOGIN"
           value={login}
           onChange={(event) => setLogin(event.target.value)}
           placeholder="LOGIN"
+          required
         />
       </div>
-      <div style={{ marginTop: 25 }}>
-        <input
-          className="input"
+      <div>
+        <Input
+          labelText="EMAIL"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           placeholder="EMAIL"
+          required
         />
       </div>
-      <div style={{ marginTop: 25 }}>
-        <input
+      <div>
+        <Input
+          labelText="PASSWORD"
           type="password"
-          className="input"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           placeholder="PASSWORD"
+          required
         />
       </div>
-      <div style={{ marginTop: 25 }}>
-        <input
-          className="input"
+      <div>
+        <Input
+          labelText="PHONE"
           value={phone}
           onChange={(event) => setPhone(event.target.value)}
           placeholder="PHONE"
+          required
         />
       </div>
       { !!errorMsg && (

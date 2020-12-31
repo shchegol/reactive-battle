@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import Input from '@components/input';
 import Button from '@components/button';
 import { Props } from './types';
 
@@ -7,8 +8,8 @@ import './searchBox.scss';
 const SearchBox: FC<Props> = ({ value = '', onChange = () => {}, onSearch: onClick = () => {} }) => (
   <form>
     <div className="search-box">
-      <input
-        className="input search-box__input"
+      <Input
+        className="search-box__input"
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder="NAME"

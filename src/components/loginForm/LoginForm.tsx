@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes, { InferProps } from 'prop-types';
+import Input from '@components/input';
 import Button from '@components/button';
 
 import './LoginForm.scss';
@@ -15,20 +16,23 @@ function LoginForm({ handleSubmit, errorMsg }: InferProps<typeof LoginForm.propT
       onSubmit={(event) => handleSubmit(event, { login, password })}
     >
       <div style={{ marginTop: 80 }}>
-        <input
-          className="input"
+        <Input
+          labelText="LOGIN"
           value={login}
           onChange={(event) => setLogin(event.target.value)}
           placeholder="LOGIN"
+          required
         />
       </div>
-      <div style={{ marginTop: 25 }}>
-        <input
+      <div>
+        <Input
           type="password"
           className="input"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
+          labelText="PASSWORD"
           placeholder="PASSWORD"
+          required
         />
       </div>
       { !!errorMsg && (
