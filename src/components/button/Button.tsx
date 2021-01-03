@@ -1,17 +1,35 @@
 import React, { FC } from 'react';
+import toClassNames from '@root/utils/toClassNames';
 
 import './button.scss';
 import { Props } from './types';
 
+/**
+ * Button
+ * @param {*} [children=undefined] - content inside the button
+ * @param {string|undefined} [color=undefined] - button color
+ * @param {*} rest - rest params
+ * @constructor
+ */
+
 const Button: FC<Props> = ({
   children = undefined,
-  className = 'button',
-  ...otherProps
+  color = undefined,
+  ...rest
 }) => (
   <button
-    type={otherProps.type === 'submit' ? 'submit' : 'button'}
-    className={className}
-    onClick={otherProps.onClick}
+      /* eslint-disable-next-line react/button-has-type */
+    type={rest.type || 'button'}
+    className={toClassNames(
+      'button',
+      {
+        button_color_danger: color === 'danger',
+        button_color_success: color === 'success',
+      },
+      rest.className,
+    )}
+    disabled={rest.disabled}
+    onClick={rest.onClick}
   >
     {children}
   </button>

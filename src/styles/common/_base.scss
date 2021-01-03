@@ -13,16 +13,12 @@ a {
   color: map_get($colors, secondary);
   text-decoration: none;
 
-  &:hover {
-    opacity: 0.7;
-  }
+  &:hover,
   &:active {
-    opacity: 1;
-    text-decoration: none;
+    color: map_get($colors, primary);
   }
 }
 
-//.input,
 .error {
   font-size: 18px;
   width: 225px;
@@ -38,12 +34,4 @@ a {
 .error {
   border: 0;
   color: map_get($colors, danger);
-}
-
-.title {
-  text-align: center;
-  font-size: 48px;
-  font-weight: bold;
-  color: map_get($colors, primary);
-  margin-top: 40px;
 }

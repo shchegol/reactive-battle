@@ -8,9 +8,11 @@ export default class ErrorBoundary extends Component<Props, State> {
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(_: Error): State {
-    return { hasError: true };
-  }
+  // todo eslint выдаёт ошибку:
+  // todo error  '_' is defined but never used  @typescript-eslint/no-unused-vars
+  // static getDerivedStateFromError(_: Error): State {
+  //   return { hasError: true };
+  // }
 
   componentDidCatch(error: Error, info: ErrorInfo): void {
     // eslint-disable-next-line no-console

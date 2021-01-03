@@ -1,31 +1,30 @@
-import LeadersTable from '@root/components/leadersTable';
-import Logo from '@root/components/logo';
-import Subtitle from '@root/components/subtitle';
-import Title from '@root/components/title';
 import React from 'react';
-
-import './leaderboard.scss';
+import MainTitle from '@root/components/mainTitle';
+import LeadersTable from '@root/components/leadersTable';
 
 export default function Leaderboard() {
   return (
-    <div className="leaderboard">
-      <Logo />
-      <Title />
-      <Subtitle value="Leaderboard" />
-      <LeadersTable
-        className="leaderboard__table"
-        leaders={
-        [
-          { position: 1, user: 'Alex Johnson', score: 124600 },
-          { position: 2, user: 'Jon Snow', score: 56800 },
-          { position: 3, user: 'Alex Fincher', score: 24600 },
-          { position: 4, user: 'Willy Wonka', score: 20000 },
-          { position: 5, user: 'Willy Wonka1', score: 20000 },
-          { position: 6, user: 'Willy Wonka2', score: 20000 },
-          { position: 7, user: 'Willy Wonka3', score: 20000 },
-        ]
-      }
-      />
+    <div className="container">
+      <div className="row">
+        <div className="col">
+          <MainTitle subtitleText="LEADERBOARD" />
+        </div>
+      </div>
+
+      <div className="row justify-content-center mt-60">
+        <div className="col-12 col-md-7 col-lg-5">
+          <LeadersTable
+            players={
+                  [
+                    { position: 1, name: 'Alex Johnson', score: 124600 },
+                    { position: 2, name: 'Jon Snow', score: 56800 },
+                    { position: 3, name: 'Alex Fincher', score: 24600 },
+                    { position: 4, name: 'Willy Wonka', score: 20000 },
+                  ]
+                }
+          />
+        </div>
+      </div>
     </div>
   );
 }

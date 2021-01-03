@@ -1,5 +1,5 @@
-export interface Leader {
+export interface Player {
   position: number;
-  user: string;
+  name: string;
   score: number;
 }
