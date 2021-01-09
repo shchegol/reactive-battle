@@ -1,30 +1,32 @@
 import React, { Component, ErrorInfo } from 'react';
-import { Redirect } from 'react-router-dom';
+import Error404 from '@root/pages/error404';
 import { Props, State } from './types';
 
 export default class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { error: undefined };
   }
 
-  // todo eslint выдаёт ошибку:
-  // todo error  '_' is defined but never used  @typescript-eslint/no-unused-vars
-  // static getDerivedStateFromError(_: Error): State {
-  //   return { hasError: true };
-  // }
+  static getDerivedStateFromError(error: Error): State {
+    return { error };
+  }
 
   componentDidCatch(error: Error, info: ErrorInfo): void {
-    // eslint-disable-next-line no-console
-    console.error('ErrorBoundary caught an error', error, info);
+    this.logError(error, info);
   }
 
+  logError = (error: Error, info: ErrorInfo) => {
+    // eslint-disable-next-line no-console
+    console.error('ErrorBoundary caught an error', error, info);
+  };
+
   render() {
-    const { hasError } = this.state;
+    const { error } = this.state;
     const { children } = this.props;
 
-    if (hasError) {
-      return <Redirect to="/error-5xx" />;
+    if (error) {
+      return <Error404 />;
     }
 
     return children;
