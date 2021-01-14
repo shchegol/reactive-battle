@@ -1,4 +1,15 @@
+// settings
 @import "utilities/variables";
+@import "utilities/mixins/breakpoints";
+@import "utilities/mixins/grid-framework";
+@import "utilities/mixins/grid";
+@import "utilities/spacing";
+@import "utilities/flex";
 
+// common
 @import "common/reset";
 @import "common/base";
+@import "common/grid";
+
+// most important
+@import "common/modificators";

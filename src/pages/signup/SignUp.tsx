@@ -1,10 +1,9 @@
-import Logo from '@root/components/logo';
-import RegistrationForm from '@root/components/registrationForm';
-import Title from '@root/components/title';
 import React, { useState } from 'react';
 import AuthAPI, { AuthFields } from '@root/api/AuthAPI';
 import { useAuth } from '@root/context/auth';
 import { Redirect } from 'react-router-dom';
+import RegistrationForm from '@root/components/registrationForm';
+import MainTitle from '@root/components/mainTitle';
 
 import './signup.scss';
 
@@ -31,13 +30,21 @@ export default function SignUp() {
   }
 
   return (
-    <div className="signup">
-      <Logo />
-      <Title />
-      <RegistrationForm
-        handleSubmit={submitHandler}
-        errorMsg={error}
-      />
+    <div className="container">
+      <div className="row">
+        <div className="col">
+          <MainTitle />
+        </div>
+      </div>
+
+      <div className="row justify-content-center">
+        <div className="col-12 col-sm-8 col-md-6 col-lg-4">
+          <RegistrationForm
+            handleSubmit={submitHandler}
+            errorMsg={error}
+          />
+        </div>
+      </div>
     </div>
   );
 }

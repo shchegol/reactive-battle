@@ -8,7 +8,8 @@ export default class SpritesManager {
   public Init() {
     this.isLoading = true;
 
-    console.log(this.isLoading);
+    // TODO не забыть убрать
+    console.log(this.isLoading); // eslint-disable-line no-console
 
     this.spritesSheet = new Image();
     this.spritesSheet.src = sheet;

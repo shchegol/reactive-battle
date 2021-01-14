@@ -1,28 +1,33 @@
 import React, { FC, useState } from 'react';
 import LeadersItem from '@components/leadersItem';
 import SearchBox from '@components/searchBox';
-
-import './leadersTable.scss';
 import { Props } from './types';
 
-const LeadersTable: FC<Props> = ({ leaders = [], ...otherProps }) => {
+/**
+ * Leaders table
+ * @param {Object[]} [players=[]] = players of the game
+ * @param {*} rest - rest params
+ * @constructor
+ */
+
+const LeadersTable: FC<Props> = ({ players = [], ...rest }) => {
   const [searchValue, setSearchValue] = useState('');
 
   return (
-    <div className={otherProps.className}>
+    <div className={rest.className}>
       <SearchBox
         value={searchValue}
         onChange={(newValue) => setSearchValue(newValue)}
-        onSearch={() => console.log('search')}
+          // TODO не забыть убрать
+        onSearch={() => console.log('search')} // eslint-disable-line no-console
       />
-      <div>
-        {leaders.map((leader) => (
-          <LeadersItem
-            key={leader.user}
-            leader={leader}
-          />
-        ))}
-      </div>
+
+      {players.map((player) => (
+        <LeadersItem
+          key={player.name}
+          player={player}
+        />
+      ))}
     </div>
   );
 };

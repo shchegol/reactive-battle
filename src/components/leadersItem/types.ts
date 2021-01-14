@@ -1,5 +1,5 @@
-import { Leader } from '@root/store/types';
+import { Player } from '@root/store/types';
 
 export type Props = {
-  leader: Leader;
+  player: Player;
 };

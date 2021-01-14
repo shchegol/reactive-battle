@@ -1,3 +1,5 @@
 import { ButtonHTMLAttributes } from 'react';
 
-export type Props = ButtonHTMLAttributes<HTMLButtonElement>;
+export type Props = {
+  color?: string
+} & ButtonHTMLAttributes<HTMLButtonElement>;

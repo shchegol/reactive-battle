@@ -1,0 +1,27 @@
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.text {
+  &-color {
+    &-white {
+      color: #ffffff;
+    }
+  }
+
+  &-size {
+    &-xxxl {
+      font-size: 10rem;
+    }
+  }
+
+  &-align {
+    &-center {
+      text-align: center;
+    }
+
+    &-left {
+      text-align: left;
+    }
+  }
+}

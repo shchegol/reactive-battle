@@ -6,9 +6,11 @@ import { Props } from './types';
 
 /**
  * Input
- * @prop labelText - label text
- * @prop messageText - help message
- * @prop isError - error boolean
+ * @param {string} [labelText=''] - label text
+ * @param {string} [messageText=''] - help message
+ * @param {boolean} [isError=false] - error boolean
+ * @param rest - rest params
+ * @constructor
  */
 
 const Input: FC<Props> = ({
@@ -17,9 +19,14 @@ const Input: FC<Props> = ({
   isError = false,
   ...rest
 }) => (
-  /* eslint jsx-a11y/label-has-associated-control: ["error", { assert: "either" } ] */
-  <label
-    className={toClassNames('input', { input_error: isError, input_required: rest.required })}
+  <label // eslint-disable-line jsx-a11y/label-has-associated-control
+    className={toClassNames(
+      'input', {
+        input_error: isError,
+        input_required: rest.required,
+      },
+      rest.className,
+    )}
   >
     <span
       className="input__label"

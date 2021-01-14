@@ -13,7 +13,7 @@ module.exports = {
     publicPath: '/',
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.jsx', '.js'],
+    extensions: ['.tsx', '.ts', '.jsx', '.js', '.scss'],
     alias: {
       '@root': util.resolve('src'),
       '@components': util.resolve('src/components'),

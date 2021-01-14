@@ -1,0 +1,31 @@
+@import "@styles/utilities/variables";
+
+.main-title {
+  margin-top: 2.2rem; // 40px
+  text-align: center;
+
+  &__img {
+    display: inline-block;
+    width: 5rem;
+    height: 5rem;
+    background-size: contain;
+  }
+
+  &__text,
+  &__subtitle {
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  &__text {
+    margin-top: 1rem;
+    font-size: 2.5rem;
+    color: map_get($colors, primary);
+
+  }
+
+  &__subtitle {
+    font-size: 1.8rem;
+    color: map_get($colors, gray500);
+  }
+}
