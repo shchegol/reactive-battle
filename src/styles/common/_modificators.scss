@@ -2,8 +2,24 @@
   cursor: pointer;
 }
 
+.bg {
+  &-color {
+    &-game {
+      background-color: map_get($colors, gray800);
+    }
+  }
+}
+
 .text {
   &-color {
+    &-primary {
+      color: map_get($colors, primary);
+    }
+
+    &-secondary {
+      color: map_get($colors, secondary);
+    }
+
     &-white {
       color: #ffffff;
     }
@@ -16,12 +32,16 @@
   }
 
   &-align {
+    &-left {
+      text-align: left;
+    }
+
     &-center {
       text-align: center;
     }
 
-    &-left {
-      text-align: left;
+    &-right {
+      text-align: right;
     }
   }
 }

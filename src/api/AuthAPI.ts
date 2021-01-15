@@ -20,6 +20,7 @@ class AuthAPI {
   static signup(data: Partial<AuthFields>) {
     return fetch(`${AuthAPI.prefix}/signup`, {
       method: 'POST',
+      credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(objectKeysToSnakeCase(data)),
     });
@@ -28,13 +29,17 @@ class AuthAPI {
   static signin(data: Partial<AuthFields>) {
     return fetch(`${AuthAPI.prefix}/signin`, {
       method: 'POST',
+      credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(objectKeysToSnakeCase(data)),
     });
   }
 
   static logout() {
-    return fetch(`${AuthAPI.prefix}/logout`, {});
+    return fetch(`${AuthAPI.prefix}/logout`, {
+      method: 'POST',
+      credentials: 'include',
+    });
   }
 }
 
