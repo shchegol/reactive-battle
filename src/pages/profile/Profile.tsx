@@ -1,7 +1,7 @@
 import React from 'react';
 import MainTitle from '@root/components/mainTitle';
 import Button from '@components/button';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import AuthAPI from '@root/api/AuthAPI';
 import { AuthContext, useAuth } from '@root/context/auth';
 
@@ -12,6 +12,7 @@ import { AuthContext, useAuth } from '@root/context/auth';
 
 export default function Profile() {
   const history = useHistory();
+  const { url } = useRouteMatch();
   const { setUser } = useAuth();
 
   const handleGoBack = () => history.goBack();
@@ -96,7 +97,7 @@ export default function Profile() {
           <div className="row justify-content-center mt-60">
             <div className="col-4">
               <Link
-                to="/"
+                to={`${url}/edit`}
                 className="button"
               >
                 Change
