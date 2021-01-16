@@ -25,7 +25,6 @@ const Button: FC<Props> = ({
       {
         button_color_danger: color === 'danger',
         button_color_success: color === 'success',
-        button_color_link: color === 'link',
       },
       rest.className,
     )}
