@@ -5,7 +5,7 @@ import { AuthContext } from '@root/context/auth';
 import SignIn from '@root/pages/signin/SignIn';
 import SignUp from '@root/pages/signup/SignUp';
 import Game from '@root/pages/game/Game';
-import Profile from '@root/pages/Profile/Profile';
+import Profile from '@root/pages/profile/Profile';
 import Leaderboard from '@root/pages/leaderboard/Leaderboard';
 import Error404 from '@root/pages/error404';
 import Error5xx from '@root/pages/error5xx';
