@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes, { InferProps } from 'prop-types';
-
-import './LoginForm.scss';
+import Input from '@components/input';
+import Button from '@components/button';
 
 function LoginForm({ handleSubmit, errorMsg }: InferProps<typeof LoginForm.propTypes>) {
   const [login, setLogin] = useState('');
@@ -10,32 +10,44 @@ function LoginForm({ handleSubmit, errorMsg }: InferProps<typeof LoginForm.propT
 
   return (
     <form
-      className="login-form"
       onSubmit={(event) => handleSubmit(event, { login, password })}
     >
-      <div style={{ marginTop: 80 }}>
-        <input
-          className="input"
-          value={login}
-          onChange={(event) => setLogin(event.target.value)}
-          placeholder="LOGIN"
-        />
+      <Input
+        className="mt-60"
+        labelText="LOGIN"
+        value={login}
+        onChange={(event) => setLogin(event.target.value)}
+        placeholder="LOGIN"
+        required
+      />
+
+      <Input
+        type="password"
+        className="input"
+        value={password}
+        onChange={(event) => setPassword(event.target.value)}
+        labelText="PASSWORD"
+        placeholder="PASSWORD"
+        required
+      />
+
+      { !!errorMsg && (
+      <div className="error mt-20">
+        {errorMsg}
       </div>
-      <div style={{ marginTop: 25 }}>
-        <input
-          type="password"
-          className="input"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          placeholder="PASSWORD"
-        />
-      </div>
-      { !!errorMsg && <div className="error" style={{ marginTop: 25 }}>{errorMsg}</div> }
-      <div style={{ marginTop: 40 }}>
-        <button type="submit" className="button">SIGN IN</button>
-      </div>
-      <div style={{ marginTop: 40 }}>
-        <Link to="/signup">REGISTER</Link>
+      ) }
+
+      <Button
+        type="submit"
+        className="mt-40"
+      >
+        LOGIN
+      </Button>
+
+      <div className="text-align-center mt-20">
+        <Link to="/signup">
+          REGISTER
+        </Link>
       </div>
     </form>
   );

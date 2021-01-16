@@ -1,12 +1,9 @@
 import LoginForm from '@root/components/loginForm';
-import Logo from '@root/components/logo';
-import Title from '@root/components/title';
+import MainTitle from '@root/components/mainTitle';
 import React, { useState } from 'react';
 import AuthAPI, { AuthFields } from '@root/api/AuthAPI';
 import { Redirect } from 'react-router-dom';
 import { useAuth } from '@root/context/auth';
-
-import './signin.scss';
 
 export default function SignIn() {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -27,14 +24,25 @@ export default function SignIn() {
   };
 
   if (isLoggedIn) {
-    return <Redirect to="/game" />;
+    return <Redirect to="/" />;
   }
 
   return (
-    <div className="signin">
-      <Logo />
-      <Title />
-      <LoginForm handleSubmit={submitHandler} errorMsg={error} />
+    <div className="container">
+      <div className="row">
+        <div className="col">
+          <MainTitle />
+        </div>
+      </div>
+
+      <div className="row justify-content-center">
+        <div className="col-12 col-sm-8 col-md-6 col-lg-4">
+          <LoginForm
+            handleSubmit={submitHandler}
+            errorMsg={error}
+          />
+        </div>
+      </div>
     </div>
   );
 }

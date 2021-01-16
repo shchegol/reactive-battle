@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Input from '@components/input';
+import Button from '@components/button';
 import PropTypes, { InferProps } from 'prop-types';
-
-import './RegistrationForm.scss';
 
 function RegistrationForm({
   handleSubmit,
@@ -17,68 +17,76 @@ function RegistrationForm({
 
   return (
     <form
-      className="registration-form"
       onSubmit={(event) => {
-        const data = {
+        handleSubmit(event, {
           firstName, secondName, login, email, password, phone,
-        };
-        handleSubmit(event, data);
+        });
       }}
     >
-      <div style={{ marginTop: 80 }}>
-        <input
-          className="input"
-          value={firstName}
-          onChange={(event) => setFirstName(event.target.value)}
-          placeholder="FIRST NAME"
-        />
+      <Input
+        className="mt-60"
+        labelText="FIRST NAME"
+        value={firstName}
+        onChange={(event) => setFirstName(event.target.value)}
+        placeholder="FIRST NAME"
+        required
+      />
+
+      <Input
+        labelText="SECOND NAME"
+        value={secondName}
+        onChange={(event) => setSecondName(event.target.value)}
+        placeholder="SECOND NAME"
+        required
+      />
+
+      <Input
+        labelText="LOGIN"
+        value={login}
+        onChange={(event) => setLogin(event.target.value)}
+        placeholder="LOGIN"
+        required
+      />
+
+      <Input
+        labelText="EMAIL"
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
+        placeholder="EMAIL"
+        required
+      />
+
+      <Input
+        labelText="PASSWORD"
+        type="password"
+        value={password}
+        onChange={(event) => setPassword(event.target.value)}
+        placeholder="PASSWORD"
+        required
+      />
+
+      <Input
+        labelText="PHONE"
+        value={phone}
+        onChange={(event) => setPhone(event.target.value)}
+        placeholder="PHONE"
+        required
+      />
+
+      { !!errorMsg && (
+      <div className="error mt-20">
+        {errorMsg}
       </div>
-      <div style={{ marginTop: 25 }}>
-        <input
-          className="input"
-          value={secondName}
-          onChange={(event) => setSecondName(event.target.value)}
-          placeholder="SECOND NAME"
-        />
-      </div>
-      <div style={{ marginTop: 25 }}>
-        <input
-          className="input"
-          value={login}
-          onChange={(event) => setLogin(event.target.value)}
-          placeholder="LOGIN"
-        />
-      </div>
-      <div style={{ marginTop: 25 }}>
-        <input
-          className="input"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          placeholder="EMAIL"
-        />
-      </div>
-      <div style={{ marginTop: 25 }}>
-        <input
-          type="password"
-          className="input"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          placeholder="PASSWORD"
-        />
-      </div>
-      <div style={{ marginTop: 25 }}>
-        <input
-          className="input"
-          value={phone}
-          onChange={(event) => setPhone(event.target.value)}
-          placeholder="PHONE"
-        />
-      </div>
-      { !!errorMsg && <div className="error" style={{ marginTop: 25 }}>{errorMsg}</div> }
-      <div style={{ marginTop: 40 }}>
-        <button type="submit" className="button">REGISTER</button>
-      </div>
-      <div style={{ marginTop: 40 }}>
+      ) }
+
+      <Button
+        type="submit"
+        className="mt-40"
+      >
+        REGISTER
+      </Button>
+
+      <div className="text-align-center mt-20">
         <Link to="/signin">SIGN IN</Link>
       </div>
     </form>
