@@ -43,5 +43,18 @@
                 border-color: map_get($colors, danger);
             }
         }
+
+        &_link {
+            background-color: transparent;
+            border: none;
+            color: map_get($colors, secondary);
+
+            &:hover,
+            &:active {
+                background-color: transparent;
+                border: none;
+                color: map_get($colors, primary);
+            }
+        }
     }
 }
