@@ -3,7 +3,7 @@ import MainTitle from '@root/components/mainTitle';
 import Button from '@components/button';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import AuthAPI from '@root/api/AuthAPI';
-import { AuthContext, useAuth } from '@root/context/auth';
+import { AuthContext } from '@root/context/auth';
 
 /**
  * User profile page
@@ -13,15 +13,12 @@ import { AuthContext, useAuth } from '@root/context/auth';
 export default function Profile() {
   const history = useHistory();
   const { url } = useRouteMatch();
-  const { setUser } = useAuth();
 
   const handleGoBack = () => history.goBack();
   const handleLogout = async () => {
     const response = await AuthAPI.logout();
 
-    if (response.ok) {
-      setUser('');
-    } else {
+    if (!response.ok) {
       const json = await response.json();
       // todo переписать на всплывающие уведомления
       console.error(json.reason); // eslint-disable-line no-console

@@ -6,7 +6,7 @@ export type AuthFields = {
   secondName?: string,
   login: string,
   email?: string,
-  password: string,
+  password?: string,
   phone?: string
 };
 
@@ -33,6 +33,13 @@ class AuthAPI {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(objectKeysToSnakeCase(data)),
     });
+  }
+
+  static fetchUser(): Promise<Response> {
+    return fetch(`${AuthAPI.prefix}/user`, {
+      method: 'GET',
+      credentials: 'include',
+    }).then((response) => response.json());
   }
 
   static logout() {

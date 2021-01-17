@@ -20,8 +20,12 @@
       color: map_get($colors, secondary);
     }
 
-    &-white {
-      color: #ffffff;
+    &-success {
+      color: map_get($colors, success);
+    }
+
+    &-danger {
+      color: map_get($colors, danger);
     }
   }
 
