@@ -1,9 +1,10 @@
 import LoginForm from '@root/components/loginForm';
 import MainTitle from '@root/components/mainTitle';
 import React, { useState } from 'react';
-import AuthAPI, { AuthFields } from '@root/api/AuthAPI';
+import AuthAPI from '@root/api/AuthAPI';
 import { Redirect } from 'react-router-dom';
 import { useAuth } from '@root/context/auth';
+import { SignInRequest } from '@root/types/models';
 
 export default function SignIn() {
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -11,7 +12,7 @@ export default function SignIn() {
 
   const { setUser } = useAuth();
 
-  const submitHandler = async (event: React.FormEvent, userData: AuthFields) => {
+  const submitHandler = async (event: React.FormEvent, userData: SignInRequest) => {
     event.preventDefault();
     const response = await AuthAPI.signin(userData);
     if (response.ok) {

@@ -26,6 +26,6 @@ export interface UserResponse {
 export type UserRequest = Partial<SignUpRequest>;
 
 export interface PasswordRequest {
-  old_password: string;
-  new_password: string;
+  oldPassword: string;
+  newPassword: string;
 }

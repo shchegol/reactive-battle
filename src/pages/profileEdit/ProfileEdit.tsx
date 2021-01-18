@@ -4,6 +4,8 @@ import UserAPI from '@root/api/UserAPI';
 import AuthAPI from '@root/api/AuthAPI';
 import ProfileForm from '@components/profileForm';
 import Button from '@components/button';
+import Avatar from '@components/avatar';
+import { API_URL } from '@root/constants';
 
 /**
  * User profile edit page
@@ -13,15 +15,16 @@ import Button from '@components/button';
 export default function ProfileEdit() {
   const history = useHistory();
   const [error, setError] = useState('');
+  const [avatar, setAvatar] = useState<string | undefined>();
   const [userData, setUserData] = useState({
-    login: '',
-    display_name: '',
     first_name: '',
     second_name: '',
+    display_name: '',
+    login: '',
     email: '',
     phone: '',
-    old_password: '',
-    new_password: '',
+    oldPassword: '',
+    newPassword: '',
   });
 
   const handleGoBack = () => history.goBack();
@@ -33,34 +36,47 @@ export default function ProfileEdit() {
     };
     setUserData(newValue);
   };
+  const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { files } = event.currentTarget;
+    if (!files) return;
+
+    const avatarFile = files[0];
+    if (avatarFile) {
+      UserAPI
+        .uploadAvatar(avatarFile)
+        .then((data) => {
+          if (data.avatar) {
+            setAvatar(new URL(data.avatar, API_URL).href);
+          }
+        })
+        .catch((err) => setError(err.reason));
+    }
+  };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     // изменение инфы
     UserAPI
       .editProfile(userData)
-      .catch((err) => {
-        setError(err.reason);
-      });
+      .catch((err) => setError(err.reason));
 
     // изменение пароля
-    if (userData.old_password && userData.new_password) {
+    const { oldPassword, newPassword } = userData;
+    if (oldPassword && newPassword) {
       UserAPI
-        .changePassword({
-          old_password: userData.old_password,
-          new_password: userData.new_password,
-        })
-        .catch((err) => {
-          setError(err.reason);
-        });
+        .changePassword({ oldPassword, newPassword })
+        .catch((err) => setError(err.reason));
     }
   };
 
   useEffect(() => {
-    // подгружаем существующие данные
     AuthAPI
       .fetchUser()
       .then((data) => {
+        if (data.avatar) {
+          setAvatar(new URL(data.avatar, API_URL).href);
+        }
+
         const newData = {
           ...userData,
           ...data,
@@ -72,9 +88,7 @@ export default function ProfileEdit() {
 
         setUserData(newData);
       })
-      .catch((err) => {
-        setError(err.reason);
-      });
+      .catch((err) => setError(err.reason));
   }, []);
 
   return (
@@ -92,7 +106,14 @@ export default function ProfileEdit() {
       </div>
 
       <div className="row justify-content-center mt-60">
-        <div className="col-12 col-sm-8 col-md-6 col-lg-4">
+        <div className="col-3 col-sm-3 col-md-3 col-lg-2">
+          <Avatar
+            src={avatar}
+            alt="CHANGE AVATAR"
+            onInputChange={handleAvatarChange}
+          />
+        </div>
+        <div className="col-8 col-sm-6 col-md-5 col-lg-3">
           <ProfileForm
             userData={userData}
             errorMsg={error}

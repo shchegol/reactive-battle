@@ -63,8 +63,8 @@ const ProfileForm: FC<Props> = ({
     <Input
       labelText="PASSWORD"
       type="password"
-      value={userData.old_password}
-      name="old_password"
+      value={userData.oldPassword}
+      name="oldPassword"
       placeholder="OLD PASSWORD"
       onChange={onInputChange}
     />
@@ -72,8 +72,8 @@ const ProfileForm: FC<Props> = ({
     <Input
       labelText="PASSWORD"
       type="password"
-      value={userData.new_password}
-      name="new_password"
+      value={userData.newPassword}
+      name="newPassword"
       placeholder="NEW PASSWORD"
       onChange={onInputChange}
     />

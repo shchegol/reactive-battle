@@ -1,41 +1,28 @@
-import { API_URL } from '@root/constants';
-import { objectKeysToSnakeCase } from '@root/utils/objectUtils';
-
-export type AuthFields = {
-  firstName?: string,
-  secondName?: string,
-  login: string,
-  email?: string,
-  password?: string,
-  phone?: string
-};
+import { API_URL, API_VERSION } from '@root/constants';
+import { UserRequest, UserResponse } from '@root/types/models';
 
 class AuthAPI {
-  static prefix = `${API_URL}/auth`;
+  static prefix = `${API_URL}/api/${API_VERSION}/auth`;
 
-  static request() {
-    return fetch(`${AuthAPI.prefix}/user`, {}).then((response) => response.json());
-  }
-
-  static signup(data: Partial<AuthFields>) {
+  static signup(data: Partial<UserRequest>) {
     return fetch(`${AuthAPI.prefix}/signup`, {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(objectKeysToSnakeCase(data)),
+      body: JSON.stringify(data),
     });
   }
 
-  static signin(data: Partial<AuthFields>) {
+  static signin(data: Partial<UserRequest>) {
     return fetch(`${AuthAPI.prefix}/signin`, {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(objectKeysToSnakeCase(data)),
+      body: JSON.stringify(data),
     });
   }
 
-  static fetchUser(): Promise<Response> {
+  static fetchUser(): Promise<UserResponse> {
     return fetch(`${AuthAPI.prefix}/user`, {
       method: 'GET',
       credentials: 'include',
