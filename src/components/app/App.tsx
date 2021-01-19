@@ -9,6 +9,8 @@ import Profile from '@root/pages/profile/Profile';
 import Leaderboard from '@root/pages/leaderboard/Leaderboard';
 import Error404 from '@root/pages/error404';
 import Error5xx from '@root/pages/error5xx';
+import Forum from '@root/pages/forum/Forum';
+import ForumThread from '@root/pages/forumThread/ForumThread';
 
 export default function App() {
   const currentUserId = localStorage.getItem('userId') || '';
@@ -47,6 +49,15 @@ export default function App() {
           <PrivateRoute
             path="/users/:id"
             component={Profile}
+          />
+          <Route
+            exact
+            path="/forum"
+            component={Forum}
+          />
+          <Route
+            path="/forum/:id"
+            component={ForumThread}
           />
           <Route
             path="/error-404"

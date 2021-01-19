@@ -97,7 +97,7 @@ export default function Profile() {
             <div className="col-4">
               <Link
                 to="/"
-                className="button"
+                className="button button_width_full"
               >
                 Change
               </Link>

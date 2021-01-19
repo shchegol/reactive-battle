@@ -21,7 +21,7 @@ const MainTitle: FC<Props> = ({
   imgSrc = logo,
   ...rest
 }) => (
-  <div
+  <header
     className={toClassNames(
       'main-title',
       rest.className,
@@ -40,7 +40,7 @@ const MainTitle: FC<Props> = ({
     <p className="main-title__subtitle">
       {subtitleText}
     </p>
-  </div>
+  </header>
 );
 
 export default MainTitle;

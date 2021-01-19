@@ -23,9 +23,19 @@
     &-white {
       color: #ffffff;
     }
+
+    &-gray-500 {
+      color: map_get($colors, gray500);
+    }
   }
 
   &-size {
+    &-xs {
+      font-size: .5rem;
+    }
+    &-s {
+      font-size: .7rem;
+    }
     &-xxxl {
       font-size: 10rem;
     }
