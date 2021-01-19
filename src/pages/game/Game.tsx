@@ -35,6 +35,14 @@ export default function Game() {
                 Leaderboard
               </Link>
             </div>
+            <div className="col-auto pl-0">
+              <Link
+                to="/forum"
+                className="button button_color_link"
+              >
+                Forum
+              </Link>
+            </div>
           </div>
         </div>
       </div>

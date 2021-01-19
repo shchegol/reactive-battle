@@ -27,7 +27,10 @@ const SearchBox: FC<Props> = ({
         />
       </div>
       <div className="col-4 pl-0">
-        <Button onClick={() => onClick()}>
+        <Button
+          onClick={() => onClick()}
+          width="full"
+        >
           SEARCH
         </Button>
       </div>

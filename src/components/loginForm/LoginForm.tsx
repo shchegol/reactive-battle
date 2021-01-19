@@ -39,6 +39,7 @@ function LoginForm({ handleSubmit, errorMsg }: InferProps<typeof LoginForm.propT
 
       <Button
         type="submit"
+        width="full"
         className="mt-40"
       >
         LOGIN

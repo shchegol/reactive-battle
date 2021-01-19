@@ -6,10 +6,11 @@ import SignIn from '@root/pages/signin/SignIn';
 import SignUp from '@root/pages/signup/SignUp';
 import Game from '@root/pages/game/Game';
 import Profile from '@root/pages/profile/Profile';
-import ProfileEdit from '@root/pages/profileEdit/ProfileEdit';
 import Leaderboard from '@root/pages/leaderboard/Leaderboard';
 import Error404 from '@root/pages/error404';
 import Error5xx from '@root/pages/error5xx';
+import Forum from '@root/pages/forum/Forum';
+import ForumThread from '@root/pages/forumThread/ForumThread';
 
 export default function App() {
   const currentUserId = localStorage.getItem('userId') || '';
@@ -46,16 +47,20 @@ export default function App() {
             component={Game}
           />
           <PrivateRoute
-            exact
-            path={`/users/${userId}`}
+            path="/users/:id"
             component={Profile}
           />
-          <PrivateRoute
-            path={`/users/${userId}/edit`}
-            component={ProfileEdit}
+          <Route
+            exact
+            path="/forum"
+            component={Forum}
           />
           <Route
-            path="**"
+            path="/forum/:id"
+            component={ForumThread}
+          />
+          <Route
+            path="/error-404"
             component={Error404}
           />
           <Route

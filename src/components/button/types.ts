@@ -1,5 +1,6 @@
 import { ButtonHTMLAttributes } from 'react';
 
 export type Props = {
-  color?: string
+  color?: 'danger' | 'success' | 'cancel' | 'link'
+  width?: 'full'
 } & ButtonHTMLAttributes<HTMLButtonElement>;
