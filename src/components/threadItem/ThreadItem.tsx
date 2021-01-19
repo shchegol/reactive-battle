@@ -12,7 +12,10 @@ import './threadItem.scss';
  * @constructor
  */
 
-const ThreadItem: FC<Props> = ({ thread = {}, onClick = () => { } }) => (
+const ThreadItem: FC<Props> = ({
+  thread = {},
+  onClick = () => {},
+}) => (
   <button
     type="button"
     className="thread-item"

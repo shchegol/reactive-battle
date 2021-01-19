@@ -8,21 +8,19 @@ const ReplyThread: FC<Props> = ({ onOk: onSend = () => { } }) => {
 
   return (
     <form>
-      <div className="row justify-content-center">
-
-        <div className="col">
+      <div className="row">
+        <div className="col-8 pr-4">
           <Input
             value={text}
             onChange={(event) => setText(event.target.value)}
             placeholder="MESSAGE"
-            required
           />
         </div>
-      </div>
-      <div className="row justify-content-center">
-        <div className="col-4">
+
+        <div className="col-4 pl-0">
           <Button
             type="submit"
+            width="full"
             onClick={(e) => {
               e.preventDefault();
               onSend(text);

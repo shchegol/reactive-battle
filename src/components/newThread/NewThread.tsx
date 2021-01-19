@@ -12,21 +12,22 @@ const NewThread: FC<Props> = ({ onOk = () => { } }) => {
   if (newThreadVisible) {
     return (
       <form>
-        <div className="row justify-content-center mt-60">
-
-          <div className="col-4">
+        <div className="row">
+          <div className="col">
             <Input
               value={name}
               onChange={(event) => setName(event.target.value)}
               placeholder="THREAD NAME"
-              required
             />
           </div>
         </div>
-        <div className="row justify-content-center">
-          <div className="col-2">
+
+        <div className="row">
+          <div className="col pr-4">
             <Button
               type="submit"
+              width="full"
+              color="success"
               onClick={(e) => {
                 e.preventDefault();
                 onOk(name);
@@ -36,16 +37,27 @@ const NewThread: FC<Props> = ({ onOk = () => { } }) => {
               OK
             </Button>
           </div>
+
+          <div className="col pl-4">
+            <Button
+              width="full"
+              color="cancel"
+              onClick={() => { setNewThreadVisible(false); }}
+            >
+              cancel
+            </Button>
+          </div>
         </div>
       </form>
     );
   }
 
   return (
-    <div className="row justify-content-center mt-60">
-      <div className="col-2">
+    <div className="row">
+      <div className="col">
         <Button
           type="button"
+          width="full"
           onClick={() => { setNewThreadVisible(true); }}
         >
           New thread
