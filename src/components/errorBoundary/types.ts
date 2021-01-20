@@ -5,5 +5,5 @@ export type Props = {
 };
 
 export type State = {
-  error: Error | null | undefined
+  error?: Error | null
 };
