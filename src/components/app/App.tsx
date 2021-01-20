@@ -71,7 +71,7 @@ export default function App() {
             component={ForumThread}
           />
           <Route
-            path="/error-404"
+            path="**"
             component={Error404}
           />
           <Route
