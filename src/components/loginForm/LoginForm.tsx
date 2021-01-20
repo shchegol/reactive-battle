@@ -32,7 +32,7 @@ function LoginForm({ handleSubmit, errorMsg }: InferProps<typeof LoginForm.propT
       />
 
       { !!errorMsg && (
-      <div className="error mt-20">
+      <div className="text-color-danger mt-20">
         {errorMsg}
       </div>
       ) }

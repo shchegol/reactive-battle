@@ -13,7 +13,6 @@ import { API_URL } from '@root/constants';
 export default function Profile() {
   const history = useHistory();
   const { url } = useRouteMatch();
-
   const [userData, setUserData] = useState({
     first_name: '',
     second_name: '',
@@ -23,7 +22,9 @@ export default function Profile() {
     phone: '',
     avatar: '',
   });
-
+  const avatarUrl = userData.avatar
+    ? new URL(userData.avatar, API_URL).href
+    : undefined;
   const handleGoBack = () => history.goBack();
   const handleLogout = async () => {
     const response = await AuthAPI.logout();
@@ -45,7 +46,7 @@ export default function Profile() {
   }, []);
 
   return (
-    <div className="container">
+    <div className="container-fluid">
       <div className="row mt-10">
         <div className="col-auto">
           <Button
@@ -63,7 +64,7 @@ export default function Profile() {
           <MainTitle
             titleText={userData.login}
             subtitleText={userData.email}
-            imgSrc={new URL(userData.avatar, API_URL).href}
+            imgSrc={avatarUrl}
           />
         </div>
       </div>

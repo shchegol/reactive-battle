@@ -7,6 +7,7 @@ class AuthAPI {
   static signup(data: Partial<UserRequest>) {
     return fetch(`${AuthAPI.prefix}/signup`, {
       method: 'POST',
+      credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
@@ -15,6 +16,7 @@ class AuthAPI {
   static signin(data: Partial<UserRequest>) {
     return fetch(`${AuthAPI.prefix}/signin`, {
       method: 'POST',
+      credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     });
@@ -24,11 +26,15 @@ class AuthAPI {
     return fetch(`${AuthAPI.prefix}/user`, {
       method: 'GET',
       credentials: 'include',
-    }).then((response) => response.json());
+    })
+      .then((response) => response.json());
   }
 
   static logout() {
-    return fetch(`${AuthAPI.prefix}/logout`, {});
+    return fetch(`${AuthAPI.prefix}/logout`, {
+      method: 'POST',
+      credentials: 'include',
+    });
   }
 }
 
