@@ -4,6 +4,7 @@ import Button from '@components/button';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import AuthAPI from '@root/api/AuthAPI';
 import { API_URL } from '@root/constants';
+import { UserResponse } from '@root/types/models';
 
 /**
  * User profile page
@@ -21,7 +22,7 @@ export default function Profile() {
     email: '',
     phone: '',
     avatar: '',
-  });
+  } as UserResponse);
   const avatarUrl = userData.avatar
     ? new URL(userData.avatar, API_URL).href
     : undefined;

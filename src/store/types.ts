@@ -16,3 +16,21 @@ export interface Message {
   date: Date;
   text: string;
 }
+
+export interface UserState {
+  id: string;
+  avatar?: string;
+}
+
+export interface ProfileState {
+  user: UserState;
+}
+
+export interface ApplicationState {
+  profile: ProfileState;
+  forum: ForumState;
+}
+
+export interface ForumState {
+  threads: Thread[];
+}
