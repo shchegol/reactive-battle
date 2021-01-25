@@ -81,6 +81,7 @@ function RegistrationForm({
 
       <Button
         type="submit"
+        width="full"
         className="mt-40"
       >
         REGISTER

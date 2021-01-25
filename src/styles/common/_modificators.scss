@@ -2,26 +2,60 @@
   cursor: pointer;
 }
 
+.bg {
+  &-color {
+    &-game {
+      background-color: map_get($colors, gray800);
+    }
+  }
+}
+
 .text {
   &-color {
-    &-white {
-      color: #ffffff;
+    &-primary {
+      color: map_get($colors, primary);
+    }
+
+    &-secondary {
+      color: map_get($colors, secondary);
+    }
+
+    &-success {
+      color: map_get($colors, success);
+    }
+
+    &-danger {
+      color: map_get($colors, danger);
+    }
+
+    &-gray-500 {
+      color: map_get($colors, gray500);
     }
   }
 
   &-size {
+    &-xs {
+      font-size: .5rem;
+    }
+    &-s {
+      font-size: .7rem;
+    }
     &-xxxl {
       font-size: 10rem;
     }
   }
 
   &-align {
+    &-left {
+      text-align: left;
+    }
+
     &-center {
       text-align: center;
     }
 
-    &-left {
-      text-align: left;
+    &-right {
+      text-align: right;
     }
   }
 }

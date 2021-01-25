@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Props } from './Types';
+import { Props } from './types';
 
 import './error5xx.scss';
 

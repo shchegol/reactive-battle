@@ -68,7 +68,6 @@ module.exports = {
     new ImageMinimizerPlugin({
       minimizerOptions: {
         plugins: [
-          ['gifsicle', { interlaced: true }],
           ['jpegtran', { progressive: true }],
           ['optipng', { optimizationLevel: 5 }],
           [

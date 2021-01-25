@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import Sprite from '../sprite';
+import Sprite from '../Sprite';
 
 export default class Wall extends Sprite {
 }

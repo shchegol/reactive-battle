@@ -1,7 +1,7 @@
-import { HTMLAttributes, ImgHTMLAttributes } from 'react';
+import { HTMLAttributes } from 'react';
 
 export type Props = {
   titleText?: string,
   subtitleText?: string,
-  imgSrc?: ImgHTMLAttributes<HTMLImageElement>,
+  imgSrc?: string | undefined,
 } & HTMLAttributes<HTMLElement>;

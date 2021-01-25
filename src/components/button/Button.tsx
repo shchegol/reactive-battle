@@ -7,7 +7,8 @@ import { Props } from './types';
 /**
  * Button
  * @param {*} [children=undefined] - content inside the button
- * @param {string|undefined} [color=undefined] - button color
+ * @param {'danger'|'success'|'cancel'|'link'|undefined} [color=undefined] - button color
+ * @param {'full'} [width=undefined] - button width
  * @param {*} rest - rest params
  * @constructor
  */
@@ -15,6 +16,7 @@ import { Props } from './types';
 const Button: FC<Props> = ({
   children = undefined,
   color = undefined,
+  width = undefined,
   ...rest
 }) => (
   <button
@@ -25,6 +27,9 @@ const Button: FC<Props> = ({
       {
         button_color_danger: color === 'danger',
         button_color_success: color === 'success',
+        button_color_link: color === 'link',
+        button_color_cancel: color === 'cancel',
+        button_width_full: width === 'full',
       },
       rest.className,
     )}
