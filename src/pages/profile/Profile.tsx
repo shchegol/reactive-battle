@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MainTitle from '@root/components/mainTitle';
 import Button from '@components/button';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import AuthAPI from '@root/api/AuthAPI';
-import { AuthContext, useAuth } from '@root/context/auth';
+import { API_URL } from '@root/constants';
 
 /**
  * User profile page
@@ -12,23 +12,41 @@ import { AuthContext, useAuth } from '@root/context/auth';
 
 export default function Profile() {
   const history = useHistory();
-  const { setUser } = useAuth();
-
+  const { url } = useRouteMatch();
+  const [userData, setUserData] = useState({
+    first_name: '',
+    second_name: '',
+    display_name: '',
+    login: '',
+    email: '',
+    phone: '',
+    avatar: '',
+  });
+  const avatarUrl = userData.avatar
+    ? new URL(userData.avatar, API_URL).href
+    : undefined;
   const handleGoBack = () => history.goBack();
   const handleLogout = async () => {
     const response = await AuthAPI.logout();
 
-    if (response.ok) {
-      setUser('');
-    } else {
+    if (!response.ok) {
       const json = await response.json();
       // todo переписать на всплывающие уведомления
       console.error(json.reason); // eslint-disable-line no-console
+    } else {
+      history.goBack();
+      localStorage.removeItem('userId');
     }
   };
 
+  useEffect(() => {
+    AuthAPI
+      .fetchUser()
+      .then((data) => setUserData(data));
+  }, []);
+
   return (
-    <div className="container">
+    <div className="container-fluid">
       <div className="row mt-10">
         <div className="col-auto">
           <Button
@@ -43,15 +61,11 @@ export default function Profile() {
 
       <div className="row">
         <div className="col">
-          <AuthContext.Consumer>
-            {(auth) => (
-              <MainTitle
-                titleText={`${auth.userId}`}
-                subtitleText={`${auth.userId}@gmail.com`}
-              />
-            )}
-          </AuthContext.Consumer>
-
+          <MainTitle
+            titleText={userData.login}
+            subtitleText={userData.email}
+            imgSrc={avatarUrl}
+          />
         </div>
       </div>
 
@@ -62,7 +76,7 @@ export default function Profile() {
               NAME
             </div>
             <div className="col pl-4">
-              ALEX
+              {userData.first_name}
             </div>
           </div>
 
@@ -71,7 +85,7 @@ export default function Profile() {
               SURNAME
             </div>
             <div className="col pl-4">
-              FINCHER
+              {userData.second_name}
             </div>
           </div>
 
@@ -80,7 +94,7 @@ export default function Profile() {
               NICKNAME
             </div>
             <div className="col pl-4">
-              KILLER
+              {userData.display_name}
             </div>
           </div>
 
@@ -89,14 +103,14 @@ export default function Profile() {
               PHONE
             </div>
             <div className="col pl-4">
-              +7 (495) 444-66-55
+              {userData.phone}
             </div>
           </div>
 
           <div className="row justify-content-center mt-60">
             <div className="col-4">
               <Link
-                to="/"
+                to={`${url}/edit`}
                 className="button button_width_full"
               >
                 Change

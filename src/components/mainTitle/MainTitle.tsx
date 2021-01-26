@@ -4,6 +4,8 @@ import toClassNames from '@root/utils/toClassNames';
 import './mainTitle.scss';
 import { Props } from './types';
 
+const avatarTmpl = require('@root/images/tank.png').default;
+
 /**
  * Main title
  * @param {string} [titleText='REACTIVE BATTLE'] - title text
@@ -16,7 +18,7 @@ import { Props } from './types';
 const MainTitle: FC<Props> = ({
   titleText = 'REACTIVE BATTLE',
   subtitleText = '',
-  imgSrc = undefined,
+  imgSrc = avatarTmpl,
   ...rest
 }) => (
   <header
@@ -25,14 +27,11 @@ const MainTitle: FC<Props> = ({
       rest.className,
     )}
   >
-    {imgSrc
-      ? (
-        <img
-          src={imgSrc}
-          alt={subtitleText}
-          className="main-title__img"
-        />
-      ) : null}
+    <img
+      src={imgSrc}
+      alt={subtitleText}
+      className="main-title__img"
+    />
 
     <h1 className="main-title__text">
       {titleText}

@@ -26,7 +26,8 @@ class AuthAPI {
     return fetch(`${AuthAPI.prefix}/user`, {
       method: 'GET',
       credentials: 'include',
-    }).then((response) => response.json());
+    })
+      .then((response) => response.json());
   }
 
   static logout() {
