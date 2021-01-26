@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import AuthAPI, { AuthFields } from '@root/api/AuthAPI';
+import AuthAPI from '@root/api/AuthAPI';
 import { useAuth } from '@root/context/auth';
 import { Redirect } from 'react-router-dom';
 import RegistrationForm from '@root/components/registrationForm';
 import MainTitle from '@root/components/mainTitle';
+import { SignUpRequest } from '@root/types/models';
 
 import './signup.scss';
 
@@ -13,7 +14,7 @@ export default function SignUp() {
 
   const { setUser } = useAuth();
 
-  const submitHandler = async (event: React.FormEvent, userData: AuthFields) => {
+  const submitHandler = async (event: React.FormEvent, userData: SignUpRequest) => {
     event.preventDefault();
     const response = await AuthAPI.signup(userData);
     if (response.ok) {

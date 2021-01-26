@@ -2,7 +2,7 @@
 
 .button {
     display: inline-flex;
-    width: 100%;
+    width: auto;
     padding: .4rem .8rem;
     align-items: center;
     justify-content: center;
@@ -23,6 +23,12 @@
         border-color: map_get($colors, secondary);
     }
 
+    &_width {
+        &_full {
+            width: 100%;
+        }
+    }
+
     &_color {
         &_success {
             background-color: map_get($colors, success);
@@ -41,6 +47,29 @@
             &:active {
                 color: map_get($colors, danger);
                 border-color: map_get($colors, danger);
+            }
+        }
+
+        &_cancel {
+            background-color: map_get($colors, gray500);
+
+            &:hover,
+            &:active {
+                color: map_get($colors, gray500);
+                border-color: map_get($colors, gray500);
+            }
+        }
+
+        &_link {
+            background-color: transparent;
+            border: none;
+            color: map_get($colors, secondary);
+
+            &:hover,
+            &:active {
+                background-color: transparent;
+                border: none;
+                color: map_get($colors, primary);
             }
         }
     }

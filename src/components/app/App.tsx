@@ -5,9 +5,13 @@ import { AuthContext } from '@root/context/auth';
 import SignIn from '@root/pages/signin/SignIn';
 import SignUp from '@root/pages/signup/SignUp';
 import Game from '@root/pages/game/Game';
+import Profile from '@root/pages/profile/Profile';
+import ProfileEdit from '@root/pages/profileEdit/ProfileEdit';
 import Leaderboard from '@root/pages/leaderboard/Leaderboard';
 import Error404 from '@root/pages/error404';
 import Error5xx from '@root/pages/error5xx';
+import Forum from '@root/pages/forum/Forum';
+import ForumThread from '@root/pages/forumThread/ForumThread';
 
 export default function App() {
   const currentUserId = localStorage.getItem('userId') || '';
@@ -19,7 +23,12 @@ export default function App() {
   };
 
   return (
-    <AuthContext.Provider value={{ userId, setUser }}>
+    <AuthContext.Provider
+      value={{
+        userId,
+        setUser,
+      }}
+    >
       <BrowserRouter>
         <Switch>
           <PrivateRoute
@@ -43,8 +52,26 @@ export default function App() {
             path="/game"
             component={Game}
           />
+          <PrivateRoute
+            exact
+            path={`/users/${userId}`}
+            component={Profile}
+          />
+          <PrivateRoute
+            path={`/users/${userId}/edit`}
+            component={ProfileEdit}
+          />
           <Route
-            path="/error-404"
+            exact
+            path="/forum"
+            component={Forum}
+          />
+          <Route
+            path="/forum/:id"
+            component={ForumThread}
+          />
+          <Route
+            path="**"
             component={Error404}
           />
           <Route

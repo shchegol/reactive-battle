@@ -74,7 +74,6 @@
     "husky": "4.3.6",
     "identity-obj-proxy": "3.0.0",
     "image-minimizer-webpack-plugin": "1.0.0",
-    "imagemin-gifsicle": "7.0.0",
     "imagemin-jpegtran": "7.0.0",
     "imagemin-optipng": "8.0.0",
     "imagemin-svgo": "8.0.0",
