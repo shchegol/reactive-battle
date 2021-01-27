@@ -3,6 +3,6 @@ import Wall from './Wall';
 
 export default class BrickWall extends Wall {
   protected GetSprite() {
-    return [256, 0];
+    return [256, 64];
   }
 }
