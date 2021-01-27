@@ -2,29 +2,50 @@
 import { spritesManager } from './SpritesManager';
 
 export default class Sprite {
-  private x: number = 0;
+  protected x: number = 0;
 
-  private y: number = 0;
+  protected y: number = 0;
 
-  private width: number;
+  protected width: number;
 
-  private height: number;
+  protected height: number;
 
-  constructor(x: number, y: number, width: number = 8, height: number = 8) {
+  protected scale: number = 2;
+
+  constructor(x: number = 0, y: number = 0, width: number = 8, height: number = 8) {
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
   }
 
-  public render(ctx: CanvasRenderingContext2D) {
-    const scale = 2;
+  public get X() {
+    return this.x;
+  }
 
+  public get Y() {
+    return this.y;
+  }
+
+  public get Width() {
+    return this.width * this.scale;
+  }
+
+  public get Height() {
+    return this.height * this.scale;
+  }
+
+  public render(ctx: CanvasRenderingContext2D) {
     const sprite = this.GetSprite();
 
     ctx.drawImage(spritesManager.Sheet,
       sprite[0], sprite[1], this.width, this.height,
-      this.x, this.y, this.width * scale, this.height * scale);
+      this.x, this.y, this.Width, this.Height);
+
+    // ctx.beginPath();
+    // ctx.rect(this.X, this.Y, this.Width, this.Height);
+    // ctx.strokeStyle = 'green';
+    // ctx.stroke();
   }
 
   protected GetSprite() {
