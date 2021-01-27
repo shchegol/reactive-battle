@@ -16,7 +16,9 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.jsx', '.js', '.scss'],
     alias: {
       '@root': util.resolve('src'),
+      '@api': util.resolve('src/api'),
       '@components': util.resolve('src/components'),
+      '@store': util.resolve('src/store'),
       '@styles': util.resolve('src/styles'),
     },
   },

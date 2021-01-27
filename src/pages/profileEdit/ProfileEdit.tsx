@@ -6,6 +6,9 @@ import ProfileForm from '@components/profileForm';
 import Button from '@components/button';
 import Avatar from '@components/avatar';
 import { API_URL } from '@root/constants';
+import { setAvatar } from '@root/store/reducers/profile';
+import { useDispatch, useSelector } from 'react-redux';
+import { ApplicationState } from '@root/store/types';
 
 /**
  * User profile edit page
@@ -15,7 +18,6 @@ import { API_URL } from '@root/constants';
 export default function ProfileEdit() {
   const history = useHistory();
   const [error, setError] = useState('');
-  const [avatar, setAvatar] = useState<string | undefined>();
   const [userData, setUserData] = useState({
     first_name: '',
     second_name: '',
@@ -26,6 +28,9 @@ export default function ProfileEdit() {
     oldPassword: '',
     newPassword: '',
   });
+
+  const dispatch = useDispatch();
+  const avatar = useSelector((state: ApplicationState) => state.profile?.user?.avatar);
 
   const handleGoBack = () => history.goBack();
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +51,7 @@ export default function ProfileEdit() {
         .uploadAvatar(avatarFile)
         .then((data) => {
           if (data.avatar) {
-            setAvatar(new URL(data.avatar, API_URL).href);
+            dispatch(setAvatar(new URL(data.avatar, API_URL).href));
           }
         })
         .catch((err) => setError(err.reason));
@@ -72,21 +77,13 @@ export default function ProfileEdit() {
   useEffect(() => {
     AuthAPI
       .fetchUser()
+      .then((res) => res.json())
       .then((data) => {
         if (data.avatar) {
           setAvatar(new URL(data.avatar, API_URL).href);
         }
 
-        const newData = {
-          ...userData,
-          ...data,
-        };
-
-        if (!newData.display_name) {
-          newData.display_name = newData.login;
-        }
-
-        setUserData(newData);
+        setUserData(data);
       })
       .catch((err) => setError(err.reason));
   }, []);

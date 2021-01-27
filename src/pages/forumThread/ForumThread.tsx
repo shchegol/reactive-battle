@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable max-len */
+
+import React from 'react';
 import Button from '@components/button';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import MainTitle from '@components/mainTitle';
-import { Message, Thread } from '@root/store/types';
+import { ApplicationState, Thread } from '@root/store/types';
 import Messages from '@components/messages';
 import ReplyThread from '@root/components/replyThread';
-import { AuthContext } from '@root/context/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { addMessage } from '@root/store/reducers/forum';
+import { ParamTypes } from './types';
 
 export default function ForumThread() {
   const history = useHistory();
-  const location = useLocation();
+  const params = useParams<ParamTypes>();
 
-  const thread = location.state as Thread || {};
-
-  // TODO Заменить две строки, когда будет Redux
-  const [messages, setMessages] = useState<Message[]>([]);
-  useEffect(() => setMessages((location.state as Thread || {}).messages || []), []);
+  const threadId = Number.parseInt(params.id, 10);
+  const thread = useSelector((state: ApplicationState) => state.forum?.threads?.find((f) => f.id === threadId) || {} as Thread);
+  const login = useSelector((state: ApplicationState) => state.auth.user.login);
+  const dispatch = useDispatch();
 
   const handleGoBack = () => history.goBack();
 
@@ -49,32 +52,15 @@ export default function ForumThread() {
 
           <div className="row mt-20">
             <div className="col">
-              <Messages messages={messages} />
+              <Messages messages={thread.messages} />
             </div>
           </div>
 
           <div className="row mt-40">
             <div className="col">
-              <AuthContext.Consumer>
-                {(auth) => (
-                  <ReplyThread
-                    onOk={(text) => {
-                      // TODO Получать из API
-                      const maxId = messages.length > 0
-                        ? Math.max(...messages.map((m) => m.id))
-                        : 1;
-
-                      const message = {
-                        id: maxId + 1,
-                        author: auth.userId,
-                        date: new Date(Date.now()),
-                        text,
-                      } as Message;
-                      setMessages([...messages || [], message]);
-                    }}
-                  />
-                )}
-              </AuthContext.Consumer>
+              <ReplyThread
+                onOk={(text) => dispatch(addMessage(thread.id, login, text))}
+              />
             </div>
           </div>
 

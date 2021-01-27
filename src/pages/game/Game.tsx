@@ -1,9 +1,12 @@
 import Playground from '@root/components/playground';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '@root/context/auth';
+import { useSelector } from 'react-redux';
+import { ApplicationState } from '@store/types';
 
 export default function Game() {
+  const login = useSelector((state: ApplicationState) => state.auth.user.login);
+
   useEffect(() => {
     document.body.classList.add('bg-color-game');
     return () => document.body.classList.remove('bg-color-game');
@@ -13,16 +16,12 @@ export default function Game() {
     <div className="container">
       <div className="row mt-10">
         <div className="col-auto">
-          <AuthContext.Consumer>
-            {(auth) => (
-              <Link
-                to={`/users/${auth.userId}`}
-                className="button button_color_link"
-              >
-                {`${auth.userId}`}
-              </Link>
-            )}
-          </AuthContext.Consumer>
+          <Link
+            to={`/users/${login}`}
+            className="button button_color_link"
+          >
+            {`${login}`}
+          </Link>
         </div>
 
         <div className="col">
