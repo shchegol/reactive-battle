@@ -1,29 +1,20 @@
-import React, { useState } from 'react';
-import AuthAPI from '@root/api/AuthAPI';
-import { useAuth } from '@root/context/auth';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 import RegistrationForm from '@root/components/registrationForm';
 import MainTitle from '@root/components/mainTitle';
 import { SignUpRequest } from '@root/types/models';
 
 import './signup.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { ApplicationState } from '@store/types';
+import { signup } from '@store/actionsCreators/auth';
 
 export default function SignUp() {
-  const [isLoggedIn, setLoggedIn] = useState(false);
-  const [error, setError] = useState('');
-
-  const { setUser } = useAuth();
-
+  const dispatch = useDispatch();
+  const { isLoggedIn, error } = useSelector((state: ApplicationState) => state.auth);
   const submitHandler = async (event: React.FormEvent, userData: SignUpRequest) => {
     event.preventDefault();
-    const response = await AuthAPI.signup(userData);
-    if (response.ok) {
-      setUser(userData.login);
-      setLoggedIn(true);
-    } else {
-      const json = await response.json();
-      setError(json.reason);
-    }
+    dispatch(signup(userData));
   };
 
   if (isLoggedIn) {

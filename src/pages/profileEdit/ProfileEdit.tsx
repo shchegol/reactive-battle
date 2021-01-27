@@ -77,21 +77,13 @@ export default function ProfileEdit() {
   useEffect(() => {
     AuthAPI
       .fetchUser()
+      .then((res) => res.json())
       .then((data) => {
         if (data.avatar) {
           setAvatar(new URL(data.avatar, API_URL).href);
         }
 
-        const newData = {
-          ...userData,
-          ...data,
-        };
-
-        if (!newData.display_name) {
-          newData.display_name = newData.login;
-        }
-
-        setUserData(newData);
+        setUserData(data);
       })
       .catch((err) => setError(err.reason));
   }, []);

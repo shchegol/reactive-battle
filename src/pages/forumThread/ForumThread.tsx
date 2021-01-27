@@ -7,7 +7,6 @@ import MainTitle from '@components/mainTitle';
 import { ApplicationState, Thread } from '@root/store/types';
 import Messages from '@components/messages';
 import ReplyThread from '@root/components/replyThread';
-import { AuthContext } from '@root/context/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessage } from '@root/store/reducers/forum';
 import { ParamTypes } from './types';
@@ -18,7 +17,7 @@ export default function ForumThread() {
 
   const threadId = Number.parseInt(params.id, 10);
   const thread = useSelector((state: ApplicationState) => state.forum?.threads?.find((f) => f.id === threadId) || {} as Thread);
-
+  const login = useSelector((state: ApplicationState) => state.auth.user.login);
   const dispatch = useDispatch();
 
   const handleGoBack = () => history.goBack();
@@ -59,13 +58,9 @@ export default function ForumThread() {
 
           <div className="row mt-40">
             <div className="col">
-              <AuthContext.Consumer>
-                {(auth) => (
-                  <ReplyThread
-                    onOk={(text) => dispatch(addMessage(thread.id, auth.userId, text))}
-                  />
-                )}
-              </AuthContext.Consumer>
+              <ReplyThread
+                onOk={(text) => dispatch(addMessage(thread.id, login, text))}
+              />
             </div>
           </div>
 

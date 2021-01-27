@@ -5,6 +5,8 @@ import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import AuthAPI from '@root/api/AuthAPI';
 import { API_URL } from '@root/constants';
 import { UserResponse } from '@root/types/models';
+import { logout } from '@store/actionsCreators/auth';
+import { useDispatch } from 'react-redux';
 
 /**
  * User profile page
@@ -12,6 +14,7 @@ import { UserResponse } from '@root/types/models';
  */
 
 export default function Profile() {
+  const dispatch = useDispatch();
   const history = useHistory();
   const { url } = useRouteMatch();
   const [userData, setUserData] = useState({
@@ -27,22 +30,12 @@ export default function Profile() {
     ? new URL(userData.avatar, API_URL).href
     : undefined;
   const handleGoBack = () => history.goBack();
-  const handleLogout = async () => {
-    const response = await AuthAPI.logout();
-
-    if (!response.ok) {
-      const json = await response.json();
-      // todo переписать на всплывающие уведомления
-      console.error(json.reason); // eslint-disable-line no-console
-    } else {
-      history.goBack();
-      localStorage.removeItem('userId');
-    }
-  };
+  const handleLogout = () => dispatch(logout());
 
   useEffect(() => {
     AuthAPI
       .fetchUser()
+      .then((res) => res.json())
       .then((data) => setUserData(data));
   }, []);
 
