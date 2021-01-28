@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React from 'react';
+import { Router, Route, Switch } from 'react-router-dom';
+import { history } from '@root/utils/history';
 import PrivateRoute from '@components/privateRoute';
-import { AuthContext } from '@root/context/auth';
 import SignIn from '@root/pages/signin/SignIn';
 import SignUp from '@root/pages/signup/SignUp';
 import Game from '@root/pages/game/Game';
@@ -12,74 +12,59 @@ import Error404 from '@root/pages/error404';
 import Error5xx from '@root/pages/error5xx';
 import Forum from '@root/pages/forum/Forum';
 import ForumThread from '@root/pages/forumThread/ForumThread';
+import { useSelector } from 'react-redux';
+import { ApplicationState } from '@store/types';
 
 export default function App() {
-  const currentUserId = localStorage.getItem('userId') || '';
-  const [userId, setUserId] = useState(currentUserId);
-
-  const setUser = (id: string) => {
-    localStorage.setItem('userId', id);
-    setUserId(id);
-  };
+  const login = useSelector((state: ApplicationState) => state.auth.user.login);
 
   return (
-    <AuthContext.Provider
-      value={{
-        userId,
-        setUser,
-      }}
-    >
-      <BrowserRouter>
-        <Switch>
-          <PrivateRoute
-            exact
-            path="/"
-            component={Game}
-          />
-          <Route
-            path="/signin"
-            component={SignIn}
-          />
-          <Route
-            path="/signup"
-            component={SignUp}
-          />
-          <PrivateRoute
-            path="/leaderboard"
-            component={Leaderboard}
-          />
-          <PrivateRoute
-            path="/game"
-            component={Game}
-          />
-          <PrivateRoute
-            exact
-            path={`/users/${userId}`}
-            component={Profile}
-          />
-          <PrivateRoute
-            path={`/users/${userId}/edit`}
-            component={ProfileEdit}
-          />
-          <Route
-            exact
-            path="/forum"
-            component={Forum}
-          />
-          <Route
-            path="/forum/:id"
-            component={ForumThread}
-          />
-          <Route
-            path="**"
-            component={Error404}
-          />
-          <Route
-            path="/error-5xx"
-            component={Error5xx}
-          />
-        </Switch>
-      </BrowserRouter>
-    </AuthContext.Provider>
+    <Router history={history}>
+      <Switch>
+        <PrivateRoute
+          exact
+          path="/"
+          component={Game}
+        />
+        <Route
+          path="/signin"
+          component={SignIn}
+        />
+        <Route
+          path="/signup"
+          component={SignUp}
+        />
+        <PrivateRoute
+          path="/leaderboard"
+          component={Leaderboard}
+        />
+        <PrivateRoute
+          exact
+          path={`/users/${login}`}
+          component={Profile}
+        />
+        <PrivateRoute
+          path={`/users/${login}/edit`}
+          component={ProfileEdit}
+        />
+        <Route
+          exact
+          path="/forum"
+          component={Forum}
+        />
+        <Route
+          path="/forum/:id"
+          component={ForumThread}
+        />
+        <Route
+          path="**"
+          component={Error404}
+        />
+        <Route
+          path="/error-5xx"
+          component={Error5xx}
+        />
+      </Switch>
+    </Router>
   );
 }

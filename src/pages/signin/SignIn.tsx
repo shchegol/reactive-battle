@@ -1,27 +1,18 @@
 import LoginForm from '@root/components/loginForm';
 import MainTitle from '@root/components/mainTitle';
-import React, { useState } from 'react';
-import AuthAPI from '@root/api/AuthAPI';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { useAuth } from '@root/context/auth';
+import { signin } from '@store/actionsCreators/auth';
 import { SignInRequest } from '@root/types/models';
+import { ApplicationState } from '@store/types';
 
 export default function SignIn() {
-  const [isLoggedIn, setLoggedIn] = useState(false);
-  const [error, setError] = useState('');
-
-  const { setUser } = useAuth();
-
-  const submitHandler = async (event: React.FormEvent, userData: SignInRequest) => {
+  const dispatch = useDispatch();
+  const { isLoggedIn, error } = useSelector((state: ApplicationState) => state.auth);
+  const submitHandler = (event: React.FormEvent, userData: SignInRequest) => {
     event.preventDefault();
-    const response = await AuthAPI.signin(userData);
-    if (response.ok) {
-      setUser(userData.login);
-      setLoggedIn(true);
-    } else {
-      const json = await response.json();
-      setError(json.reason);
-    }
+    dispatch(signin(userData));
   };
 
   if (isLoggedIn) {

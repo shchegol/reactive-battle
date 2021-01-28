@@ -20,7 +20,7 @@ export interface UserResponse {
   login: string;
   email: string;
   phone: string;
-  avatar: string;
+  avatar: string | undefined;
 }
 
 export type UserRequest = Partial<SignUpRequest>;

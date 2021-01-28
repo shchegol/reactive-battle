@@ -18,7 +18,9 @@
     "strictNullChecks": true,
     "paths": {
       "@root/*": ["src/*"],
+      "@api/*": ["src/api/*"],
       "@components/*": ["src/components/*"],
+      "@store/*": ["src/store/*"],
       "@styles/*": ["src/styles/*"]
     }
   },

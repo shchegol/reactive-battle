@@ -6,9 +6,15 @@ export default class Sprite {
 
   private y: number = 0;
 
-  constructor(x: number, y: number) {
+  private width: number;
+
+  private height: number;
+
+  constructor(x: number, y: number, width: number = 8, height: number = 8) {
     this.x = x;
     this.y = y;
+    this.width = width;
+    this.height = height;
   }
 
   public render(ctx: CanvasRenderingContext2D) {
@@ -16,8 +22,9 @@ export default class Sprite {
 
     const sprite = this.GetSprite();
 
-    // eslint-disable-next-line max-len
-    ctx.drawImage(spritesManager.Sheet, sprite[0], sprite[1], 16, 16, this.x, this.y, 16 * scale, 16 * scale);
+    ctx.drawImage(spritesManager.Sheet,
+      sprite[0], sprite[1], this.width, this.height,
+      this.x, this.y, this.width * scale, this.height * scale);
   }
 
   protected GetSprite() {
