@@ -1,8 +1,8 @@
 import Sprite from '../Sprite';
 
 /* eslint-disable class-methods-use-this */
-export default class Ice extends Sprite {
+export default class Water extends Sprite {
   protected GetSprite() {
-    return [272, 72];
+    return [256, 80];
   }
 }

@@ -5,6 +5,7 @@ import ConcreteWall from './world/ConcreteWall';
 import Eagle from './world/Eagle';
 import Ice from './world/Ice';
 import Tree from './world/Tree';
+import Water from './world/Water';
 
 export default function LevelGenerator(level: Level): Array<Sprite> {
   const elements: Array<Sprite> = [];
@@ -33,6 +34,10 @@ export default function LevelGenerator(level: Level): Array<Sprite> {
 
         case 'i':
           elements.push(new Ice(x, y));
+          break;
+
+        case 'w':
+          elements.push(new Water(x, y));
           break;
 
         case 'e':

@@ -3,10 +3,14 @@ import { Level1 } from './Levels';
 import Sprite from './sprite';
 
 export default class Stage {
-  private elements: Array<Sprite> = [];
+  private sprites: Array<Sprite> = [];
 
   constructor() {
-    this.elements.push(...LevelGenerator(Level1));
+    this.sprites.push(...LevelGenerator(Level1));
+  }
+
+  public get Sprites() {
+    return this.sprites;
   }
 
   public render(ctx: CanvasRenderingContext2D) {
@@ -14,6 +18,6 @@ export default class Stage {
     ctx.fillRect(0, 0, 800, 800);
     ctx.stroke();
 
-    this.elements.forEach((e) => e.render(ctx));
+    this.sprites.forEach((e) => e.render(ctx));
   }
 }
