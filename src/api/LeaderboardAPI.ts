@@ -14,9 +14,9 @@ class LeaderboardAPI {
   }
 
   static getAllLeaderboard(options: LeaderboardRequest = {
-    ratingFieldName: 'position',
+    ratingFieldName: 'score',
     cursor: 0,
-    limit: 0,
+    limit: 20,
   }): Promise<Response> {
     return fetch(`${LeaderboardAPI.prefix}/all`, {
       method: 'POST',
