@@ -2,33 +2,36 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Input from '@components/input';
 import Button from '@components/button';
-import PropTypes, { InferProps } from 'prop-types';
+import { Props } from '@components/registrationForm/types';
 
-function RegistrationForm({
+const RegistrationForm = ({
   handleSubmit,
   errorMsg,
-}: InferProps<typeof RegistrationForm.propTypes>) {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  const [first_name, setFirstName] = useState<string>();
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  const [second_name, setSecondName] = useState<string>();
-  const [login, setLogin] = useState<string>();
-  const [email, setEmail] = useState<string>();
-  const [password, setPassword] = useState<string>();
-  const [phone, setPhone] = useState<string>();
+}: Props) => {
+  const [firstName, setFirstName] = useState('');
+  const [secondName, setSecondName] = useState('');
+  const [login, setLogin] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [phone, setPhone] = useState('');
 
   return (
     <form
       onSubmit={(event) => {
         handleSubmit(event, {
-          first_name, second_name, login, email, password, phone,
+          first_name: firstName,
+          second_name: secondName,
+          login,
+          email,
+          password,
+          phone,
         });
       }}
     >
       <Input
         className="mt-60"
         labelText="FIRST NAME"
-        value={first_name}
+        value={firstName}
         onChange={(event) => setFirstName(event.target.value)}
         placeholder="FIRST NAME"
         required
@@ -36,7 +39,7 @@ function RegistrationForm({
 
       <Input
         labelText="SECOND NAME"
-        value={second_name}
+        value={secondName}
         onChange={(event) => setSecondName(event.target.value)}
         placeholder="SECOND NAME"
         required
@@ -94,15 +97,6 @@ function RegistrationForm({
       </div>
     </form>
   );
-}
-
-RegistrationForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  errorMsg: PropTypes.string,
-};
-
-RegistrationForm.defaultProps = {
-  errorMsg: '',
 };
 
 export default RegistrationForm;

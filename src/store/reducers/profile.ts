@@ -12,12 +12,12 @@ const defaultState: ProfileState = {
 
 const SET_AVATAR = 'PROFILE/SET_AVATAR';
 
-interface SetSvatarActionType {
+interface SetAvatarActionType {
   type: typeof SET_AVATAR;
   avatar: string | undefined;
 }
 
-type ProfileActionTypes = SetSvatarActionType;
+type ProfileActionTypes = SetAvatarActionType;
 
 export function profileReducer(state: ProfileState = defaultState, action: ProfileActionTypes): ProfileState {
   switch (action.type) {
@@ -31,6 +31,6 @@ export function profileReducer(state: ProfileState = defaultState, action: Profi
   }
 }
 
-export function setAvatar(avatar: string | undefined): SetSvatarActionType {
+export function setAvatar(avatar: string | undefined): SetAvatarActionType {
   return { type: SET_AVATAR, avatar };
 }

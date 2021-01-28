@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes, { InferProps } from 'prop-types';
 import Input from '@components/input';
 import Button from '@components/button';
+import { Props } from '@components/loginForm/types';
 
-function LoginForm({ handleSubmit, errorMsg }: InferProps<typeof LoginForm.propTypes>) {
+const LoginForm = ({
+  handleSubmit,
+  errorMsg,
+}: Props) => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
 
@@ -52,15 +55,6 @@ function LoginForm({ handleSubmit, errorMsg }: InferProps<typeof LoginForm.propT
       </div>
     </form>
   );
-}
-
-LoginForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  errorMsg: PropTypes.string,
-};
-
-LoginForm.defaultProps = {
-  errorMsg: '',
 };
 
 export default LoginForm;
