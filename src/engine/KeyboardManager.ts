@@ -24,6 +24,8 @@ export default class KeyboardManager {
   }
 
   private static keyDownHandler(event: KeyboardEvent) {
+    event.preventDefault();
+
     switch (event.key) {
       case 'ArrowRight':
         EngineBus.emit(PlayerMoveRight);
@@ -51,6 +53,8 @@ export default class KeyboardManager {
   }
 
   private static keyUpHandler(event: KeyboardEvent) {
+    event.preventDefault();
+
     switch (event.code) {
       case 'ArrowRight':
         EngineBus.emit(PlayerStopRight);
