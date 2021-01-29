@@ -3,7 +3,7 @@ import AuthAPI from '@api/AuthAPI';
 import { SignUpRequest, UserRequest, UserResponse } from '@root/types/models';
 import { history } from '@root/utils/history';
 
-type DispatchWithFetch<T> = ((arg0: T) => void) & ((arg0: ReturnType<typeof fetch>) => void);
+type DispatchWithFetch<T> = (arg0: T | ReturnType<typeof fetch>) => void;
 
 export const fetch = () => {
   const request = () => ({ type: AuthActions.SIGNUP_REQUEST });
