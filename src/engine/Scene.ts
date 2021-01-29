@@ -14,10 +14,13 @@ export default class Scene {
     this.stage = new Stage();
     this.player = new Player(130, 382);
     this.playerManager = new PlayerManager(this.player);
+
+    this.playerManager.subscribe();
   }
 
   public render(context: CanvasRenderingContext2D) {
     this.playerManager.Execute(this.stage.Sprites, context);
+
     AIManager.Execute();
 
     context.fillStyle = 'black';

@@ -1,3 +1,4 @@
+import { EngineBus, SpriteCreated } from './EngineBus';
 import LevelGenerator from './LevelGenerator';
 import { Level1 } from './Levels';
 import Sprite from './sprite';
@@ -7,6 +8,8 @@ export default class Stage {
 
   constructor() {
     this.sprites.push(...LevelGenerator(Level1));
+
+    EngineBus.on(SpriteCreated, (sprite: Sprite) => this.onSpriteCreated(sprite));
   }
 
   public get Sprites() {
@@ -19,5 +22,12 @@ export default class Stage {
     ctx.stroke();
 
     this.sprites.forEach((e) => e.render(ctx));
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  private onSpriteCreated(sprite: Sprite) {
+    if (sprite) {
+      this.sprites.push(sprite);
+    }
   }
 }

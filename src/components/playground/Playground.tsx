@@ -1,4 +1,4 @@
-import { keyboardManager } from '@root/engine/KeyboardManager';
+import KeyboardManager from '@root/engine/KeyboardManager';
 import Scene from '@root/engine/Scene';
 import { spritesManager } from '@root/engine/SpritesManager';
 import React, { FC, useEffect, useRef } from 'react';
@@ -10,7 +10,7 @@ const Playground: FC = () => {
 
   useEffect(() => {
     spritesManager.Init();
-    keyboardManager.Init();
+    KeyboardManager.Init();
   }, []);
 
   useEffect(() => {

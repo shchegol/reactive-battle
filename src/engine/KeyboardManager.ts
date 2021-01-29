@@ -1,3 +1,7 @@
+import {
+  EngineBus, PlayerMoveBackward, PlayerMoveForward, PlayerMoveLeft, PlayerMoveRight, PlayerShot, PlayerStopBackward, PlayerStopForward, PlayerStopLeft, PlayerStopRight,
+} from './EngineBus';
+
 export default class KeyboardManager {
   public rightPressed = false;
 
@@ -7,32 +11,38 @@ export default class KeyboardManager {
 
   public downPressed = false;
 
-  constructor() {
-    this.keyDownHandler = this.keyDownHandler.bind(this);
-    this.keyUpHandler = this.keyUpHandler.bind(this);
-  }
+  public spacePressed = false;
 
-  public Init() {
-    document.addEventListener('keydown', this.keyDownHandler, false);
+  // constructor() {
+  // keyDownHandler = this.keyDownHandler.bind(this);
+  // .keyUpHandler = this.keyUpHandler.bind(this);
+  // }
+
+  public static Init() {
     document.addEventListener('keyup', this.keyUpHandler, false);
+    document.addEventListener('keydown', this.keyDownHandler, false);
   }
 
-  private keyDownHandler(event: KeyboardEvent) {
+  private static keyDownHandler(event: KeyboardEvent) {
     switch (event.key) {
       case 'ArrowRight':
-        this.rightPressed = true;
+        EngineBus.emit(PlayerMoveRight);
         break;
 
       case 'ArrowLeft':
-        this.leftPressed = true;
+        EngineBus.emit(PlayerMoveLeft);
         break;
 
       case 'ArrowDown':
-        this.downPressed = true;
+        EngineBus.emit(PlayerMoveBackward);
         break;
 
       case 'ArrowUp':
-        this.upPressed = true;
+        EngineBus.emit(PlayerMoveForward);
+        break;
+
+      case ' ':
+        EngineBus.emit(PlayerShot);
         break;
 
       default:
@@ -40,22 +50,25 @@ export default class KeyboardManager {
     }
   }
 
-  private keyUpHandler(event: KeyboardEvent) {
+  private static keyUpHandler(event: KeyboardEvent) {
     switch (event.code) {
       case 'ArrowRight':
-        this.rightPressed = false;
+        EngineBus.emit(PlayerStopRight);
         break;
 
       case 'ArrowLeft':
-        this.leftPressed = false;
+        EngineBus.emit(PlayerStopLeft);
         break;
 
       case 'ArrowDown':
-        this.downPressed = false;
+        EngineBus.emit(PlayerStopBackward);
         break;
 
       case 'ArrowUp':
-        this.upPressed = false;
+        EngineBus.emit(PlayerStopForward);
+        break;
+
+      case ' ':
         break;
 
       default:
