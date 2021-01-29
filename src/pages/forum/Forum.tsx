@@ -5,7 +5,7 @@ import Threads from '@components/threads';
 import { ApplicationState } from '@root/store/types';
 import MainTitle from '@components/mainTitle';
 import NewThread from '@components/newThread';
-import { addThread } from '@root/store/reducers/forum';
+import { addThread } from '@store/actionsCreators/forum';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Forum() {

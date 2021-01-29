@@ -1,4 +1,4 @@
-import Sprite from './sprite';
+import Sprite from './Sprite';
 
 export default class CollisionManager {
   public static checkPlaygroundCollision(sprite: Sprite, newX: number, newY: number, context: CanvasRenderingContext2D) {

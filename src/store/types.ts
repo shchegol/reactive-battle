@@ -35,12 +35,12 @@ export interface ProfileState {
   user: UserState;
 }
 
-export interface ApplicationState {
-  profile: ProfileState;
-  forum: ForumState;
-  auth: AuthState;
-}
-
 export interface ForumState {
   threads: Thread[];
+}
+
+export interface ApplicationState {
+  auth: AuthState;
+  profile: ProfileState;
+  forum: ForumState;
 }

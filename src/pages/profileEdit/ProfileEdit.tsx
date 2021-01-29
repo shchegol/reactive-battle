@@ -6,7 +6,7 @@ import ProfileForm from '@components/profileForm';
 import Button from '@components/button';
 import Avatar from '@components/avatar';
 import { API_URL } from '@root/constants';
-import { setAvatar } from '@root/store/reducers/profile';
+import { setAvatar } from '@store/actionsCreators/profile';
 import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationState } from '@root/store/types';
 
@@ -80,7 +80,7 @@ export default function ProfileEdit() {
       .then((res) => res.json())
       .then((data) => {
         if (data.avatar) {
-          setAvatar(new URL(data.avatar, API_URL).href);
+          dispatch(setAvatar(new URL(data.avatar, API_URL).href));
         }
 
         setUserData(data);

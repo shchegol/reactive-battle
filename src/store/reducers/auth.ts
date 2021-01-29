@@ -1,4 +1,4 @@
-import AuthActions from '@store/actions/auth';
+import { AuthActions } from '@store/actions/auth';
 import { UserResponse } from '@root/types/models';
 
 const login = localStorage.getItem('userLogin');
