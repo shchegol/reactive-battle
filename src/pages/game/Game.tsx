@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ApplicationState } from '@store/types';
-import GameInterface from '@pages/game/GameInterface';
+import GameInterface from '@pages/game/gameInterface/GameInterface';
 
 export default function Game() {
   const login = useSelector((state: ApplicationState) => state.auth.user.login);
@@ -41,7 +41,9 @@ export default function Game() {
         </div>
       </div>
 
-      <GameInterface />
+      <GameInterface
+        player={{ name: login }}
+      />
     </div>
   );
 }

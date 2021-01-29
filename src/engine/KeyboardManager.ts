@@ -18,6 +18,8 @@ export default class KeyboardManager {
   }
 
   private keyDownHandler(event: KeyboardEvent) {
+    event.preventDefault();
+
     switch (event.key) {
       case 'ArrowRight':
         this.rightPressed = true;
@@ -41,6 +43,8 @@ export default class KeyboardManager {
   }
 
   private keyUpHandler(event: KeyboardEvent) {
+    event.preventDefault();
+
     switch (event.code) {
       case 'ArrowRight':
         this.rightPressed = false;

@@ -53,12 +53,12 @@ export default class PlayerManager {
 
     if (!CollisionManager.checkPlaygroundCollision(this.player, newX, newY, context)) {
       const collideWith = CollisionManager.checkSpritesCollision(this.player, newX, newY, allSprites);
-      if (collideWith.length > 0) {
-        if (collideWith.some((sprite) => sprite instanceof Wall || sprite instanceof Water)) {
-          console.log('stop');
-        } else {
-          this.player.move(newX, newY, direction);
-        }
+
+      if (
+        collideWith.length > 0
+        && (collideWith.some((sprite) => sprite instanceof Wall || sprite instanceof Water))
+      ) {
+        console.log('stop');
       } else {
         this.player.move(newX, newY, direction);
       }

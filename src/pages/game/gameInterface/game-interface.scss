@@ -29,12 +29,16 @@
 
 .player-info {
   width: 100%;
-  margin-bottom: 1rem;
 }
 
 .enemy-icons {
   display: flex;
   flex-wrap: wrap;
+  max-width: 5rem;
+
+  @include media-breakpoint-down('md') {
+    max-width: 100%;
+  }
 
   &__icon {
     flex: 0 0 auto;
