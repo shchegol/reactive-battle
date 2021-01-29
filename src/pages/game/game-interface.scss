@@ -1,0 +1,47 @@
+@import "@styles/utilities/variables";
+@import "@styles/utilities/mixins/breakpoints";
+
+.game-interface {
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+  background-color: map_get($colors, gray800);
+  color: #000;
+
+  @include media-breakpoint-down('md') {
+    flex-wrap: wrap;
+    width: min-content;
+  }
+
+  &__playground {
+    padding: 1rem;
+  }
+
+  &__info {
+    padding: 1rem;
+    max-width: 15rem;
+
+    @include media-breakpoint-down('md') {
+      max-width: 100%;
+    }
+  }
+}
+
+.player-info {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.enemy-icons {
+  display: flex;
+  flex-wrap: wrap;
+
+  &__icon {
+    flex: 0 0 auto;
+    width: 1rem;
+    height: 1rem;
+    margin: 4px 4px 0 0;
+    background-color: map_get($colors, secondary);
+    //background: url("../../images/sprite-base.png") 10px 10px no-repeat;
+  }
+}

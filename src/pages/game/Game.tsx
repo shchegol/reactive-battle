@@ -1,16 +1,11 @@
-import Playground from '@root/components/playground';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ApplicationState } from '@store/types';
+import GameInterface from '@pages/game/GameInterface';
 
 export default function Game() {
   const login = useSelector((state: ApplicationState) => state.auth.user.login);
-
-  useEffect(() => {
-    document.body.classList.add('bg-color-game');
-    return () => document.body.classList.remove('bg-color-game');
-  }, []);
 
   return (
     <div className="container">
@@ -46,11 +41,7 @@ export default function Game() {
         </div>
       </div>
 
-      <div className="row justify-content-center mt-60">
-        <div className="col-auto">
-          <Playground />
-        </div>
-      </div>
+      <GameInterface />
     </div>
   );
 }

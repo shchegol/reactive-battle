@@ -3,7 +3,7 @@ import CollisionManager from './CollisionManager';
 import Direction from './Direction';
 import { keyboardManager } from './KeyboardManager';
 import Player from './Player';
-import Sprite from './sprite';
+import Sprite from './Sprite';
 import Wall from './world/Wall';
 import Water from './world/Water';
 
