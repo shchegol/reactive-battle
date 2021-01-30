@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import toClassNames from '@root/utils/toClassNames';
-
 import './button.scss';
 import { Props } from './types';
 
@@ -9,6 +8,7 @@ import { Props } from './types';
  * @param {*} [children=undefined] - content inside the button
  * @param {'danger'|'success'|'cancel'|'link'|undefined} [color=undefined] - button color
  * @param {'full'} [width=undefined] - button width
+ * @param {boolean} [icon=false] - button with icon
  * @param {*} rest - rest params
  * @constructor
  */
@@ -17,6 +17,7 @@ const Button: FC<Props> = ({
   children = undefined,
   color = undefined,
   width = undefined,
+  icon = false,
   ...rest
 }) => (
   <button
@@ -30,9 +31,11 @@ const Button: FC<Props> = ({
         button_color_link: color === 'link',
         button_color_cancel: color === 'cancel',
         button_width_full: width === 'full',
+        button_icon: icon,
       },
       rest.className,
     )}
+    title={rest.title}
     disabled={rest.disabled}
     onClick={rest.onClick}
   >
