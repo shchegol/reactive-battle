@@ -10,7 +10,6 @@ const Playground: FC = () => {
 
   useEffect(() => {
     spritesManager.Init();
-    keyboardManager.Init();
   }, []);
 
   useEffect(() => {
@@ -26,8 +25,10 @@ const Playground: FC = () => {
     };
 
     render();
+    keyboardManager.init();
 
     return () => {
+      keyboardManager.destroy();
       cancelAnimationFrame(requestId);
     };
   });

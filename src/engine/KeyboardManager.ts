@@ -12,9 +12,14 @@ export default class KeyboardManager {
     this.keyUpHandler = this.keyUpHandler.bind(this);
   }
 
-  public Init() {
+  public init() {
     document.addEventListener('keydown', this.keyDownHandler, false);
     document.addEventListener('keyup', this.keyUpHandler, false);
+  }
+
+  public destroy() {
+    document.removeEventListener('keydown', this.keyDownHandler, false);
+    document.removeEventListener('keyup', this.keyUpHandler, false);
   }
 
   private keyDownHandler(event: KeyboardEvent) {

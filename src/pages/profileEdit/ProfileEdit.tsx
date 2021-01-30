@@ -75,6 +75,7 @@ export default function ProfileEdit() {
   };
 
   useEffect(() => {
+    // todo тут и выше организовать работу с хранилищем
     AuthAPI
       .fetchUser()
       .then((res) => res.json())

@@ -6,7 +6,7 @@ import { history } from '@root/utils/history';
 type DispatchWithFetch<T> = (arg0: T | ReturnType<typeof fetch>) => void;
 
 export const fetch = () => {
-  const request = () => ({ type: AuthActions.SIGNUP_REQUEST });
+  const request = () => ({ type: AuthActions.FETCH_REQUEST });
   const success = (user: UserResponse) => ({ type: AuthActions.FETCH_SUCCESS, user });
   const failure = (error: string) => ({ type: AuthActions.FETCH_FAILURE, error });
 

@@ -33,6 +33,7 @@ export default function Profile() {
   const handleLogout = () => dispatch(logout());
 
   useEffect(() => {
+    // todo переделать, надо брать из хранилища
     AuthAPI
       .fetchUser()
       .then((res) => res.json())
