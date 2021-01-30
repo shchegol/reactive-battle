@@ -17,10 +17,6 @@ const Playground: FC = () => {
     const ctx = canvas?.current?.getContext('2d');
     let requestId = 0;
 
-    canvas?.current?.addEventListener('hello', () => {
-      console.log('1');
-    });
-
     const render = () => {
       if (ctx && canvas.current) {
         scene.render(ctx);
