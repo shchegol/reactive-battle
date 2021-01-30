@@ -1,15 +1,16 @@
-import AuthActions from '@store/actions/auth';
+import { AuthActions, AuthActionTypes } from '@store/actions/auth';
 import AuthAPI from '@api/AuthAPI';
 import { SignUpRequest, UserRequest, UserResponse } from '@root/types/models';
 import { history } from '@root/utils/history';
 
-export const fetch = () => {
-  function request() { return { type: AuthActions.FETCH_REQUEST }; }
-  function success(user: UserResponse) { return { type: AuthActions.FETCH_SUCCESS, user }; }
-  function failure(error: string) { return { type: AuthActions.FETCH_FAILURE, error }; }
+type DispatchWithFetch<T> = (arg0: T | ReturnType<typeof fetch>) => void;
 
-  // todo убрать any
-  return (dispatch: any) => {
+export const fetch = () => {
+  const request = () => ({ type: AuthActions.SIGNUP_REQUEST });
+  const success = (user: UserResponse) => ({ type: AuthActions.FETCH_SUCCESS, user });
+  const failure = (error: string) => ({ type: AuthActions.FETCH_FAILURE, error });
+
+  return (dispatch: DispatchWithFetch<AuthActionTypes>) => {
     dispatch(request());
 
     AuthAPI.fetchUser()
@@ -20,12 +21,11 @@ export const fetch = () => {
 };
 
 export const signup = (data: SignUpRequest) => {
-  function request() { return { type: AuthActions.SIGNUP_REQUEST }; }
-  function success() { return { type: AuthActions.SIGNUP_SUCCESS }; }
-  function failure(error: string) { return { type: AuthActions.SIGNUP_FAILURE, error }; }
+  const request = () => ({ type: AuthActions.SIGNUP_REQUEST });
+  const success = () => ({ type: AuthActions.SIGNUP_SUCCESS });
+  const failure = (error: string) => ({ type: AuthActions.SIGNUP_FAILURE, error });
 
-  // todo убрать any
-  return (dispatch: any) => {
+  return (dispatch: DispatchWithFetch<AuthActionTypes>) => {
     dispatch(request());
 
     AuthAPI
@@ -40,23 +40,20 @@ export const signup = (data: SignUpRequest) => {
 };
 
 export const signin = (data: UserRequest) => {
-  function request() { return { type: AuthActions.SIGNIN_REQUEST }; }
-  function success() { return { type: AuthActions.SIGNIN_SUCCESS }; }
-  function failure(error: string) { return { type: AuthActions.SIGNIN_FAILURE, error }; }
+  const request = () => ({ type: AuthActions.SIGNIN_REQUEST });
+  const success = () => ({ type: AuthActions.SIGNIN_SUCCESS });
+  const failure = (error: string) => ({ type: AuthActions.SIGNIN_FAILURE, error });
 
-  // todo убрать any
-  return (dispatch: any) => {
+  return (dispatch: DispatchWithFetch<AuthActionTypes>) => {
     dispatch(request());
 
     AuthAPI
       .signin(data)
-      .then(
-        () => {
-          localStorage.setItem('userLogin', data.login || '');
-          dispatch(success());
-          dispatch(fetch());
-        },
-      )
+      .then(() => {
+        localStorage.setItem('userLogin', data.login || '');
+        dispatch(success());
+        dispatch(fetch());
+      })
       .catch((error) => dispatch(failure(error.toString())));
   };
 };
