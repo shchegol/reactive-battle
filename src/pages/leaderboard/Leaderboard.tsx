@@ -1,6 +1,6 @@
 import React from 'react';
 import MainTitle from '@root/components/mainTitle';
-import LeadersTable from '@root/components/leadersTable';
+import PlayersTable from '@root/pages/leaderboard/playersTable';
 import Button from '@components/button';
 import { useHistory } from 'react-router-dom';
 
@@ -36,7 +36,7 @@ export default function Leaderboard() {
 
           <div className="row mt-60">
             <div className="col">
-              <LeadersTable
+              <PlayersTable
                 players={players}
               />
             </div>

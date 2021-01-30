@@ -1,0 +1,46 @@
+import { keyboardManager } from '@engine/KeyboardManager';
+import Scene from '@engine/Scene';
+import { spritesManager } from '@engine/SpritesManager';
+import React, { FC, useEffect, useRef } from 'react';
+
+const scene = new Scene();
+
+const Playground: FC = () => {
+  const canvas = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    spritesManager.Init();
+  }, []);
+
+  useEffect(() => {
+    const ctx = canvas?.current?.getContext('2d');
+    let requestId = 0;
+
+    const render = () => {
+      if (ctx && canvas.current) {
+        scene.render(ctx);
+      }
+
+      requestId = requestAnimationFrame(render);
+    };
+
+    render();
+    keyboardManager.init();
+
+    return () => {
+      keyboardManager.destroy();
+      cancelAnimationFrame(requestId);
+    };
+  });
+
+  return (
+    <canvas
+      ref={canvas}
+      width={416}
+      height={416}
+      tabIndex={0}
+    />
+  );
+};
+
+export default Playground;
