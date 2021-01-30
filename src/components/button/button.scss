@@ -6,9 +6,7 @@
     padding: .4rem .8rem;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
-    font-weight: 900;
-    line-height: 100%;
+    font: 900 1rem $font-primary;
     color: map_get($colors, primary);
     background-color: map_get($colors, secondary);
     border: 4px solid map_get($colors, primary);
