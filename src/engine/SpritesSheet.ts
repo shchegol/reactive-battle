@@ -5,7 +5,7 @@ export default class SpritesSheet {
 
   private isLoading: boolean;
 
-  public Init() {
+  public init() {
     this.isLoading = true;
 
     // TODO не забыть убрать

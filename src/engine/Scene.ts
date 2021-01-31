@@ -19,13 +19,13 @@ export default class Scene {
     this.player = new Player(130, 382);
     this.playerManager = new PlayerManager(this.player);
 
-    this.playerManager.subscribe();
+    this.playerManager.init();
   }
 
   public render(context: CanvasRenderingContext2D) {
-    this.playerManager.Execute(spritesManager.Sprites, context);
+    this.playerManager.update(spritesManager.Sprites, context);
 
-    AIManager.Execute();
+    AIManager.update();
 
     context.fillStyle = 'black';
     context.fillRect(0, 0, context.canvas.width, context.canvas.height);

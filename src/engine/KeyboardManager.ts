@@ -3,17 +3,7 @@ import {
 } from '@engine/EngineBus';
 
 export default class KeyboardManager {
-  public rightPressed = false;
-
-  public leftPressed = false;
-
-  public upPressed = false;
-
-  public downPressed = false;
-
-  public spacePressed = false;
-
-  public static Init() {
+  public static init() {
     document.addEventListener('keyup', this.keyUpHandler, false);
     document.addEventListener('keydown', this.keyDownHandler, false);
   }
@@ -75,5 +65,3 @@ export default class KeyboardManager {
     }
   }
 }
-
-export const keyboardManager = new KeyboardManager();

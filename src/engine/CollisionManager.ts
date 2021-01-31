@@ -6,7 +6,7 @@ import Sprite from '@engine/sprites/Sprite';
 import { spritesManager } from '@engine/SpritesManager';
 
 export default class CollisionManager {
-  public static subscribe() {
+  public static init() {
     EngineBus.on(SPRITE_MOVED, (sprite: Sprite) => CollisionManager.onSpriteMoved(sprite));
   }
 

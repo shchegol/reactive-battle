@@ -23,7 +23,7 @@ export default class PlayerManager {
     this.player = player;
   }
 
-  public subscribe() {
+  public init() {
     EngineBus.on(PLAYER_MOVE_LEFT, () => this.moveLeft());
     EngineBus.on(PLAYER_MOVE_RIGHT, () => this.moveRight());
     EngineBus.on(PLAYER_MOVE_FORWARD, () => this.moveForward());
@@ -37,7 +37,7 @@ export default class PlayerManager {
     EngineBus.on(PLAYER_SHOT, () => this.shot());
   }
 
-  public Execute(allSprites: Sprite[], context: CanvasRenderingContext2D) {
+  public update(allSprites: Sprite[], context: CanvasRenderingContext2D) {
     if (this.inMoveLeft || this.inMoveRight || this.inMoveForward || this.inMoveBackward) {
       this.move(this.direction, allSprites, context);
     }

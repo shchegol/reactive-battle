@@ -4,7 +4,7 @@ import Sprite from '@engine/sprites/Sprite';
 export default class SpritesManager {
   private sprites: Array<Sprite> = [];
 
-  public Init() {
+  public init() {
     EngineBus.on(SPRITE_CREATED, (sprite: Sprite) => this.onSpriteCreated(sprite));
     EngineBus.on(SPRITE_DESTROYED, (sprite: Sprite) => this.onSpriteDestroyed(sprite));
   }

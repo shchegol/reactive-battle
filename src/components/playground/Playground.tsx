@@ -11,10 +11,10 @@ const Playground: FC = () => {
   const canvas = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    spritesSheet.Init();
-    spritesManager.Init();
-    KeyboardManager.Init();
-    CollisionManager.subscribe();
+    spritesSheet.init();
+    spritesManager.init();
+    KeyboardManager.init();
+    CollisionManager.init();
     scene.init();
   }, []);
 
