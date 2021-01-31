@@ -1,5 +1,5 @@
-import { EngineBus, SPRITE_CREATED, SPRITE_DESTROYED } from './EngineBus';
-import Sprite from './Sprite';
+import { EngineBus, SPRITE_CREATED, SPRITE_DESTROYED } from '@engine/EngineBus';
+import Sprite from '@engine/sprites/Sprite';
 
 export default class SpritesManager {
   private sprites: Array<Sprite> = [];

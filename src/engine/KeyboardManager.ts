@@ -1,6 +1,6 @@
 import {
   EngineBus, PLAYER_MOVE_BACKWARD, PLAYER_MOVE_FORWARD, PLAYER_MOVE_LEFT, PLAYER_MOVE_RIGHT, PLAYER_SHOT, PLAYER_STOP_BACKWARD, PLAYER_STOP_FORWARD, PLAYER_STOP_LEFT, PLAYER_STOP_RIGHT,
-} from './EngineBus';
+} from '@engine/EngineBus';
 
 export default class KeyboardManager {
   public rightPressed = false;

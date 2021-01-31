@@ -1,9 +1,9 @@
 import {
   EngineBus, SPRITE_COLLIDED, SPRITE_MOVED, SPRITE_OUT_OF_BOUNDS,
-} from './EngineBus';
-import { CANVAS_HEIGHT, CANVAS_WIDTH } from './Scene';
-import Sprite from './Sprite';
-import { spritesManager } from './SpritesManager';
+} from '@engine/EngineBus';
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from '@engine/Scene';
+import Sprite from '@engine/sprites/Sprite';
+import { spritesManager } from '@engine/SpritesManager';
 
 export default class CollisionManager {
   public static subscribe() {

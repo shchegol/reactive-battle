@@ -1,8 +1,8 @@
-import AIManager from './AIManager';
-import Player from './Player';
-import PlayerManager from './PlayerManager';
-import { spritesManager } from './SpritesManager';
-import Stage from './Stage';
+import AIManager from '@engine/AIManager';
+import Player from '@engine/sprites/Player';
+import PlayerManager from '@engine/PlayerManager';
+import { spritesManager } from '@engine/SpritesManager';
+import Stage from '@engine/Stage';
 
 export const CANVAS_WIDTH = 416;
 export const CANVAS_HEIGHT = 416;

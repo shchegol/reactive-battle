@@ -1,8 +1,8 @@
-import Direction from './Direction';
+import Direction from '@engine/Direction';
 import {
   EngineBus, SPRITE_DESTROYED, SPRITE_MOVED, SPRITE_OUT_OF_BOUNDS,
-} from './EngineBus';
-import Sprite from './Sprite';
+} from '@engine/EngineBus';
+import Sprite from '@engine/sprites/Sprite';
 
 export default class Bullet extends Sprite {
   protected direction: Direction;

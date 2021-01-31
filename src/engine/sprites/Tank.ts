@@ -1,10 +1,10 @@
-import Bullet from './Bullet';
-import Direction from './Direction';
+import Bullet from '@engine/sprites/Bullet';
+import Direction from '@engine/Direction';
 import {
   EngineBus, SPRITE_COLLIDED, SPRITE_CREATED, SPRITE_DESTROYED, SPRITE_MOVED, SPRITE_OUT_OF_BOUNDS,
-} from './EngineBus';
-import Sprite from './Sprite';
-import Wall from './world/Wall';
+} from '@engine/EngineBus';
+import Sprite from '@engine/sprites/Sprite';
+import Wall from '@engine/sprites/world/Wall';
 
 export default class Tank extends Sprite {
   protected direction: Direction = Direction.Forward;

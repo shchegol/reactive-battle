@@ -1,11 +1,11 @@
-import { EngineBus, SPRITE_CREATED } from './EngineBus';
-import { Level } from './Levels';
-import BrickWall from './world/BrickWall';
-import ConcreteWall from './world/ConcreteWall';
-import Eagle from './world/Eagle';
-import Ice from './world/Ice';
-import Tree from './world/Tree';
-import Water from './world/Water';
+import { EngineBus, SPRITE_CREATED } from '@engine/EngineBus';
+import { Level } from '@engine/Levels';
+import BrickWall from '@engine/sprites/world/BrickWall';
+import ConcreteWall from '@engine/sprites/world/ConcreteWall';
+import Eagle from '@engine/sprites/world/Eagle';
+import Ice from '@engine/sprites/world/Ice';
+import Tree from '@engine/sprites/world/Tree';
+import Water from '@engine/sprites/world/Water';
 
 export default function CreateLevelSprites(level: Level) {
   let x = 0;

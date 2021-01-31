@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import Direction from './Direction';
+import Direction from '@engine/Direction';
 import {
   EngineBus, PLAYER_MOVE_BACKWARD, PLAYER_MOVE_FORWARD, PLAYER_MOVE_LEFT, PLAYER_MOVE_RIGHT, PLAYER_SHOT, PLAYER_STOP_BACKWARD, PLAYER_STOP_FORWARD, PLAYER_STOP_LEFT, PLAYER_STOP_RIGHT, SPRITE_MOVED,
-} from './EngineBus';
-import Player from './Player';
-import Sprite from './Sprite';
+} from '@engine/EngineBus';
+import Player from '@engine/sprites/Player';
+import Sprite from '@engine/sprites/Sprite';
 
 export default class PlayerManager {
   private player: Player;

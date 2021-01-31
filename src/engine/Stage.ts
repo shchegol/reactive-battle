@@ -1,6 +1,6 @@
-import CreateLevelSprites from './LevelGenerator';
-import { Level1 } from './Levels';
-import { spritesManager } from './SpritesManager';
+import CreateLevelSprites from '@engine/LevelGenerator';
+import { Level1 } from '@engine/Levels';
+import { spritesManager } from '@engine/SpritesManager';
 
 export default class Stage {
   constructor() {

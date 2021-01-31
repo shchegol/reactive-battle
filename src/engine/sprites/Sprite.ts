@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 
-import { spritesSheet } from './SpritesSheet';
+import { spritesSheet } from '../SpritesSheet';
 
 export default class Sprite {
   protected x: number = 0;

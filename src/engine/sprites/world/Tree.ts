@@ -1,4 +1,4 @@
-import Sprite from '../Sprite';
+import Sprite from '@engine/sprites/Sprite';
 
 /* eslint-disable class-methods-use-this */
 export default class Tree extends Sprite {

@@ -1,6 +1,6 @@
-import Direction from './Direction';
-import SpritesSheet from './SpritesSheet';
-import Tank from './Tank';
+import Direction from '@engine/Direction';
+import SpritesSheet from '@engine/SpritesSheet';
+import Tank from '@engine/sprites/Tank';
 
 export default class Player extends Tank {
   public GetSprite() {
