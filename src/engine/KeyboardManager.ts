@@ -1,5 +1,5 @@
 import {
-  EngineBus, PlayerMoveBackward, PlayerMoveForward, PlayerMoveLeft, PlayerMoveRight, PlayerShot, PlayerStopBackward, PlayerStopForward, PlayerStopLeft, PlayerStopRight,
+  EngineBus, PLAYER_MOVE_BACKWARD, PLAYER_MOVE_FORWARD, PLAYER_MOVE_LEFT, PLAYER_MOVE_RIGHT, PLAYER_SHOT, PLAYER_STOP_BACKWARD, PLAYER_STOP_FORWARD, PLAYER_STOP_LEFT, PLAYER_STOP_RIGHT,
 } from './EngineBus';
 
 export default class KeyboardManager {
@@ -13,11 +13,6 @@ export default class KeyboardManager {
 
   public spacePressed = false;
 
-  // constructor() {
-  // keyDownHandler = this.keyDownHandler.bind(this);
-  // .keyUpHandler = this.keyUpHandler.bind(this);
-  // }
-
   public static Init() {
     document.addEventListener('keyup', this.keyUpHandler, false);
     document.addEventListener('keydown', this.keyDownHandler, false);
@@ -28,23 +23,23 @@ export default class KeyboardManager {
 
     switch (event.key) {
       case 'ArrowRight':
-        EngineBus.emit(PlayerMoveRight);
+        EngineBus.emit(PLAYER_MOVE_RIGHT);
         break;
 
       case 'ArrowLeft':
-        EngineBus.emit(PlayerMoveLeft);
+        EngineBus.emit(PLAYER_MOVE_LEFT);
         break;
 
       case 'ArrowDown':
-        EngineBus.emit(PlayerMoveBackward);
+        EngineBus.emit(PLAYER_MOVE_BACKWARD);
         break;
 
       case 'ArrowUp':
-        EngineBus.emit(PlayerMoveForward);
+        EngineBus.emit(PLAYER_MOVE_FORWARD);
         break;
 
       case ' ':
-        EngineBus.emit(PlayerShot);
+        EngineBus.emit(PLAYER_SHOT);
         break;
 
       default:
@@ -57,19 +52,19 @@ export default class KeyboardManager {
 
     switch (event.code) {
       case 'ArrowRight':
-        EngineBus.emit(PlayerStopRight);
+        EngineBus.emit(PLAYER_STOP_RIGHT);
         break;
 
       case 'ArrowLeft':
-        EngineBus.emit(PlayerStopLeft);
+        EngineBus.emit(PLAYER_STOP_LEFT);
         break;
 
       case 'ArrowDown':
-        EngineBus.emit(PlayerStopBackward);
+        EngineBus.emit(PLAYER_STOP_BACKWARD);
         break;
 
       case 'ArrowUp':
-        EngineBus.emit(PlayerStopForward);
+        EngineBus.emit(PLAYER_STOP_FORWARD);
         break;
 
       case ' ':

@@ -2,14 +2,18 @@ import EventBus from '@root/utils/EventBus';
 
 export const EngineBus = new EventBus();
 
-export const PlayerMoveLeft = 'PLAYER/MOVE_LEFT';
-export const PlayerMoveRight = 'PLAYER/MOVE_RIGHT';
-export const PlayerMoveForward = 'PLAYER/MOVE_FORWARD';
-export const PlayerMoveBackward = 'PLAYER/MOVE_BACKWARD';
-export const PlayerStopRight = 'PLAYER/STOP_RIGHT';
-export const PlayerStopLeft = 'PLAYER/STOP_LEFT';
-export const PlayerStopForward = 'PLAYER/STOP_FORWARD';
-export const PlayerStopBackward = 'PLAYER/STOP_BACKWARD';
-export const PlayerShot = 'PLAYER/SHOT';
+export const PLAYER_MOVE_LEFT = 'PLAYER/MOVE_LEFT';
+export const PLAYER_MOVE_RIGHT = 'PLAYER/MOVE_RIGHT';
+export const PLAYER_MOVE_FORWARD = 'PLAYER/MOVE_FORWARD';
+export const PLAYER_MOVE_BACKWARD = 'PLAYER/MOVE_BACKWARD';
+export const PLAYER_STOP_RIGHT = 'PLAYER/STOP_RIGHT';
+export const PLAYER_STOP_LEFT = 'PLAYER/STOP_LEFT';
+export const PLAYER_STOP_FORWARD = 'PLAYER/STOP_FORWARD';
+export const PLAYER_STOP_BACKWARD = 'PLAYER/STOP_BACKWARD';
+export const PLAYER_SHOT = 'PLAYER/SHOT';
 
-export const SpriteCreated = 'SPRITE/CREATED';
+export const SPRITE_CREATED = 'SPRITE/CREATED';
+export const SPRITE_MOVED = 'SPRITE/MOVED';
+export const SPRITE_DESTROYED = 'SPRITE/DESTROED';
+export const SPRITE_COLLIDED = 'SPRITE/COLLIDED';
+export const SPRITE_OUT_OF_BOUNDS = 'SPRITE/OUT_OF_BOUNDS';

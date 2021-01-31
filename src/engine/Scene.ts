@@ -1,7 +1,11 @@
 import AIManager from './AIManager';
 import Player from './Player';
 import PlayerManager from './PlayerManager';
+import { spritesManager } from './SpritesManager';
 import Stage from './Stage';
+
+export const CANVAS_WIDTH = 416;
+export const CANVAS_HEIGHT = 416;
 
 export default class Scene {
   private stage: Stage;
@@ -10,7 +14,7 @@ export default class Scene {
 
   private playerManager: PlayerManager;
 
-  constructor() {
+  public init() {
     this.stage = new Stage();
     this.player = new Player(130, 382);
     this.playerManager = new PlayerManager(this.player);
@@ -19,7 +23,7 @@ export default class Scene {
   }
 
   public render(context: CanvasRenderingContext2D) {
-    this.playerManager.Execute(this.stage.Sprites, context);
+    this.playerManager.Execute(spritesManager.Sprites, context);
 
     AIManager.Execute();
 

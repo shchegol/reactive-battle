@@ -1,41 +1,28 @@
-const sheet = require('@root/images/sprite-base.png').default;
+import { EngineBus, SPRITE_CREATED, SPRITE_DESTROYED } from './EngineBus';
+import Sprite from './Sprite';
 
 export default class SpritesManager {
-  private spritesSheet: HTMLImageElement;
-
-  private isLoading: boolean;
+  private sprites: Array<Sprite> = [];
 
   public Init() {
-    this.isLoading = true;
-
-    // TODO не забыть убрать
-    console.log(this.isLoading); // eslint-disable-line no-console
-
-    this.spritesSheet = new Image();
-    this.spritesSheet.src = sheet;
-    this.spritesSheet.onload = () => {
-      this.isLoading = false;
-    };
+    EngineBus.on(SPRITE_CREATED, (sprite: Sprite) => this.onSpriteCreated(sprite));
+    EngineBus.on(SPRITE_DESTROYED, (sprite: Sprite) => this.onSpriteDestroyed(sprite));
   }
 
-  public get Sheet() {
-    return this.spritesSheet;
+  public get Sprites() {
+    return this.sprites;
   }
 
-  public static get PlayerForward() {
-    return [0, 0];
+  private onSpriteCreated(sprite: Sprite) {
+    if (sprite) {
+      this.sprites.push(sprite);
+    }
   }
 
-  public static get PlayerLeft() {
-    return [32, 0];
-  }
-
-  public static get PlayerBackward() {
-    return [64, 0];
-  }
-
-  public static get PlayerRight() {
-    return [96, 0];
+  private onSpriteDestroyed(sprite: Sprite) {
+    if (sprite) {
+      this.sprites = this.sprites.filter((s) => s !== sprite);
+    }
   }
 }
 

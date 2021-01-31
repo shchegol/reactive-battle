@@ -1,29 +1,47 @@
-import Sprite from './sprite';
+import {
+  EngineBus, SPRITE_COLLIDED, SPRITE_MOVED, SPRITE_OUT_OF_BOUNDS,
+} from './EngineBus';
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from './Scene';
+import Sprite from './Sprite';
+import { spritesManager } from './SpritesManager';
 
 export default class CollisionManager {
-  public static checkPlaygroundCollision(sprite: Sprite, newX: number, newY: number, context: CanvasRenderingContext2D) {
+  public static subscribe() {
+    EngineBus.on(SPRITE_MOVED, (sprite: Sprite) => CollisionManager.onSpriteMoved(sprite));
+  }
+
+  private static onSpriteMoved(sprite: Sprite) {
+    if (CollisionManager.checkPlaygroundCollision(sprite, sprite.X, sprite.Y)) {
+      EngineBus.emit(SPRITE_OUT_OF_BOUNDS, sprite);
+    }
+
+    const collideWith = CollisionManager.checkSpritesCollision(sprite, sprite.X, sprite.Y, spritesManager.Sprites);
+    if (collideWith) {
+      EngineBus.emit(SPRITE_COLLIDED, sprite, collideWith);
+    }
+  }
+
+  public static checkPlaygroundCollision(sprite: Sprite, newX: number, newY: number) {
     const left = newX;
     const right = newX + sprite.Width;
     const top = newY;
     const bottom = newY + sprite.Height;
 
-    return left < 0 || right > context.canvas.width || top < 0 || bottom > context.canvas.height;
+    return left < 0 || right > CANVAS_WIDTH || top < 0 || bottom > CANVAS_HEIGHT;
   }
 
   public static checkSpritesCollision(sprite: Sprite, newX: number, newY: number, allSprites: Sprite[]) {
-    const collideWith: Array<Sprite> = [];
-
     for (let index = 0; index < allSprites.length; index += 1) {
       const otherSprite = allSprites[index];
 
       if (CollisionManager.isCandidateForCollision(sprite, otherSprite)) {
         if (CollisionManager.didCollide(sprite, newX, newY, otherSprite)) {
-          collideWith.push(otherSprite);
+          return otherSprite;
         }
       }
     }
 
-    return collideWith;
+    return null;
   }
 
   private static isCandidateForCollision(sprite1: Sprite, sprite2: Sprite) {

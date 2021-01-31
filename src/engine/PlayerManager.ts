@@ -1,14 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable max-len */
-import CollisionManager from './CollisionManager';
 import Direction from './Direction';
 import {
-  EngineBus, PlayerMoveBackward, PlayerMoveForward, PlayerMoveLeft, PlayerMoveRight, PlayerShot, PlayerStopBackward, PlayerStopForward, PlayerStopLeft, PlayerStopRight,
+  EngineBus, PLAYER_MOVE_BACKWARD, PLAYER_MOVE_FORWARD, PLAYER_MOVE_LEFT, PLAYER_MOVE_RIGHT, PLAYER_SHOT, PLAYER_STOP_BACKWARD, PLAYER_STOP_FORWARD, PLAYER_STOP_LEFT, PLAYER_STOP_RIGHT, SPRITE_MOVED,
 } from './EngineBus';
 import Player from './Player';
 import Sprite from './Sprite';
-import Wall from './world/Wall';
-import Water from './world/Water';
 
 export default class PlayerManager {
   private player: Player;
@@ -28,17 +24,17 @@ export default class PlayerManager {
   }
 
   public subscribe() {
-    EngineBus.on(PlayerMoveLeft, () => this.moveLeft());
-    EngineBus.on(PlayerMoveRight, () => this.moveRight());
-    EngineBus.on(PlayerMoveForward, () => this.moveForward());
-    EngineBus.on(PlayerMoveBackward, () => this.moveBackward());
+    EngineBus.on(PLAYER_MOVE_LEFT, () => this.moveLeft());
+    EngineBus.on(PLAYER_MOVE_RIGHT, () => this.moveRight());
+    EngineBus.on(PLAYER_MOVE_FORWARD, () => this.moveForward());
+    EngineBus.on(PLAYER_MOVE_BACKWARD, () => this.moveBackward());
 
-    EngineBus.on(PlayerStopLeft, () => this.stopLeft());
-    EngineBus.on(PlayerStopRight, () => this.stopRight());
-    EngineBus.on(PlayerStopForward, () => this.stopForward());
-    EngineBus.on(PlayerStopBackward, () => this.stopBackward());
+    EngineBus.on(PLAYER_STOP_LEFT, () => this.stopLeft());
+    EngineBus.on(PLAYER_STOP_RIGHT, () => this.stopRight());
+    EngineBus.on(PLAYER_STOP_FORWARD, () => this.stopForward());
+    EngineBus.on(PLAYER_STOP_BACKWARD, () => this.stopBackward());
 
-    EngineBus.on(PlayerShot, () => this.shot());
+    EngineBus.on(PLAYER_SHOT, () => this.shot());
   }
 
   public Execute(allSprites: Sprite[], context: CanvasRenderingContext2D) {
@@ -83,7 +79,7 @@ export default class PlayerManager {
     this.inMoveBackward = false;
   }
 
-  private move(direction: Direction, allSprites: Sprite[], context: CanvasRenderingContext2D) {
+  private move(direction: Direction, _allSprites: Sprite[], _context: CanvasRenderingContext2D) {
     const speed = 2;
 
     let newX = this.player.X;
@@ -106,18 +102,9 @@ export default class PlayerManager {
         break;
     }
 
-    if (!CollisionManager.checkPlaygroundCollision(this.player, newX, newY, context)) {
-      const collideWith = CollisionManager.checkSpritesCollision(this.player, newX, newY, allSprites);
+    this.player.move(newX, newY, direction);
 
-      if (
-        collideWith.length > 0
-        && (collideWith.some((sprite) => sprite instanceof Wall || sprite instanceof Water))
-      ) {
-        console.log('stop');
-      } else {
-        this.player.move(newX, newY, direction);
-      }
-    }
+    EngineBus.emit(SPRITE_MOVED, this.player, newX, newY);
   }
 
   private shot() {

@@ -1,5 +1,6 @@
 /* eslint-disable class-methods-use-this */
-import { spritesManager } from './SpritesManager';
+
+import { spritesSheet } from './SpritesSheet';
 
 export default class Sprite {
   protected x: number = 0;
@@ -38,7 +39,7 @@ export default class Sprite {
   public render(ctx: CanvasRenderingContext2D) {
     const sprite = this.GetSprite();
 
-    ctx.drawImage(spritesManager.Sheet,
+    ctx.drawImage(spritesSheet.Sheet,
       sprite[0], sprite[1], this.width, this.height,
       this.x, this.y, this.Width, this.Height);
 

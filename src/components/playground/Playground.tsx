@@ -1,5 +1,7 @@
+import CollisionManager from '@engine/CollisionManager';
+import { spritesSheet } from '@engine/SpritesSheet';
 import KeyboardManager from '@root/engine/KeyboardManager';
-import Scene from '@root/engine/Scene';
+import Scene, { CANVAS_HEIGHT, CANVAS_WIDTH } from '@root/engine/Scene';
 import { spritesManager } from '@root/engine/SpritesManager';
 import React, { FC, useEffect, useRef } from 'react';
 
@@ -9,8 +11,11 @@ const Playground: FC = () => {
   const canvas = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    spritesSheet.Init();
     spritesManager.Init();
     KeyboardManager.Init();
+    CollisionManager.subscribe();
+    scene.init();
   }, []);
 
   useEffect(() => {
@@ -39,8 +44,8 @@ const Playground: FC = () => {
   return (
     <canvas
       ref={canvas}
-      width={416}
-      height={416}
+      width={CANVAS_WIDTH}
+      height={CANVAS_HEIGHT}
       tabIndex={0}
     />
   );
