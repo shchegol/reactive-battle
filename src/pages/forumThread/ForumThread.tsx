@@ -8,7 +8,7 @@ import { ApplicationState, Thread } from '@root/store/types';
 import Messages from '@components/messages';
 import ReplyThread from '@root/components/replyThread';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMessage } from '@root/store/reducers/forum';
+import { addMessage } from '@store/actionsCreators/forum';
 import { ParamTypes } from './types';
 
 export default function ForumThread() {

@@ -8,6 +8,11 @@ export default class KeyboardManager {
     document.addEventListener('keydown', this.keyDownHandler, false);
   }
 
+  public static destroy() {
+    document.removeEventListener('keydown', this.keyDownHandler, false);
+    document.removeEventListener('keyup', this.keyUpHandler, false);
+  }
+
   private static keyDownHandler(event: KeyboardEvent) {
     event.preventDefault();
 

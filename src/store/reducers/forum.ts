@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+import { ForumActions, ForumActionTypes } from '@store/actions/forum';
 import { ForumState, Message, Thread } from '../types';
 
 const defaultState: ForumState = {
@@ -28,26 +28,9 @@ const defaultState: ForumState = {
     { id: 3, name: 'Правильное питание' } as Thread],
 };
 
-const ADD_THREAD = 'FORUM/ADD_THREAD';
-const ADD_MESSAGE = 'FORUM/ADD_MESSAGE';
-
-interface AddThreadActionType {
-  type: typeof ADD_THREAD;
-  name: string;
-}
-
-interface AddMessageActionType {
-  type: typeof ADD_MESSAGE;
-  threadId: number;
-  author: string;
-  text: string;
-}
-
-type ForumActionTypes = AddThreadActionType | AddMessageActionType;
-
 export function forumReducer(state: ForumState = defaultState, action: ForumActionTypes): ForumState {
   switch (action.type) {
-    case ADD_THREAD:
+    case ForumActions.ADD_THREAD:
       return {
         ...state,
         threads: [...state.threads, {
@@ -57,7 +40,7 @@ export function forumReducer(state: ForumState = defaultState, action: ForumActi
           messages: [],
         }],
       };
-    case ADD_MESSAGE:
+    case ForumActions.ADD_MESSAGE:
       return {
         threads: state.threads.map((thread) => {
           if (thread.id === action.threadId) {
@@ -83,17 +66,4 @@ export function forumReducer(state: ForumState = defaultState, action: ForumActi
     default:
       return state;
   }
-}
-
-export function addThread(name: string): AddThreadActionType {
-  return { type: ADD_THREAD, name };
-}
-
-export function addMessage(threadId: number, author: string, text: string): AddMessageActionType {
-  return {
-    type: ADD_MESSAGE,
-    threadId,
-    author,
-    text,
-  };
 }

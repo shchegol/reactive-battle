@@ -1,6 +1,5 @@
-/* eslint-disable max-len */
-
 import { deepCopy } from '@root/utils/deepCopy';
+import { ProfileActions, ProfileActionTypes } from '@store/actions/profile';
 import { ProfileState } from '../types';
 
 const defaultState: ProfileState = {
@@ -10,18 +9,9 @@ const defaultState: ProfileState = {
   },
 };
 
-const SET_AVATAR = 'PROFILE/SET_AVATAR';
-
-interface SetAvatarActionType {
-  type: typeof SET_AVATAR;
-  avatar: string | undefined;
-}
-
-type ProfileActionTypes = SetAvatarActionType;
-
 export function profileReducer(state: ProfileState = defaultState, action: ProfileActionTypes): ProfileState {
   switch (action.type) {
-    case SET_AVATAR:
+    case ProfileActions.SET_AVATAR:
       return {
         ...state,
         user: { ...deepCopy(state.user), avatar: action.avatar },
@@ -29,8 +19,4 @@ export function profileReducer(state: ProfileState = defaultState, action: Profi
     default:
       return state;
   }
-}
-
-export function setAvatar(avatar: string | undefined): SetAvatarActionType {
-  return { type: SET_AVATAR, avatar };
 }
