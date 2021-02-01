@@ -1,45 +1,40 @@
+import {
+  EngineBus, PLAYER_MOVE_BACKWARD, PLAYER_MOVE_FORWARD, PLAYER_MOVE_LEFT, PLAYER_MOVE_RIGHT, PLAYER_SHOT, PLAYER_STOP_BACKWARD, PLAYER_STOP_FORWARD, PLAYER_STOP_LEFT, PLAYER_STOP_RIGHT,
+} from '@engine/EngineBus';
+
 export default class KeyboardManager {
-  public rightPressed = false;
-
-  public leftPressed = false;
-
-  public upPressed = false;
-
-  public downPressed = false;
-
-  constructor() {
-    this.keyDownHandler = this.keyDownHandler.bind(this);
-    this.keyUpHandler = this.keyUpHandler.bind(this);
-  }
-
-  public init() {
-    document.addEventListener('keydown', this.keyDownHandler, false);
+  public static init() {
     document.addEventListener('keyup', this.keyUpHandler, false);
+    document.addEventListener('keydown', this.keyDownHandler, false);
   }
 
-  public destroy() {
+  public static destroy() {
     document.removeEventListener('keydown', this.keyDownHandler, false);
     document.removeEventListener('keyup', this.keyUpHandler, false);
   }
 
-  private keyDownHandler(event: KeyboardEvent) {
+  private static keyDownHandler(event: KeyboardEvent) {
     event.preventDefault();
 
     switch (event.key) {
       case 'ArrowRight':
-        this.rightPressed = true;
+        EngineBus.emit(PLAYER_MOVE_RIGHT);
         break;
 
       case 'ArrowLeft':
-        this.leftPressed = true;
+        EngineBus.emit(PLAYER_MOVE_LEFT);
         break;
 
       case 'ArrowDown':
-        this.downPressed = true;
+        EngineBus.emit(PLAYER_MOVE_BACKWARD);
         break;
 
       case 'ArrowUp':
-        this.upPressed = true;
+        EngineBus.emit(PLAYER_MOVE_FORWARD);
+        break;
+
+      case ' ':
+        EngineBus.emit(PLAYER_SHOT);
         break;
 
       default:
@@ -47,24 +42,27 @@ export default class KeyboardManager {
     }
   }
 
-  private keyUpHandler(event: KeyboardEvent) {
+  private static keyUpHandler(event: KeyboardEvent) {
     event.preventDefault();
 
     switch (event.code) {
       case 'ArrowRight':
-        this.rightPressed = false;
+        EngineBus.emit(PLAYER_STOP_RIGHT);
         break;
 
       case 'ArrowLeft':
-        this.leftPressed = false;
+        EngineBus.emit(PLAYER_STOP_LEFT);
         break;
 
       case 'ArrowDown':
-        this.downPressed = false;
+        EngineBus.emit(PLAYER_STOP_BACKWARD);
         break;
 
       case 'ArrowUp':
-        this.upPressed = false;
+        EngineBus.emit(PLAYER_STOP_FORWARD);
+        break;
+
+      case ' ':
         break;
 
       default:
@@ -72,5 +70,3 @@ export default class KeyboardManager {
     }
   }
 }
-
-export const keyboardManager = new KeyboardManager();

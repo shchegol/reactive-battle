@@ -1,15 +1,13 @@
-import { Level } from './Levels';
-import Sprite from './sprite';
-import BrickWall from './world/BrickWall';
-import ConcreteWall from './world/ConcreteWall';
-import Eagle from './world/Eagle';
-import Ice from './world/Ice';
-import Tree from './world/Tree';
-import Water from './world/Water';
+import { EngineBus, SPRITE_CREATED } from '@engine/EngineBus';
+import { Level } from '@engine/Levels';
+import BrickWall from '@engine/sprites/world/BrickWall';
+import ConcreteWall from '@engine/sprites/world/ConcreteWall';
+import Eagle from '@engine/sprites/world/Eagle';
+import Ice from '@engine/sprites/world/Ice';
+import Tree from '@engine/sprites/world/Tree';
+import Water from '@engine/sprites/world/Water';
 
-export default function LevelGenerator(level: Level): Array<Sprite> {
-  const elements: Array<Sprite> = [];
-
+export default function CreateLevelSprites(level: Level) {
   let x = 0;
   let y = 0;
   for (let i = 0; i < level.length; i += 1) {
@@ -21,27 +19,27 @@ export default function LevelGenerator(level: Level): Array<Sprite> {
 
       switch (code) {
         case 'b':
-          elements.push(new BrickWall(x, y));
+          EngineBus.emit(SPRITE_CREATED, new BrickWall(x, y));
           break;
 
         case 'c':
-          elements.push(new ConcreteWall(x, y));
+          EngineBus.emit(SPRITE_CREATED, new ConcreteWall(x, y));
           break;
 
         case 't':
-          elements.push(new Tree(x, y));
+          EngineBus.emit(SPRITE_CREATED, new Tree(x, y));
           break;
 
         case 'i':
-          elements.push(new Ice(x, y));
+          EngineBus.emit(SPRITE_CREATED, new Ice(x, y));
           break;
 
         case 'w':
-          elements.push(new Water(x, y));
+          EngineBus.emit(SPRITE_CREATED, new Water(x, y));
           break;
 
         case 'e':
-          elements.push(new Eagle(x, y));
+          EngineBus.emit(SPRITE_CREATED, new Eagle(x, y));
           break;
 
         default:
@@ -54,6 +52,4 @@ export default function LevelGenerator(level: Level): Array<Sprite> {
     x = 0;
     y += 16;
   }
-
-  return elements;
 }

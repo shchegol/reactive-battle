@@ -1,16 +1,10 @@
-import LevelGenerator from './LevelGenerator';
-import { Level1 } from './Levels';
-import Sprite from './sprite';
+import CreateLevelSprites from '@engine/LevelGenerator';
+import { Level1 } from '@engine/Levels';
+import { spritesManager } from '@engine/SpritesManager';
 
 export default class Stage {
-  private sprites: Array<Sprite> = [];
-
   constructor() {
-    this.sprites.push(...LevelGenerator(Level1));
-  }
-
-  public get Sprites() {
-    return this.sprites;
+    CreateLevelSprites(Level1);
   }
 
   public render(ctx: CanvasRenderingContext2D) {
@@ -18,6 +12,6 @@ export default class Stage {
     ctx.fillRect(0, 0, 800, 800);
     ctx.stroke();
 
-    this.sprites.forEach((e) => e.render(ctx));
+    spritesManager.Sprites.forEach((e) => e.render(ctx));
   }
 }

@@ -1,29 +1,70 @@
-import Sprite from './Sprite';
+import {
+  EngineBus, SPRITE_COLLIDED, SPRITE_MOVED, SPRITE_OUT_OF_BOUNDS,
+} from '@engine/EngineBus';
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from '@engine/Scene';
+import Sprite from '@engine/sprites/Sprite';
+import { spritesManager } from '@engine/SpritesManager';
 
+/**
+ * Check for collisions with sprites or playground bounds
+ *
+ * @export
+ * @class CollisionManager
+ */
 export default class CollisionManager {
-  public static checkPlaygroundCollision(sprite: Sprite, newX: number, newY: number, context: CanvasRenderingContext2D) {
-    const left = newX;
-    const right = newX + sprite.Width;
-    const top = newY;
-    const bottom = newY + sprite.Height;
-
-    return left < 0 || right > context.canvas.width || top < 0 || bottom > context.canvas.height;
+  public static init() {
+    EngineBus.on(SPRITE_MOVED, (sprite: Sprite) => CollisionManager.onSpriteMoved(sprite));
   }
 
-  public static checkSpritesCollision(sprite: Sprite, newX: number, newY: number, allSprites: Sprite[]) {
-    const collideWith: Array<Sprite> = [];
+  private static onSpriteMoved(sprite: Sprite) {
+    if (CollisionManager.checkIsOutOfBounds(sprite)) {
+      EngineBus.emit(SPRITE_OUT_OF_BOUNDS, sprite);
+    }
 
+    const collideWith = CollisionManager.checkSpritesCollision(sprite, spritesManager.Sprites);
+    if (collideWith) {
+      EngineBus.emit(SPRITE_COLLIDED, sprite, collideWith);
+    }
+  }
+
+  /**
+   * Check the sprite is out of playground bounds
+   *
+   * @static
+   * @param {Sprite} sprite - sprite
+   * @return {boolean} - true if sprite is out of bound, false if not
+   * @memberof CollisionManager
+   */
+  public static checkIsOutOfBounds(sprite: Sprite): boolean {
+    const left = sprite.X;
+    const right = sprite.X + sprite.Width;
+    const top = sprite.Y;
+    const bottom = sprite.Y + sprite.Height;
+
+    return left < 0 || right > CANVAS_WIDTH || top < 0 || bottom > CANVAS_HEIGHT;
+  }
+
+  /**
+   * Check for collisions with sprites
+   *
+   * @static
+   * @param {Sprite} sprite - sprite for check
+   * @param {Sprite[]} allSprites - all sprites in playground
+   * @return {(Sprite | null)} - first collision sprite or null
+   * @memberof CollisionManager
+   */
+  public static checkSpritesCollision(sprite: Sprite, allSprites: Sprite[]): Sprite | null {
     for (let index = 0; index < allSprites.length; index += 1) {
       const otherSprite = allSprites[index];
 
       if (CollisionManager.isCandidateForCollision(sprite, otherSprite)) {
-        if (CollisionManager.didCollide(sprite, newX, newY, otherSprite)) {
-          collideWith.push(otherSprite);
+        if (CollisionManager.didCollide(sprite, sprite.X, sprite.Y, otherSprite)) {
+          return otherSprite;
         }
       }
     }
 
-    return collideWith;
+    return null;
   }
 
   private static isCandidateForCollision(sprite1: Sprite, sprite2: Sprite) {

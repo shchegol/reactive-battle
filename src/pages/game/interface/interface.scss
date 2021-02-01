@@ -45,7 +45,7 @@
     width: 1rem;
     height: 1rem;
     margin: 4px 4px 0 0;
-    background-color: map_get($colors, secondary);
-    //background: url("../../images/sprite-base.png") 10px 10px no-repeat;
+    //background-color: map_get($colors, secondary);
+    background: url("~@root/images/engine/interface/enemy.svg") top left no-repeat;
   }
 }

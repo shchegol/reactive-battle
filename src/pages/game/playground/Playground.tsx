@@ -1,7 +1,9 @@
-import { keyboardManager } from '@engine/KeyboardManager';
-import Scene from '@engine/Scene';
-import { spritesManager } from '@engine/SpritesManager';
 import React, { FC, useEffect, useRef } from 'react';
+import Scene, { CANVAS_HEIGHT, CANVAS_WIDTH } from '@engine/Scene';
+import { spritesSheet } from '@engine/SpritesSheet';
+import { spritesManager } from '@engine/SpritesManager';
+import KeyboardManager from '@engine/KeyboardManager';
+import CollisionManager from '@engine/CollisionManager';
 
 const scene = new Scene();
 
@@ -9,7 +11,11 @@ const Playground: FC = () => {
   const canvas = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    spritesManager.Init();
+    spritesSheet.init();
+    spritesManager.init();
+    KeyboardManager.init();
+    CollisionManager.init();
+    scene.init();
   }, []);
 
   useEffect(() => {
@@ -25,10 +31,10 @@ const Playground: FC = () => {
     };
 
     render();
-    keyboardManager.init();
+    KeyboardManager.init();
 
     return () => {
-      keyboardManager.destroy();
+      KeyboardManager.destroy();
       cancelAnimationFrame(requestId);
     };
   });
@@ -36,8 +42,8 @@ const Playground: FC = () => {
   return (
     <canvas
       ref={canvas}
-      width={416}
-      height={416}
+      width={CANVAS_WIDTH}
+      height={CANVAS_HEIGHT}
       tabIndex={0}
     />
   );

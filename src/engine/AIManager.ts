@@ -1,5 +1,5 @@
 export default class AIManager {
-  public static Execute() {
+  public static update() {
     // todo
   }
 }
