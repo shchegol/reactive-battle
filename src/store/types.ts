@@ -39,8 +39,16 @@ export interface ForumState {
   threads: Thread[];
 }
 
+export interface SnackbarState {
+  isShow: boolean,
+  message: string,
+  duration: number,
+  type: 'danger' | 'success',
+}
+
 export interface ApplicationState {
   auth: AuthState;
   profile: ProfileState;
   forum: ForumState;
+  snackbar: SnackbarState;
 }
