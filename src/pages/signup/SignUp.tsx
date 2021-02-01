@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import RegistrationForm from '@root/components/registrationForm';
+import SignUpForm from '@root/pages/signup/signUpForm';
 import MainTitle from '@root/components/mainTitle';
 import { SignUpRequest } from '@root/types/models';
 
@@ -31,7 +31,7 @@ export default function SignUp() {
 
       <div className="row justify-content-center">
         <div className="col-12 col-sm-8 col-md-6 col-lg-4">
-          <RegistrationForm
+          <SignUpForm
             handleSubmit={submitHandler}
             errorMsg={error}
           />

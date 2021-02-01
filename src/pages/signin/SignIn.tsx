@@ -1,4 +1,4 @@
-import LoginForm from '@root/components/loginForm';
+import SignInForm from '@root/pages/signin/signInForm';
 import MainTitle from '@root/components/mainTitle';
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -29,7 +29,7 @@ export default function SignIn() {
 
       <div className="row justify-content-center">
         <div className="col-12 col-sm-8 col-md-6 col-lg-4">
-          <LoginForm
+          <SignInForm
             handleSubmit={submitHandler}
             errorMsg={error}
           />
