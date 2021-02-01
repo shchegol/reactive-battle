@@ -1,0 +1,30 @@
+@import "@styles/utilities/variables";
+
+.snackbar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  &__container {
+    padding: .5rem 1rem;
+    margin-top: .5rem;
+    background-color: map_get($colors, gray800);
+    color: map_get($colors, primary);
+  }
+
+  &_color {
+    &_danger {
+      .snackbar__container {
+        background-color: map_get($colors, danger);
+      }
+
+    }
+    &_success {
+      .snackbar__container {
+        background-color: map_get($colors, success);
+      }
+    }
+  }
+}
