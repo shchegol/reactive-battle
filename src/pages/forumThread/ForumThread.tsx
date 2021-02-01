@@ -1,14 +1,12 @@
-/* eslint-disable max-len */
-
 import React from 'react';
-import Button from '@components/button';
-import { useHistory, useParams } from 'react-router-dom';
-import MainTitle from '@components/mainTitle';
-import { ApplicationState, Thread } from '@root/store/types';
-import Messages from '@components/messages';
-import ReplyThread from '@root/components/replyThread';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useParams } from 'react-router-dom';
+import { ApplicationState, Thread } from '@root/store/types';
+import ReplyThread from '@root/pages/forumThread/replyThread';
 import { addMessage } from '@store/actionsCreators/forum';
+import Messages from '@pages/forumThread/messages';
+import Button from '@components/button';
+import MainTitle from '@components/mainTitle';
 import { ParamTypes } from './types';
 
 export default function ForumThread() {

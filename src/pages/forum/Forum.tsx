@@ -1,12 +1,12 @@
 import React from 'react';
-import Button from '@components/button';
 import { useHistory } from 'react-router-dom';
-import Threads from '@components/threads';
-import { ApplicationState } from '@root/store/types';
-import MainTitle from '@components/mainTitle';
-import NewThread from '@components/newThread';
-import { addThread } from '@store/actionsCreators/forum';
 import { useDispatch, useSelector } from 'react-redux';
+import { ApplicationState } from '@root/store/types';
+import { addThread } from '@store/actionsCreators/forum';
+import NewThread from '@pages/forum/newThread';
+import Threads from '@pages/forum/threads';
+import MainTitle from '@components/mainTitle';
+import Button from '@components/button';
 
 export default function Forum() {
   const history = useHistory();

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { API_URL } from '@root/constants';
 import UserAPI from '@root/api/UserAPI';
 import AuthAPI from '@root/api/AuthAPI';
-import ProfileForm from '@components/profileForm';
+import { ApplicationState } from '@store/types';
+import { setAvatar } from '@store/actionsCreators/profile';
+import ProfileEditForm from '@pages/profileEdit/profileEditForm';
 import Button from '@components/button';
 import Avatar from '@components/avatar';
-import { API_URL } from '@root/constants';
-import { setAvatar } from '@store/actionsCreators/profile';
-import { useDispatch, useSelector } from 'react-redux';
-import { ApplicationState } from '@root/store/types';
 
 /**
  * User profile edit page
@@ -112,7 +112,7 @@ export default function ProfileEdit() {
           />
         </div>
         <div className="col-8 col-sm-6 col-md-5 col-lg-3">
-          <ProfileForm
+          <ProfileEditForm
             userData={userData}
             errorMsg={error}
             onInputChange={handleInputChange}
