@@ -4,6 +4,7 @@ import { Props } from '@pages/game/interface/types';
 import './interface.scss';
 import Button from '@components/button';
 import Icon from '@components/icon';
+import { activateFullscreen, deactivateFullscreen } from '@utils/fullscreen';
 
 /**
  * @param {number} [enemies=20] - number of enemies
@@ -49,9 +50,12 @@ const Interface: FC<Props> = ({
   };
 
   const handleFullScreen = () => {
-    if (!document.fullscreenElement) {
-      gameWindow.current?.requestFullscreen()
-        .then(() => {
+    if (document.fullscreenElement || document.webkitFullscreenElement) {
+      deactivateFullscreen();
+      setFullScreenBtnIcon('fullscreen');
+    } else {
+      activateFullscreen(gameWindow.current)
+        ?.then(() => {
           setFullScreenBtnIcon('fullscreen_exit');
         })
         .catch((err: Error) => {
@@ -59,9 +63,6 @@ const Interface: FC<Props> = ({
           // eslint-disable-next-line no-console
           console.error(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
         });
-    } else {
-      document.exitFullscreen();
-      setFullScreenBtnIcon('fullscreen');
     }
   };
 
