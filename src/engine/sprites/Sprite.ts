@@ -1,7 +1,4 @@
 /* eslint-disable class-methods-use-this */
-
-import { spritesSheet } from '../SpritesSheet';
-
 export default class Sprite {
   protected x: number = 0;
 
@@ -37,11 +34,17 @@ export default class Sprite {
   }
 
   public render(ctx: CanvasRenderingContext2D) {
-    const sprite = this.GetSprite();
+    const image = this.GetSprite();
 
-    ctx.drawImage(spritesSheet.Sheet,
-      sprite[0], sprite[1], this.width, this.height,
-      this.x, this.y, this.Width, this.Height);
+    if (image) {
+      ctx.drawImage(image, this.X, this.Y, this.Width, this.Height);
+    }
+
+    // const sprite = this.GetSprite();
+
+    // ctx.drawImage(spritesSheet.Sheet,
+    //   sprite[0], sprite[1], this.width, this.height,
+    //   this.x, this.y, this.Width, this.Height);
 
     // ctx.beginPath();
     // ctx.rect(this.X, this.Y, this.Width, this.Height);
@@ -49,7 +52,7 @@ export default class Sprite {
     // ctx.stroke();
   }
 
-  protected GetSprite() {
-    return [0, 0];
+  protected GetSprite(): HTMLImageElement | undefined {
+    return undefined;
   }
 }

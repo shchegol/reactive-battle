@@ -1,8 +1,10 @@
+/* eslint-disable class-methods-use-this */
 import Direction from '@engine/Direction';
 import {
   EngineBus, SPRITE_DESTROYED, SPRITE_MOVED, SPRITE_OUT_OF_BOUNDS,
 } from '@engine/EngineBus';
 import Sprite from '@engine/sprites/Sprite';
+import { spritesSheet } from '@engine/SpritesSheet';
 
 export default class Bullet extends Sprite {
   protected direction: Direction;
@@ -15,39 +17,31 @@ export default class Bullet extends Sprite {
   }
 
   public GetSprite() {
-    switch (this.direction) {
-      case Direction.Forward:
-        return [322, 102];
-
-      case Direction.Left:
-        return [330, 102];
-
-      case Direction.Backward:
-        return [338, 102];
-
-      case Direction.Right:
-        return [346, 102];
-
-      default:
-        return [0, 0];
-    }
+    return spritesSheet.Bullet;
   }
 
   public render(ctx: CanvasRenderingContext2D) {
+    ctx.save();
+
+    ctx.translate(this.X + this.Width / 2, this.Y + this.Height / 2);
+
     switch (this.direction) {
       case Direction.Forward:
         this.y -= 2;
         break;
 
       case Direction.Backward:
+        ctx.rotate(Math.PI / 2);
         this.y += 2;
         break;
 
       case Direction.Left:
+        ctx.rotate((3 * Math.PI) / 4);
         this.x -= 2;
         break;
 
       case Direction.Right:
+        ctx.rotate(Math.PI / 2);
         this.x += 2;
         break;
 
@@ -55,7 +49,15 @@ export default class Bullet extends Sprite {
         break;
     }
 
-    super.render(ctx);
+    // super.render(ctx);
+
+    const image = this.GetSprite();
+
+    if (image) {
+      ctx.drawImage(image, this.X, this.Y, this.Width, this.Height, -this.Width / 2, -this.Height / 2, this.Width, this.Height);
+    }
+
+    ctx.restore();
 
     EngineBus.emit(SPRITE_MOVED, this);
   }

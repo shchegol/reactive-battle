@@ -1,4 +1,5 @@
 import Sprite from '@engine/sprites/Sprite';
+import { spritesSheet } from '@engine/SpritesSheet';
 
 /* eslint-disable class-methods-use-this */
 export default class Eagle extends Sprite {
@@ -7,6 +8,6 @@ export default class Eagle extends Sprite {
   }
 
   protected GetSprite() {
-    return [304, 32];
+    return spritesSheet.Brick;
   }
 }
