@@ -2,15 +2,24 @@
 @import "@styles/utilities/mixins/breakpoints";
 
 .game-interface {
-  display: flex;
-  flex-direction: row;
   padding: 1rem;
   background-color: map_get($colors, gray800);
   color: #000;
 
-  @include media-breakpoint-down('md') {
-    flex-wrap: wrap;
-    width: min-content;
+  &__settings {
+    display: flex;
+    padding: 0 1rem;
+    width: 100%;
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: row;
+
+    @include media-breakpoint-down('md') {
+      flex-wrap: wrap;
+      width: min-content;
+    }
   }
 
   &__playground {
