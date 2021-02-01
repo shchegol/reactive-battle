@@ -1,4 +1,5 @@
 import { SnackbarActions, SnackbarAction } from '@store/actions/snackbar';
+import { SnackbarState } from '@store/types';
 
 const initialState = {
   isShow: false,
@@ -7,8 +8,13 @@ const initialState = {
   type: undefined,
 };
 
+/**
+ * Snackbar reducer
+ * @param {SnackbarState} state - snackbar state
+ * @param {SnackbarAction} action - snackbar action
+ */
 export function snackbar(
-  state = initialState,
+  state: SnackbarState = initialState,
   action: SnackbarAction,
 ) {
   switch (action.type) {

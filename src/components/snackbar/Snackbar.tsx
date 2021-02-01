@@ -8,6 +8,11 @@ import './snackbar.scss';
 
 /**
  * Snackbar
+ *
+ * Snackbar hides automatically after duration param
+ * Show snackbar - dispatch(showSnackbar())
+ * Hide snackbar - dispatch(hideSnackbar())
+ *
  * @constructor
  */
 const Snackbar: FC = () => {

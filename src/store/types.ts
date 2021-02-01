@@ -39,11 +39,18 @@ export interface ForumState {
   threads: Thread[];
 }
 
+/**
+ * Snackbar state
+ * @param {boolean} isShow - visibility
+ * @param {string} message - message text
+ * @param {number} duration - duration in seconds
+ * @param {'danger' | 'success' | undefined} type - type (color) of snackbar
+ */
 export interface SnackbarState {
   isShow: boolean,
   message: string,
   duration: number,
-  type: 'danger' | 'success',
+  type: 'danger' | 'success' | undefined,
 }
 
 export interface ApplicationState {
