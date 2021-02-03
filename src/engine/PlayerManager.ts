@@ -54,12 +54,12 @@ export default class PlayerManager {
   }
 
   private moveForward() {
-    this.direction = Direction.Forward;
+    this.direction = Direction.Up;
     this.inMoveForward = true;
   }
 
   private moveBackward() {
-    this.direction = Direction.Backward;
+    this.direction = Direction.Down;
     this.inMoveBackward = true;
   }
 
@@ -86,7 +86,7 @@ export default class PlayerManager {
     let newY = this.player.Y;
 
     switch (direction) {
-      case Direction.Forward:
+      case Direction.Up:
         newY -= speed;
         break;
       case Direction.Left:
@@ -95,7 +95,7 @@ export default class PlayerManager {
       case Direction.Right:
         newX += speed;
         break;
-      case Direction.Backward:
+      case Direction.Down:
         newY += speed;
         break;
       default:
