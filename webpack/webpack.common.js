@@ -15,9 +15,14 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js', '.scss'],
     alias: {
-      '@root': util.resolve('src'),
+      '@api': util.resolve('src/api'),
       '@components': util.resolve('src/components'),
+      '@engine': util.resolve('src/engine'),
+      '@pages': util.resolve('src/pages'),
+      '@root': util.resolve('src'),
+      '@store': util.resolve('src/store'),
       '@styles': util.resolve('src/styles'),
+      '@utils': util.resolve('src/utils'),
     },
   },
   module: {

@@ -1,32 +1,33 @@
 import { API_URL, API_VERSION } from '@root/constants';
-import { UserRequest, UserResponse } from '@root/types/models';
+import { SignUpRequest, UserRequest } from '@root/types/models';
+import { handleResponse } from '@root/utils/responseHandle';
 
 class AuthAPI {
   static prefix = `${API_URL}/api/${API_VERSION}/auth`;
 
-  static signup(data: Partial<UserRequest>) {
+  static signup(data: SignUpRequest) {
     return fetch(`${AuthAPI.prefix}/signup`, {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
-    });
+    }).then(handleResponse);
   }
 
-  static signin(data: Partial<UserRequest>) {
+  static signin(data: UserRequest) {
     return fetch(`${AuthAPI.prefix}/signin`, {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
-    });
+    }).then(handleResponse);
   }
 
-  static fetchUser(): Promise<UserResponse> {
+  static fetchUser() {
     return fetch(`${AuthAPI.prefix}/user`, {
       method: 'GET',
       credentials: 'include',
-    }).then((response) => response.json());
+    });
   }
 
   static logout() {

@@ -1,28 +1,22 @@
-import Playground from '@root/components/playground';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '@root/context/auth';
+import { useSelector } from 'react-redux';
+import { ApplicationState } from '@store/types';
+import Interface from '@pages/game/interface/Interface';
 
 export default function Game() {
-  useEffect(() => {
-    document.body.classList.add('bg-color-game');
-    return () => document.body.classList.remove('bg-color-game');
-  }, []);
+  const login = useSelector((state: ApplicationState) => state.auth.user.login);
 
   return (
     <div className="container">
       <div className="row mt-10">
         <div className="col-auto">
-          <AuthContext.Consumer>
-            {(auth) => (
-              <Link
-                to={`/users/${auth.userId}`}
-                className="button button_color_link"
-              >
-                {`${auth.userId}`}
-              </Link>
-            )}
-          </AuthContext.Consumer>
+          <Link
+            to={`/users/${login}`}
+            className="button button_color_link"
+          >
+            {`${login}`}
+          </Link>
         </div>
 
         <div className="col">
@@ -47,11 +41,9 @@ export default function Game() {
         </div>
       </div>
 
-      <div className="row justify-content-center mt-60">
-        <div className="col-auto">
-          <Playground />
-        </div>
-      </div>
+      <Interface
+        player={{ name: login }}
+      />
     </div>
   );
 }

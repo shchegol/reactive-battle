@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { API_URL } from '@root/constants';
 import UserAPI from '@root/api/UserAPI';
 import AuthAPI from '@root/api/AuthAPI';
-import ProfileForm from '@components/profileForm';
+import { ApplicationState } from '@store/types';
+import { setAvatar } from '@store/actionsCreators/profile';
+import ProfileEditForm from '@pages/profileEdit/profileEditForm';
 import Button from '@components/button';
 import Avatar from '@components/avatar';
-import { API_URL } from '@root/constants';
 
 /**
  * User profile edit page
@@ -15,7 +18,6 @@ import { API_URL } from '@root/constants';
 export default function ProfileEdit() {
   const history = useHistory();
   const [error, setError] = useState('');
-  const [avatar, setAvatar] = useState<string | undefined>();
   const [userData, setUserData] = useState({
     first_name: '',
     second_name: '',
@@ -26,6 +28,9 @@ export default function ProfileEdit() {
     oldPassword: '',
     newPassword: '',
   });
+
+  const dispatch = useDispatch();
+  const avatar = useSelector((state: ApplicationState) => state.profile?.user?.avatar);
 
   const handleGoBack = () => history.goBack();
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +51,7 @@ export default function ProfileEdit() {
         .uploadAvatar(avatarFile)
         .then((data) => {
           if (data.avatar) {
-            setAvatar(new URL(data.avatar, API_URL).href);
+            dispatch(setAvatar(new URL(data.avatar, API_URL).href));
           }
         })
         .catch((err) => setError(err.reason));
@@ -70,23 +75,16 @@ export default function ProfileEdit() {
   };
 
   useEffect(() => {
+    // todo тут и выше организовать работу с хранилищем
     AuthAPI
       .fetchUser()
+      .then((res) => res.json())
       .then((data) => {
         if (data.avatar) {
-          setAvatar(new URL(data.avatar, API_URL).href);
+          dispatch(setAvatar(new URL(data.avatar, API_URL).href));
         }
 
-        const newData = {
-          ...userData,
-          ...data,
-        };
-
-        if (!newData.display_name) {
-          newData.display_name = newData.login;
-        }
-
-        setUserData(newData);
+        setUserData(data);
       })
       .catch((err) => setError(err.reason));
   }, []);
@@ -114,7 +112,7 @@ export default function ProfileEdit() {
           />
         </div>
         <div className="col-8 col-sm-6 col-md-5 col-lg-3">
-          <ProfileForm
+          <ProfileEditForm
             userData={userData}
             errorMsg={error}
             onInputChange={handleInputChange}

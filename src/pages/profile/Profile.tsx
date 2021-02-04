@@ -4,6 +4,9 @@ import Button from '@components/button';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import AuthAPI from '@root/api/AuthAPI';
 import { API_URL } from '@root/constants';
+import { UserResponse } from '@root/types/models';
+import { logout } from '@store/actionsCreators/auth';
+import { useDispatch } from 'react-redux';
 
 /**
  * User profile page
@@ -11,6 +14,7 @@ import { API_URL } from '@root/constants';
  */
 
 export default function Profile() {
+  const dispatch = useDispatch();
   const history = useHistory();
   const { url } = useRouteMatch();
   const [userData, setUserData] = useState({
@@ -21,27 +25,18 @@ export default function Profile() {
     email: '',
     phone: '',
     avatar: '',
-  });
+  } as UserResponse);
   const avatarUrl = userData.avatar
     ? new URL(userData.avatar, API_URL).href
     : undefined;
   const handleGoBack = () => history.goBack();
-  const handleLogout = async () => {
-    const response = await AuthAPI.logout();
-
-    if (!response.ok) {
-      const json = await response.json();
-      // todo переписать на всплывающие уведомления
-      console.error(json.reason); // eslint-disable-line no-console
-    } else {
-      history.goBack();
-      localStorage.removeItem('userId');
-    }
-  };
+  const handleLogout = () => dispatch(logout());
 
   useEffect(() => {
+    // todo переделать, надо брать из хранилища
     AuthAPI
       .fetchUser()
+      .then((res) => res.json())
       .then((data) => setUserData(data));
   }, []);
 

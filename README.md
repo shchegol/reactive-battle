@@ -17,3 +17,14 @@ React, TypeScript, Canvas
 * `npm start` — запуск версии для разработки.
 * `npm build` — сборка проекта.
 * `npm test` — запуск тестов.
+
+## Полезные ссылки для разработки
+https://ru.wikipedia.org/wiki/Battle_City
+
+https://habr.com/ru/post/142126/
+
+https://github.com/newagebegins/BattleCity
+
+https://strategywiki.org/wiki/Battle_City/Walkthrough
+
+https://yarnthen.github.io/yarnthencohosking/tutorials/2018/03/10/battle-city-unity-7.html

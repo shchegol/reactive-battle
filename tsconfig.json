@@ -17,9 +17,14 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "paths": {
-      "@root/*": ["src/*"],
+      "@api/*": ["src/api/*"],
       "@components/*": ["src/components/*"],
-      "@styles/*": ["src/styles/*"]
+      "@engine/*": ["src/engine/*"],
+      "@pages/*": ["src/pages/*"],
+      "@root/*": ["src/*"],
+      "@store/*": ["src/store/*"],
+      "@styles/*": ["src/styles/*"],
+      "@utils/*": ["src/utils/*"]
     }
   },
   "exclude": [

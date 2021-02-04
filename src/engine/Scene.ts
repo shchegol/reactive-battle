@@ -1,16 +1,36 @@
-import Player from './Player';
-import Stage from './Stage';
+import AIManager from '@engine/AIManager';
+import Player from '@engine/sprites/Player';
+import PlayerManager from '@engine/PlayerManager';
+import { spritesManager } from '@engine/SpritesManager';
+import Stage from '@engine/Stage';
+
+export const CANVAS_WIDTH = 416;
+export const CANVAS_HEIGHT = 416;
 
 export default class Scene {
-  private stage: Stage = new Stage();
+  private stage: Stage;
 
-  private player: Player = new Player();
+  private player: Player;
 
-  public render(ctx: CanvasRenderingContext2D) {
-    ctx.fillStyle = 'black';
-    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  private playerManager: PlayerManager;
 
-    this.stage.render(ctx);
-    this.player.render(ctx);
+  public init() {
+    this.stage = new Stage();
+    this.player = new Player(130, 382);
+    this.playerManager = new PlayerManager(this.player);
+
+    this.playerManager.init();
+  }
+
+  public render(context: CanvasRenderingContext2D) {
+    this.playerManager.update(spritesManager.Sprites, context);
+
+    AIManager.update();
+
+    context.fillStyle = 'black';
+    context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+
+    this.stage.render(context);
+    this.player.render(context);
   }
 }
