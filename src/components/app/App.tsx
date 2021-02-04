@@ -1,6 +1,7 @@
 import React from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
-import { history } from '@root/utils/history';
+import {
+  Router, Route, Switch, useHistory,
+} from 'react-router-dom';
 import PrivateRoute from '@components/privateRoute';
 import SignIn from '@root/pages/signin/SignIn';
 import SignUp from '@root/pages/signup/SignUp';
@@ -17,6 +18,7 @@ import { ApplicationState } from '@store/types';
 
 export default function App() {
   const login = useSelector((state: ApplicationState) => state.auth.user.login);
+  const history = useHistory();
 
   return (
     <Router history={history}>

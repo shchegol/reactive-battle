@@ -1,7 +1,7 @@
 import { AuthActions, AuthActionTypes } from '@store/actions/auth';
 import AuthAPI from '@api/AuthAPI';
 import { SignUpRequest, UserRequest, UserResponse } from '@root/types/models';
-import { history } from '@root/utils/history';
+// import { history } from '@root/utils/history';
 
 type DispatchWithFetch<T> = (arg0: T | ReturnType<typeof fetch>) => void;
 
@@ -31,7 +31,7 @@ export const signup = (data: SignUpRequest) => {
     AuthAPI
       .signup(data)
       .then(() => {
-        localStorage.setItem('userLogin', data.login);
+        if (typeof window !== 'undefined') window.localStorage.setItem('userLogin', data.login);
         dispatch(success());
         dispatch(fetch());
       })
@@ -50,7 +50,7 @@ export const signin = (data: UserRequest) => {
     AuthAPI
       .signin(data)
       .then(() => {
-        localStorage.setItem('userLogin', data.login || '');
+        if (typeof window !== 'undefined') window.localStorage.setItem('userLogin', data.login || '');
         dispatch(success());
         dispatch(fetch());
       })
@@ -62,8 +62,8 @@ export const logout = () => {
   AuthAPI
     .logout()
     .then(() => {
-      localStorage.setItem('userLogin', '');
-      history.push('/signin');
+      if (typeof window !== 'undefined') window.localStorage.setItem('userLogin', '');
+      // history.push('/signin');
     });
 
   return { type: AuthActions.LOGOUT };

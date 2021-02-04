@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { hydrate } from 'react-dom';
 import '@styles/index.scss';
 import App from '@components/app/App';
 import ErrorBoundary from '@components/errorBoundary';
@@ -8,14 +8,17 @@ import configureStore from '@store/store';
 import { ApplicationState } from '@store/types';
 import Snackbar from '@components/snackbar/Snackbar';
 
-const store = configureStore({} as ApplicationState);
+const state = window.__PRELOADED_STATE__;
+delete window.__PRELOADED_STATE__;
 
-ReactDOM.render(
+const store = configureStore(state as ApplicationState);
+
+hydrate(
   <ErrorBoundary>
     <Provider store={store}>
       <App />
       <Snackbar />
     </Provider>
   </ErrorBoundary>,
-  document.getElementById('root') as HTMLElement,
+  document.getElementById('root'),
 );

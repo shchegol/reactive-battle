@@ -1,7 +1,7 @@
 import { AuthActions } from '@store/actions/auth';
 import { UserResponse } from '@root/types/models';
 
-const login = localStorage.getItem('userLogin');
+const login = typeof window !== 'undefined' && window.localStorage.getItem('userLogin');
 
 const initialState = {
   isLoading: false,
