@@ -1,6 +1,6 @@
 import { API_URL, API_VERSION } from '@root/constants';
-import { SignUpRequest, UserRequest } from '@root/types/models';
-import { handleResponse } from '@root/utils/responseHandle';
+import { handleResponse } from '@utils/responseHandle';
+import { SignUpRequest, UserRequest } from '@api/types';
 
 class AuthAPI {
   static prefix = `${API_URL}/api/${API_VERSION}/auth`;
@@ -27,7 +27,8 @@ class AuthAPI {
     return fetch(`${AuthAPI.prefix}/user`, {
       method: 'GET',
       credentials: 'include',
-    });
+    })
+      .then(handleResponse);
   }
 
   static logout() {
