@@ -16,7 +16,7 @@ export default class Scene {
 
   public init() {
     this.stage = new Stage();
-    this.player = new Player(130, 382);
+    this.player = new Player(132, 386);
     this.playerManager = new PlayerManager(this.player);
 
     this.playerManager.init();

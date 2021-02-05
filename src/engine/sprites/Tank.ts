@@ -7,26 +7,29 @@ import Sprite from '@engine/sprites/Sprite';
 import Wall from '@engine/sprites/world/Wall';
 
 export default class Tank extends Sprite {
-  protected direction: Direction = Direction.Forward;
+  protected direction: Direction = Direction.Up;
 
   protected speed: number = 2;
 
   protected bullet: Bullet | null;
 
-  constructor(x: number, y: number) {
-    super(x, y, 16, 16);
+  constructor(x: number, y: number, width: number = 16, height: number = 16) {
+    super(x, y, width, height);
 
     EngineBus.on(SPRITE_DESTROYED, (sprite: Sprite) => this.onSpriteDestroyed(sprite));
-    EngineBus.on(SPRITE_COLLIDED, (sprite: Sprite, collideWith: Sprite) => this.onSpriteCollided(sprite, collideWith));
-    EngineBus.on(SPRITE_OUT_OF_BOUNDS, (sprite: Sprite) => this.onSpriteOutOfBounds(sprite));
+    EngineBus.on(SPRITE_COLLIDED, (sprite: Sprite, collideWith: Sprite, oldX: number, oldY: number) => this.onSpriteCollided(sprite, collideWith, oldX, oldY));
+    EngineBus.on(SPRITE_OUT_OF_BOUNDS, (sprite: Sprite, oldX: number, oldY: number) => this.onSpriteOutOfBounds(sprite, oldX, oldY));
   }
 
   public move(newX: number, newY: number, newDirection: Direction) {
+    const oldX = this.x;
+    const oldY = this.y;
+
     this.x = newX;
     this.y = newY;
     this.direction = newDirection;
 
-    EngineBus.emit(SPRITE_MOVED, this);
+    EngineBus.emit(SPRITE_MOVED, this, oldX, oldY);
   }
 
   /**
@@ -37,7 +40,7 @@ export default class Tank extends Sprite {
       return;
     }
 
-    const bulletPos = this.getBulletInitialPosition(8, 8);
+    const bulletPos = this.getBulletInitialPosition(6, 8);
     this.bullet = new Bullet(bulletPos.x, bulletPos.y, this.direction);
 
     EngineBus.emit(SPRITE_CREATED, this.bullet);
@@ -48,12 +51,12 @@ export default class Tank extends Sprite {
     let y = 0;
 
     switch (this.direction) {
-      case Direction.Forward:
+      case Direction.Up:
         x = this.x + this.Width / 2 - bulletWidth / 2;
         y = this.y;
         break;
 
-      case Direction.Backward:
+      case Direction.Down:
         x = this.x + this.Width / 2 - bulletWidth / 2;
         y = this.y + this.Height - bulletHeight;
         break;
@@ -81,40 +84,40 @@ export default class Tank extends Sprite {
     }
   }
 
-  private onSpriteCollided(sprite: Sprite, collideWith: Sprite) {
+  private onSpriteCollided(sprite: Sprite, collideWith: Sprite, oldX: number, oldY: number) {
     if (sprite !== this || !collideWith) {
       return;
     }
 
     if (collideWith instanceof Wall) {
-      this.undoMove();
+      this.undoMove(oldX, oldY);
     }
   }
 
-  private onSpriteOutOfBounds(sprite: Sprite) {
+  private onSpriteOutOfBounds(sprite: Sprite, oldX: number, oldY: number) {
     if (sprite !== this) {
       return;
     }
 
-    this.undoMove();
+    this.undoMove(oldX, oldY);
   }
 
-  private undoMove() {
+  private undoMove(oldX: number, oldY: number) {
     switch (this.direction) {
-      case Direction.Forward:
-        this.y += this.speed;
+      case Direction.Up:
+        this.y = oldY;
         break;
 
-      case Direction.Backward:
-        this.y -= this.speed;
+      case Direction.Down:
+        this.y = oldY;
         break;
 
       case Direction.Left:
-        this.x += this.speed;
+        this.x = oldX;
         break;
 
       case Direction.Right:
-        this.x -= this.speed;
+        this.x = oldX;
         break;
 
       default:
