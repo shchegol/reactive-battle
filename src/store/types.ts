@@ -1,17 +1,32 @@
-import { UserResponse } from '@root/types/models';
+import { UserResponse } from '@api/types';
 
+export interface ApplicationState {
+  auth: AuthState;
+  user: UserState;
+  forum: ForumState;
+  snackbar: SnackbarState;
+}
+
+// Auth
+export interface AuthState {
+  isLoggedIn: boolean,
+  error: string,
+}
+
+// User
+export interface UserState {
+  info: UserResponse,
+  error: string,
+}
+
+// Leaderboard
 export interface Player {
   position: number;
   name: string;
   score: number;
 }
 
-export interface Thread {
-  id: number;
-  name: string;
-  messages: Message[];
-}
-
+// Forum
 export interface Message {
   id: number;
   author: string;
@@ -19,20 +34,10 @@ export interface Message {
   text: string;
 }
 
-export interface AuthState {
-  isLoading: boolean,
-  isLoggedIn: boolean,
-  user: UserResponse,
-  error: string,
-}
-
-export interface UserState {
-  id: string;
-  avatar?: string;
-}
-
-export interface ProfileState {
-  user: UserState;
+export interface Thread {
+  id: number;
+  name: string;
+  messages: Message[];
 }
 
 export interface ForumState {
@@ -51,11 +56,4 @@ export interface SnackbarState {
   message: string,
   duration: number,
   type: 'danger' | 'success' | undefined,
-}
-
-export interface ApplicationState {
-  auth: AuthState;
-  profile: ProfileState;
-  forum: ForumState;
-  snackbar: SnackbarState;
 }

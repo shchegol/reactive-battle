@@ -1,4 +1,5 @@
-import { SnackbarActions, SnackbarPayload, SnackbarAction } from '@store/actions/snackbar';
+import { SnackbarActions } from '@store/actions/snackbar';
+import { SnackbarPayload, SnackbarAction } from '@store/actions/types';
 import { Dispatch } from 'react';
 
 /**
@@ -6,6 +7,7 @@ import { Dispatch } from 'react';
  * @param {SnackbarPayload} payload - snackbar info
  */
 export const showSnackbar = (payload: SnackbarPayload) => (dispatch: Dispatch<SnackbarAction>) => {
+  console.log('showSnackbar');
   dispatch({ type: SnackbarActions.SNACKBAR_SHOW, payload });
 };
 

@@ -15,7 +15,7 @@ export default function ForumThread() {
 
   const threadId = Number.parseInt(params.id, 10);
   const thread = useSelector((state: ApplicationState) => state.forum?.threads?.find((f) => f.id === threadId) || {} as Thread);
-  const login = useSelector((state: ApplicationState) => state.auth.user.login);
+  const login = useSelector((state: ApplicationState) => state.user.info.login);
   const dispatch = useDispatch();
 
   const handleGoBack = () => history.goBack();

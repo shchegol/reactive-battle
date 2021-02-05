@@ -4,7 +4,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { signin } from '@store/actionsCreators/auth';
-import { SignInRequest } from '@root/types/models';
+import { SignInRequest } from '@api/types';
 import { ApplicationState } from '@store/types';
 
 export default function SignIn() {
