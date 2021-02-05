@@ -7,11 +7,11 @@ import Ice from '@engine/sprites/world/Ice';
 import Tree from '@engine/sprites/world/Tree';
 import Water from '@engine/sprites/world/Water';
 
-export default function CreateLevelSprites(level: Level) {
+export default function createLevelSprites(level: Level) {
   let x = 0;
   let y = 0;
-  for (let i = 0; i < level.length; i += 1) {
-    const row = level[i];
+  for (let i = 0; i < level.field.length; i += 1) {
+    const row = level.field[i];
     const rowLength = row.length;
 
     for (let j = 0; j < rowLength; j += 1) {

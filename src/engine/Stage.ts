@@ -1,38 +1,17 @@
-import CreateLevelSprites from '@engine/LevelGenerator';
-import { Level1 } from '@engine/Levels';
+import createLevelSprites from '@engine/LevelGenerator';
+import { Level, Level1 } from '@engine/Levels';
 import { spritesManager } from '@engine/SpritesManager';
-import EnemyTank from '@engine/sprites/enemies/EnemyTank';
-import BasicTank from './sprites/enemies/BasicTank';
-import { EngineBus, SPRITE_CREATED } from './EngineBus';
+import { EngineBus, LEVEL_START } from './EngineBus';
 
 export default class Stage {
-  private enemies: EnemyTank[] = [];
+  private level: Level;
 
-  private restEnemies: EnemyTank[] = [];
+  public nextLevel() {
+    this.level = Level1;
 
-  constructor() {
-    CreateLevelSprites(Level1);
+    createLevelSprites(this.level);
 
-    this.restEnemies.push(new BasicTank(0, 0));
-    this.restEnemies.push(new BasicTank(0, 0));
-    this.restEnemies.push(new BasicTank(0, 0));
-    this.restEnemies.push(new BasicTank(0, 0));
-    this.restEnemies.push(new BasicTank(0, 0));
-    this.restEnemies.push(new BasicTank(0, 0));
-    this.restEnemies.push(new BasicTank(0, 0));
-    this.restEnemies.push(new BasicTank(0, 0));
-    this.restEnemies.push(new BasicTank(0, 0));
-    this.restEnemies.push(new BasicTank(0, 0));
-    this.restEnemies.push(new BasicTank(0, 0));
-    this.restEnemies.push(new BasicTank(0, 0));
-    this.restEnemies.push(new BasicTank(0, 0));
-    this.restEnemies.push(new BasicTank(0, 0));
-    this.restEnemies.push(new BasicTank(0, 0));
-    this.restEnemies.push(new BasicTank(0, 0));
-    this.restEnemies.push(new BasicTank(0, 0));
-    this.restEnemies.push(new BasicTank(0, 0));
-    this.restEnemies.push(new BasicTank(0, 0));
-    this.restEnemies.push(new BasicTank(0, 0));
+    EngineBus.emit(LEVEL_START, this.level);
   }
 
   public render(ctx: CanvasRenderingContext2D) {
@@ -41,24 +20,5 @@ export default class Stage {
     ctx.stroke();
 
     spritesManager.Sprites.forEach((sprite) => sprite.render(ctx));
-  }
-
-  public tryLetOutEnemy() {
-    if (this.restEnemies.length === 0) {
-      return;
-    }
-
-    const activeEnemies = spritesManager.Sprites.filter((sprite) => sprite instanceof EnemyTank).length;
-
-    if (activeEnemies >= 1) {
-      return;
-    }
-
-    const nextEnemy = this.restEnemies.shift();
-    if (nextEnemy) {
-      this.enemies.push(nextEnemy);
-
-      EngineBus.emit(SPRITE_CREATED, nextEnemy);
-    }
   }
 }
