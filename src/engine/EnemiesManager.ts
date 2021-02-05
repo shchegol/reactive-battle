@@ -6,7 +6,7 @@ import BasicTank from './sprites/enemies/BasicTank';
 import FastTank from './sprites/enemies/FastTank';
 import { spritesManager } from './SpritesManager';
 
-const MAX_ENEMIES_ON_FIELD = 3;
+const MAX_ENEMIES_ON_FIELD = 4;
 const MAX_SPAWN_ON_FIELD = 3;
 
 export default class EnemiesManager {
@@ -40,7 +40,7 @@ export default class EnemiesManager {
       }
     });
 
-    setInterval(() => this.onTimer(), 5000);
+    setInterval(() => this.onTimer(), 3000);
   }
 
   private onTimer() {
