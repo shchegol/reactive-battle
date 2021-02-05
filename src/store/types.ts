@@ -1,9 +1,37 @@
-import { UserResponse } from '@root/types/models';
+import { UserResponse } from '@api/types';
 
+export interface ApplicationState {
+  auth: AuthState;
+  user: UserState;
+  forum: ForumState;
+  snackbar: SnackbarState;
+}
+
+// Auth
+export interface AuthState {
+  isLoggedIn: boolean,
+  error: string,
+}
+
+// User
+export interface UserState {
+  info: UserResponse,
+  error: string,
+}
+
+// Leaderboard
 export interface Player {
   position: number;
   name: string;
   score: number;
+}
+
+// Forum
+export interface Message {
+  id: number;
+  author: string;
+  date: Date;
+  text: string;
 }
 
 export interface Thread {
@@ -12,35 +40,20 @@ export interface Thread {
   messages: Message[];
 }
 
-export interface Message {
-  id: number;
-  author: string;
-  date: Date;
-  text: string;
-}
-
-export interface AuthState {
-  isLoading: boolean,
-  isLoggedIn: boolean,
-  user: UserResponse,
-  error: string,
-}
-
-export interface UserState {
-  id: string;
-  avatar?: string;
-}
-
-export interface ProfileState {
-  user: UserState;
-}
-
 export interface ForumState {
   threads: Thread[];
 }
 
-export interface ApplicationState {
-  auth: AuthState;
-  profile: ProfileState;
-  forum: ForumState;
+/**
+ * Snackbar state
+ * @param {boolean} isShow - visibility
+ * @param {string} message - message text
+ * @param {number} duration - duration in seconds
+ * @param {'danger' | 'success' | undefined} type - type (color) of snackbar
+ */
+export interface SnackbarState {
+  isShow: boolean,
+  message: string,
+  duration: number,
+  type: 'danger' | 'success' | undefined,
 }

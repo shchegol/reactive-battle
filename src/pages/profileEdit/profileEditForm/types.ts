@@ -1,8 +1,13 @@
 import React, { FormHTMLAttributes } from 'react';
-import { UserProfile } from '@root/types/user';
+import { PasswordRequest, UserRequest } from '@api/types';
+
+export type UserProfile = {
+  avatar: File | string;
+  display_name: string;
+} & UserRequest & PasswordRequest;
 
 export type Props = {
-  errorMsg?: string,
-  userData?: Partial<UserProfile>,
-  onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  errorMsg?: string;
+  userData?: Partial<UserProfile>;
+  onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 } & FormHTMLAttributes<HTMLFormElement>;

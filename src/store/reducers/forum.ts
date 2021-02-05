@@ -1,4 +1,5 @@
-import { ForumActions, ForumActionTypes } from '@store/actions/forum';
+import { ForumActions } from '@store/actions/forum';
+import { ForumActionTypes } from '@store/actions/types';
 import { ForumState, Message, Thread } from '../types';
 
 const defaultState: ForumState = {

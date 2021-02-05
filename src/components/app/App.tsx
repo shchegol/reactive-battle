@@ -12,11 +12,18 @@ import Error404 from '@root/pages/error404';
 import Error5xx from '@root/pages/error5xx';
 import Forum from '@root/pages/forum/Forum';
 import ForumThread from '@root/pages/forumThread/ForumThread';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationState } from '@store/types';
+import { fetch } from '@store/actionsCreators/user';
 
 export default function App() {
-  const login = useSelector((state: ApplicationState) => state.auth.user.login);
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state: ApplicationState) => state.auth.isLoggedIn);
+  const login = useSelector((state: ApplicationState) => state.user.info.login);
+
+  if (isLoggedIn && !login) {
+    dispatch(fetch());
+  }
 
   return (
     <Router history={history}>

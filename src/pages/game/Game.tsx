@@ -8,7 +8,7 @@ import BasicTank from '@engine/sprites/enemies/BasicTank';
 import Bullet from '@engine/sprites/Bullet';
 
 export default function Game() {
-  const login = useSelector((state: ApplicationState) => state.auth.user.login);
+  const login = useSelector((state: ApplicationState) => state.user.info.login);
   const [gameParams, setGameParams] = useState({
     player: {
       name: login || 'PLAYER 1',

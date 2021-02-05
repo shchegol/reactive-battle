@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import SignUpForm from '@root/pages/signup/signUpForm';
 import MainTitle from '@root/components/mainTitle';
-import { SignUpRequest } from '@root/types/models';
+import { SignUpRequest } from '@api/types';
 
 import './signup.scss';
 import { useDispatch, useSelector } from 'react-redux';

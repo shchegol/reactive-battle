@@ -61,7 +61,7 @@ const ProfileEditForm: FC<Props> = ({
     />
 
     <Input
-      labelText="PASSWORD"
+      labelText="OLD PASSWORD"
       type="password"
       value={userData.oldPassword}
       name="oldPassword"
@@ -70,7 +70,7 @@ const ProfileEditForm: FC<Props> = ({
     />
 
     <Input
-      labelText="PASSWORD"
+      labelText="NEW PASSWORD"
       type="password"
       value={userData.newPassword}
       name="newPassword"

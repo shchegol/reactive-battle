@@ -1,5 +1,5 @@
 import { API_URL, API_VERSION } from '@root/constants';
-import { LeaderboardNewLeaderRequest, LeaderboardRequest } from '@root/types/models';
+import { LeaderboardNewLeaderRequest, LeaderboardRequest } from '@api/types';
 
 class LeaderboardAPI {
   static prefix = `${API_URL}/api/${API_VERSION}/leaderboard`;

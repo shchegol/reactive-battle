@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import { forumReducer } from './forum';
-import { profileReducer } from './profile';
+import user from './user';
 import { auth } from './auth';
+import { snackbar } from './snackbar';
 
 export default combineReducers({
-  profile: profileReducer,
-  forum: forumReducer,
   auth,
+  user,
+  snackbar,
+  forum: forumReducer,
 });
