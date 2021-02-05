@@ -13,17 +13,17 @@ import { spritesManager } from '@engine/SpritesManager';
  */
 export default class CollisionManager {
   public static init() {
-    EngineBus.on(SPRITE_MOVED, (sprite: Sprite, oldX: number, oldY: number) => CollisionManager.onSpriteMoved(sprite, oldX, oldY));
+    EngineBus.on(SPRITE_MOVED, (movedSprite: Sprite, oldX: number, oldY: number) => CollisionManager.onSpriteMoved(movedSprite, oldX, oldY));
   }
 
-  private static onSpriteMoved(sprite: Sprite, oldX: number, oldY: number) {
-    if (CollisionManager.checkIsOutOfBounds(sprite)) {
-      EngineBus.emit(SPRITE_OUT_OF_BOUNDS, sprite, oldX, oldY);
+  private static onSpriteMoved(movedSprite: Sprite, oldX: number, oldY: number) {
+    if (CollisionManager.checkIsOutOfBounds(movedSprite)) {
+      EngineBus.emit(SPRITE_OUT_OF_BOUNDS, movedSprite, oldX, oldY);
     }
 
-    const collideWith = CollisionManager.checkSpritesCollision(sprite, spritesManager.Sprites);
+    const collideWith = CollisionManager.checkSpritesCollision(movedSprite, spritesManager.Sprites);
     if (collideWith && collideWith.length > 0) {
-      collideWith.forEach((otherSprite) => EngineBus.emit(SPRITE_COLLIDED, sprite, otherSprite, oldX, oldY));
+      collideWith.forEach((otherSprite) => EngineBus.emit(SPRITE_COLLIDED, movedSprite, otherSprite, oldX, oldY));
     }
   }
 

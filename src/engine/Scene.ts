@@ -20,6 +20,8 @@ export default class Scene {
     this.playerManager = new PlayerManager(this.player);
 
     this.playerManager.init();
+
+    setInterval(() => this.onTimer(), 5000);
   }
 
   public render(context: CanvasRenderingContext2D) {
@@ -32,5 +34,9 @@ export default class Scene {
 
     this.stage.render(context);
     this.player.render(context);
+  }
+
+  private onTimer() {
+    this.stage.tryLetOutEnemy();
   }
 }
