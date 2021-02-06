@@ -20,7 +20,7 @@ export default function Game() {
     enemies: 20,
   });
 
-  const palyerShot = (ctx: BasicTank | Bullet) => {
+  const playerShot = (ctx: BasicTank | Bullet) => {
     if (ctx instanceof EnemyTank) {
       setGameParams((oldParams) => ({
         ...oldParams,
@@ -35,7 +35,7 @@ export default function Game() {
   };
 
   useEffect(() => {
-    EngineBus.on(SPRITE_DESTROYED, palyerShot);
+    EngineBus.on(SPRITE_DESTROYED, playerShot);
   }, []);
 
   return (
