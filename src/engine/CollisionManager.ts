@@ -1,5 +1,8 @@
 import {
-  EngineBus, SPRITE_COLLIDED, SPRITE_MOVED, SPRITE_OUT_OF_BOUNDS,
+  EngineBus,
+  SPRITE_MOVED,
+  SPRITE_OUT_OF_BOUNDS,
+  SPRITE_COLLIDED,
 } from '@engine/EngineBus';
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from '@engine/Scene';
 import Sprite from '@engine/sprites/Sprite';

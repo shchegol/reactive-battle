@@ -20,6 +20,10 @@ export default class EnemiesManager {
     EngineBus.on(LEVEL_START, (level: Level) => this.onLevelStart(level));
   }
 
+  public get RestEnemies() {
+    return this.restEnemies;
+  }
+
   private onLevelStart(level: Level) {
     if (!level) {
       return;
@@ -61,15 +65,15 @@ export default class EnemiesManager {
     if (nextEnemy) {
       switch (this.nextSpawn) {
         case 1:
-          nextEnemy.move(195, 3, Direction.Down);
+          nextEnemy.changeLocation(195, 3, Direction.Down);
           break;
 
         case 2:
-          nextEnemy.move(387, 3, Direction.Down);
+          nextEnemy.changeLocation(387, 3, Direction.Down);
           break;
 
         default:
-          nextEnemy.move(3, 3, Direction.Down);
+          nextEnemy.changeLocation(3, 3, Direction.Down);
           break;
       }
 
@@ -83,3 +87,5 @@ export default class EnemiesManager {
     }
   }
 }
+
+export const enemiesManager = new EnemiesManager();

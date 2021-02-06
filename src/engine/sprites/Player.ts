@@ -1,10 +1,15 @@
+/* eslint-disable class-methods-use-this */
 import Direction from '@engine/Direction';
 import SpritesSheet from '@engine/SpritesSheet';
 import Tank from '@engine/sprites/Tank';
+import { EngineBus, SPRITE_DESTROYED } from '@engine/EngineBus';
+import Bullet from './Bullet';
 
 export default class Player extends Tank {
   constructor(x: number, y: number) {
     super(x, y, 13, 13);
+
+    this.isPlayer = true;
   }
 
   public GetSprite() {
@@ -24,5 +29,15 @@ export default class Player extends Tank {
       default:
         return [0, 0];
     }
+  }
+
+  protected onTankHit(_tank: Tank, oldX: number, oldY: number) {
+    this.undoMove(oldX, oldY);
+  }
+
+  protected onBulletHit(bullet: Bullet) {
+    // GOD MODE
+    // EngineBus.emit(SPRITE_DESTROYED, this);
+    EngineBus.emit(SPRITE_DESTROYED, bullet);
   }
 }
