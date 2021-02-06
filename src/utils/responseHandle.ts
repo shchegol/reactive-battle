@@ -1,3 +1,5 @@
+import { history } from '@utils/history';
+
 export function handleResponse(response: Response) {
   return response
     .text()
@@ -6,23 +8,17 @@ export function handleResponse(response: Response) {
         return text;
       }
 
-      const data = text && JSON.parse(text);
       // Unauthorized
-      // todo сделать редирект на signin
       if (response.status === 401) {
-        // eslint-disable-next-line no-console
-        console.error(401);
+        localStorage.setItem('userLogin', '');
+        history.push('/signin');
       }
 
       // Unexpected error
-      // todo сделать редирект на 500 ошибку
       if (response.status === 500) {
-        // eslint-disable-next-line no-console
-        console.error(500);
+        history.push('/error-5xx');
       }
 
-      const error = (data && data.reason) || response.statusText;
-
-      return Promise.reject(error);
+      return Promise.reject(text);
     });
 }

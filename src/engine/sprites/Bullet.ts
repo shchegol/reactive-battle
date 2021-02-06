@@ -1,29 +1,54 @@
 import Direction from '@engine/Direction';
 import {
-  EngineBus, SPRITE_DESTROYED, SPRITE_MOVED, SPRITE_OUT_OF_BOUNDS,
+  EngineBus, SPRITE_COLLIDED, SPRITE_DESTROYED, SPRITE_MOVED, SPRITE_OUT_OF_BOUNDS,
 } from '@engine/EngineBus';
 import Sprite from '@engine/sprites/Sprite';
 
 export default class Bullet extends Sprite {
-  protected direction: Direction;
+  private direction: Direction;
+
+  private speed: number = 2.2;
 
   constructor(x: number = 0, y: number = 0, direction: Direction) {
-    super(x, y, 4, 4);
+    super(x, y);
+
+    switch (direction) {
+      case Direction.Left:
+      case Direction.Right:
+        this.width = 4;
+        this.height = 3;
+        break;
+
+      case Direction.Up:
+      case Direction.Down:
+        this.width = 3;
+        this.height = 4;
+        break;
+
+      default:
+        break;
+    }
+
     this.direction = direction;
 
     EngineBus.on(SPRITE_OUT_OF_BOUNDS, (sprite: Sprite) => this.onOutOfBounds(sprite));
+    EngineBus.on(SPRITE_COLLIDED, (sprite: Sprite, collideWith: Sprite) => this.onSpriteCollided(sprite, collideWith));
+  }
+
+  public get Direction() {
+    return this.direction;
   }
 
   public GetSprite() {
     switch (this.direction) {
-      case Direction.Forward:
-        return [322, 102];
+      case Direction.Up:
+        return [323, 102];
 
       case Direction.Left:
         return [330, 102];
 
-      case Direction.Backward:
-        return [338, 102];
+      case Direction.Down:
+        return [339, 102];
 
       case Direction.Right:
         return [346, 102];
@@ -35,20 +60,20 @@ export default class Bullet extends Sprite {
 
   public render(ctx: CanvasRenderingContext2D) {
     switch (this.direction) {
-      case Direction.Forward:
-        this.y -= 2;
+      case Direction.Up:
+        this.y -= this.speed;
         break;
 
-      case Direction.Backward:
-        this.y += 2;
+      case Direction.Down:
+        this.y += this.speed;
         break;
 
       case Direction.Left:
-        this.x -= 2;
+        this.x -= this.speed;
         break;
 
       case Direction.Right:
-        this.x += 2;
+        this.x += this.speed;
         break;
 
       default:
@@ -68,6 +93,14 @@ export default class Bullet extends Sprite {
 
   private onOutOfBounds(sprite: Sprite) {
     if (sprite !== this) {
+      return;
+    }
+
+    EngineBus.emit(SPRITE_DESTROYED, this);
+  }
+
+  private onSpriteCollided(sprite: Sprite, collideWith: Sprite) {
+    if (sprite !== this || !collideWith) {
       return;
     }
 

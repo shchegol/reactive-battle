@@ -5,7 +5,7 @@ import { ApplicationState } from '@store/types';
 import Interface from '@pages/game/interface/Interface';
 
 export default function Game() {
-  const login = useSelector((state: ApplicationState) => state.auth.user.login);
+  const login = useSelector((state: ApplicationState) => state.user.info.login);
 
   return (
     <div className="container">

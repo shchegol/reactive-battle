@@ -23,19 +23,19 @@ export default class SpritesSheet {
   }
 
   public static get PlayerForward() {
-    return [0, 0];
+    return [1, 2];
   }
 
   public static get PlayerLeft() {
-    return [32, 0];
+    return [34, 1];
   }
 
   public static get PlayerBackward() {
-    return [64, 0];
+    return [65, 2];
   }
 
   public static get PlayerRight() {
-    return [96, 0];
+    return [97, 1];
   }
 }
 

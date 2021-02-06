@@ -1,19 +1,21 @@
 import { API_URL, API_VERSION } from '@root/constants';
-import { PasswordRequest, UserRequest, UserResponse } from '@root/types/models';
+import { PasswordRequest, UserRequest } from '@api/types';
+import { handleResponse } from '@utils/responseHandle';
 
 class UserAPI {
   static prefix = `${API_URL}/api/${API_VERSION}/user`;
 
-  static editProfile(data: UserRequest): Promise<Response> {
+  static changeProfile(data: UserRequest) {
     return fetch(`${UserAPI.prefix}/profile`, {
       method: 'PUT',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
-    });
+    })
+      .then(handleResponse);
   }
 
-  static async uploadAvatar(avatar: File): Promise<Partial<UserResponse>> {
+  static changeAvatar(avatar: File) {
     const formData = new FormData();
     formData.append('avatar', avatar);
 
@@ -21,27 +23,30 @@ class UserAPI {
       method: 'PUT',
       credentials: 'include',
       body: formData,
-    }).then((response) => response.json());
+    })
+      .then(handleResponse);
   }
 
-  static changePassword(data: PasswordRequest): Promise<Response> {
+  static changePassword(data: PasswordRequest) {
     return fetch(`${UserAPI.prefix}/password`, {
       method: 'PUT',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
-    });
+    })
+      .then(handleResponse);
   }
 
-  static getUser(id: string): Promise<Response> {
+  static getUser(id: string) {
     return fetch(`${UserAPI.prefix}/${id}`, {
       method: 'PUT',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
-    }).then((response) => response.json());
+    })
+      .then((response) => response.json());
   }
 
-  static findUsers(login: string): Promise<Response> {
+  static findUser(login: string) {
     return fetch(`${UserAPI.prefix}/search`, {
       method: 'PUT',
       credentials: 'include',
