@@ -13,7 +13,6 @@ import './icon.scss';
  */
 
 const Icon: FC<Props> = ({
-  // eslint-disable-next-line react/prop-types
   name,
   ...rest
 }) => (

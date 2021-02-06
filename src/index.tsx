@@ -5,18 +5,22 @@ import App from '@components/app/App';
 import ErrorBoundary from '@components/errorBoundary';
 import { Provider } from 'react-redux';
 import configureStore from '@store/store';
-import { ApplicationState } from '@store/types';
 import Snackbar from '@components/snackbar/Snackbar';
+import { ConnectedRouter } from 'connected-react-router';
+import { Helmet } from 'react-helmet';
 
-const state = window.__PRELOADED_STATE__;
-delete window.__PRELOADED_STATE__;
-
-const store = configureStore(state as ApplicationState);
+const { store, history } = configureStore();
 
 hydrate(
   <ErrorBoundary>
     <Provider store={store}>
-      <App />
+      <Helmet
+        title="Reactive Battle"
+        titleTemplate="%s - Reactive Battle"
+      />
+      <ConnectedRouter history={history}>
+        <App />
+      </ConnectedRouter>
       <Snackbar />
     </Provider>
   </ErrorBoundary>,

@@ -5,6 +5,7 @@ import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import { API_URL } from '@root/constants';
 import { logout } from '@store/actionsCreators/auth';
 import { useDispatch, useSelector } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import { ApplicationState } from '@store/types';
 
 /**
@@ -23,10 +24,15 @@ export default function Profile() {
     : undefined;
 
   const handleGoBack = () => history.goBack();
-  const handleLogout = () => dispatch(logout());
+  const handleLogout = () => {
+    dispatch(logout());
+    history.push('/signin');
+  };
 
   return (
     <div className="container-fluid">
+      <Helmet title="Profile" />
+
       <div className="row mt-10">
         <div className="col-auto">
           <Button

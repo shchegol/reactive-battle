@@ -10,11 +10,11 @@ const common = require('./webpack.common.js');
 module.exports = merge(common, {
   target: 'node',
   mode: 'production',
-  entry: util.resolve('src/server/index'),
+  entry: '/src/server/index.ts',
   externals: [webpackNodeExternals()],
   output: {
     filename: 'bundle.js',
-    path: util.resolve('dist'),
+    path: util.resolve('build'),
     publicPath: '/',
   },
   module: {
