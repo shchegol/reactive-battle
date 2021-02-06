@@ -84,13 +84,13 @@ export default class Tank extends Sprite {
     }
   }
 
-  private onSpriteCollided(sprite: Sprite, collideWith: Sprite, oldX: number, oldY: number) {
-    if (sprite !== this || !collideWith) {
-      return;
-    }
-
-    if (collideWith instanceof Wall) {
-      this.undoMove(oldX, oldY);
+  private onSpriteCollided(movedSprite: Sprite, collideWith: Sprite, oldX: number, oldY: number) {
+    if (movedSprite === this) {
+      if (collideWith instanceof Wall) {
+        this.undoMove(oldX, oldY);
+      }
+    } else if (movedSprite instanceof Bullet && collideWith === this) {
+      EngineBus.emit(SPRITE_DESTROYED, this);
     }
   }
 

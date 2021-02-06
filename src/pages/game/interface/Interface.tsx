@@ -1,4 +1,6 @@
-import React, { FC, useRef, useState } from 'react';
+import React, {
+  FC, useRef, useState,
+} from 'react';
 import Playground from '@pages/game/playground';
 import { Props } from '@pages/game/interface/types';
 import './interface.scss';
@@ -24,15 +26,6 @@ const Interface: FC<Props> = ({
 }) => {
   const gameWindow = useRef<HTMLDivElement>(null);
   const [fullScreenBtnIcon, setFullScreenBtnIcon] = useState('fullscreen');
-
-  // default player options
-  const playerInfo = {
-    name: 'PLAYER 1',
-    lives: 2,
-    score: 0,
-    kills: 0,
-    ...player,
-  };
 
   const renderEnemies = (enemiesNumber: number) => {
     const content = [];
@@ -90,59 +83,51 @@ const Interface: FC<Props> = ({
             </div>
 
             <div className="game-interface__info">
-              <div className="row">
-                <div className="col col-lg-12">
-                  <table className="player-info">
-                    <tbody>
-                      <tr>
-                        <td>
-                          {playerInfo.name}
-                        </td>
-                        <td className="text-align-right text-color-secondary pl-10">
-                          {playerInfo.lives}
-                        </td>
-                      </tr>
+              <div>
+                <table className="player-info">
+                  <tbody>
+                    <tr>
+                      <td>
+                        {player.name}
+                      </td>
+                      <td className="player-info__col-2">
+                        {player.lives}
+                      </td>
+                    </tr>
 
-                      <tr>
-                        <td>SCORE</td>
-                        <td className="text-align-right text-color-secondary pl-10">
-                          {playerInfo.score}
-                        </td>
-                      </tr>
+                    <tr>
+                      <td>SCORE</td>
+                      <td className="player-info__col-2">
+                        {player.score}
+                      </td>
+                    </tr>
 
-                      <tr>
-                        <td>KILLS</td>
-                        <td className="text-align-right text-color-secondary pl-10">
-                          {playerInfo.kills}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                    <tr>
+                      <td>KILLS</td>
+                      <td className="player-info__col-2">
+                        {player.kills}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <p className="mt-20">ENEMIES</p>
+                <div className="enemy-icons">
+                  {renderEnemies(enemies)}
                 </div>
               </div>
 
-              <div className="row mt-20">
-                <div className="col">
-                  <p>ENEMIES</p>
-                  <div className="enemy-icons">
-                    {renderEnemies(enemies)}
-                  </div>
-                </div>
-              </div>
-
-              <div className="row mt-20">
-                <div className="col">
-                  <table className="player-info">
-                    <tbody>
-                      <tr>
-                        <td>LEVEL</td>
-                        <td className="text-align-right text-color-secondary pl-10">
-                          {level}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+              <div className="mt-20">
+                <table className="player-info">
+                  <tbody>
+                    <tr>
+                      <td>LEVEL</td>
+                      <td className="player-info__col-2">
+                        {level}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
