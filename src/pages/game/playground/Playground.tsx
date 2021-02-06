@@ -37,7 +37,7 @@ const Playground: FC = () => {
       KeyboardManager.destroy();
       cancelAnimationFrame(requestId);
     };
-  });
+  }, []);
 
   return (
     <canvas

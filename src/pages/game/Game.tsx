@@ -6,6 +6,7 @@ import Interface from '@pages/game/interface/Interface';
 import { EngineBus, SPRITE_DESTROYED } from '@engine/EngineBus';
 import BasicTank from '@engine/sprites/enemies/BasicTank';
 import Bullet from '@engine/sprites/Bullet';
+import EnemyTank from '@engine/sprites/enemies/EnemyTank';
 
 export default function Game() {
   const login = useSelector((state: ApplicationState) => state.user.info.login);
@@ -20,7 +21,7 @@ export default function Game() {
   });
 
   const palyerShot = (ctx: BasicTank | Bullet) => {
-    if (ctx instanceof BasicTank) {
+    if (ctx instanceof EnemyTank) {
       setGameParams((oldParams) => ({
         ...oldParams,
         player: {
