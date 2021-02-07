@@ -28,11 +28,9 @@ export default class PlayerManager {
 
   private direction: Direction;
 
-  constructor(player: Player) {
+  public init(player: Player) {
     this.player = player;
-  }
 
-  public init() {
     EngineBus.on(PLAYER_MOVE_LEFT, () => this.moveLeft());
     EngineBus.on(PLAYER_MOVE_RIGHT, () => this.moveRight());
     EngineBus.on(PLAYER_MOVE_FORWARD, () => this.moveForward());
@@ -44,6 +42,10 @@ export default class PlayerManager {
     EngineBus.on(PLAYER_STOP_BACKWARD, () => this.stopBackward());
 
     EngineBus.on(PLAYER_SHOT, () => this.shot());
+  }
+
+  public get Player() {
+    return this.player;
   }
 
   public update(allSprites: Sprite[], context: CanvasRenderingContext2D) {
@@ -96,3 +98,5 @@ export default class PlayerManager {
     this.player.shot();
   }
 }
+
+export const playerManager = new PlayerManager();

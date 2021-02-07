@@ -1,6 +1,6 @@
-import AIManager from '@engine/AIManager';
+import { aiManager } from '@engine/AIManager';
 import Player from '@engine/sprites/Player';
-import PlayerManager from '@engine/PlayerManager';
+import { playerManager } from '@engine/PlayerManager';
 import { spritesManager } from '@engine/SpritesManager';
 import Stage from '@engine/Stage';
 import { enemiesManager } from './EnemiesManager';
@@ -14,24 +14,21 @@ export default class Scene {
 
   private player: Player;
 
-  private playerManager: PlayerManager;
-
   public init() {
     this.stage = new Stage();
     this.player = new Player(132, 386);
-    this.playerManager = new PlayerManager(this.player);
 
-    this.playerManager.init();
+    playerManager.init(this.player);
     enemiesManager.init();
+    aiManager.init();
 
     this.stage.nextLevel();
     EngineBus.emit(SPRITE_CREATED, this.player);
   }
 
   public render(context: CanvasRenderingContext2D) {
-    this.playerManager.update(spritesManager.Sprites, context);
-
-    AIManager.update();
+    playerManager.update(spritesManager.Sprites, context);
+    aiManager.update();
 
     context.fillStyle = 'black';
     context.fillRect(0, 0, context.canvas.width, context.canvas.height);

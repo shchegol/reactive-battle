@@ -20,3 +20,4 @@ export const SPRITE_OUT_OF_BOUNDS = 'SPRITE/OUT_OF_BOUNDS';
 
 export const LEVEL_START = 'LEVEL_START';
 export const GAME_OVER = 'GAME_OVER';
+export const LEVEL_NEW_ROUND = 'LEVEL_NEW_ROUND';
