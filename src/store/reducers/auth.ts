@@ -15,6 +15,7 @@ export function auth(
   switch (action.type) {
     case AuthActions.SIGNUP_REQUEST:
     case AuthActions.SIGNIN_REQUEST:
+    case AuthActions.YAAUTH_REQUEST:
     case AuthActions.LOGOUT:
       return {
         ...state,
@@ -23,6 +24,7 @@ export function auth(
       };
     case AuthActions.SIGNUP_SUCCESS:
     case AuthActions.SIGNIN_SUCCESS:
+    case AuthActions.YAAUTH_SUCCESS:
       return {
         ...state,
         isLoggedIn: true,
@@ -30,6 +32,7 @@ export function auth(
       };
     case AuthActions.SIGNUP_FAILURE:
     case AuthActions.SIGNIN_FAILURE:
+    case AuthActions.YAAUTH_FAILURE:
       return {
         ...state,
         isLoggedIn: false,

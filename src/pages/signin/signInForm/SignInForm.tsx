@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import Input from '@components/input';
 import Button from '@components/button';
 import { Props } from '@pages/signin/signInForm/types';
@@ -43,16 +42,10 @@ const SignInForm = ({
       <Button
         type="submit"
         width="full"
-        className="mt-40"
+        className="mt-20"
       >
         LOGIN
       </Button>
-
-      <div className="text-align-center mt-20">
-        <Link to="/signup">
-          REGISTER
-        </Link>
-      </div>
     </form>
   );
 };

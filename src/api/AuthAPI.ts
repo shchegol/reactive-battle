@@ -5,6 +5,8 @@ import { SignUpRequest, UserRequest } from '@api/types';
 class AuthAPI {
   static prefix = `${API_URL}/api/${API_VERSION}/auth`;
 
+  static prefixYandexOauth = `${API_URL}/api/${API_VERSION}/oauth/yandex`;
+
   static signup(data: SignUpRequest) {
     return fetch(`${AuthAPI.prefix}/signup`, {
       method: 'POST',
@@ -29,6 +31,23 @@ class AuthAPI {
       credentials: 'include',
     })
       .then(handleResponse);
+  }
+
+  static yaGetServiceId() {
+    return fetch(`${AuthAPI.prefixYandexOauth}/service-id`, {
+      method: 'get',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  static yaLogin(code: string) {
+    return fetch(AuthAPI.prefixYandexOauth, {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code }),
+    }).then(handleResponse);
   }
 
   static logout() {
