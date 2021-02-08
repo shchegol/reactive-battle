@@ -1,10 +1,9 @@
 import { AuthActions } from '@store/actions/auth';
 import { AuthAction } from '@store/actions/types';
 
-const login = localStorage.getItem('userLogin');
-
 const initialState = {
-  isLoggedIn: !!login,
+  isLoading: false,
+  isLoggedIn: false,
   error: '',
 };
 
@@ -16,9 +15,9 @@ export function auth(
     case AuthActions.SIGNUP_REQUEST:
     case AuthActions.SIGNIN_REQUEST:
     case AuthActions.YAAUTH_REQUEST:
-    case AuthActions.LOGOUT:
       return {
         ...state,
+        isLoading: true,
         isLoggedIn: false,
         error: '',
       };
@@ -27,6 +26,7 @@ export function auth(
     case AuthActions.YAAUTH_SUCCESS:
       return {
         ...state,
+        isLoading: false,
         isLoggedIn: true,
         error: '',
       };
@@ -35,8 +35,16 @@ export function auth(
     case AuthActions.YAAUTH_FAILURE:
       return {
         ...state,
+        isLoading: false,
         isLoggedIn: false,
         error: action.error,
+      };
+    case AuthActions.LOGOUT:
+      return {
+        ...state,
+        isLoading: false,
+        isLoggedIn: false,
+        error: '',
       };
     default:
       return state;

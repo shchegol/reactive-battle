@@ -7,13 +7,15 @@ import { Provider } from 'react-redux';
 import configureStore from '@store/store';
 import { ApplicationState } from '@store/types';
 import Snackbar from '@components/snackbar/Snackbar';
+import { withLoading } from '@root/hocs/withLoading';
 
 const store = configureStore({} as ApplicationState);
+const AppWithLoading = withLoading(App);
 
 ReactDOM.render(
   <ErrorBoundary>
     <Provider store={store}>
-      <App />
+      <AppWithLoading />
       <Snackbar />
     </Provider>
   </ErrorBoundary>,
