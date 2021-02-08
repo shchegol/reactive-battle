@@ -8,7 +8,7 @@ module.exports = {
     main: util.resolve('src/index.tsx'),
   },
   output: {
-    filename: '[name].[contenthash].js',
+    filename: 'bundle.js',
     path: util.resolve('dist'),
     publicPath: '/',
   },

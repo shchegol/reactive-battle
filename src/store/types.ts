@@ -15,6 +15,7 @@ export interface AuthRootState {
 export interface AuthState {
   isLoading: boolean,
   isLoggedIn: boolean,
+  isOAuth: boolean,
   error: string,
 }
 

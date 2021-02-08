@@ -10,6 +10,7 @@ import Button from '@components/button';
 import AuthAPI from '@api/AuthAPI';
 import { API_YANDEX_OAUTH_URL } from '@root/constants';
 import { showSnackbar } from '@store/actionsCreators/snackbar';
+import { Helmet } from 'react-helmet';
 
 export default function SignIn() {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ export default function SignIn() {
 
   return (
     <div className="container">
+      <Helmet title="Signin" />
       <div className="row">
         <div className="col">
           <MainTitle />

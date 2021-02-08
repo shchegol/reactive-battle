@@ -1,9 +1,13 @@
 import { AuthActions } from '@store/actions/auth';
 import { AuthAction } from '@store/actions/types';
 
+const login = typeof window !== 'undefined' && window.localStorage.getItem('userLogin');
+const isOAuth = typeof window !== 'undefined' && window.localStorage.getItem('isOAuth');
+
 const initialState = {
+  isLoggedIn: !!login,
+  isOAuth: !!isOAuth,
   isLoading: false,
-  isLoggedIn: false,
   error: '',
 };
 
@@ -19,15 +23,24 @@ export function auth(
         ...state,
         isLoading: true,
         isLoggedIn: false,
+        isOAuth: false,
         error: '',
       };
     case AuthActions.SIGNUP_SUCCESS:
     case AuthActions.SIGNIN_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isLoggedIn: true,
+        isOAuth: false,
+        error: '',
+      };
     case AuthActions.YAAUTH_SUCCESS:
       return {
         ...state,
         isLoading: false,
         isLoggedIn: true,
+        isOAuth: true,
         error: '',
       };
     case AuthActions.SIGNUP_FAILURE:
@@ -37,6 +50,7 @@ export function auth(
         ...state,
         isLoading: false,
         isLoggedIn: false,
+        isOAuth: false,
         error: action.error,
       };
     case AuthActions.LOGOUT:
@@ -44,6 +58,7 @@ export function auth(
         ...state,
         isLoading: false,
         isLoggedIn: false,
+        isOAuth: false,
         error: '',
       };
     default:

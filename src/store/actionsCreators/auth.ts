@@ -2,7 +2,8 @@ import AuthAPI from '@api/AuthAPI';
 import { AuthActions } from '@store/actions/auth';
 import { AuthAction } from '@store/actions/types';
 import { SignUpRequest, UserRequest } from '@api/types';
-import { history } from '@root/utils/history';
+import { isServer } from '@store/store';
+import { push } from 'connected-react-router';
 import { fetchUser } from '@store/actionsCreators/user';
 
 type DispatchWithFetch<T> = (arg0: T | ReturnType<typeof fetchUser>) => void;
@@ -18,6 +19,7 @@ export const signup = (data: SignUpRequest) => {
     AuthAPI
       .signup(data)
       .then(() => {
+        if (!isServer) window.localStorage.setItem('userLogin', data.login);
         dispatch(success());
         dispatch(fetchUser());
       })
@@ -36,6 +38,7 @@ export const signin = (data: UserRequest) => {
     AuthAPI
       .signin(data)
       .then(() => {
+        if (!isServer) window.localStorage.setItem('userLogin', data.login || '');
         dispatch(success());
         dispatch(fetchUser());
       })
@@ -54,6 +57,7 @@ export const yaOauth = (code: string) => {
     AuthAPI
       .yaLogin(code)
       .then(() => {
+        if (!isServer) window.localStorage.setItem('isOAuth', 'true');
         dispatch(success());
       })
       .catch((error) => dispatch(failure(error.toString())));
@@ -64,8 +68,11 @@ export const logout = () => {
   AuthAPI
     .logout()
     .then(() => {
-      localStorage.setItem('userLogin', '');
-      history.push('/signin');
+      if (!isServer) {
+        window.localStorage.setItem('userLogin', '');
+        window.localStorage.setItem('isOAuth', 'false');
+      }
+      push('/signin');
     });
 
   return { type: AuthActions.LOGOUT };

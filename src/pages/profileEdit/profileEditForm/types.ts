@@ -9,5 +9,6 @@ export type UserProfile = {
 export type Props = {
   errorMsg?: string;
   userData?: Partial<UserProfile>;
+  isOAuth?: boolean,
   onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 } & FormHTMLAttributes<HTMLFormElement>;
