@@ -116,7 +116,7 @@ export default class Tank extends Sprite {
       return;
     }
 
-    const bulletPos = this.getBulletInitialPosition(6, 8);
+    const bulletPos = this.getBulletInitialPosition(8, 8);
     this.bullet = new Bullet(bulletPos.x, bulletPos.y, this.direction, this);
 
     EngineBus.emit(SPRITE_CREATED, this.bullet);
@@ -129,21 +129,21 @@ export default class Tank extends Sprite {
     switch (this.direction) {
       case Direction.Up:
         x = this.x + this.Width / 2 - bulletWidth / 2;
-        y = this.y;
+        y = this.y - bulletHeight;
         break;
 
       case Direction.Down:
         x = this.x + this.Width / 2 - bulletWidth / 2;
-        y = this.y + this.Height - bulletHeight;
+        y = this.y + this.Height;
         break;
 
       case Direction.Left:
-        x = this.x;
+        x = this.x - bulletWidth;
         y = this.y + this.Height / 2 - bulletHeight / 2;
         break;
 
       case Direction.Right:
-        x = this.x + this.Width - bulletWidth;
+        x = this.x + this.Width;
         y = this.y + this.Height / 2 - bulletHeight / 2;
         break;
 
