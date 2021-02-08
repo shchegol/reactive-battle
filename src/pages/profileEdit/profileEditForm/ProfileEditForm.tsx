@@ -6,6 +6,7 @@ import { Props } from './types';
 const ProfileEditForm: FC<Props> = ({
   errorMsg = '',
   userData = {},
+  isOAuth = false,
   onInputChange = undefined,
   ...rest
 }) => (
@@ -60,23 +61,27 @@ const ProfileEditForm: FC<Props> = ({
       onChange={onInputChange}
     />
 
-    <Input
-      labelText="OLD PASSWORD"
-      type="password"
-      value={userData.oldPassword}
-      name="oldPassword"
-      placeholder="OLD PASSWORD"
-      onChange={onInputChange}
-    />
+    { !isOAuth && (
+    <>
+      <Input
+        labelText="OLD PASSWORD"
+        type="password"
+        value={userData.oldPassword}
+        name="oldPassword"
+        placeholder="OLD PASSWORD"
+        onChange={onInputChange}
+      />
 
-    <Input
-      labelText="NEW PASSWORD"
-      type="password"
-      value={userData.newPassword}
-      name="newPassword"
-      placeholder="NEW PASSWORD"
-      onChange={onInputChange}
-    />
+      <Input
+        labelText="NEW PASSWORD"
+        type="password"
+        value={userData.newPassword}
+        name="newPassword"
+        placeholder="NEW PASSWORD"
+        onChange={onInputChange}
+      />
+    </>
+    ) }
 
     { !!errorMsg && (
       <div className="text-color-danger mt-20">

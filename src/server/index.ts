@@ -3,7 +3,7 @@ import configureStore from '@store/store';
 import renderer from './renderer';
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 
 app.use(express.static('dist'));
 

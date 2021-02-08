@@ -47,27 +47,31 @@ export const signin = (data: UserRequest) => {
 };
 
 export const yaOauth = (code: string) => {
-    const request = () => ({ type: AuthActions.YAAUTH_REQUEST });
-    const success = () => ({ type: AuthActions.YAAUTH_SUCCESS });
-    const failure = (error: string) => ({ type: AuthActions.YAAUTH_FAILURE, error });
+  const request = () => ({ type: AuthActions.YAAUTH_REQUEST });
+  const success = () => ({ type: AuthActions.YAAUTH_SUCCESS });
+  const failure = (error: string) => ({ type: AuthActions.YAAUTH_FAILURE, error });
 
-    return (dispatch: DispatchWithFetch<AuthAction>) => {
-        dispatch(request());
+  return (dispatch: DispatchWithFetch<AuthAction>) => {
+    dispatch(request());
 
-        AuthAPI
-            .yaLogin(code)
-            .then(() => {
-                dispatch(success());
-            })
-            .catch((error) => dispatch(failure(error.toString())));
-    };
+    AuthAPI
+      .yaLogin(code)
+      .then(() => {
+        if (!isServer) window.localStorage.setItem('isOAuth', 'true');
+        dispatch(success());
+      })
+      .catch((error) => dispatch(failure(error.toString())));
+  };
 };
 
 export const logout = () => {
   AuthAPI
     .logout()
     .then(() => {
-      if (!isServer) window.localStorage.setItem('userLogin', '');
+      if (!isServer) {
+        window.localStorage.setItem('userLogin', '');
+        window.localStorage.setItem('isOAuth', 'false');
+      }
       push('/signin');
     });
 

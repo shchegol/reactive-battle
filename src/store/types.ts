@@ -10,6 +10,7 @@ export interface ApplicationState {
 // Auth
 export interface AuthState {
   isLoggedIn: boolean,
+  isOAuth: boolean,
   error: string,
 }
 
