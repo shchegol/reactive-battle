@@ -1,5 +1,7 @@
 import { EngineBus, SPRITE_CREATED, SPRITE_DESTROYED } from '@engine/EngineBus';
 import Sprite from '@engine/sprites/Sprite';
+import Eagle from './sprites/world/Eagle';
+import Spawn from './sprites/world/Spawn';
 
 export default class SpritesManager {
   private sprites: Array<Sprite> = [];
@@ -11,6 +13,14 @@ export default class SpritesManager {
 
   public get Sprites() {
     return this.sprites;
+  }
+
+  public get Eagle() {
+    return this.sprites.find((sprite) => sprite instanceof Eagle);
+  }
+
+  public get Spawns() {
+    return this.sprites.filter((sprite) => sprite instanceof Spawn);
   }
 
   private onSpriteCreated(sprite: Sprite) {
