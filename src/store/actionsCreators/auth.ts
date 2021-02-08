@@ -2,7 +2,8 @@ import AuthAPI from '@api/AuthAPI';
 import { AuthActions } from '@store/actions/auth';
 import { AuthAction } from '@store/actions/types';
 import { SignUpRequest, UserRequest } from '@api/types';
-import { history } from '@root/utils/history';
+import { isServer } from '@store/store';
+import { push } from 'connected-react-router';
 import { fetch } from '@store/actionsCreators/user';
 
 type DispatchWithFetch<T> = (arg0: T | ReturnType<typeof fetch>) => void;
@@ -18,7 +19,7 @@ export const signup = (data: SignUpRequest) => {
     AuthAPI
       .signup(data)
       .then(() => {
-        localStorage.setItem('userLogin', data.login);
+        if (!isServer) window.localStorage.setItem('userLogin', data.login);
         dispatch(success());
         dispatch(fetch());
       })
@@ -37,7 +38,7 @@ export const signin = (data: UserRequest) => {
     AuthAPI
       .signin(data)
       .then(() => {
-        localStorage.setItem('userLogin', data.login || '');
+        if (!isServer) window.localStorage.setItem('userLogin', data.login || '');
         dispatch(success());
         dispatch(fetch());
       })
@@ -49,8 +50,8 @@ export const logout = () => {
   AuthAPI
     .logout()
     .then(() => {
-      localStorage.setItem('userLogin', '');
-      history.push('/signin');
+      if (!isServer) window.localStorage.setItem('userLogin', '');
+      push('/signin');
     });
 
   return { type: AuthActions.LOGOUT };
