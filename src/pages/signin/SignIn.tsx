@@ -1,24 +1,22 @@
 import SignInForm from '@root/pages/signin/signInForm';
 import MainTitle from '@root/components/mainTitle';
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { signin } from '@store/actionsCreators/auth';
 import { SignInRequest } from '@api/types';
-import { ApplicationState } from '@store/types';
 import Button from '@components/button';
 import AuthAPI from '@api/AuthAPI';
 import { API_YANDEX_OAUTH_URL } from '@root/constants';
-import { showSnackbar } from '@store/actionsCreators/snackbar';
 import { Helmet } from 'react-helmet';
+import useAuth from '@root/hooks/useAuth';
+import useSnackbar from '@root/hooks/useSnackbar';
 
 export default function SignIn() {
-  const dispatch = useDispatch();
-  const { isLoggedIn, error } = useSelector((state: ApplicationState) => state.auth);
+  const [isLoggedIn, signin] = useAuth();
+  const [showSnackbar] = useSnackbar();
 
   const submitHandler = (event: React.FormEvent, userData: SignInRequest) => {
     event.preventDefault();
-    dispatch(signin(userData));
+    signin(userData);
   };
 
   const yandexOauthHandler = () => {
@@ -30,7 +28,7 @@ export default function SignIn() {
         window.location.assign(getOAuthUrl(res.service_id));
       })
       .catch((err) => {
-        dispatch(showSnackbar({ message: err, type: 'danger' }));
+        showSnackbar(err, 'danger');
       });
   };
 
@@ -51,7 +49,6 @@ export default function SignIn() {
         <div className="col-12 col-sm-8 col-md-6 col-lg-4">
           <SignInForm
             handleSubmit={submitHandler}
-            errorMsg={error}
           />
 
           <div className="text-align-center mt-10">

@@ -6,7 +6,7 @@ import { Props } from '@pages/signup/signUpForm/types';
 
 const SignUpForm = ({
   handleSubmit,
-  errorMsg,
+  errorMsg = '',
 }: Props) => {
   const [firstName, setFirstName] = useState('');
   const [secondName, setSecondName] = useState('');

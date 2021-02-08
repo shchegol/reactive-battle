@@ -40,6 +40,7 @@ export default (location: string, store: Store, context: StaticRouterContext | u
       </head>
       <body>
           <div id="root">${content}</div>
+          <div id="snackbar"></div>
           <script>
               window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
           </script>

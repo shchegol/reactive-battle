@@ -1,33 +1,32 @@
-// import { useHistory } from 'react-router';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { getUrlParam } from '@helpers/UrlHelper';
-// import { ApplicationState } from '@store/types';
-// import { yaOauth } from '@store/actionsCreators/auth';
-// import { fetchUser } from '@store/actionsCreators/user';
-// import authSelector from '../store/selectors/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { SignUpRequest, UserRequest } from '@api/types';
+import { TUseAuth } from '@root/hooks/types';
+import {
+  signin as signinAC,
+  signup as signupAC,
+  logout as logoutAC,
+} from '@store/actionsCreators/auth';
+import authSelector from '../store/selectors/auth';
 
-export default function useAuth(): [() => void] {
-  // const history = useHistory();
-  // const dispatch = useDispatch();
-  // const auth = useSelector(authSelector);
-  // const login = useSelector((state: ApplicationState) => state.user.info.login);
-  // const code = getUrlParam('code');
-  // const cachedLogin = localStorage.getItem('userLogin');
+const useAuth = (): TUseAuth => {
+  const dispatch = useDispatch();
+  const auth = useSelector(authSelector);
 
-  // if (code) {
-  //     dispatch(yaOauth(code));
-  // } else if (isLoggedIn && !login) {
-  //     dispatch(fetchUser());
-  // }
+  const { isLoggedIn } = auth;
 
-  const checkAuthStatus = (): void => {
-    // if (auth.isLoggedIn && auth.isLoading) {
-    //
-    // }
-    //
-    // if (auth.error) {
-    //
-    // }
+  const signin = (data: UserRequest): void => {
+    dispatch(signinAC(data));
   };
-  return [checkAuthStatus];
-}
+
+  const signup = (data: SignUpRequest): void => {
+    dispatch(signupAC(data));
+  };
+
+  const logout = (): void => {
+    dispatch(logoutAC());
+  };
+
+  return [isLoggedIn, signin, signup, logout];
+};
+
+export default useAuth;

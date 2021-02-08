@@ -5,7 +5,7 @@ import { Props } from '@pages/signin/signInForm/types';
 
 const SignInForm = ({
   handleSubmit,
-  errorMsg,
+  errorMsg = '',
 }: Props) => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
