@@ -1,4 +1,4 @@
-import { history } from '@utils/history';
+import { push } from 'connected-react-router';
 
 export function handleResponse(response: Response) {
   return response
@@ -11,12 +11,12 @@ export function handleResponse(response: Response) {
       // Unauthorized
       if (response.status === 401) {
         localStorage.setItem('userLogin', '');
-        history.push('/signin');
+        push('/signin');
       }
 
       // Unexpected error
       if (response.status === 500) {
-        history.push('/error-5xx');
+        push('/error-5xx');
       }
 
       return Promise.reject(text);

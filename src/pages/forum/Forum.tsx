@@ -7,6 +7,7 @@ import NewThread from '@pages/forum/newThread';
 import Threads from '@pages/forum/threads';
 import MainTitle from '@components/mainTitle';
 import Button from '@components/button';
+import { Helmet } from 'react-helmet';
 
 export default function Forum() {
   const history = useHistory();
@@ -18,6 +19,9 @@ export default function Forum() {
 
   return (
     <div className="container-fluid">
+      <Helmet
+        title="Forum - Reactive Battle"
+      />
       <div className="row justify-content-left mt-10">
         <div className="col-12 col-md-3 col-lg-4">
           <Button

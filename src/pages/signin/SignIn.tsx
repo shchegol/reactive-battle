@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom';
 import { signin } from '@store/actionsCreators/auth';
 import { SignInRequest } from '@api/types';
 import { ApplicationState } from '@store/types';
+import { Helmet } from 'react-helmet';
 
 export default function SignIn() {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ export default function SignIn() {
 
   return (
     <div className="container">
+      <Helmet title="Signin" />
       <div className="row">
         <div className="col">
           <MainTitle />
