@@ -2,11 +2,13 @@ import { EngineBus, LEVEL_START, SPRITE_CREATED } from '@engine/EngineBus';
 import EnemyTank from '@engine/sprites/enemies/EnemyTank';
 import CollisionManager from './CollisionManager';
 import Direction from './Direction';
+import { gameControl } from './GameControl';
 import { EnemyType, Level } from './Levels';
 import { playerManager } from './PlayerManager';
 import BasicTank from './sprites/enemies/BasicTank';
 import FastTank from './sprites/enemies/FastTank';
 import { spritesManager } from './SpritesManager';
+import { GameStates } from './types/GameStates';
 
 const MAX_ENEMIES_ON_FIELD = 4;
 
@@ -54,6 +56,7 @@ export default class EnemiesManager {
 
   /**
    * Метод проверяет условия и порождает танк в определенных местах.
+   * Проверяет не нажата ли пауза.
    * Проверяет есть ли еще враги.
    * Проверяет количество врагов на поле.
    * Проверяет не занял ли место появления другой танк. Если занял, то враг появится позже.
@@ -64,6 +67,10 @@ export default class EnemiesManager {
    * @memberof EnemiesManager
    */
   private tryLetOutEnemy() {
+    if (gameControl.State !== GameStates.Play) {
+      return;
+    }
+
     if (this.restEnemies.length === 0) {
       return;
     }

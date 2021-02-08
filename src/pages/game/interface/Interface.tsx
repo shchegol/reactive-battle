@@ -7,6 +7,8 @@ import './interface.scss';
 import Button from '@components/button';
 import Icon from '@components/icon';
 import { activateFullscreen, deactivateFullscreen } from '@utils/fullscreen';
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from '@engine/Scene';
+import { GameStates } from '@engine/types/GameStates';
 
 /**
  * @param {number} [enemies=20] - number of enemies
@@ -26,6 +28,7 @@ const Interface: FC<Props> = ({
 }) => {
   const gameWindow = useRef<HTMLDivElement>(null);
   const [fullScreenBtnIcon, setFullScreenBtnIcon] = useState('fullscreen');
+  const [gameState, setGameState] = useState<GameStates>(GameStates.NotStarted);
 
   const renderEnemies = (enemiesNumber: number) => {
     const content = [];
@@ -59,6 +62,48 @@ const Interface: FC<Props> = ({
     }
   };
 
+  const renderPlayground = () => {
+    switch (gameState) {
+      case GameStates.Play:
+      case GameStates.Pause:
+        return <Playground state={gameState} />;
+
+      case GameStates.NotStarted:
+      default:
+        return <Button onClick={() => setGameState(GameStates.Play)}>PLAY!</Button>;
+    }
+  };
+
+  const renderPauseButton = () => {
+    let caption = '';
+    let newState: GameStates;
+
+    switch (gameState) {
+      case GameStates.Pause:
+        caption = 'RESUME';
+        newState = GameStates.Play;
+        break;
+
+      case GameStates.Play:
+        caption = 'PAUSE';
+        newState = GameStates.Pause;
+        break;
+
+      default:
+        break;
+    }
+
+    return (
+      <Button
+        className="game-interface__pause-btn"
+        color="link"
+        onClick={() => setGameState(newState)}
+      >
+        {caption}
+      </Button>
+    );
+  };
+
   return (
     <div className="row justify-content-center mt-40">
       <div className="col-auto">
@@ -75,11 +120,16 @@ const Interface: FC<Props> = ({
             >
               <Icon name={fullScreenBtnIcon} />
             </Button>
+
+            {renderPauseButton()}
           </div>
 
           <div className="game-interface__main">
-            <div className="game-interface__playground">
-              <Playground />
+            <div
+              className="game-interface__playground"
+              style={{ minWidth: CANVAS_WIDTH, minHeight: CANVAS_HEIGHT }}
+            >
+              {renderPlayground()}
             </div>
 
             <div className="game-interface__info">
