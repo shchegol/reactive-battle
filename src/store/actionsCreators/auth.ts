@@ -4,9 +4,9 @@ import { AuthAction } from '@store/actions/types';
 import { SignUpRequest, UserRequest } from '@api/types';
 import { isServer } from '@store/store';
 import { push } from 'connected-react-router';
-import { fetch } from '@store/actionsCreators/user';
+import { fetchUser } from '@store/actionsCreators/user';
 
-type DispatchWithFetch<T> = (arg0: T | ReturnType<typeof fetch>) => void;
+type DispatchWithFetch<T> = (arg0: T | ReturnType<typeof fetchUser>) => void;
 
 export const signup = (data: SignUpRequest) => {
   const request = () => ({ type: AuthActions.SIGNUP_REQUEST });
@@ -21,7 +21,7 @@ export const signup = (data: SignUpRequest) => {
       .then(() => {
         if (!isServer) window.localStorage.setItem('userLogin', data.login);
         dispatch(success());
-        dispatch(fetch());
+        dispatch(fetchUser());
       })
       .catch((error) => dispatch(failure(error.toString())));
   };
@@ -40,7 +40,25 @@ export const signin = (data: UserRequest) => {
       .then(() => {
         if (!isServer) window.localStorage.setItem('userLogin', data.login || '');
         dispatch(success());
-        dispatch(fetch());
+        dispatch(fetchUser());
+      })
+      .catch((error) => dispatch(failure(error.toString())));
+  };
+};
+
+export const yaOauth = (code: string) => {
+  const request = () => ({ type: AuthActions.YAAUTH_REQUEST });
+  const success = () => ({ type: AuthActions.YAAUTH_SUCCESS });
+  const failure = (error: string) => ({ type: AuthActions.YAAUTH_FAILURE, error });
+
+  return (dispatch: DispatchWithFetch<AuthAction>) => {
+    dispatch(request());
+
+    AuthAPI
+      .yaLogin(code)
+      .then(() => {
+        if (!isServer) window.localStorage.setItem('isOAuth', 'true');
+        dispatch(success());
       })
       .catch((error) => dispatch(failure(error.toString())));
   };
@@ -50,7 +68,10 @@ export const logout = () => {
   AuthAPI
     .logout()
     .then(() => {
-      if (!isServer) window.localStorage.setItem('userLogin', '');
+      if (!isServer) {
+        window.localStorage.setItem('userLogin', '');
+        window.localStorage.setItem('isOAuth', 'false');
+      }
       push('/signin');
     });
 

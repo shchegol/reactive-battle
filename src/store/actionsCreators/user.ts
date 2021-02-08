@@ -7,7 +7,7 @@ import { showSnackbar } from '@store/actionsCreators/snackbar';
 import { Dispatch } from 'react';
 import { DispatchSnackbar } from '@store/actionsCreators/types';
 
-export const fetch = () => {
+export const fetchUser = () => {
   const request = () => ({ type: UserActions.FETCH_REQUEST });
   const success = (info: UserResponse) => ({ type: UserActions.FETCH_SUCCESS, payload: { info } });
   const failure = (error: string) => ({ type: UserActions.FETCH_FAILURE, payload: { error } });
@@ -18,6 +18,10 @@ export const fetch = () => {
     AuthAPI.fetchUser()
       .then((response) => JSON.parse(response))
       .then((user) => {
+        if (!localStorage.getItem('userLogin')) {
+          localStorage.setItem('userLogin', user.login);
+        }
+
         dispatch(success(user));
       })
       .catch((error) => {

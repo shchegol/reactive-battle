@@ -33,6 +33,9 @@ export default (location: string, store: Store, context: StaticRouterContext | u
             type="image/png"
             href="/dist/favicon.ico"
           />
+          <link rel="preconnect" href="https://fonts.gstatic.com">
+          <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
+          <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
           <link rel="stylesheet" href="bundle.css">
       </head>
       <body>

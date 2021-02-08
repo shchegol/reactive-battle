@@ -13,15 +13,26 @@ import Forum from '@root/pages/forum/Forum';
 import ForumThread from '@root/pages/forumThread/ForumThread';
 import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationState } from '@store/types';
-import { fetch } from '@store/actionsCreators/user';
+import { fetchUser } from '@store/actionsCreators/user';
+import { getUrlParam } from '@utils/getUrlParams';
+import { yaOauth } from '@store/actionsCreators/auth';
+import { isServer } from '@store/store';
 
 export default function App() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state: ApplicationState) => state.auth.isLoggedIn);
   const login = useSelector((state: ApplicationState) => state.user.info.login);
 
+  if (!isServer) {
+    const code = getUrlParam('code');
+
+    if (code) {
+      dispatch(yaOauth(code));
+    }
+  }
+
   if (isLoggedIn && !login) {
-    dispatch(fetch());
+    dispatch(fetchUser());
   }
 
   return (

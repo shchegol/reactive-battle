@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ApplicationState } from '@store/types';
@@ -29,6 +29,7 @@ export default function ProfileEdit() {
   const history = useHistory();
 
   const user = useSelector((state: ApplicationState) => state.user);
+  const auth = useSelector((state: ApplicationState) => state.auth);
   const [userData, setUserData] = useState({
     first_name: '',
     second_name: '',
@@ -56,17 +57,18 @@ export default function ProfileEdit() {
     }
   }, [user.info]);
 
-  const handleGoBack = () => history.goBack();
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleGoBack = useCallback(() => history.goBack(), [history]);
+
+  const handleInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const value = { [event.target.name]: event.target.value };
     const newValue = {
       ...userData,
       ...value,
     };
     setUserData(newValue);
-  };
+  }, [userData]);
 
-  const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAvatarChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.currentTarget;
     if (!files) return;
 
@@ -74,7 +76,7 @@ export default function ProfileEdit() {
     if (avatarFile) {
       dispatch(changeAvatar(avatarFile));
     }
-  };
+  }, [dispatch]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -115,6 +117,7 @@ export default function ProfileEdit() {
             userData={userData}
             errorMsg={user.error}
             onInputChange={handleInputChange}
+            isOAuth={auth.isOAuth}
             onSubmit={handleSubmit}
           />
         </div>
