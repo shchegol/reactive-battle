@@ -2,6 +2,8 @@ import Direction from '@engine/Direction';
 import EnemyTank from './EnemyTank';
 
 export default class BasicTank extends EnemyTank {
+  protected speed: number = 1;
+
   constructor(x: number, y: number) {
     super(x, y, 13, 13);
   }

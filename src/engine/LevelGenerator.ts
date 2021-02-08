@@ -6,6 +6,7 @@ import Eagle from '@engine/sprites/world/Eagle';
 import Ice from '@engine/sprites/world/Ice';
 import Tree from '@engine/sprites/world/Tree';
 import Water from '@engine/sprites/world/Water';
+import Spawn from './sprites/world/Spawn';
 
 export default function createLevelSprites(level: Level) {
   let x = 0;
@@ -40,6 +41,10 @@ export default function createLevelSprites(level: Level) {
 
         case 'e':
           EngineBus.emit(SPRITE_CREATED, new Eagle(x, y));
+          break;
+
+        case 's':
+          EngineBus.emit(SPRITE_CREATED, new Spawn(x, y));
           break;
 
         default:

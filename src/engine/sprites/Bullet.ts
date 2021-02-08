@@ -1,15 +1,22 @@
 import Direction from '@engine/Direction';
 import {
-  EngineBus, SPRITE_COLLIDED, SPRITE_DESTROYED, SPRITE_MOVED, SPRITE_OUT_OF_BOUNDS,
+  EngineBus,
+  SPRITE_COLLIDED,
+  SPRITE_DESTROYED,
+  SPRITE_MOVED,
+  SPRITE_OUT_OF_BOUNDS,
 } from '@engine/EngineBus';
 import Sprite from '@engine/sprites/Sprite';
+import Tank from './Tank';
 
 export default class Bullet extends Sprite {
   private direction: Direction;
 
-  private speed: number = 2.2;
+  private speed: number = 2.5;
 
-  constructor(x: number = 0, y: number = 0, direction: Direction) {
+  private tank: Tank;
+
+  constructor(x: number = 0, y: number = 0, direction: Direction, tank: Tank) {
     super(x, y);
 
     switch (direction) {
@@ -30,6 +37,7 @@ export default class Bullet extends Sprite {
     }
 
     this.direction = direction;
+    this.tank = tank;
 
     EngineBus.on(SPRITE_OUT_OF_BOUNDS, (sprite: Sprite) => this.onOutOfBounds(sprite));
     EngineBus.on(SPRITE_COLLIDED, (sprite: Sprite, collideWith: Sprite) => this.onSpriteCollided(sprite, collideWith));
@@ -37,6 +45,10 @@ export default class Bullet extends Sprite {
 
   public get Direction() {
     return this.direction;
+  }
+
+  public get Tank() {
+    return this.tank;
   }
 
   public GetSprite() {
@@ -99,11 +111,12 @@ export default class Bullet extends Sprite {
     EngineBus.emit(SPRITE_DESTROYED, this);
   }
 
-  private onSpriteCollided(sprite: Sprite, collideWith: Sprite) {
-    if (sprite !== this || !collideWith) {
-      return;
+  private onSpriteCollided(movedSprite: Sprite, collideWith: Sprite) {
+    if (movedSprite === this) {
+      if (collideWith instanceof Bullet) {
+        EngineBus.emit(SPRITE_DESTROYED, this);
+        EngineBus.emit(SPRITE_DESTROYED, collideWith);
+      }
     }
-
-    EngineBus.emit(SPRITE_DESTROYED, this);
   }
 }

@@ -8,6 +8,7 @@
 // s - spawn
 
 export type Level = {
+  index: number;
   field: Array<string>;
   enemies: Array<EnemyType>;
 };
@@ -20,8 +21,9 @@ export enum EnemyType {
 }
 
 export const Level1: Level = {
+  index: 0,
   field: [
-    '--------------------------',
+    's-----------s-----------s-',
     '--------------------------',
     '--bb--bb--bb--bb--bb--bb--',
     '--bb--bb--bb--bb--bb--bb--',

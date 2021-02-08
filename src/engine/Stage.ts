@@ -1,10 +1,14 @@
 import createLevelSprites from '@engine/LevelGenerator';
 import { Level, Level1 } from '@engine/Levels';
 import { spritesManager } from '@engine/SpritesManager';
-import { EngineBus, LEVEL_START } from './EngineBus';
+import { EngineBus, LEVEL_NEW_ROUND, LEVEL_START } from './EngineBus';
+
+const ROUND_TIME = 10000;
 
 export default class Stage {
   private level: Level;
+
+  private round: number;
 
   public nextLevel() {
     this.level = Level1;
@@ -12,6 +16,12 @@ export default class Stage {
     createLevelSprites(this.level);
 
     EngineBus.emit(LEVEL_START, this.level);
+
+    if (!this.round) {
+      clearInterval(this.round);
+    }
+
+    this.round = setInterval(Stage.onNewRound, ROUND_TIME);
   }
 
   public render(ctx: CanvasRenderingContext2D) {
@@ -20,5 +30,9 @@ export default class Stage {
     ctx.stroke();
 
     spritesManager.Sprites.forEach((sprite) => sprite.render(ctx));
+  }
+
+  private static onNewRound() {
+    EngineBus.emit(LEVEL_NEW_ROUND);
   }
 }

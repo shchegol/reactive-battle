@@ -56,6 +56,8 @@ export default class BrickWall extends Wall {
     if (sprite1 instanceof Bullet) {
       const bullet = sprite1;
 
+      EngineBus.emit(SPRITE_DESTROYED, bullet);
+
       if (this.isHitLeft || this.isHitUp || this.isHitRigth || this.isHitDown) {
         EngineBus.emit(SPRITE_DESTROYED, this);
       } else {
