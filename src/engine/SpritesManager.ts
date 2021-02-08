@@ -6,9 +6,17 @@ import Spawn from './sprites/world/Spawn';
 export default class SpritesManager {
   private sprites: Array<Sprite> = [];
 
+  private wasInit: boolean = false;
+
   public init() {
+    if (this.wasInit) {
+      return;
+    }
+
     EngineBus.on(SPRITE_CREATED, (sprite: Sprite) => this.onSpriteCreated(sprite));
     EngineBus.on(SPRITE_DESTROYED, (sprite: Sprite) => this.onSpriteDestroyed(sprite));
+
+    this.wasInit = true;
   }
 
   public get Sprites() {

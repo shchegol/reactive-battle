@@ -5,6 +5,7 @@ export interface ApplicationState {
   user: UserState;
   forum: ForumState;
   snackbar: SnackbarState;
+  game: GameState;
 }
 
 // Auth
@@ -56,4 +57,16 @@ export interface SnackbarState {
   message: string,
   duration: number,
   type: 'danger' | 'success' | undefined,
+}
+
+export interface PlayerState {
+  name: string,
+  lives: number,
+  score: number,
+  kills: number
+}
+
+export interface GameState {
+  player: PlayerState,
+  enemies: number,
 }

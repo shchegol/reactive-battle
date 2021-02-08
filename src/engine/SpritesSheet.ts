@@ -5,7 +5,13 @@ export default class SpritesSheet {
 
   private isLoading: boolean;
 
+  private wasInit: boolean = false;
+
   public init() {
+    if (this.wasInit) {
+      return;
+    }
+
     this.isLoading = true;
 
     // TODO не забыть убрать
@@ -16,6 +22,8 @@ export default class SpritesSheet {
     this.spritesSheet.onload = () => {
       this.isLoading = false;
     };
+
+    this.wasInit = true;
   }
 
   public get Sheet() {

@@ -16,7 +16,13 @@ export default class Scene {
 
   private player: Player;
 
+  private wasInit: boolean = false;
+
   public init() {
+    if (this.wasInit) {
+      return;
+    }
+
     this.stage = new Stage();
     this.player = new Player(132, 386);
 
@@ -26,6 +32,8 @@ export default class Scene {
 
     this.stage.nextLevel();
     EngineBus.emit(SPRITE_CREATED, this.player);
+
+    this.wasInit = true;
   }
 
   public render(context: CanvasRenderingContext2D) {

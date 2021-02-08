@@ -6,14 +6,22 @@ import { GameStates } from './types/GameStates';
 export default class GameControl {
   private state: GameStates = GameStates.NotStarted;
 
+  private wasInit: boolean = false;
+
   public get State() {
     return this.state;
   }
 
   public init() {
+    if (this.wasInit) {
+      return;
+    }
+
     EngineBus.on(GAME_START, () => this.onStart());
     EngineBus.on(GAME_PAUSE, () => this.onPause());
     EngineBus.on(GAME_RESUME, () => this.onResume());
+
+    this.wasInit = true;
   }
 
   private onStart() {
@@ -21,11 +29,15 @@ export default class GameControl {
   }
 
   private onPause() {
-    this.state = GameStates.Pause;
+    this.pause();
   }
 
   private onResume() {
     this.state = GameStates.Play;
+  }
+
+  public pause() {
+    this.state = GameStates.Pause;
   }
 }
 

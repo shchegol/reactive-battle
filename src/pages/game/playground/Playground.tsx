@@ -18,10 +18,21 @@ const Playground: FC<PlaygroundProps> = ({ state = GameStates.NotStarted }) => {
   useEffect(() => {
     spritesSheet.init();
     spritesManager.init();
-    KeyboardManager.init();
     CollisionManager.init();
     scene.init();
     gameControl.init();
+
+    return () => {
+      gameControl.pause();
+    };
+  }, []);
+
+  useEffect(() => {
+    KeyboardManager.init();
+
+    return () => {
+      KeyboardManager.destroy();
+    };
   }, []);
 
   useEffect(() => {
@@ -37,10 +48,8 @@ const Playground: FC<PlaygroundProps> = ({ state = GameStates.NotStarted }) => {
     };
 
     render();
-    KeyboardManager.init();
 
     return () => {
-      KeyboardManager.destroy();
       cancelAnimationFrame(requestId);
     };
   }, []);
