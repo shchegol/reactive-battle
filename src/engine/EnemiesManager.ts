@@ -1,13 +1,14 @@
 import { EngineBus, LEVEL_START, SPRITE_CREATED } from '@engine/EngineBus';
 import EnemyTank from '@engine/sprites/enemies/EnemyTank';
+import CollisionManager from './CollisionManager';
 import Direction from './Direction';
 import { EnemyType, Level } from './Levels';
+import { playerManager } from './PlayerManager';
 import BasicTank from './sprites/enemies/BasicTank';
 import FastTank from './sprites/enemies/FastTank';
 import { spritesManager } from './SpritesManager';
 
 const MAX_ENEMIES_ON_FIELD = 4;
-const MAX_SPAWN_ON_FIELD = 3;
 
 export default class EnemiesManager {
   private enemies: EnemyTank[] = [];
@@ -51,38 +52,52 @@ export default class EnemiesManager {
     this.tryLetOutEnemy();
   }
 
+  /**
+   * Метод проверяет условия и порождает танк в определенных местах.
+   * Проверяет есть ли еще враги.
+   * Проверяет количество врагов на поле.
+   * Проверяет не занял ли место появления другой танк. Если занял, то враг появится позже.
+   * Если все условия ОК, враг появляется в одном из обозначенных мест.
+   *
+   * @private
+   * @return {*}
+   * @memberof EnemiesManager
+   */
   private tryLetOutEnemy() {
     if (this.restEnemies.length === 0) {
       return;
     }
 
-    const activeEnemies = spritesManager.Sprites.filter((sprite) => sprite instanceof EnemyTank).length;
-    if (activeEnemies >= MAX_ENEMIES_ON_FIELD) {
+    const activeEnemies = spritesManager.Sprites.filter((sprite) => sprite instanceof EnemyTank);
+    if (activeEnemies.length >= MAX_ENEMIES_ON_FIELD) {
       return;
+    }
+
+    const nextSpawn = spritesManager.Spawns[this.nextSpawn];
+    if (nextSpawn) {
+      if (CollisionManager.checkSpritesCollision(nextSpawn, [...activeEnemies, playerManager.Player]).length > 0) {
+        // this.setNextSpawn();
+        return;
+      }
     }
 
     const nextEnemy = this.restEnemies.shift();
     if (nextEnemy) {
-      switch (this.nextSpawn) {
-        case 1:
-          nextEnemy.changeLocation(195, 3, Direction.Down);
-          break;
+      const spawn = spritesManager.Spawns[this.nextSpawn];
+      if (spawn) {
+        nextEnemy.changeLocation(spawn.X, spawn.Y, Direction.Down);
 
-        case 2:
-          nextEnemy.changeLocation(387, 3, Direction.Down);
-          break;
-
-        default:
-          nextEnemy.changeLocation(3, 3, Direction.Down);
-          break;
+        this.enemies.push(nextEnemy);
+        EngineBus.emit(SPRITE_CREATED, nextEnemy);
       }
-
-      this.enemies.push(nextEnemy);
-      EngineBus.emit(SPRITE_CREATED, nextEnemy);
     }
 
+    this.setNextSpawn();
+  }
+
+  private setNextSpawn() {
     this.nextSpawn += 1;
-    if (this.nextSpawn === MAX_SPAWN_ON_FIELD) {
+    if (this.nextSpawn === spritesManager.Spawns.length) {
       this.nextSpawn = 0;
     }
   }

@@ -31,10 +31,6 @@ export default class Player extends Tank {
     }
   }
 
-  protected onTankHit(_tank: Tank, oldX: number, oldY: number) {
-    this.undoMove(oldX, oldY);
-  }
-
   protected onBulletHit(bullet: Bullet) {
     // GOD MODE
     // EngineBus.emit(SPRITE_DESTROYED, this);

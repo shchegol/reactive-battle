@@ -23,7 +23,7 @@ export enum EnemyType {
 export const Level1: Level = {
   index: 0,
   field: [
-    '--------------------------',
+    's-----------s-----------s-',
     '--------------------------',
     '--bb--bb--bb--bb--bb--bb--',
     '--bb--bb--bb--bb--bb--bb--',

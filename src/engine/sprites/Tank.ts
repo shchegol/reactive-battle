@@ -208,7 +208,9 @@ export default class Tank extends Sprite {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected onTankHit(_tank: Tank, _oldX: number, _oldY: number): void { }
+  protected onTankHit(_tank: Tank, oldX: number, oldY: number): void {
+    this.undoMove(oldX, oldY);
+  }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected onBulletHit(_bullet: Bullet): void { }

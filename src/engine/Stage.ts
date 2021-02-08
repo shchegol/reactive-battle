@@ -3,6 +3,8 @@ import { Level, Level1 } from '@engine/Levels';
 import { spritesManager } from '@engine/SpritesManager';
 import { EngineBus, LEVEL_NEW_ROUND, LEVEL_START } from './EngineBus';
 
+const ROUND_TIME = 10000;
+
 export default class Stage {
   private level: Level;
 
@@ -19,12 +21,7 @@ export default class Stage {
       clearInterval(this.round);
     }
 
-    // eslint-disable-next-line no-mixed-operators
-    const interval = 10000; // Round time
-
-    console.log('interval', interval);
-
-    this.round = setInterval(Stage.onNewRound, interval);
+    this.round = setInterval(Stage.onNewRound, ROUND_TIME);
   }
 
   public render(ctx: CanvasRenderingContext2D) {

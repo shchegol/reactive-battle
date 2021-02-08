@@ -9,12 +9,6 @@ export default class EnemyTank extends Tank {
     this.isPlayer = false;
   }
 
-  protected onTankHit(tank: Tank, oldX: number, oldY: number) {
-    if (tank.IsPlayer) {
-      this.undoMove(oldX, oldY);
-    }
-  }
-
   protected onBulletHit(bullet: Bullet) {
     super.onBulletHit(bullet);
 
