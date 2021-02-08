@@ -21,7 +21,7 @@ hydrate(
         titleTemplate="%s - Reactive Battle"
       />
       <ConnectedRouter history={history}>
-          <AppWithLoading />
+        <AppWithLoading />
       </ConnectedRouter>
       <Snackbar />
     </Provider>
