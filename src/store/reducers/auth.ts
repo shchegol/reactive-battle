@@ -1,7 +1,7 @@
 import { AuthActions } from '@store/actions/auth';
 import { AuthAction } from '@store/actions/types';
 
-const login = localStorage.getItem('userLogin');
+const login = typeof window !== 'undefined' && window.localStorage.getItem('userLogin');
 
 const initialState = {
   isLoggedIn: !!login,
