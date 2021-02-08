@@ -1,5 +1,3 @@
-import { ObjectString } from '@utils/types';
-
 /**
  * Get URLSearchParams
  * @return {URLSearchParams} - current url params
@@ -13,8 +11,8 @@ const getUrlSearchParams = (): URLSearchParams => {
  * Get URL params
  * @return {Object} - URL params in {param: value}
  */
-export const getUrlParams = (): ObjectString => {
-  const params: ObjectString = {};
+export const getUrlParams = (): Record<string, string> => {
+  const params: Record<string, string> = {};
   getUrlSearchParams().forEach((value, key) => { params[key] = value; });
   return params;
 };
