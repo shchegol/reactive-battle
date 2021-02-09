@@ -1,6 +1,17 @@
 import {
-  EngineBus, PLAYER_MOVE_BACKWARD, PLAYER_MOVE_FORWARD, PLAYER_MOVE_LEFT, PLAYER_MOVE_RIGHT, PLAYER_SHOT, PLAYER_STOP_BACKWARD, PLAYER_STOP_FORWARD, PLAYER_STOP_LEFT, PLAYER_STOP_RIGHT,
+  EngineBus,
+  PLAYER_MOVE_BACKWARD,
+  PLAYER_MOVE_FORWARD,
+  PLAYER_MOVE_LEFT,
+  PLAYER_MOVE_RIGHT,
+  PLAYER_SHOT,
+  PLAYER_STOP_BACKWARD,
+  PLAYER_STOP_FORWARD,
+  PLAYER_STOP_LEFT,
+  PLAYER_STOP_RIGHT,
 } from '@engine/EngineBus';
+import { gameControl } from './GameControl';
+import { GameStates } from './types/GameStates';
 
 export default class KeyboardManager {
   public static init() {
@@ -15,6 +26,10 @@ export default class KeyboardManager {
 
   private static keyDownHandler(event: KeyboardEvent) {
     event.preventDefault();
+
+    if (gameControl.State !== GameStates.Play) {
+      return;
+    }
 
     switch (event.key) {
       case 'ArrowRight':
@@ -44,6 +59,10 @@ export default class KeyboardManager {
 
   private static keyUpHandler(event: KeyboardEvent) {
     event.preventDefault();
+
+    if (gameControl.State !== GameStates.Play) {
+      return;
+    }
 
     switch (event.code) {
       case 'ArrowRight':

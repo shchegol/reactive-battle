@@ -15,8 +15,16 @@ import { spritesManager } from '@engine/SpritesManager';
  * @class CollisionManager
  */
 export default class CollisionManager {
+  private static wasInit: boolean = false;
+
   public static init() {
+    if (this.wasInit) {
+      return;
+    }
+
     EngineBus.on(SPRITE_MOVED, (movedSprite: Sprite, oldX: number, oldY: number) => CollisionManager.onSpriteMoved(movedSprite, oldX, oldY));
+
+    this.wasInit = true;
   }
 
   private static onSpriteMoved(movedSprite: Sprite, oldX: number, oldY: number) {

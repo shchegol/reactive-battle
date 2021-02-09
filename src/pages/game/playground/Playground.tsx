@@ -1,21 +1,38 @@
 import React, { FC, useEffect, useRef } from 'react';
-import Scene, { CANVAS_HEIGHT, CANVAS_WIDTH } from '@engine/Scene';
+import { CANVAS_HEIGHT, CANVAS_WIDTH, scene } from '@engine/Scene';
 import { spritesSheet } from '@engine/SpritesSheet';
 import { spritesManager } from '@engine/SpritesManager';
 import KeyboardManager from '@engine/KeyboardManager';
 import CollisionManager from '@engine/CollisionManager';
+import { GameStates } from '@engine/types/GameStates';
+import { EngineBus, GAME_PAUSE, GAME_RESUME } from '@engine/EngineBus';
+import { gameControl } from '@engine/GameControl';
 
-const scene = new Scene();
+type PlaygroundProps = {
+  state: GameStates;
+};
 
-const Playground: FC = () => {
+const Playground: FC<PlaygroundProps> = ({ state = GameStates.NotStarted }) => {
   const canvas = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     spritesSheet.init();
     spritesManager.init();
-    KeyboardManager.init();
     CollisionManager.init();
     scene.init();
+    gameControl.init();
+
+    return () => {
+      gameControl.pause();
+    };
+  }, []);
+
+  useEffect(() => {
+    KeyboardManager.init();
+
+    return () => {
+      KeyboardManager.destroy();
+    };
   }, []);
 
   useEffect(() => {
@@ -31,13 +48,26 @@ const Playground: FC = () => {
     };
 
     render();
-    KeyboardManager.init();
 
     return () => {
-      KeyboardManager.destroy();
       cancelAnimationFrame(requestId);
     };
   }, []);
+
+  useEffect(() => {
+    switch (state) {
+      case GameStates.Pause:
+        EngineBus.emit(GAME_PAUSE);
+        break;
+
+      case GameStates.Play:
+        EngineBus.emit(GAME_RESUME);
+        break;
+
+      default:
+        break;
+    }
+  }, [state]);
 
   return (
     <canvas
