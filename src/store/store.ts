@@ -3,6 +3,7 @@ import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory, createMemoryHistory } from 'history';
+import { ApplicationState } from '@store/types';
 import reducers from './reducers';
 
 export const isServer = !(
@@ -11,18 +12,10 @@ export const isServer = !(
   && window.document.createElement
 );
 
-export default (url = '/') => {
+export default (preloadedState: ApplicationState, url = '/') => {
   const history = isServer
-    ? createMemoryHistory({
-      initialEntries: [url],
-    })
+    ? createMemoryHistory({ initialEntries: [url] })
     : createBrowserHistory();
-
-  const preloadedState = !isServer ? window.__PRELOADED_STATE__ : {};
-
-  if (!isServer) {
-    delete window.__PRELOADED_STATE__;
-  }
 
   const store = createStore(
     reducers(history),

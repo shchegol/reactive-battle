@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import AuthAPI from '@api/AuthAPI';
 import { AuthActions } from '@store/actions/auth';
 import { AuthAction } from '@store/actions/types';
@@ -22,7 +23,7 @@ export const signup = (data: SignUpRequest) => {
     AuthAPI
       .signup(data)
       .then(() => {
-        if (!isServer) window.localStorage.setItem('userLogin', data.login);
+        Cookies.set('userLogin', data.login, { expires: 7 });
         dispatch(success());
         dispatch(fetchUser());
         dispatch(showSnackbar({ type: 'success', message: 'registration completed successfully' }));
@@ -45,7 +46,7 @@ export const signin = (data: UserRequest) => {
     AuthAPI
       .signin(data)
       .then(() => {
-        if (!isServer) window.localStorage.setItem('userLogin', data.login || '');
+        Cookies.set('userLogin', data.login || '', { expires: 7 });
         dispatch(success());
         dispatch(fetchUser());
         dispatch(showSnackbar({ type: 'success', message: 'authorization completed successfully' }));
@@ -68,7 +69,7 @@ export const yaOauth = (code: string) => {
     AuthAPI
       .yaLogin(code)
       .then(() => {
-        if (!isServer) window.localStorage.setItem('isOAuth', 'true');
+        Cookies.set('isOAuth', 'true', { expires: 7 });
         dispatch(success());
         dispatch(showSnackbar({ type: 'success', message: 'authorization completed successfully' }));
       })
@@ -84,8 +85,8 @@ export const logout = () => {
     .logout()
     .then(() => {
       if (!isServer) {
-        window.localStorage.setItem('userLogin', '');
-        window.localStorage.setItem('isOAuth', 'false');
+        Cookies.remove('userLogin');
+        Cookies.remove('isOAuth');
       }
       push('/signin');
     });

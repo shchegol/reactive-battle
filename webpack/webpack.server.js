@@ -11,7 +11,7 @@ module.exports = merge(common, {
   target: 'node',
   mode: 'production',
   entry: '/src/server/index.ts',
-  externals: [webpackNodeExternals()],
+  externals: [webpackNodeExternals({ allowlist: [/\.(?!(?:tsx?|json)$).{1,5}$/i] })],
   output: {
     filename: 'bundle.js',
     path: util.resolve('build'),
@@ -47,7 +47,7 @@ module.exports = merge(common, {
   plugins: [
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'bundle.css',
+      filename: '../dist/bundle.css',
     }),
   ],
 });

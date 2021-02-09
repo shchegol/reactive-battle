@@ -1,8 +1,9 @@
 import { AuthActions } from '@store/actions/auth';
 import { AuthAction } from '@store/actions/types';
+import Cookies from 'js-cookie';
 
-const login = typeof window !== 'undefined' && window.localStorage.getItem('userLogin');
-const isOAuth = typeof window !== 'undefined' && window.localStorage.getItem('isOAuth');
+const login = Cookies.get('userLogin');
+const isOAuth = Cookies.get('isOAuth');
 
 const initialState = {
   isLoggedIn: !!login,

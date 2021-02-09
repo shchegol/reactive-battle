@@ -9,8 +9,11 @@ import Snackbar from '@components/snackbar/Snackbar';
 import { withLoading } from '@root/hocs/withLoading';
 import { ConnectedRouter } from 'connected-react-router';
 import { Helmet } from 'react-helmet';
+import { ApplicationState } from '@store/types';
 
-const { store, history } = configureStore();
+const initialState = window.__PRELOADED_STATE__;
+delete window.__PRELOADED_STATE__;
+const { store, history } = configureStore(initialState as ApplicationState);
 const AppWithLoading = withLoading(App);
 
 hydrate(
