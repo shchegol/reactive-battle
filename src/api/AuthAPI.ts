@@ -29,8 +29,7 @@ class AuthAPI {
     return fetch(`${AuthAPI.prefix}/user`, {
       method: 'GET',
       credentials: 'include',
-    })
-      .then(handleResponse);
+    }).then(handleResponse);
   }
 
   static yaGetServiceId() {

@@ -9,7 +9,12 @@ export interface ApplicationState {
 }
 
 // Auth
+export interface AuthRootState {
+  auth: AuthState;
+}
+
 export interface AuthState {
+  isLoading: boolean,
   isLoggedIn: boolean,
   isOAuth: boolean,
   error: string,

@@ -5,7 +5,7 @@ import { SnackbarState } from '@store/types';
 const initialState = {
   isShow: false,
   message: '',
-  duration: 5,
+  duration: 10,
   type: undefined,
 };
 
@@ -30,7 +30,7 @@ export function snackbar(
         ...state,
         isShow: false,
         message: '',
-        duration: 5,
+        duration: 10,
         type: undefined,
       };
     default:

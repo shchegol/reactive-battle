@@ -5,6 +5,9 @@ import { SignUpRequest, UserRequest } from '@api/types';
 import { isServer } from '@store/store';
 import { push } from 'connected-react-router';
 import { fetchUser } from '@store/actionsCreators/user';
+import { showSnackbar } from '@store/actionsCreators/snackbar';
+import { DispatchSnackbar } from '@store/actionsCreators/types';
+import { Dispatch } from 'react';
 
 type DispatchWithFetch<T> = (arg0: T | ReturnType<typeof fetchUser>) => void;
 
@@ -13,7 +16,7 @@ export const signup = (data: SignUpRequest) => {
   const success = () => ({ type: AuthActions.SIGNUP_SUCCESS });
   const failure = (error: string) => ({ type: AuthActions.SIGNUP_FAILURE, error });
 
-  return (dispatch: DispatchWithFetch<AuthAction>) => {
+  return (dispatch: DispatchWithFetch<AuthAction | DispatchSnackbar>) => {
     dispatch(request());
 
     AuthAPI
@@ -22,8 +25,12 @@ export const signup = (data: SignUpRequest) => {
         if (!isServer) window.localStorage.setItem('userLogin', data.login);
         dispatch(success());
         dispatch(fetchUser());
+        dispatch(showSnackbar({ type: 'success', message: 'registration completed successfully' }));
       })
-      .catch((error) => dispatch(failure(error.toString())));
+      .catch((error) => {
+        dispatch(failure(error.toString()));
+        dispatch(showSnackbar({ type: 'danger', message: `${error.toString()}` }));
+      });
   };
 };
 
@@ -32,7 +39,7 @@ export const signin = (data: UserRequest) => {
   const success = () => ({ type: AuthActions.SIGNIN_SUCCESS });
   const failure = (error: string) => ({ type: AuthActions.SIGNIN_FAILURE, error });
 
-  return (dispatch: DispatchWithFetch<AuthAction>) => {
+  return (dispatch: DispatchWithFetch<AuthAction | DispatchSnackbar>) => {
     dispatch(request());
 
     AuthAPI
@@ -41,8 +48,12 @@ export const signin = (data: UserRequest) => {
         if (!isServer) window.localStorage.setItem('userLogin', data.login || '');
         dispatch(success());
         dispatch(fetchUser());
+        dispatch(showSnackbar({ type: 'success', message: 'authorization completed successfully' }));
       })
-      .catch((error) => dispatch(failure(error.toString())));
+      .catch((error) => {
+        dispatch(failure(error.toString()));
+        dispatch(showSnackbar({ type: 'danger', message: `${error.toString()}` }));
+      });
   };
 };
 
@@ -51,7 +62,7 @@ export const yaOauth = (code: string) => {
   const success = () => ({ type: AuthActions.YAAUTH_SUCCESS });
   const failure = (error: string) => ({ type: AuthActions.YAAUTH_FAILURE, error });
 
-  return (dispatch: DispatchWithFetch<AuthAction>) => {
+  return (dispatch: Dispatch<AuthAction | DispatchSnackbar>) => {
     dispatch(request());
 
     AuthAPI
@@ -59,8 +70,12 @@ export const yaOauth = (code: string) => {
       .then(() => {
         if (!isServer) window.localStorage.setItem('isOAuth', 'true');
         dispatch(success());
+        dispatch(showSnackbar({ type: 'success', message: 'authorization completed successfully' }));
       })
-      .catch((error) => dispatch(failure(error.toString())));
+      .catch((error) => {
+        dispatch(failure(error.toString()));
+        dispatch(showSnackbar({ type: 'danger', message: `${error.toString()}` }));
+      });
   };
 };
 

@@ -4,7 +4,7 @@ import toClassNames from '@root/utils/toClassNames';
 import './mainTitle.scss';
 import { Props } from './types';
 
-const avatarTmpl = require('@root/images/tank.png').default;
+const avatarTmpl = require('@root/images/engine/tanks/player-0.svg').default;
 
 /**
  * Main title

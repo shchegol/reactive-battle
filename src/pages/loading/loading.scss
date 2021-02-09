@@ -1,0 +1,25 @@
+@import "@styles/utilities/variables";
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 10rem;
+    height: 10rem;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    animation: tankMove .1s linear infinite;
+  }
+}
+
+@keyframes tankMove {
+  from {background-image: url("../../images/engine/tanks/player-0.svg");}
+  to {background-image: url("../../images/engine/tanks/player-1.svg");}
+}

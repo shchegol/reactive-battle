@@ -7,7 +7,6 @@ import { Dispatch } from 'react';
  * @param {SnackbarPayload} payload - snackbar info
  */
 export const showSnackbar = (payload: SnackbarPayload) => (dispatch: Dispatch<SnackbarAction>) => {
-  console.log('showSnackbar');
   dispatch({ type: SnackbarActions.SNACKBAR_SHOW, payload });
 };
 

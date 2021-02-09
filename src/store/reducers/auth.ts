@@ -7,6 +7,7 @@ const isOAuth = typeof window !== 'undefined' && window.localStorage.getItem('is
 const initialState = {
   isLoggedIn: !!login,
   isOAuth: !!isOAuth,
+  isLoading: false,
   error: '',
 };
 
@@ -18,9 +19,9 @@ export function auth(
     case AuthActions.SIGNUP_REQUEST:
     case AuthActions.SIGNIN_REQUEST:
     case AuthActions.YAAUTH_REQUEST:
-    case AuthActions.LOGOUT:
       return {
         ...state,
+        isLoading: true,
         isLoggedIn: false,
         isOAuth: false,
         error: '',
@@ -29,6 +30,7 @@ export function auth(
     case AuthActions.SIGNIN_SUCCESS:
       return {
         ...state,
+        isLoading: false,
         isLoggedIn: true,
         isOAuth: false,
         error: '',
@@ -36,6 +38,7 @@ export function auth(
     case AuthActions.YAAUTH_SUCCESS:
       return {
         ...state,
+        isLoading: false,
         isLoggedIn: true,
         isOAuth: true,
         error: '',
@@ -45,9 +48,18 @@ export function auth(
     case AuthActions.YAAUTH_FAILURE:
       return {
         ...state,
+        isLoading: false,
         isLoggedIn: false,
         isOAuth: false,
         error: action.error,
+      };
+    case AuthActions.LOGOUT:
+      return {
+        ...state,
+        isLoading: false,
+        isLoggedIn: false,
+        isOAuth: false,
+        error: '',
       };
     default:
       return state;

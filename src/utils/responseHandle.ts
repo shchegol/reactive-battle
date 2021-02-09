@@ -8,6 +8,8 @@ export function handleResponse(response: Response) {
         return text;
       }
 
+      const data = text && JSON.parse(text);
+
       // Unauthorized
       if (response.status === 401) {
         localStorage.setItem('userLogin', '');
@@ -19,6 +21,8 @@ export function handleResponse(response: Response) {
         push('/error-5xx');
       }
 
-      return Promise.reject(text);
+      const error = (data && data.reason) || response.statusText;
+
+      return Promise.reject(error);
     });
 }
