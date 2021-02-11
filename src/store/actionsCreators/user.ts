@@ -16,7 +16,7 @@ export const fetchUser = () => {
     dispatch(request());
 
     AuthAPI.fetchUser()
-      .then((response) => JSON.parse(response))
+      .then((response) => JSON.parse(<string>response))
       .then((user) => {
         if (!localStorage.getItem('userLogin')) {
           localStorage.setItem('userLogin', user.login);
@@ -40,7 +40,7 @@ export const changeProfile = (data: UserRequest) => {
     dispatch(request());
 
     UserAPI.changeProfile(data)
-      .then((response) => JSON.parse(response))
+      .then((response) => JSON.parse(<string>response))
       .then((user) => {
         dispatch(success(user));
         dispatch(showSnackbar({ type: 'success', message: 'Profile updated successfully' }));
@@ -61,7 +61,7 @@ export const changeAvatar = (data: File) => {
     dispatch(request());
 
     UserAPI.changeAvatar(data)
-      .then((response) => JSON.parse(response))
+      .then((response) => JSON.parse(<string>response))
       .then((user) => {
         dispatch(success(user));
       })

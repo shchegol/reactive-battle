@@ -23,7 +23,7 @@ export default function SignIn() {
     const getOAuthUrl = (serviceId: string): string => `${API_YANDEX_OAUTH_URL}?response_type=code&client_id=${serviceId}`;
 
     AuthAPI.yaGetServiceId()
-      .then((res) => res.json())
+      .then((res) => res.data)
       .then((res) => {
         window.location.assign(getOAuthUrl(res.service_id));
       })
