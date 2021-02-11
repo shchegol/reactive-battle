@@ -1,36 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationState } from '@store/types';
 import Interface from '@pages/game/interface/Interface';
 import { EngineBus, SPRITE_DESTROYED } from '@engine/EngineBus';
 import BasicTank from '@engine/sprites/enemies/BasicTank';
 import Bullet from '@engine/sprites/Bullet';
 import EnemyTank from '@engine/sprites/enemies/EnemyTank';
+import { udpateScore } from '@root/store/actionsCreators/game';
 
 export default function Game() {
   const login = useSelector((state: ApplicationState) => state.user.info.login);
-  const [gameParams, setGameParams] = useState({
-    player: {
-      name: login || 'PLAYER 1',
-      lives: 2,
-      score: 0,
-      kills: 0,
-    },
-    enemies: 20,
-  });
+  const game = useSelector((state: ApplicationState) => state.game);
+
+  const dispatch = useDispatch();
 
   const playerShot = (ctx: BasicTank | Bullet) => {
     if (ctx instanceof EnemyTank) {
-      setGameParams((oldParams) => ({
-        ...oldParams,
-        player: {
-          ...oldParams.player,
-          kills: oldParams.player.kills + 1,
-          score: oldParams.player.score + 300,
-        },
-        enemies: oldParams.enemies - 1,
-      }));
+      dispatch(udpateScore());
     }
   };
 
@@ -73,8 +60,8 @@ export default function Game() {
       </div>
 
       <Interface
-        enemies={gameParams.enemies}
-        player={gameParams.player}
+        enemies={game.enemies}
+        player={game.player}
       />
     </div>
   );

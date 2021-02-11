@@ -6,7 +6,9 @@ import {
   SPRITE_MOVED,
   SPRITE_OUT_OF_BOUNDS,
 } from '@engine/EngineBus';
+import { gameControl } from '@engine/GameControl';
 import Sprite from '@engine/sprites/Sprite';
+import { GameStates } from '@engine/types/GameStates';
 import Tank from './Tank';
 
 export default class Bullet extends Sprite {
@@ -71,30 +73,32 @@ export default class Bullet extends Sprite {
   }
 
   public render(ctx: CanvasRenderingContext2D) {
-    switch (this.direction) {
-      case Direction.Up:
-        this.y -= this.speed;
-        break;
+    if (gameControl.State === GameStates.Play) {
+      switch (this.direction) {
+        case Direction.Up:
+          this.y -= this.speed;
+          break;
 
-      case Direction.Down:
-        this.y += this.speed;
-        break;
+        case Direction.Down:
+          this.y += this.speed;
+          break;
 
-      case Direction.Left:
-        this.x -= this.speed;
-        break;
+        case Direction.Left:
+          this.x -= this.speed;
+          break;
 
-      case Direction.Right:
-        this.x += this.speed;
-        break;
+        case Direction.Right:
+          this.x += this.speed;
+          break;
 
-      default:
-        break;
+        default:
+          break;
+      }
+
+      EngineBus.emit(SPRITE_MOVED, this);
     }
 
     super.render(ctx);
-
-    EngineBus.emit(SPRITE_MOVED, this);
   }
 
   public move(newX: number, newY: number, newDirection: Direction) {

@@ -3,6 +3,7 @@ import { UserActions } from '@store/actions/user';
 import { UserResponse } from '@api/types';
 import { AuthActions } from '@store/actions/auth';
 import { ForumActions } from '@store/actions/forum';
+import { GameActions } from './game';
 
 export type TPayload<T, P> = {
   type: T;
@@ -44,3 +45,10 @@ export interface SnackbarPayload {
 }
 
 export type SnackbarAction = TPayload<SnackbarActions, SnackbarPayload>;
+
+// Game
+export interface UpdateScoreActionType {
+  type: GameActions.UPDATE_SCORE;
+}
+
+export type GameAction = UpdateScoreActionType;
