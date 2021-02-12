@@ -14,13 +14,16 @@ app
   .use(
     webpackDevMiddleware(compiler, {
       publicPath: webpackConfig[1].output.publicPath,
+      serverSideRender: true,
     }),
   )
-  .use(require('webpack-hot-middleware')(compiler))
+  .use(require('webpack-hot-middleware')(compiler, {
+    path: '/__webpack_hmr',
+    serverSideRender: true,
+  }))
   .use(cookieParser())
-  .use(express.static(path.resolve(__dirname, '../dist')))
-  .use(express.static(path.resolve(__dirname, '../static')));
+  .use(express.static(path.resolve(__dirname, '../dist')));
 
-app.get('/*', renderMiddleware);
+app.get('*', renderMiddleware);
 
 export { app };

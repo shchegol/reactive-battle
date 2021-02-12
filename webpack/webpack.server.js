@@ -13,10 +13,26 @@ module.exports = [
     entry: '/src/server/index.ts',
     externals: [webpackNodeExternals({ allowlist: [/\.(?!(?:tsx?|json)$).{1,5}$/i] })],
     output: {
-      filename: 'bundle.js',
-      path: util.resolve('build'),
+      filename: 'server.js',
+      path: util.resolve('dist'),
       publicPath: '/',
     },
+    module: {
+      rules: [{
+        test: /\.scss$/,
+        exclude: /node_modules/,
+        use: 'null-loader',
+      }],
+    },
+  }),
+  // client config
+  merge(common, {
+    entry: {
+      main: [
+        'webpack-hot-middleware/client?path=/__webpack_hmr',
+        util.resolve('src/index.tsx')],
+    },
+    mode: 'development',
     module: {
       rules: [
         {
@@ -32,28 +48,10 @@ module.exports = [
       ],
     },
     plugins: [
-      new MiniCssExtractPlugin({
-        filename: '../dist/bundle.css',
-      }),
-    ],
-  }),
-  // client config
-  merge(common, {
-    entry: {
-      main: [
-        'webpack-hot-middleware/client?path=/__webpack_hmr',
-        util.resolve('src/index.tsx')],
-    },
-    mode: 'development',
-    module: {
-      rules: [{
-        test: /\.scss$/,
-        exclude: /node_modules/,
-        use: 'null-loader',
-      }],
-    },
-    plugins: [
       new webpack.HotModuleReplacementPlugin(),
+      new MiniCssExtractPlugin({
+        filename: 'bundle.css',
+      }),
     ],
   }),
 ];
