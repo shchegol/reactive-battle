@@ -1,13 +1,14 @@
+import path from 'path';
 import express from 'express';
 import cookieParser from 'cookie-parser';
-import path from 'path';
+import cors from 'cors';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import renderMiddleware from './render-middleware';
 
+const app = express();
 const webpackConfig = require('../../webpack/webpack.server.js');
 
-const app = express();
 const compiler = webpack(webpackConfig[1]);
 
 app
@@ -19,9 +20,11 @@ app
   )
   .use(require('webpack-hot-middleware')(compiler, {
     path: '/__webpack_hmr',
-    serverSideRender: true,
   }))
   .use(cookieParser())
+  .use(cors({
+    credentials: true,
+  }))
   .use(express.static(path.resolve(__dirname, '../dist')));
 
 app.get('*', renderMiddleware);

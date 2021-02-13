@@ -20,10 +20,10 @@ export const signup = (data: SignUpRequest) => {
   return (dispatch: DispatchWithFetch<AuthAction | DispatchSnackbar>) => {
     dispatch(request());
 
-    AuthAPI
+    return AuthAPI
       .signup(data)
-      .then(() => {
-        Cookies.set('userLogin', data.login, { expires: 7 });
+      .then((userData) => {
+        Cookies.set('userLogin', userData.login, { expires: 7 });
         dispatch(success());
         dispatch(fetchUser());
         dispatch(showSnackbar({ type: 'success', message: 'registration completed successfully' }));
@@ -45,8 +45,8 @@ export const signin = (data: UserRequest) => {
 
     AuthAPI
       .signin(data)
-      .then(() => {
-        Cookies.set('userLogin', data.login || '', { expires: 7 });
+      .then((userData) => {
+        Cookies.set('userLogin', userData.login || '', { expires: 7 });
         dispatch(success());
         dispatch(fetchUser());
         dispatch(showSnackbar({ type: 'success', message: 'authorization completed successfully' }));

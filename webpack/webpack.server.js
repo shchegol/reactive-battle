@@ -11,7 +11,7 @@ module.exports = [
     target: 'node',
     mode: 'production',
     entry: '/src/server/index.ts',
-    externals: [webpackNodeExternals({ allowlist: [/\.(?!(?:tsx?|json)$).{1,5}$/i] })],
+    externals: [webpackNodeExternals()],
     output: {
       filename: 'server.js',
       path: util.resolve('dist'),

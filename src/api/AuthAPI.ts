@@ -1,51 +1,33 @@
-import { API_URL, API_VERSION } from '@root/constants';
-import { handleResponse } from '@utils/responseHandle';
-import { SignUpRequest, UserRequest } from '@api/types';
-import axios from 'axios';
+import { SignUpRequest, UserRequest, UserResponse } from '@api/types';
+import axios from '@utils/apiRequest';
 
 class AuthAPI {
-  static prefix = `${API_URL}/api/${API_VERSION}/auth`;
+  static prefix = '/auth';
 
-  static prefixYandexOauth = `${API_URL}/api/${API_VERSION}/oauth/yandex`;
+  static prefixYandexOauth = '/oauth/yandex';
 
-  static signup(data: SignUpRequest) {
-    return axios.post(`${AuthAPI.prefix}/signup`, JSON.stringify(data), {
-      withCredentials: true,
-      headers: { 'Content-Type': 'application/json' },
-    }).then(handleResponse);
+  static signup(data: SignUpRequest): Promise<UserResponse> {
+    return axios.post(`${AuthAPI.prefix}/signup`, data);
   }
 
-  static signin(data: UserRequest) {
-    return axios.post(`${AuthAPI.prefix}/signin`, JSON.stringify(data), {
-      withCredentials: true,
-      headers: { 'Content-Type': 'application/json' },
-    }).then(handleResponse);
+  static signin(data: UserRequest): Promise<UserResponse> {
+    return axios.post(`${AuthAPI.prefix}/signin`, data);
   }
 
-  static fetchUser() {
-    return axios.get(`${AuthAPI.prefix}/user`, {
-      withCredentials: true,
-    }).then(handleResponse);
+  static fetchUser(): Promise<UserResponse> {
+    return axios.get(`${AuthAPI.prefix}/user`);
   }
 
   static yaGetServiceId() {
-    return axios.get(`${AuthAPI.prefixYandexOauth}/service-id`, {
-      withCredentials: true,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return axios.get(`${AuthAPI.prefixYandexOauth}/service-id`);
   }
 
-  static yaLogin(code: string) {
-    return axios.post(AuthAPI.prefixYandexOauth, JSON.stringify({ code }), {
-      withCredentials: true,
-      headers: { 'Content-Type': 'application/json' },
-    }).then(handleResponse);
+  static yaLogin(code: string): Promise<UserResponse> {
+    return axios.post(AuthAPI.prefixYandexOauth, JSON.stringify({ code }));
   }
 
   static logout() {
-    return axios.post(`${AuthAPI.prefix}/logout`, {
-      withCredentials: true,
-    });
+    return axios.post(`${AuthAPI.prefix}/logout`);
   }
 }
 

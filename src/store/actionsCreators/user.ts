@@ -6,6 +6,7 @@ import UserAPI from '@api/UserAPI';
 import { showSnackbar } from '@store/actionsCreators/snackbar';
 import { Dispatch } from 'react';
 import { DispatchSnackbar } from '@store/actionsCreators/types';
+import Cookies from 'js-cookie';
 
 export const fetchUser = () => {
   const request = () => ({ type: UserActions.FETCH_REQUEST });
@@ -15,14 +16,13 @@ export const fetchUser = () => {
   return (dispatch: Dispatch<UserAction | DispatchSnackbar>) => {
     dispatch(request());
 
-    AuthAPI.fetchUser()
-      .then((response) => JSON.parse(<string>response))
-      .then((user) => {
-        if (!localStorage.getItem('userLogin')) {
-          localStorage.setItem('userLogin', user.login);
+    return AuthAPI.fetchUser()
+      .then((userData) => {
+        if (!Cookies.get('userLogin')) {
+          Cookies.set('userLogin', userData.login || '', { expires: 7 });
         }
 
-        dispatch(success(user));
+        dispatch(success(userData));
       })
       .catch((error) => {
         dispatch(showSnackbar({ type: 'danger', message: `Something went wrong. ${error.toString()}` }));
@@ -39,10 +39,9 @@ export const changeProfile = (data: UserRequest) => {
   return (dispatch: Dispatch<UserAction | DispatchSnackbar>) => {
     dispatch(request());
 
-    UserAPI.changeProfile(data)
-      .then((response) => JSON.parse(<string>response))
-      .then((user) => {
-        dispatch(success(user));
+    return UserAPI.changeProfile(data)
+      .then((userData) => {
+        dispatch(success(userData));
         dispatch(showSnackbar({ type: 'success', message: 'Profile updated successfully' }));
       })
       .catch((error) => {
@@ -60,11 +59,8 @@ export const changeAvatar = (data: File) => {
   return (dispatch: Dispatch<UserAction | DispatchSnackbar>) => {
     dispatch(request());
 
-    UserAPI.changeAvatar(data)
-      .then((response) => JSON.parse(<string>response))
-      .then((user) => {
-        dispatch(success(user));
-      })
+    return UserAPI.changeAvatar(data)
+      .then((userData) => dispatch(success(userData)))
       .catch((error) => {
         dispatch(failure(error.toString()));
         dispatch(showSnackbar({ type: 'danger', message: `Something went wrong. ${error.toString()}` }));
@@ -80,7 +76,7 @@ export const changePassword = (data: PasswordRequest) => {
   return (dispatch: Dispatch<UserAction | DispatchSnackbar>) => {
     dispatch(request());
 
-    UserAPI.changePassword(data)
+    return UserAPI.changePassword(data)
       .then(() => {
         dispatch(success());
         dispatch(showSnackbar({ type: 'success', message: 'Password updated successfully' }));
