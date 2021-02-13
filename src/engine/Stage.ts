@@ -8,7 +8,7 @@ const ROUND_TIME = 10000;
 export default class Stage {
   private level: Level;
 
-  private round: number;
+  private round: NodeJS.Timeout;
 
   public nextLevel() {
     this.level = Level1;

@@ -1,4 +1,4 @@
-import EventBus from '@root/utils/EventBus';
+import EventBus from '@root/utils/eventBus';
 
 export const EngineBus = new EventBus();
 
