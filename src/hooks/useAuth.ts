@@ -26,7 +26,9 @@ const useAuth = (): TUseAuth => {
     dispatch(logoutAC());
   };
 
-  return [isLoggedIn, signin, signup, logout];
+  return {
+    isLoggedIn, signin, signup, logout,
+  };
 };
 
 export default useAuth;

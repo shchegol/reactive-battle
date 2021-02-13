@@ -59,12 +59,12 @@ export const signin = (data: UserRequest) => {
 };
 
 export const yaOauth = (code: string) => {
-  const request = () => ({ type: AuthActions.YAAUTH_REQUEST });
+  const request = (oAuthCode: string) => ({ type: AuthActions.YAAUTH_REQUEST, oAuthCode });
   const success = () => ({ type: AuthActions.YAAUTH_SUCCESS });
   const failure = (error: string) => ({ type: AuthActions.YAAUTH_FAILURE, error });
 
   return (dispatch: Dispatch<AuthAction | DispatchSnackbar>) => {
-    dispatch(request());
+    dispatch(request(code));
 
     AuthAPI
       .yaLogin(code)

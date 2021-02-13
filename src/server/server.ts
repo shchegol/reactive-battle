@@ -7,14 +7,14 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import renderMiddleware from './render-middleware';
 
 const app = express();
-const webpackConfig = require('../../webpack/webpack.server.js');
+const webpackConfig = require('../../webpack/ssr/client.dev.js');
 
-const compiler = webpack(webpackConfig[1]);
+const compiler = webpack(webpackConfig);
 
 app
   .use(
     webpackDevMiddleware(compiler, {
-      publicPath: webpackConfig[1].output.publicPath,
+      publicPath: webpackConfig.output.publicPath,
       serverSideRender: true,
     }),
   )

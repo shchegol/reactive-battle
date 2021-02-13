@@ -17,6 +17,7 @@ export interface AuthState {
   isLoading: boolean,
   isLoggedIn: boolean,
   isOAuth: boolean,
+  oAuthCode: string,
   error: string,
 }
 

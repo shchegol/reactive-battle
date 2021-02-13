@@ -1,25 +1,20 @@
 const { merge } = require('webpack-merge');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { InjectManifest } = require('workbox-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const common = require('./webpack.common.js');
-const util = require('./webpack.utils');
+const { InjectManifest } = require('workbox-webpack-plugin');
+const util = require('../webpack.utils');
+const common = require('../webpack.common.js');
 
 module.exports = merge(common, {
   mode: 'production',
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all',
-        },
-      },
-    },
+  entry: {
+    main: util.resolve('src/index.tsx'),
+  },
+  output: {
+    filename: 'bundle.js',
+    path: util.resolve('dist'),
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -49,20 +44,8 @@ module.exports = merge(common, {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      template: 'src/index.html',
-      filename: './index.html',
-      favicon: 'src/favicon.ico',
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true,
-      },
-    }),
     new MiniCssExtractPlugin({
-      filename: '[name].[contenthash].css',
-      chunkFilename: '[id].[contenthash].css',
+      filename: 'bundle.css',
     }),
     new InjectManifest({
       swSrc: util.resolve('src/service-worker.js'),

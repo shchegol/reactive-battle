@@ -11,10 +11,12 @@ export type TPayload<T, P> = {
 };
 
 // Auth
-export interface AuthAction {
-  type: AuthActions;
+export interface AuthPayload {
+  oAuthCode?: string;
   error?: string;
 }
+
+export type AuthAction = TPayload<AuthActions, AuthPayload>
 
 // User
 export interface UserPayload {

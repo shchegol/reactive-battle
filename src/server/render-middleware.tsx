@@ -51,14 +51,19 @@ export default (req: Request, res: Response) => {
   const context: StaticRouterContext = {};
   const { store } = configureStore({} as ApplicationState, location);
 
-  const { userLogin, isOauth } = req.cookies;
-  if (userLogin) {
+  const { code: oAuthCode } = req.query;
+  if (oAuthCode) {
+    store.dispatch({ type: AuthActions.YAAUTH_REQUEST, payload: { oAuthCode } });
+  }
+
+  const { userLogin: login, isOauth } = req.cookies;
+  if (login) {
     if (isOauth === 'true') {
       store.dispatch({ type: AuthActions.YAAUTH_SUCCESS });
     } else {
       store.dispatch({ type: AuthActions.SIGNIN_SUCCESS });
     }
-    store.dispatch({ type: UserActions.FETCH_SUCCESS, payload: { info: { login: userLogin } } });
+    store.dispatch({ type: UserActions.FETCH_SUCCESS, payload: { info: { login } } });
   }
 
   const content = renderToString(
@@ -75,7 +80,7 @@ export default (req: Request, res: Response) => {
   const preloadedState = store.getState();
   const helmet = Helmet.renderStatic();
 
-  if (context.url) {
+  if (context.url && !oAuthCode) {
     res.redirect(context.url);
     return;
   }

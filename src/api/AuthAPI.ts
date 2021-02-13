@@ -18,12 +18,12 @@ class AuthAPI {
     return axios.get(`${AuthAPI.prefix}/user`);
   }
 
-  static yaGetServiceId() {
+  static yaGetServiceId(): Promise<{ service_id: string }> {
     return axios.get(`${AuthAPI.prefixYandexOauth}/service-id`);
   }
 
   static yaLogin(code: string): Promise<UserResponse> {
-    return axios.post(AuthAPI.prefixYandexOauth, JSON.stringify({ code }));
+    return axios.post(AuthAPI.prefixYandexOauth, { code });
   }
 
   static logout() {
