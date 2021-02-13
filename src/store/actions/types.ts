@@ -16,7 +16,7 @@ export interface AuthPayload {
   error?: string;
 }
 
-export type AuthAction = TPayload<AuthActions, AuthPayload>
+export type AuthAction = TPayload<AuthActions, AuthPayload>;
 
 // User
 export interface UserPayload {
