@@ -1,12 +1,12 @@
 import { SignUpRequest, UserRequest } from '@api/types';
 
 // TUseAuth
-export type TUseAuth = [
-  boolean,
-  (data: UserRequest) => void,
-  (data: SignUpRequest) => void,
-  () => void,
-];
+export type TUseAuth = {
+  isLoggedIn: boolean,
+  signin: (data: UserRequest) => void,
+  signup: (data: SignUpRequest) => void,
+  logout: () => void,
+};
 
 // useSnackbar
 export type TShowSnackbar = (

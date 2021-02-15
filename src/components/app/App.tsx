@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from '@components/privateRoute';
 import SignIn from '@root/pages/signin/SignIn';
@@ -16,24 +16,18 @@ import { ApplicationState } from '@store/types';
 import { fetchUser } from '@store/actionsCreators/user';
 import { getUrlParam } from '@utils/getUrlParams';
 import { yaOauth } from '@store/actionsCreators/auth';
-import { isServer } from '@store/store';
+import authSelector from '@store/selectors/auth';
 
 export default function App() {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state: ApplicationState) => state.auth.isLoggedIn);
+  const { isLoggedIn, oAuthCode } = useSelector(authSelector);
   const login = useSelector((state: ApplicationState) => state.user.info.login);
 
-  if (!isServer) {
-    const code = getUrlParam('code');
-
-    if (code) {
-      dispatch(yaOauth(code));
-    }
-  }
-
-  if (isLoggedIn && !login) {
-    dispatch(fetchUser());
-  }
+  useEffect(() => {
+    const code = oAuthCode || getUrlParam('code');
+    if (code) dispatch(yaOauth(code));
+    if (isLoggedIn) dispatch(fetchUser());
+  }, [dispatch, isLoggedIn, oAuthCode]);
 
   return (
     <Switch>

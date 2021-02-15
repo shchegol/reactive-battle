@@ -1,58 +1,30 @@
-import { API_URL, API_VERSION } from '@root/constants';
-import { PasswordRequest, UserRequest } from '@api/types';
-import { handleResponse } from '@utils/responseHandle';
+import { PasswordRequest, UserRequest, UserResponse } from '@api/types';
+import axios from '@utils/apiRequest';
 
 class UserAPI {
-  static prefix = `${API_URL}/api/${API_VERSION}/user`;
+  static prefix = '/user';
 
-  static changeProfile(data: UserRequest) {
-    return fetch(`${UserAPI.prefix}/profile`, {
-      method: 'PUT',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    })
-      .then(handleResponse);
+  static changeProfile(data: UserRequest): Promise<UserResponse> {
+    return axios.put(`${UserAPI.prefix}/profile`, data);
   }
 
-  static changeAvatar(avatar: File) {
+  static changeAvatar(avatar: File): Promise<UserResponse> {
     const formData = new FormData();
     formData.append('avatar', avatar);
 
-    return fetch(`${UserAPI.prefix}/profile/avatar`, {
-      method: 'PUT',
-      credentials: 'include',
-      body: formData,
-    })
-      .then(handleResponse);
+    return axios.put(`${UserAPI.prefix}/profile/avatar`, formData);
   }
 
   static changePassword(data: PasswordRequest) {
-    return fetch(`${UserAPI.prefix}/password`, {
-      method: 'PUT',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    })
-      .then(handleResponse);
+    return axios.put(`${UserAPI.prefix}/password`, data);
   }
 
   static getUser(id: string) {
-    return fetch(`${UserAPI.prefix}/${id}`, {
-      method: 'PUT',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then((response) => response.json());
+    return axios.get(`${UserAPI.prefix}/${id}`);
   }
 
   static findUser(login: string) {
-    return fetch(`${UserAPI.prefix}/search`, {
-      method: 'PUT',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(login),
-    });
+    return axios.post(`${UserAPI.prefix}/search`, login);
   }
 }
 

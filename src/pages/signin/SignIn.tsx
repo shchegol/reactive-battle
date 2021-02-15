@@ -11,7 +11,7 @@ import useAuth from '@root/hooks/useAuth';
 import useSnackbar from '@root/hooks/useSnackbar';
 
 export default function SignIn() {
-  const [isLoggedIn, signin] = useAuth();
+  const { isLoggedIn, signin } = useAuth();
   const [showSnackbar] = useSnackbar();
 
   const submitHandler = (event: React.FormEvent, userData: SignInRequest) => {
@@ -23,7 +23,6 @@ export default function SignIn() {
     const getOAuthUrl = (serviceId: string): string => `${API_YANDEX_OAUTH_URL}?response_type=code&client_id=${serviceId}`;
 
     AuthAPI.yaGetServiceId()
-      .then((res) => res.json())
       .then((res) => {
         window.location.assign(getOAuthUrl(res.service_id));
       })

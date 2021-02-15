@@ -1,5 +1,5 @@
 import { GameActions } from '@store/actions/game';
 
-export const udpateScore = () => ({
+export const updateScore = () => ({
   type: GameActions.UPDATE_SCORE,
 });

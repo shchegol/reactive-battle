@@ -2,6 +2,7 @@ import { ApplicationState } from '@store/types';
 
 declare global {
   interface Window {
-    __PRELOADED_STATE__?: ApplicationState
+    browserHistory?: any;
+    __PRELOADED_STATE__?: ApplicationState;
   }
 }

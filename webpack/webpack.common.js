@@ -1,6 +1,5 @@
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
-const { InjectManifest } = require('workbox-webpack-plugin');
 const util = require('./webpack.utils');
 
 module.exports = {
@@ -30,6 +29,7 @@ module.exports = {
     rules: [
       {
         test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
         loader: 'ts-loader',
       },
       {
@@ -88,10 +88,6 @@ module.exports = {
           ],
         ],
       },
-    }),
-    new InjectManifest({
-      swSrc: util.resolve('src/service-worker.js'),
-      maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
     }),
   ],
 };

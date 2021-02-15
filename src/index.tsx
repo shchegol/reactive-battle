@@ -9,11 +9,16 @@ import Snackbar from '@components/snackbar/Snackbar';
 import { withLoading } from '@root/hocs/withLoading';
 import { ConnectedRouter } from 'connected-react-router';
 import { Helmet } from 'react-helmet';
+import { ApplicationState } from '@store/types';
+import createHistory from '@store/history';
 
-const { store, history } = configureStore();
+const initialState = window.__PRELOADED_STATE__;
+delete window.__PRELOADED_STATE__;
+const store = configureStore(initialState as ApplicationState);
+const history = createHistory();
 const AppWithLoading = withLoading(App);
 
-hydrate(
+const markup = (
   <ErrorBoundary>
     <Provider store={store}>
       <Helmet
@@ -25,6 +30,14 @@ hydrate(
       </ConnectedRouter>
       <Snackbar />
     </Provider>
-  </ErrorBoundary>,
+  </ErrorBoundary>
+);
+
+hydrate(
+  markup,
   document.getElementById('root'),
 );
+
+if (module.hot) {
+  module.hot.accept();
+}
