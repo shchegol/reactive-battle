@@ -3,12 +3,12 @@ import AuthAPI from '@api/AuthAPI';
 import { AuthActions } from '@store/actions/auth';
 import { AuthAction } from '@store/actions/types';
 import { SignUpRequest, UserRequest } from '@api/types';
-import { isServer } from '@store/store';
 import { push } from 'connected-react-router';
 import { fetchUser } from '@store/actionsCreators/user';
 import { showSnackbar } from '@store/actionsCreators/snackbar';
 import { DispatchSnackbar } from '@store/actionsCreators/types';
 import { Dispatch } from 'react';
+import { IS_SERVER } from '@root/constants';
 
 type DispatchWithFetch<T> = (arg0: T | ReturnType<typeof fetchUser>) => void;
 
@@ -84,7 +84,7 @@ export const logout = () => {
   AuthAPI
     .logout()
     .then(() => {
-      if (!isServer) {
+      if (!IS_SERVER) {
         Cookies.remove('userLogin');
         Cookies.remove('isOAuth');
       }

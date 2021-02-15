@@ -49,7 +49,7 @@ function getHtml(
 export default (req: Request, res: Response) => {
   const location = req.url;
   const context: StaticRouterContext = {};
-  const { store } = configureStore({} as ApplicationState, location);
+  const store = configureStore({} as ApplicationState, location);
 
   const { code: oAuthCode } = req.query;
   if (oAuthCode) {

@@ -2,10 +2,10 @@
 import React from 'react';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { ApplicationState } from '@store/types';
+import authSelector from '@store/selectors/auth';
 
 const PrivateRoute = (props: RouteProps) => {
-  const isLoggedIn = useSelector((state: ApplicationState) => state.auth.isLoggedIn);
+  const { isLoggedIn } = useSelector(authSelector);
 
   return isLoggedIn ? <Route {...props} /> : <Redirect to={{ pathname: '/signin' }} />;
 };
