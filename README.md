@@ -15,6 +15,7 @@ React, TypeScript, Canvas
 ## Сборка
 * `npm i` — установка стабильной версии,
 * `npm start` — запуск версии для разработки.
+* `npm dev:ssr:start` — запуск версии c SSR для разработки.
 * `npm build` — сборка проекта.
 * `npm test` — запуск тестов.
 

@@ -6,9 +6,10 @@
   "scripts": {
     "start": "webpack serve --config ./webpack/webpack.client.dev.js",
     "build": "webpack --config ./webpack/webpack.client.prod.js",
-    "build-server": "webpack --config ./webpack/ssr/server.js",
     "dev:build-client": "webpack --config ./webpack/webpack.client.dev.js",
-    "start:server": "npm run build-server && node dist/server.js",
+    "ssr:build-server": "webpack --config ./webpack/ssr/server.js",
+    "ssr:build-client": "webpack --config ./webpack/ssr/client.js",
+    "dev:ssr:start": "npm run ssr:build-server && node dist/server.js",
     "eslint": "eslint --cache --fix --ext .js,.jsx,.ts,.tsx src",
     "test": "jest"
   },
