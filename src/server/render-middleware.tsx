@@ -56,9 +56,9 @@ export default (req: Request, res: Response) => {
     store.dispatch({ type: AuthActions.YAAUTH_REQUEST, payload: { oAuthCode } });
   }
 
-  const { userLogin: login, isOauth } = req.cookies;
+  const { userLogin: login, isOAuth } = req.cookies;
   if (login) {
-    if (isOauth === 'true') {
+    if (isOAuth === 'true') {
       store.dispatch({ type: AuthActions.YAAUTH_SUCCESS });
     } else {
       store.dispatch({ type: AuthActions.SIGNIN_SUCCESS });

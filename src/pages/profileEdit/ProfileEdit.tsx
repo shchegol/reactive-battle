@@ -7,6 +7,7 @@ import ProfileEditForm from '@pages/profileEdit/profileEditForm';
 import Button from '@components/button';
 import Avatar from '@components/avatar';
 import { API_URL } from '@root/constants';
+import authSelector from '@store/selectors/auth';
 
 /**
  * User profile edit page
@@ -29,7 +30,7 @@ export default function ProfileEdit() {
   const history = useHistory();
 
   const user = useSelector((state: ApplicationState) => state.user);
-  const auth = useSelector((state: ApplicationState) => state.auth);
+  const { isOAuth } = useSelector(authSelector);
   const [userData, setUserData] = useState({
     first_name: '',
     second_name: '',
@@ -117,7 +118,7 @@ export default function ProfileEdit() {
             userData={userData}
             errorMsg={user.error}
             onInputChange={handleInputChange}
-            isOAuth={auth.isOAuth}
+            isOAuth={isOAuth}
             onSubmit={handleSubmit}
           />
         </div>
