@@ -6,11 +6,11 @@ services:
     depends_on:
       - postgres
     environment:
-      DATABASE_URL: postgres://postgres:newPassword@postgres:5432/my-db-name
+      DATABASE_URL: postgres://postgres:newPassword@postgres:5432/reactive-battle
       NODE_ENV: development
       PORT: 5000
     ports:
-      - "5001:5000"
+      - "5000:5000"
     restart: always
   postgres:
     container_name: psql
@@ -23,7 +23,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: newPassword
-      POSTGRES_DB: my-db-name
+      POSTGRES_DB: reactive-battle
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4:4.18
