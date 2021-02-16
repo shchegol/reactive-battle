@@ -45,6 +45,6 @@ module.exports = merge(common, {
       template: util.resolve('src/index.html'),
       favicon: util.resolve('src/favicon.ico'),
       filename: 'index.html',
-    }),
+    })
   ],
 });

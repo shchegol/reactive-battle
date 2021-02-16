@@ -1,20 +1,19 @@
 const { merge } = require('webpack-merge');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
-const webpackNodeExternals = require('webpack-node-externals');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const util = require('./webpack.utils');
-const common = require('./webpack.common.js');
+const { InjectManifest } = require('workbox-webpack-plugin');
+const util = require('../webpack.utils');
+const common = require('../webpack.common.js');
 
 module.exports = merge(common, {
-  target: 'node',
   mode: 'production',
-  entry: '/src/server/index.ts',
-  externals: [webpackNodeExternals()],
+  entry: {
+    main: util.resolve('src/index.tsx'),
+  },
   output: {
     filename: 'bundle.js',
-    path: util.resolve('build'),
+    path: util.resolve('dist'),
     publicPath: '/',
   },
   module: {
@@ -45,9 +44,12 @@ module.exports = merge(common, {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: 'bundle.css',
+    }),
+    new InjectManifest({
+      swSrc: util.resolve('src/service-worker.js'),
+      maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
     }),
   ],
 });

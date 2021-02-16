@@ -1,13 +1,15 @@
 import { AuthActions } from '@store/actions/auth';
 import { AuthAction } from '@store/actions/types';
+import Cookies from 'js-cookie';
 
-const login = typeof window !== 'undefined' && window.localStorage.getItem('userLogin');
-const isOAuth = typeof window !== 'undefined' && window.localStorage.getItem('isOAuth');
+const login = Cookies.get('userLogin');
+const isOAuth = Cookies.get('isOAuth');
 
 const initialState = {
   isLoggedIn: !!login,
   isOAuth: !!isOAuth,
   isLoading: false,
+  oAuthCode: '',
   error: '',
 };
 
@@ -18,12 +20,21 @@ export function auth(
   switch (action.type) {
     case AuthActions.SIGNUP_REQUEST:
     case AuthActions.SIGNIN_REQUEST:
-    case AuthActions.YAAUTH_REQUEST:
       return {
         ...state,
         isLoading: true,
         isLoggedIn: false,
         isOAuth: false,
+        oAuthCode: '',
+        error: '',
+      };
+    case AuthActions.YAAUTH_REQUEST:
+      return {
+        ...state,
+        isLoading: false,
+        isLoggedIn: false,
+        isOAuth: false,
+        oAuthCode: action.payload?.oAuthCode,
         error: '',
       };
     case AuthActions.SIGNUP_SUCCESS:
@@ -33,6 +44,7 @@ export function auth(
         isLoading: false,
         isLoggedIn: true,
         isOAuth: false,
+        oAuthCode: '',
         error: '',
       };
     case AuthActions.YAAUTH_SUCCESS:
@@ -41,6 +53,7 @@ export function auth(
         isLoading: false,
         isLoggedIn: true,
         isOAuth: true,
+        oAuthCode: '',
         error: '',
       };
     case AuthActions.SIGNUP_FAILURE:
@@ -51,7 +64,8 @@ export function auth(
         isLoading: false,
         isLoggedIn: false,
         isOAuth: false,
-        error: action.error,
+        oAuthCode: '',
+        error: action.payload?.error,
       };
     case AuthActions.LOGOUT:
       return {
@@ -59,6 +73,7 @@ export function auth(
         isLoading: false,
         isLoggedIn: false,
         isOAuth: false,
+        oAuthCode: '',
         error: '',
       };
     default:

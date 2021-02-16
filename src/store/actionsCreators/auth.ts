@@ -1,13 +1,14 @@
+import Cookies from 'js-cookie';
 import AuthAPI from '@api/AuthAPI';
 import { AuthActions } from '@store/actions/auth';
 import { AuthAction } from '@store/actions/types';
 import { SignUpRequest, UserRequest } from '@api/types';
-import { isServer } from '@store/store';
 import { push } from 'connected-react-router';
 import { fetchUser } from '@store/actionsCreators/user';
 import { showSnackbar } from '@store/actionsCreators/snackbar';
 import { DispatchSnackbar } from '@store/actionsCreators/types';
 import { Dispatch } from 'react';
+import { IS_SERVER } from '@root/constants';
 
 type DispatchWithFetch<T> = (arg0: T | ReturnType<typeof fetchUser>) => void;
 
@@ -19,10 +20,10 @@ export const signup = (data: SignUpRequest) => {
   return (dispatch: DispatchWithFetch<AuthAction | DispatchSnackbar>) => {
     dispatch(request());
 
-    AuthAPI
+    return AuthAPI
       .signup(data)
-      .then(() => {
-        if (!isServer) window.localStorage.setItem('userLogin', data.login);
+      .then((userData) => {
+        Cookies.set('userLogin', userData.login, { expires: 7 });
         dispatch(success());
         dispatch(fetchUser());
         dispatch(showSnackbar({ type: 'success', message: 'registration completed successfully' }));
@@ -44,8 +45,8 @@ export const signin = (data: UserRequest) => {
 
     AuthAPI
       .signin(data)
-      .then(() => {
-        if (!isServer) window.localStorage.setItem('userLogin', data.login || '');
+      .then((userData) => {
+        Cookies.set('userLogin', userData.login || '', { expires: 7 });
         dispatch(success());
         dispatch(fetchUser());
         dispatch(showSnackbar({ type: 'success', message: 'authorization completed successfully' }));
@@ -58,17 +59,17 @@ export const signin = (data: UserRequest) => {
 };
 
 export const yaOauth = (code: string) => {
-  const request = () => ({ type: AuthActions.YAAUTH_REQUEST });
+  const request = (oAuthCode: string) => ({ type: AuthActions.YAAUTH_REQUEST, oAuthCode });
   const success = () => ({ type: AuthActions.YAAUTH_SUCCESS });
   const failure = (error: string) => ({ type: AuthActions.YAAUTH_FAILURE, error });
 
   return (dispatch: Dispatch<AuthAction | DispatchSnackbar>) => {
-    dispatch(request());
+    dispatch(request(code));
 
     AuthAPI
       .yaLogin(code)
       .then(() => {
-        if (!isServer) window.localStorage.setItem('isOAuth', 'true');
+        Cookies.set('isOAuth', 'true', { expires: 7 });
         dispatch(success());
         dispatch(showSnackbar({ type: 'success', message: 'authorization completed successfully' }));
       })
@@ -83,9 +84,9 @@ export const logout = () => {
   AuthAPI
     .logout()
     .then(() => {
-      if (!isServer) {
-        window.localStorage.setItem('userLogin', '');
-        window.localStorage.setItem('isOAuth', 'false');
+      if (!IS_SERVER) {
+        Cookies.remove('userLogin');
+        Cookies.remove('isOAuth');
       }
       push('/signin');
     });

@@ -2,9 +2,11 @@ const { merge } = require('webpack-merge');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { InjectManifest } = require('workbox-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const common = require('./webpack.common.js');
+const util = require('./webpack.utils');
 
 module.exports = merge(common, {
   mode: 'production',
@@ -61,6 +63,10 @@ module.exports = merge(common, {
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
       chunkFilename: '[id].[contenthash].css',
+    }),
+    new InjectManifest({
+      swSrc: util.resolve('src/service-worker.js'),
+      maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
     }),
   ],
 });

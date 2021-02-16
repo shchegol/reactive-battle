@@ -7,7 +7,7 @@ import { EngineBus, SPRITE_DESTROYED } from '@engine/EngineBus';
 import BasicTank from '@engine/sprites/enemies/BasicTank';
 import Bullet from '@engine/sprites/Bullet';
 import EnemyTank from '@engine/sprites/enemies/EnemyTank';
-import { udpateScore } from '@root/store/actionsCreators/game';
+import { updateScore } from '@root/store/actionsCreators/game';
 
 export default function Game() {
   const login = useSelector((state: ApplicationState) => state.user.info.login);
@@ -17,7 +17,7 @@ export default function Game() {
 
   const playerShot = (ctx: BasicTank | Bullet) => {
     if (ctx instanceof EnemyTank) {
-      dispatch(udpateScore());
+      dispatch(updateScore());
     }
   };
 
