@@ -1,53 +1,30 @@
-import { API_URL, API_VERSION } from '@root/constants';
-import { PasswordRequest, UserRequest, UserResponse } from '@root/types/models';
+import { PasswordRequest, UserRequest, UserResponse } from '@api/types';
+import axios from '@utils/apiRequest';
 
 class UserAPI {
-  static prefix = `${API_URL}/api/${API_VERSION}/user`;
+  static prefix = '/user';
 
-  static editProfile(data: UserRequest): Promise<Response> {
-    return fetch(`${UserAPI.prefix}/profile`, {
-      method: 'PUT',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
+  static changeProfile(data: UserRequest): Promise<UserResponse> {
+    return axios.put(`${UserAPI.prefix}/profile`, data);
   }
 
-  static async uploadAvatar(avatar: File): Promise<Partial<UserResponse>> {
+  static changeAvatar(avatar: File): Promise<UserResponse> {
     const formData = new FormData();
     formData.append('avatar', avatar);
 
-    return fetch(`${UserAPI.prefix}/profile/avatar`, {
-      method: 'PUT',
-      credentials: 'include',
-      body: formData,
-    }).then((response) => response.json());
+    return axios.put(`${UserAPI.prefix}/profile/avatar`, formData);
   }
 
-  static changePassword(data: PasswordRequest): Promise<Response> {
-    return fetch(`${UserAPI.prefix}/password`, {
-      method: 'PUT',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
+  static changePassword(data: PasswordRequest) {
+    return axios.put(`${UserAPI.prefix}/password`, data);
   }
 
-  static getUser(id: string): Promise<Response> {
-    return fetch(`${UserAPI.prefix}/${id}`, {
-      method: 'PUT',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-    }).then((response) => response.json());
+  static getUser(id: string) {
+    return axios.get(`${UserAPI.prefix}/${id}`);
   }
 
-  static findUsers(login: string): Promise<Response> {
-    return fetch(`${UserAPI.prefix}/search`, {
-      method: 'PUT',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(login),
-    });
+  static findUser(login: string) {
+    return axios.post(`${UserAPI.prefix}/search`, login);
   }
 }
 

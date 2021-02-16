@@ -1,24 +1,21 @@
 import { AuthActions } from '@store/actions/auth';
-import { UserResponse } from '@root/types/models';
+import { AuthAction } from '@store/actions/types';
+import Cookies from 'js-cookie';
 
-const login = localStorage.getItem('userLogin');
+const login = Cookies.get('userLogin');
+const isOAuth = Cookies.get('isOAuth');
 
 const initialState = {
-  isLoading: false,
   isLoggedIn: !!login,
-  user: {
-    login,
-  },
+  isOAuth: !!isOAuth,
+  isLoading: false,
+  oAuthCode: '',
   error: '',
 };
 
 export function auth(
   state = initialState,
-  action: {
-    type: string,
-    user: UserResponse,
-    error: string,
-  },
+  action: AuthAction,
 ) {
   switch (action.type) {
     case AuthActions.SIGNUP_REQUEST:
@@ -27,6 +24,17 @@ export function auth(
         ...state,
         isLoading: true,
         isLoggedIn: false,
+        isOAuth: false,
+        oAuthCode: '',
+        error: '',
+      };
+    case AuthActions.YAAUTH_REQUEST:
+      return {
+        ...state,
+        isLoading: false,
+        isLoggedIn: false,
+        isOAuth: false,
+        oAuthCode: action.payload?.oAuthCode,
         error: '',
       };
     case AuthActions.SIGNUP_SUCCESS:
@@ -35,39 +43,37 @@ export function auth(
         ...state,
         isLoading: false,
         isLoggedIn: true,
+        isOAuth: false,
+        oAuthCode: '',
+        error: '',
+      };
+    case AuthActions.YAAUTH_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isLoggedIn: true,
+        isOAuth: true,
+        oAuthCode: '',
         error: '',
       };
     case AuthActions.SIGNUP_FAILURE:
     case AuthActions.SIGNIN_FAILURE:
+    case AuthActions.YAAUTH_FAILURE:
       return {
         ...state,
         isLoading: false,
         isLoggedIn: false,
-        error: action.error,
-        user: {},
+        isOAuth: false,
+        oAuthCode: '',
+        error: action.payload?.error,
       };
     case AuthActions.LOGOUT:
       return {
         ...state,
         isLoading: false,
         isLoggedIn: false,
-        user: {},
-        error: '',
-      };
-    case AuthActions.FETCH_SUCCESS:
-      return {
-        ...state,
-        user: action.user,
-        error: '',
-      };
-    case AuthActions.FETCH_FAILURE:
-      return {
-        ...state,
-        error: action.error,
-      };
-    case AuthActions.FETCH_REQUEST:
-      return {
-        ...state,
+        isOAuth: false,
+        oAuthCode: '',
         error: '',
       };
     default:

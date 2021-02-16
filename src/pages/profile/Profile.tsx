@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import MainTitle from '@root/components/mainTitle';
 import Button from '@components/button';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
-import AuthAPI from '@root/api/AuthAPI';
 import { API_URL } from '@root/constants';
-import { UserResponse } from '@root/types/models';
 import { logout } from '@store/actionsCreators/auth';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Helmet } from 'react-helmet';
+import { ApplicationState } from '@store/types';
 
 /**
  * User profile page
@@ -17,31 +17,22 @@ export default function Profile() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { url } = useRouteMatch();
-  const [userData, setUserData] = useState({
-    first_name: '',
-    second_name: '',
-    display_name: '',
-    login: '',
-    email: '',
-    phone: '',
-    avatar: '',
-  } as UserResponse);
-  const avatarUrl = userData.avatar
-    ? new URL(userData.avatar, API_URL).href
-    : undefined;
-  const handleGoBack = () => history.goBack();
-  const handleLogout = () => dispatch(logout());
 
-  useEffect(() => {
-    // todo переделать, надо брать из хранилища
-    AuthAPI
-      .fetchUser()
-      .then((res) => res.json())
-      .then((data) => setUserData(data));
-  }, []);
+  const user = useSelector((state: ApplicationState) => state.user.info);
+  const avatarUrl = user.avatar
+    ? new URL(user.avatar, API_URL).href
+    : undefined;
+
+  const handleGoBack = () => history.goBack();
+  const handleLogout = () => {
+    dispatch(logout());
+    history.push('/signin');
+  };
 
   return (
     <div className="container-fluid">
+      <Helmet title="Profile" />
+
       <div className="row mt-10">
         <div className="col-auto">
           <Button
@@ -57,8 +48,8 @@ export default function Profile() {
       <div className="row">
         <div className="col">
           <MainTitle
-            titleText={userData.login}
-            subtitleText={userData.email}
+            titleText={user.login}
+            subtitleText={user.email}
             imgSrc={avatarUrl}
           />
         </div>
@@ -71,7 +62,7 @@ export default function Profile() {
               NAME
             </div>
             <div className="col pl-4">
-              {userData.first_name}
+              {user.first_name}
             </div>
           </div>
 
@@ -80,7 +71,7 @@ export default function Profile() {
               SURNAME
             </div>
             <div className="col pl-4">
-              {userData.second_name}
+              {user.second_name}
             </div>
           </div>
 
@@ -89,7 +80,7 @@ export default function Profile() {
               NICKNAME
             </div>
             <div className="col pl-4">
-              {userData.display_name}
+              {user.display_name}
             </div>
           </div>
 
@@ -98,7 +89,7 @@ export default function Profile() {
               PHONE
             </div>
             <div className="col pl-4">
-              {userData.phone}
+              {user.phone}
             </div>
           </div>
 

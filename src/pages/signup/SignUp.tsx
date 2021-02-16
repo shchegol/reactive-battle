@@ -2,19 +2,16 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import SignUpForm from '@root/pages/signup/signUpForm';
 import MainTitle from '@root/components/mainTitle';
-import { SignUpRequest } from '@root/types/models';
-
+import { SignUpRequest } from '@api/types';
+import useAuth from '@root/hooks/useAuth';
 import './signup.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { ApplicationState } from '@store/types';
-import { signup } from '@store/actionsCreators/auth';
 
 export default function SignUp() {
-  const dispatch = useDispatch();
-  const { isLoggedIn, error } = useSelector((state: ApplicationState) => state.auth);
+  const { isLoggedIn, signup } = useAuth();
+
   const submitHandler = async (event: React.FormEvent, userData: SignUpRequest) => {
     event.preventDefault();
-    dispatch(signup(userData));
+    signup(userData);
   };
 
   if (isLoggedIn) {
@@ -33,7 +30,6 @@ export default function SignUp() {
         <div className="col-12 col-sm-8 col-md-6 col-lg-4">
           <SignUpForm
             handleSubmit={submitHandler}
-            errorMsg={error}
           />
         </div>
       </div>

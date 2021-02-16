@@ -1,40 +1,35 @@
-import { API_URL, API_VERSION } from '@root/constants';
-import { SignUpRequest, UserRequest } from '@root/types/models';
-import { handleResponse } from '@root/utils/responseHandle';
+import {
+  SignUpRequest, UserRequest, UserResponse, YaServiceResponse,
+} from '@api/types';
+import axios from '@utils/apiRequest';
 
 class AuthAPI {
-  static prefix = `${API_URL}/api/${API_VERSION}/auth`;
+  static prefix = '/auth';
 
-  static signup(data: SignUpRequest) {
-    return fetch(`${AuthAPI.prefix}/signup`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    }).then(handleResponse);
+  static prefixYandexOauth = '/oauth/yandex';
+
+  static signup(data: SignUpRequest): Promise<UserResponse> {
+    return axios.post(`${AuthAPI.prefix}/signup`, data);
   }
 
-  static signin(data: UserRequest) {
-    return fetch(`${AuthAPI.prefix}/signin`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    }).then(handleResponse);
+  static signin(data: UserRequest): Promise<UserResponse> {
+    return axios.post(`${AuthAPI.prefix}/signin`, data);
   }
 
-  static fetchUser() {
-    return fetch(`${AuthAPI.prefix}/user`, {
-      method: 'GET',
-      credentials: 'include',
-    });
+  static fetchUser(): Promise<UserResponse> {
+    return axios.get(`${AuthAPI.prefix}/user`);
+  }
+
+  static yaGetServiceId(): Promise<YaServiceResponse> {
+    return axios.get(`${AuthAPI.prefixYandexOauth}/service-id`);
+  }
+
+  static yaLogin(code: string): Promise<UserResponse> {
+    return axios.post(AuthAPI.prefixYandexOauth, { code });
   }
 
   static logout() {
-    return fetch(`${AuthAPI.prefix}/logout`, {
-      method: 'POST',
-      credentials: 'include',
-    });
+    return axios.post(`${AuthAPI.prefix}/logout`);
   }
 }
 

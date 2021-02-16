@@ -1,10 +1,11 @@
-import { SnackbarActions, SnackbarAction } from '@store/actions/snackbar';
+import { SnackbarActions } from '@store/actions/snackbar';
+import { SnackbarAction } from '@store/actions/types';
 import { SnackbarState } from '@store/types';
 
 const initialState = {
   isShow: false,
   message: '',
-  duration: 2,
+  duration: 10,
   type: undefined,
 };
 
@@ -29,7 +30,7 @@ export function snackbar(
         ...state,
         isShow: false,
         message: '',
-        duration: 2,
+        duration: 10,
         type: undefined,
       };
     default:

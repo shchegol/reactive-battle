@@ -1,10 +1,14 @@
-import React, { FC, useRef, useState } from 'react';
+import React, {
+  FC, useRef, useState,
+} from 'react';
 import Playground from '@pages/game/playground';
 import { Props } from '@pages/game/interface/types';
 import './interface.scss';
 import Button from '@components/button';
 import Icon from '@components/icon';
 import { activateFullscreen, deactivateFullscreen } from '@utils/fullscreen';
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from '@engine/Scene';
+import { GameStates } from '@engine/types/GameStates';
 
 /**
  * @param {number} [enemies=20] - number of enemies
@@ -24,15 +28,7 @@ const Interface: FC<Props> = ({
 }) => {
   const gameWindow = useRef<HTMLDivElement>(null);
   const [fullScreenBtnIcon, setFullScreenBtnIcon] = useState('fullscreen');
-
-  // default player options
-  const playerInfo = {
-    name: 'PLAYER 1',
-    lives: 2,
-    score: 0,
-    kills: 0,
-    ...player,
-  };
+  const [gameState, setGameState] = useState<GameStates>(GameStates.NotStarted);
 
   const renderEnemies = (enemiesNumber: number) => {
     const content = [];
@@ -66,6 +62,48 @@ const Interface: FC<Props> = ({
     }
   };
 
+  const renderPlayground = () => {
+    switch (gameState) {
+      case GameStates.Play:
+      case GameStates.Pause:
+        return <Playground state={gameState} />;
+
+      case GameStates.NotStarted:
+      default:
+        return <Button onClick={() => setGameState(GameStates.Play)}>PLAY!</Button>;
+    }
+  };
+
+  const renderPauseButton = () => {
+    let caption = '';
+    let newState: GameStates;
+
+    switch (gameState) {
+      case GameStates.Pause:
+        caption = 'RESUME';
+        newState = GameStates.Play;
+        break;
+
+      case GameStates.Play:
+        caption = 'PAUSE';
+        newState = GameStates.Pause;
+        break;
+
+      default:
+        break;
+    }
+
+    return (
+      <Button
+        className="game-interface__pause-btn"
+        color="link"
+        onClick={() => setGameState(newState)}
+      >
+        {caption}
+      </Button>
+    );
+  };
+
   return (
     <div className="row justify-content-center mt-40">
       <div className="col-auto">
@@ -82,67 +120,64 @@ const Interface: FC<Props> = ({
             >
               <Icon name={fullScreenBtnIcon} />
             </Button>
+
+            {renderPauseButton()}
           </div>
 
           <div className="game-interface__main">
-            <div className="game-interface__playground">
-              <Playground />
+            <div
+              className="game-interface__playground"
+              style={{ minWidth: CANVAS_WIDTH, minHeight: CANVAS_HEIGHT }}
+            >
+              {renderPlayground()}
             </div>
 
             <div className="game-interface__info">
-              <div className="row">
-                <div className="col col-lg-12">
-                  <table className="player-info">
-                    <tbody>
-                      <tr>
-                        <td>
-                          {playerInfo.name}
-                        </td>
-                        <td className="text-align-right text-color-secondary pl-10">
-                          {playerInfo.lives}
-                        </td>
-                      </tr>
+              <div>
+                <table className="player-info">
+                  <tbody>
+                    <tr>
+                      <td>
+                        {player.name}
+                      </td>
+                      <td className="player-info__col-2">
+                        {player.lives}
+                      </td>
+                    </tr>
 
-                      <tr>
-                        <td>SCORE</td>
-                        <td className="text-align-right text-color-secondary pl-10">
-                          {playerInfo.score}
-                        </td>
-                      </tr>
+                    <tr>
+                      <td>SCORE</td>
+                      <td className="player-info__col-2">
+                        {player.score}
+                      </td>
+                    </tr>
 
-                      <tr>
-                        <td>KILLS</td>
-                        <td className="text-align-right text-color-secondary pl-10">
-                          {playerInfo.kills}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                    <tr>
+                      <td>KILLS</td>
+                      <td className="player-info__col-2">
+                        {player.kills}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <p className="mt-20">ENEMIES</p>
+                <div className="enemy-icons">
+                  {renderEnemies(enemies)}
                 </div>
               </div>
 
-              <div className="row mt-20">
-                <div className="col">
-                  <p>ENEMIES</p>
-                  <div className="enemy-icons">
-                    {renderEnemies(enemies)}
-                  </div>
-                </div>
-              </div>
-
-              <div className="row mt-20">
-                <div className="col">
-                  <table className="player-info">
-                    <tbody>
-                      <tr>
-                        <td>LEVEL</td>
-                        <td className="text-align-right text-color-secondary pl-10">
-                          {level}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+              <div className="mt-20">
+                <table className="player-info">
+                  <tbody>
+                    <tr>
+                      <td>LEVEL</td>
+                      <td className="player-info__col-2">
+                        {level}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>

@@ -1,4 +1,5 @@
-import { SnackbarActions, SnackbarPayload, SnackbarAction } from '@store/actions/snackbar';
+import { SnackbarActions } from '@store/actions/snackbar';
+import { SnackbarPayload, SnackbarAction } from '@store/actions/types';
 import { Dispatch } from 'react';
 
 /**

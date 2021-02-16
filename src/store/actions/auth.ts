@@ -1,5 +1,3 @@
-import { UserResponse } from '@root/types/models';
-
 export enum AuthActions {
   SIGNUP_REQUEST = 'AUTH/SIGNUP_REQUEST',
   SIGNUP_SUCCESS = 'AUTH/SIGNUP_SUCCESS',
@@ -9,17 +7,9 @@ export enum AuthActions {
   SIGNIN_SUCCESS = 'AUTH/SIGNIN_SUCCESS',
   SIGNIN_FAILURE = 'AUTH/SIGNIN_FAILURE',
 
-  FETCH_REQUEST = 'AUTH/FETCH_REQUEST',
-  FETCH_SUCCESS = 'AUTH/FETCH_SUCCESS',
-  FETCH_FAILURE = 'AUTH/FETCH_FAILURE',
+  YAAUTH_REQUEST = 'AUTH/YAAUTH_REQUEST',
+  YAAUTH_SUCCESS = 'AUTH/YAAUTH_SUCCESS',
+  YAAUTH_FAILURE = 'AUTH/YAAUTH_FAILURE',
 
   LOGOUT = 'AUTH/LOGOUT',
 }
-
-interface AuthAction {
-  type: AuthActions;
-  user?: UserResponse;
-  error?: string;
-}
-
-export type AuthActionTypes = AuthAction;

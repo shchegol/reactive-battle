@@ -1,4 +1,5 @@
-import { AddMessageActionType, AddThreadActionType, ForumActions } from '@store/actions/forum';
+import { ForumActions } from '@store/actions/forum';
+import { AddMessageActionType, AddThreadActionType } from '@store/actions/types';
 
 export const addThread = (name: string): AddThreadActionType => ({
   type: ForumActions.ADD_THREAD,

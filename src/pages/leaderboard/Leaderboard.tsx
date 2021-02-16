@@ -3,6 +3,7 @@ import MainTitle from '@root/components/mainTitle';
 import PlayersTable from '@root/pages/leaderboard/playersTable';
 import Button from '@components/button';
 import { useHistory } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 export default function Leaderboard() {
   const history = useHistory();
@@ -16,6 +17,7 @@ export default function Leaderboard() {
 
   return (
     <div className="container-fluid">
+      <Helmet title="Leaderboard" />
       <div className="row justify-content-left mt-10">
         <div className="col-12 col-md-3 col-lg-4">
           <Button

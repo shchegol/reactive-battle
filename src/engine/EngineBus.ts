@@ -1,4 +1,4 @@
-import EventBus from '@root/utils/EventBus';
+import EventBus from '@root/utils/eventBus';
 
 export const EngineBus = new EventBus();
 
@@ -17,3 +17,11 @@ export const SPRITE_MOVED = 'SPRITE/MOVED';
 export const SPRITE_DESTROYED = 'SPRITE/DESTROED';
 export const SPRITE_COLLIDED = 'SPRITE/COLLIDED';
 export const SPRITE_OUT_OF_BOUNDS = 'SPRITE/OUT_OF_BOUNDS';
+
+export const LEVEL_START = 'LEVEL/START';
+export const LEVEL_NEW_ROUND = 'LEVEL/NEW_ROUND';
+
+export const GAME_START = 'GAME/START';
+export const GAME_PAUSE = 'GAME/PAUSE';
+export const GAME_RESUME = 'GAME/RESUME';
+export const GAME_OVER = 'GAME/OVER';

@@ -1,23 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { API_URL } from '@root/constants';
-import UserAPI from '@root/api/UserAPI';
-import AuthAPI from '@root/api/AuthAPI';
 import { ApplicationState } from '@store/types';
-import { setAvatar } from '@store/actionsCreators/profile';
+import { changeProfile, changeAvatar, changePassword } from '@store/actionsCreators/user';
 import ProfileEditForm from '@pages/profileEdit/profileEditForm';
 import Button from '@components/button';
 import Avatar from '@components/avatar';
+import { API_URL } from '@root/constants';
+import authSelector from '@store/selectors/auth';
 
 /**
  * User profile edit page
  * @constructor
  */
 
+interface UserProfile {
+  first_name: string;
+  second_name: string;
+  display_name: string;
+  login: string;
+  email: string;
+  phone: string;
+  oldPassword?: string;
+  newPassword?: string;
+}
+
 export default function ProfileEdit() {
+  const dispatch = useDispatch();
   const history = useHistory();
-  const [error, setError] = useState('');
+
+  const user = useSelector((state: ApplicationState) => state.user);
+  const { isOAuth } = useSelector(authSelector);
   const [userData, setUserData] = useState({
     first_name: '',
     second_name: '',
@@ -27,67 +40,56 @@ export default function ProfileEdit() {
     phone: '',
     oldPassword: '',
     newPassword: '',
-  });
+  } as UserProfile);
 
-  const dispatch = useDispatch();
-  const avatar = useSelector((state: ApplicationState) => state.profile?.user?.avatar);
+  // todo это надо переиспользовать. В profile тоже самое
+  const avatarUrl = user.info.avatar
+    ? new URL(user.info.avatar, API_URL).href
+    : undefined;
 
-  const handleGoBack = () => history.goBack();
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    if (!user.info.display_name) {
+      setUserData({
+        ...user.info,
+        display_name: user.info.login,
+      });
+    } else {
+      setUserData(user.info);
+    }
+  }, [user.info]);
+
+  const handleGoBack = useCallback(() => history.goBack(), [history]);
+
+  const handleInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const value = { [event.target.name]: event.target.value };
     const newValue = {
       ...userData,
       ...value,
     };
     setUserData(newValue);
-  };
-  const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  }, [userData]);
+
+  const handleAvatarChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.currentTarget;
     if (!files) return;
 
     const avatarFile = files[0];
     if (avatarFile) {
-      UserAPI
-        .uploadAvatar(avatarFile)
-        .then((data) => {
-          if (data.avatar) {
-            dispatch(setAvatar(new URL(data.avatar, API_URL).href));
-          }
-        })
-        .catch((err) => setError(err.reason));
+      dispatch(changeAvatar(avatarFile));
     }
-  };
+  }, [dispatch]);
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // изменение инфы
-    UserAPI
-      .editProfile(userData)
-      .catch((err) => setError(err.reason));
-
-    // изменение пароля
     const { oldPassword, newPassword } = userData;
+
     if (oldPassword && newPassword) {
-      UserAPI
-        .changePassword({ oldPassword, newPassword })
-        .catch((err) => setError(err.reason));
+      dispatch(changePassword({ oldPassword, newPassword }));
+    } else {
+      dispatch(changeProfile(userData));
     }
   };
-
-  useEffect(() => {
-    // todo тут и выше организовать работу с хранилищем
-    AuthAPI
-      .fetchUser()
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.avatar) {
-          dispatch(setAvatar(new URL(data.avatar, API_URL).href));
-        }
-
-        setUserData(data);
-      })
-      .catch((err) => setError(err.reason));
-  }, []);
 
   return (
     <div className="container-fluid">
@@ -106,7 +108,7 @@ export default function ProfileEdit() {
       <div className="row justify-content-center mt-60">
         <div className="col-3 col-sm-3 col-md-3 col-lg-2">
           <Avatar
-            src={avatar}
+            src={avatarUrl}
             alt="CHANGE AVATAR"
             onInputChange={handleAvatarChange}
           />
@@ -114,8 +116,9 @@ export default function ProfileEdit() {
         <div className="col-8 col-sm-6 col-md-5 col-lg-3">
           <ProfileEditForm
             userData={userData}
-            errorMsg={error}
+            errorMsg={user.error}
             onInputChange={handleInputChange}
+            isOAuth={isOAuth}
             onSubmit={handleSubmit}
           />
         </div>

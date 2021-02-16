@@ -35,7 +35,7 @@ module.exports = merge(common, {
   },
   devServer: {
     contentBase: util.resolve('dist'),
-    port: 4000,
+    port: 5000,
     hot: true,
     open: true,
     historyApiFallback: true,
@@ -45,6 +45,6 @@ module.exports = merge(common, {
       template: util.resolve('src/index.html'),
       favicon: util.resolve('src/favicon.ico'),
       filename: 'index.html',
-    }),
+    })
   ],
 });

@@ -1,44 +1,121 @@
+/* eslint-disable class-methods-use-this */
 import Bullet from '@engine/sprites/Bullet';
 import Direction from '@engine/Direction';
 import {
-  EngineBus, SPRITE_COLLIDED, SPRITE_CREATED, SPRITE_DESTROYED, SPRITE_MOVED, SPRITE_OUT_OF_BOUNDS,
+  EngineBus,
+  SPRITE_COLLIDED,
+  SPRITE_CREATED,
+  SPRITE_DESTROYED,
+  SPRITE_MOVED,
+  SPRITE_OUT_OF_BOUNDS,
 } from '@engine/EngineBus';
 import Sprite from '@engine/sprites/Sprite';
 import Wall from '@engine/sprites/world/Wall';
 
 export default class Tank extends Sprite {
-  protected direction: Direction = Direction.Forward;
+  protected direction: Direction = Direction.Up;
 
   protected speed: number = 2;
 
   protected bullet: Bullet | null;
 
-  constructor(x: number, y: number) {
-    super(x, y, 16, 16);
+  protected directionMileage: number = 0;
+
+  protected isPlayer: boolean;
+
+  constructor(x: number, y: number, width: number = 16, height: number = 16) {
+    super(x, y, width, height);
 
     EngineBus.on(SPRITE_DESTROYED, (sprite: Sprite) => this.onSpriteDestroyed(sprite));
-    EngineBus.on(SPRITE_COLLIDED, (sprite: Sprite, collideWith: Sprite) => this.onSpriteCollided(sprite, collideWith));
-    EngineBus.on(SPRITE_OUT_OF_BOUNDS, (sprite: Sprite) => this.onSpriteOutOfBounds(sprite));
+    EngineBus.on(SPRITE_COLLIDED, (sprite: Sprite, collideWith: Sprite, oldX: number, oldY: number) => this.onSpriteCollided(sprite, collideWith, oldX, oldY));
+    EngineBus.on(SPRITE_OUT_OF_BOUNDS, (sprite: Sprite, oldX: number, oldY: number) => this.onSpriteOutOfBounds(sprite, oldX, oldY));
   }
 
-  public move(newX: number, newY: number, newDirection: Direction) {
+  /**
+   * Direction of tank
+   *
+   * @readonly
+   * @type {Direction}
+   * @memberof Tank
+   */
+  public get Direction(): Direction {
+    return this.direction;
+  }
+
+  /**
+   * Pixel counter when the tank moves in one direction
+   *
+   * @readonly
+   * @type {number}
+   * @memberof Tank
+   */
+  public get DirectionMileage(): number {
+    return this.directionMileage;
+  }
+
+  /**
+   * Player indicator
+   *
+   * @readonly
+   * @type {boolean}
+   * @memberof Tank
+   */
+  public get IsPlayer(): boolean {
+    return this.isPlayer;
+  }
+
+  public move(newDirection: Direction) {
+    const oldX = this.x;
+    const oldY = this.y;
+    const oldDirection = this.direction;
+
+    this.direction = newDirection;
+
+    switch (this.direction) {
+      case Direction.Up:
+        this.y -= this.speed;
+        break;
+      case Direction.Left:
+        this.x -= this.speed;
+        break;
+      case Direction.Right:
+        this.x += this.speed;
+        break;
+      case Direction.Down:
+        this.y += this.speed;
+        break;
+      default:
+        break;
+    }
+
+    if (oldDirection === newDirection) {
+      this.directionMileage += this.speed;
+    } else {
+      this.directionMileage = 0;
+    }
+
+    EngineBus.emit(SPRITE_MOVED, this, oldX, oldY);
+  }
+
+  public changeLocation(newX: number, newY: number, newDirection: Direction) {
+    const oldX = this.x;
+    const oldY = this.y;
+
     this.x = newX;
     this.y = newY;
     this.direction = newDirection;
 
-    EngineBus.emit(SPRITE_MOVED, this);
+    EngineBus.emit(SPRITE_MOVED, this, oldX, oldY);
   }
 
   /**
    * Fires bullet or skip if bullet flies already
    */
   public shot() {
-    if (this.bullet) {
-      return;
-    }
+    if (this.bullet) return;
 
     const bulletPos = this.getBulletInitialPosition(8, 8);
-    this.bullet = new Bullet(bulletPos.x, bulletPos.y, this.direction);
+    this.bullet = new Bullet(bulletPos.x, bulletPos.y, this.direction, this);
 
     EngineBus.emit(SPRITE_CREATED, this.bullet);
   }
@@ -48,23 +125,23 @@ export default class Tank extends Sprite {
     let y = 0;
 
     switch (this.direction) {
-      case Direction.Forward:
+      case Direction.Up:
         x = this.x + this.Width / 2 - bulletWidth / 2;
-        y = this.y;
+        y = this.y - bulletHeight;
         break;
 
-      case Direction.Backward:
+      case Direction.Down:
         x = this.x + this.Width / 2 - bulletWidth / 2;
-        y = this.y + this.Height - bulletHeight;
+        y = this.y + this.Height;
         break;
 
       case Direction.Left:
-        x = this.x;
+        x = this.x - bulletWidth;
         y = this.y + this.Height / 2 - bulletHeight / 2;
         break;
 
       case Direction.Right:
-        x = this.x + this.Width - bulletWidth;
+        x = this.x + this.Width;
         y = this.y + this.Height / 2 - bulletHeight / 2;
         break;
 
@@ -81,44 +158,56 @@ export default class Tank extends Sprite {
     }
   }
 
-  private onSpriteCollided(sprite: Sprite, collideWith: Sprite) {
-    if (sprite !== this || !collideWith) {
-      return;
+  private onSpriteCollided(movedSprite: Sprite, collideWith: Sprite, oldX: number, oldY: number) {
+    if (movedSprite === this) {
+      if (collideWith instanceof Wall) {
+        this.undoMove(oldX, oldY);
+      } else if (collideWith instanceof Tank) {
+        this.onTankHit(collideWith, oldX, oldY);
+      }
     }
 
-    if (collideWith instanceof Wall) {
-      this.undoMove();
+    if (collideWith === this) {
+      if (movedSprite instanceof Bullet) {
+        this.onBulletHit(movedSprite);
+      }
     }
   }
 
-  private onSpriteOutOfBounds(sprite: Sprite) {
-    if (sprite !== this) {
-      return;
-    }
+  private onSpriteOutOfBounds(sprite: Sprite, oldX: number, oldY: number) {
+    if (sprite !== this) return;
 
-    this.undoMove();
+    this.undoMove(oldX, oldY);
   }
 
-  private undoMove() {
+  protected undoMove(oldX: number, oldY: number) {
     switch (this.direction) {
-      case Direction.Forward:
-        this.y += this.speed;
+      case Direction.Up:
+        this.y = oldY;
         break;
 
-      case Direction.Backward:
-        this.y -= this.speed;
+      case Direction.Down:
+        this.y = oldY;
         break;
 
       case Direction.Left:
-        this.x += this.speed;
+        this.x = oldX;
         break;
 
       case Direction.Right:
-        this.x -= this.speed;
+        this.x = oldX;
         break;
 
       default:
         break;
     }
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected onTankHit(_tank: Tank, oldX: number, oldY: number): void {
+    this.undoMove(oldX, oldY);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected onBulletHit(_bullet: Bullet): void { }
 }

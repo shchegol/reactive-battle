@@ -1,5 +1,8 @@
 import {
-  EngineBus, SPRITE_COLLIDED, SPRITE_MOVED, SPRITE_OUT_OF_BOUNDS,
+  EngineBus,
+  SPRITE_MOVED,
+  SPRITE_OUT_OF_BOUNDS,
+  SPRITE_COLLIDED,
 } from '@engine/EngineBus';
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from '@engine/Scene';
 import Sprite from '@engine/sprites/Sprite';
@@ -12,18 +15,24 @@ import { spritesManager } from '@engine/SpritesManager';
  * @class CollisionManager
  */
 export default class CollisionManager {
+  private static wasInit: boolean = false;
+
   public static init() {
-    EngineBus.on(SPRITE_MOVED, (sprite: Sprite) => CollisionManager.onSpriteMoved(sprite));
+    if (this.wasInit) return;
+
+    EngineBus.on(SPRITE_MOVED, (movedSprite: Sprite, oldX: number, oldY: number) => CollisionManager.onSpriteMoved(movedSprite, oldX, oldY));
+
+    this.wasInit = true;
   }
 
-  private static onSpriteMoved(sprite: Sprite) {
-    if (CollisionManager.checkIsOutOfBounds(sprite)) {
-      EngineBus.emit(SPRITE_OUT_OF_BOUNDS, sprite);
+  private static onSpriteMoved(movedSprite: Sprite, oldX: number, oldY: number) {
+    if (CollisionManager.checkIsOutOfBounds(movedSprite)) {
+      EngineBus.emit(SPRITE_OUT_OF_BOUNDS, movedSprite, oldX, oldY);
     }
 
-    const collideWith = CollisionManager.checkSpritesCollision(sprite, spritesManager.Sprites);
-    if (collideWith) {
-      EngineBus.emit(SPRITE_COLLIDED, sprite, collideWith);
+    const collideWith = CollisionManager.checkSpritesCollision(movedSprite, spritesManager.Sprites);
+    if (collideWith && collideWith.length > 0) {
+      collideWith.forEach((otherSprite) => EngineBus.emit(SPRITE_COLLIDED, movedSprite, otherSprite, oldX, oldY));
     }
   }
 
@@ -50,21 +59,23 @@ export default class CollisionManager {
    * @static
    * @param {Sprite} sprite - sprite for check
    * @param {Sprite[]} allSprites - all sprites in playground
-   * @return {(Sprite | null)} - first collision sprite or null
+   * @return {Sprite[]} - all sprites with did collide
    * @memberof CollisionManager
    */
-  public static checkSpritesCollision(sprite: Sprite, allSprites: Sprite[]): Sprite | null {
+  public static checkSpritesCollision(sprite: Sprite, allSprites: Sprite[]): Sprite[] {
+    const collideWith: Sprite[] = [];
+
     for (let index = 0; index < allSprites.length; index += 1) {
       const otherSprite = allSprites[index];
 
       if (CollisionManager.isCandidateForCollision(sprite, otherSprite)) {
         if (CollisionManager.didCollide(sprite, sprite.X, sprite.Y, otherSprite)) {
-          return otherSprite;
+          collideWith.push(otherSprite);
         }
       }
     }
 
-    return null;
+    return collideWith;
   }
 
   private static isCandidateForCollision(sprite1: Sprite, sprite2: Sprite) {
@@ -72,7 +83,7 @@ export default class CollisionManager {
   }
 
   private static didCollide(sprite1: Sprite, newX: number, newY: number, sprite2: Sprite) {
-    const tolerance = 4;
+    const tolerance = 1;
 
     const left = newX + tolerance;
     const right = newX + sprite1.Width - tolerance;
@@ -90,6 +101,6 @@ export default class CollisionManager {
     return !(sprite2.X > right
       || sprite2.X + sprite2.Width < left
       || sprite2.Y > bottom
-      || sprite2.Y + sprite2.Width < top);
+      || sprite2.Y + sprite2.Height < top);
   }
 }

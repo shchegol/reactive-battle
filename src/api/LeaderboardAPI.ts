@@ -1,29 +1,19 @@
-import { API_URL, API_VERSION } from '@root/constants';
-import { LeaderboardNewLeaderRequest, LeaderboardRequest } from '@root/types/models';
+import { LeaderboardNewLeaderRequest, LeaderboardRequest } from '@api/types';
+import axios from 'axios';
 
 class LeaderboardAPI {
-  static prefix = `${API_URL}/api/${API_VERSION}/leaderboard`;
+  static prefix = '/leaderboard';
 
-  static addNewLeader(data: LeaderboardNewLeaderRequest): Promise<Response> {
-    return fetch(`${LeaderboardAPI.prefix}`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
+  static addNewLeader(data: LeaderboardNewLeaderRequest) {
+    return axios.post(`${LeaderboardAPI.prefix}`, data);
   }
 
   static getAllLeaderboard(options: LeaderboardRequest = {
     ratingFieldName: 'score',
     cursor: 0,
     limit: 20,
-  }): Promise<Response> {
-    return fetch(`${LeaderboardAPI.prefix}/all`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(options),
-    });
+  }) {
+    return axios.post(`${LeaderboardAPI.prefix}/all`, options);
   }
 }
 

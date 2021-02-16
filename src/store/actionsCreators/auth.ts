@@ -1,41 +1,37 @@
-import { AuthActions, AuthActionTypes } from '@store/actions/auth';
+import Cookies from 'js-cookie';
 import AuthAPI from '@api/AuthAPI';
-import { SignUpRequest, UserRequest, UserResponse } from '@root/types/models';
-import { history } from '@root/utils/history';
+import { AuthActions } from '@store/actions/auth';
+import { AuthAction } from '@store/actions/types';
+import { SignUpRequest, UserRequest } from '@api/types';
+import { push } from 'connected-react-router';
+import { fetchUser } from '@store/actionsCreators/user';
+import { showSnackbar } from '@store/actionsCreators/snackbar';
+import { DispatchSnackbar } from '@store/actionsCreators/types';
+import { Dispatch } from 'react';
+import { IS_SERVER } from '@root/constants';
 
-type DispatchWithFetch<T> = (arg0: T | ReturnType<typeof fetch>) => void;
-
-export const fetch = () => {
-  const request = () => ({ type: AuthActions.FETCH_REQUEST });
-  const success = (user: UserResponse) => ({ type: AuthActions.FETCH_SUCCESS, user });
-  const failure = (error: string) => ({ type: AuthActions.FETCH_FAILURE, error });
-
-  return (dispatch: DispatchWithFetch<AuthActionTypes>) => {
-    dispatch(request());
-
-    AuthAPI.fetchUser()
-      .then((response) => response.json())
-      .then((user) => dispatch(success(user)))
-      .catch((error) => dispatch(failure(error.toString())));
-  };
-};
+type DispatchWithFetch<T> = (arg0: T | ReturnType<typeof fetchUser>) => void;
 
 export const signup = (data: SignUpRequest) => {
   const request = () => ({ type: AuthActions.SIGNUP_REQUEST });
   const success = () => ({ type: AuthActions.SIGNUP_SUCCESS });
   const failure = (error: string) => ({ type: AuthActions.SIGNUP_FAILURE, error });
 
-  return (dispatch: DispatchWithFetch<AuthActionTypes>) => {
+  return (dispatch: DispatchWithFetch<AuthAction | DispatchSnackbar>) => {
     dispatch(request());
 
-    AuthAPI
+    return AuthAPI
       .signup(data)
-      .then(() => {
-        localStorage.setItem('userLogin', data.login);
+      .then((userData) => {
+        Cookies.set('userLogin', userData.login, { expires: 7 });
         dispatch(success());
-        dispatch(fetch());
+        dispatch(fetchUser());
+        dispatch(showSnackbar({ type: 'success', message: 'registration completed successfully' }));
       })
-      .catch((error) => dispatch(failure(error.toString())));
+      .catch((error) => {
+        dispatch(failure(error.toString()));
+        dispatch(showSnackbar({ type: 'danger', message: `${error.toString()}` }));
+      });
   };
 };
 
@@ -44,17 +40,43 @@ export const signin = (data: UserRequest) => {
   const success = () => ({ type: AuthActions.SIGNIN_SUCCESS });
   const failure = (error: string) => ({ type: AuthActions.SIGNIN_FAILURE, error });
 
-  return (dispatch: DispatchWithFetch<AuthActionTypes>) => {
+  return (dispatch: DispatchWithFetch<AuthAction | DispatchSnackbar>) => {
     dispatch(request());
 
     AuthAPI
       .signin(data)
-      .then(() => {
-        localStorage.setItem('userLogin', data.login || '');
+      .then((userData) => {
+        Cookies.set('userLogin', userData.login || '', { expires: 7 });
         dispatch(success());
-        dispatch(fetch());
+        dispatch(fetchUser());
+        dispatch(showSnackbar({ type: 'success', message: 'authorization completed successfully' }));
       })
-      .catch((error) => dispatch(failure(error.toString())));
+      .catch((error) => {
+        dispatch(failure(error.toString()));
+        dispatch(showSnackbar({ type: 'danger', message: `${error.toString()}` }));
+      });
+  };
+};
+
+export const yaOauth = (code: string) => {
+  const request = (oAuthCode: string) => ({ type: AuthActions.YAAUTH_REQUEST, oAuthCode });
+  const success = () => ({ type: AuthActions.YAAUTH_SUCCESS });
+  const failure = (error: string) => ({ type: AuthActions.YAAUTH_FAILURE, error });
+
+  return (dispatch: Dispatch<AuthAction | DispatchSnackbar>) => {
+    dispatch(request(code));
+
+    AuthAPI
+      .yaLogin(code)
+      .then(() => {
+        Cookies.set('isOAuth', 'true', { expires: 7 });
+        dispatch(success());
+        dispatch(showSnackbar({ type: 'success', message: 'authorization completed successfully' }));
+      })
+      .catch((error) => {
+        dispatch(failure(error.toString()));
+        dispatch(showSnackbar({ type: 'danger', message: `${error.toString()}` }));
+      });
   };
 };
 
@@ -62,8 +84,11 @@ export const logout = () => {
   AuthAPI
     .logout()
     .then(() => {
-      localStorage.setItem('userLogin', '');
-      history.push('/signin');
+      if (!IS_SERVER) {
+        Cookies.remove('userLogin');
+        Cookies.remove('isOAuth');
+      }
+      push('/signin');
     });
 
   return { type: AuthActions.LOGOUT };

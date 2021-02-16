@@ -1,21 +1,43 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { hydrate } from 'react-dom';
 import '@styles/index.scss';
 import App from '@components/app/App';
 import ErrorBoundary from '@components/errorBoundary';
 import { Provider } from 'react-redux';
 import configureStore from '@store/store';
-import { ApplicationState } from '@store/types';
 import Snackbar from '@components/snackbar/Snackbar';
+import { withLoading } from '@root/hocs/withLoading';
+import { ConnectedRouter } from 'connected-react-router';
+import { Helmet } from 'react-helmet';
+import { ApplicationState } from '@store/types';
+import createHistory from '@store/history';
 
-const store = configureStore({} as ApplicationState);
+const initialState = window.__PRELOADED_STATE__;
+delete window.__PRELOADED_STATE__;
+const store = configureStore(initialState as ApplicationState);
+const history = createHistory();
+const AppWithLoading = withLoading(App);
 
-ReactDOM.render(
+const markup = (
   <ErrorBoundary>
     <Provider store={store}>
-      <App />
+      <Helmet
+        title="Reactive Battle"
+        titleTemplate="%s - Reactive Battle"
+      />
+      <ConnectedRouter history={history}>
+        <AppWithLoading />
+      </ConnectedRouter>
       <Snackbar />
     </Provider>
-  </ErrorBoundary>,
-  document.getElementById('root') as HTMLElement,
+  </ErrorBoundary>
 );
+
+hydrate(
+  markup,
+  document.getElementById('root'),
+);
+
+if (module.hot) {
+  module.hot.accept();
+}

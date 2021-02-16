@@ -1,1 +1,1 @@
-export { default } from './playersTableItem';
+export { default } from './PlayersTableItem';

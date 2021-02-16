@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationState } from '@store/types';
 import Interface from '@pages/game/interface/Interface';
+import { EngineBus, SPRITE_DESTROYED } from '@engine/EngineBus';
+import BasicTank from '@engine/sprites/enemies/BasicTank';
+import Bullet from '@engine/sprites/Bullet';
+import EnemyTank from '@engine/sprites/enemies/EnemyTank';
+import { updateScore } from '@root/store/actionsCreators/game';
 
 export default function Game() {
-  const login = useSelector((state: ApplicationState) => state.auth.user.login);
+  const login = useSelector((state: ApplicationState) => state.user.info.login);
+  const game = useSelector((state: ApplicationState) => state.game);
+
+  const dispatch = useDispatch();
+
+  const playerShot = (ctx: BasicTank | Bullet) => {
+    if (ctx instanceof EnemyTank) {
+      dispatch(updateScore());
+    }
+  };
+
+  useEffect(() => {
+    EngineBus.on(SPRITE_DESTROYED, playerShot);
+  }, []);
 
   return (
     <div className="container">
@@ -42,7 +60,8 @@ export default function Game() {
       </div>
 
       <Interface
-        player={{ name: login }}
+        enemies={game.enemies}
+        player={game.player}
       />
     </div>
   );
