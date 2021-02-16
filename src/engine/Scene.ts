@@ -19,9 +19,7 @@ export default class Scene {
   private wasInit: boolean = false;
 
   public init() {
-    if (this.wasInit) {
-      return;
-    }
+    if (this.wasInit) return;
 
     this.stage = new Stage();
     this.player = new Player(132, 386);

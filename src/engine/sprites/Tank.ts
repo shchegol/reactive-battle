@@ -112,9 +112,7 @@ export default class Tank extends Sprite {
    * Fires bullet or skip if bullet flies already
    */
   public shot() {
-    if (this.bullet) {
-      return;
-    }
+    if (this.bullet) return;
 
     const bulletPos = this.getBulletInitialPosition(8, 8);
     this.bullet = new Bullet(bulletPos.x, bulletPos.y, this.direction, this);
@@ -177,9 +175,7 @@ export default class Tank extends Sprite {
   }
 
   private onSpriteOutOfBounds(sprite: Sprite, oldX: number, oldY: number) {
-    if (sprite !== this) {
-      return;
-    }
+    if (sprite !== this) return;
 
     this.undoMove(oldX, oldY);
   }

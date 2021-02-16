@@ -18,9 +18,7 @@ export default class CollisionManager {
   private static wasInit: boolean = false;
 
   public static init() {
-    if (this.wasInit) {
-      return;
-    }
+    if (this.wasInit) return;
 
     EngineBus.on(SPRITE_MOVED, (movedSprite: Sprite, oldX: number, oldY: number) => CollisionManager.onSpriteMoved(movedSprite, oldX, oldY));
 

@@ -13,9 +13,7 @@ export default class GameControl {
   }
 
   public init() {
-    if (this.wasInit) {
-      return;
-    }
+    if (this.wasInit) return;
 
     EngineBus.on(GAME_START, () => this.onStart());
     EngineBus.on(GAME_PAUSE, () => this.onPause());

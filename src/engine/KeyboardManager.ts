@@ -27,9 +27,7 @@ export default class KeyboardManager {
   private static keyDownHandler(event: KeyboardEvent) {
     event.preventDefault();
 
-    if (gameControl.State !== GameStates.Play) {
-      return;
-    }
+    if (gameControl.State !== GameStates.Play) return;
 
     switch (event.key) {
       case 'ArrowRight':
@@ -60,9 +58,7 @@ export default class KeyboardManager {
   private static keyUpHandler(event: KeyboardEvent) {
     event.preventDefault();
 
-    if (gameControl.State !== GameStates.Play) {
-      return;
-    }
+    if (gameControl.State !== GameStates.Play) return;
 
     switch (event.code) {
       case 'ArrowRight':
