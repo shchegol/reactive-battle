@@ -9,9 +9,7 @@ export default class SpritesManager {
   private wasInit: boolean = false;
 
   public init() {
-    if (this.wasInit) {
-      return;
-    }
+    if (this.wasInit) return;
 
     EngineBus.on(SPRITE_CREATED, (sprite: Sprite) => this.onSpriteCreated(sprite));
     EngineBus.on(SPRITE_DESTROYED, (sprite: Sprite) => this.onSpriteDestroyed(sprite));

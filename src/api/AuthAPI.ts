@@ -1,4 +1,6 @@
-import { SignUpRequest, UserRequest, UserResponse } from '@api/types';
+import {
+  SignUpRequest, UserRequest, UserResponse, YaServiceResponse,
+} from '@api/types';
 import axios from '@utils/apiRequest';
 
 class AuthAPI {
@@ -18,7 +20,7 @@ class AuthAPI {
     return axios.get(`${AuthAPI.prefix}/user`);
   }
 
-  static yaGetServiceId(): Promise<{ service_id: string }> {
+  static yaGetServiceId(): Promise<YaServiceResponse> {
     return axios.get(`${AuthAPI.prefixYandexOauth}/service-id`);
   }
 

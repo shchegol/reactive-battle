@@ -16,9 +16,7 @@ export default class ConcreteWall extends Wall {
   }
 
   private onSpriteCollided(sprite1: Sprite, sprite2: Sprite) {
-    if (!sprite1 || sprite2 !== this) {
-      return;
-    }
+    if (!sprite1 || sprite2 !== this) return;
 
     if (sprite1 instanceof Bullet) {
       const bullet = sprite1;

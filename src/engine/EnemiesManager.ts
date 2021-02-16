@@ -28,9 +28,7 @@ export default class EnemiesManager {
   }
 
   private onLevelStart(level: Level) {
-    if (!level) {
-      return;
-    }
+    if (!level) return;
 
     level.enemies.forEach((enemyType) => {
       switch (enemyType) {
@@ -67,18 +65,12 @@ export default class EnemiesManager {
    * @memberof EnemiesManager
    */
   private tryLetOutEnemy() {
-    if (gameControl.State !== GameStates.Play) {
-      return;
-    }
+    if (gameControl.State !== GameStates.Play) return;
 
-    if (this.restEnemies.length === 0) {
-      return;
-    }
+    if (this.restEnemies.length === 0) return;
 
     const activeEnemies = spritesManager.Sprites.filter((sprite) => sprite instanceof EnemyTank);
-    if (activeEnemies.length >= MAX_ENEMIES_ON_FIELD) {
-      return;
-    }
+    if (activeEnemies.length >= MAX_ENEMIES_ON_FIELD) return;
 
     const nextSpawn = spritesManager.Spawns[this.nextSpawn];
     if (nextSpawn) {

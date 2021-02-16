@@ -30,6 +30,10 @@ export interface PasswordRequest {
   newPassword: string;
 }
 
+export interface YaServiceResponse {
+  service_id: string
+}
+
 /**
  * @param {Number} - player position
  * @param {String} - player name

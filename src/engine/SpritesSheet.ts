@@ -8,9 +8,7 @@ export default class SpritesSheet {
   private wasInit: boolean = false;
 
   public init() {
-    if (this.wasInit) {
-      return;
-    }
+    if (this.wasInit) return;
 
     this.isLoading = true;
 

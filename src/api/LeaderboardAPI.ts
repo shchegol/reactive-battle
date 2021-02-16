@@ -5,10 +5,7 @@ class LeaderboardAPI {
   static prefix = '/leaderboard';
 
   static addNewLeader(data: LeaderboardNewLeaderRequest) {
-    return axios.post(`${LeaderboardAPI.prefix}`, JSON.stringify(data), {
-      withCredentials: true,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return axios.post(`${LeaderboardAPI.prefix}`, data);
   }
 
   static getAllLeaderboard(options: LeaderboardRequest = {
@@ -16,10 +13,7 @@ class LeaderboardAPI {
     cursor: 0,
     limit: 20,
   }) {
-    return axios.post(`${LeaderboardAPI.prefix}/all`, JSON.stringify(options), {
-      withCredentials: true,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return axios.post(`${LeaderboardAPI.prefix}/all`, options);
   }
 }
 

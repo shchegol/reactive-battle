@@ -108,9 +108,7 @@ export default class Bullet extends Sprite {
   }
 
   private onOutOfBounds(sprite: Sprite) {
-    if (sprite !== this) {
-      return;
-    }
+    if (sprite !== this) return;
 
     EngineBus.emit(SPRITE_DESTROYED, this);
   }
