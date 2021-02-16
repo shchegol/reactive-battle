@@ -8,6 +8,7 @@ import Threads from '@pages/forum/threads';
 import MainTitle from '@components/mainTitle';
 import Button from '@components/button';
 import { Helmet } from 'react-helmet';
+import Icon from '@components/icon';
 
 export default function Forum() {
   const history = useHistory();
@@ -20,20 +21,22 @@ export default function Forum() {
   return (
     <div className="container-fluid">
       <Helmet
-        title="Forum - Reactive Battle"
+        title="Forum"
       />
       <div className="row justify-content-left mt-10">
-        <div className="col-12 col-md-3 col-lg-4">
+        <div className="col-12 col-md-2 col-lg-3">
           <Button
             type="button"
             color="link"
+            size="xl"
             onClick={handleGoBack}
+            icon
           >
-            GO BACK
+            <Icon name="arrow_back" />
           </Button>
         </div>
 
-        <div className="col-12 col-md-6 col-lg-4">
+        <div className="col-12 col-md-8 col-lg-6">
           <div className="row mb-60">
             <div className="col">
               <MainTitle

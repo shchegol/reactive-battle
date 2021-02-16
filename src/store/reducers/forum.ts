@@ -19,9 +19,67 @@ const defaultState: ForumState = {
             + 'in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint '
             + 'occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit '
             + 'anim id est laborum.',
+          answers: [],
         } as Message,
         {
-          id: 1002, author: 'Jon Snow', date: new Date('2021-01-18 11:12'), text: 'fsjdfs',
+          id: 1002,
+          author: 'Jon Snow',
+          date: new Date('2021-01-18 11:12'),
+          text: 'fsjdfs',
+          answers: [
+            {
+              id: 1004,
+              author: 'Alex Johnson',
+              date: new Date('2021-01-17 11:12'),
+              text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, '
+                  + 'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '
+                  + 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi '
+                  + 'ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit '
+                  + 'in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint '
+                  + 'occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit '
+                  + 'anim id est laborum.',
+              answers: [
+                {
+                  id: 1004,
+                  author: 'Alex Johnson',
+                  date: new Date('2021-01-17 11:12'),
+                  text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, '
+                      + 'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '
+                      + 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi '
+                      + 'ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit '
+                      + 'in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint '
+                      + 'occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit '
+                      + 'anim id est laborum.',
+                  answers: [
+                    {
+                      id: 1003,
+                      author: 'Alex Johnson',
+                      date: new Date('2021-01-17 11:12'),
+                      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, '
+                          + 'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '
+                          + 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi '
+                          + 'ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit '
+                          + 'in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint '
+                          + 'occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit '
+                          + 'anim id est laborum.',
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              id: 1003,
+              author: 'Alex Johnson',
+              date: new Date('2021-01-17 11:12'),
+              text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, '
+                  + 'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '
+                  + 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi '
+                  + 'ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit '
+                  + 'in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint '
+                  + 'occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit '
+                  + 'anim id est laborum.',
+            },
+          ],
         } as Message,
       ],
     } as Thread,
@@ -57,6 +115,7 @@ export function forumReducer(state: ForumState = defaultState, action: ForumActi
                 author: action.author,
                 date: new Date(Date.now()),
                 text: action.text,
+                answers: [],
               }],
             };
           }

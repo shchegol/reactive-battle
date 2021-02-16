@@ -7,6 +7,8 @@ import { addMessage } from '@store/actionsCreators/forum';
 import Messages from '@pages/forumThread/messages';
 import Button from '@components/button';
 import MainTitle from '@components/mainTitle';
+import Icon from '@components/icon';
+import { Helmet } from 'react-helmet';
 import { ParamTypes } from './types';
 
 export default function ForumThread() {
@@ -22,47 +24,44 @@ export default function ForumThread() {
 
   return (
     <div className="container-fluid">
-      <div className="row mt-10">
-        <div className="col-md-12 col-lg-3">
+      <Helmet
+        title={`${thread.name} - Forum`}
+      />
+
+      <div className="row justify-content-left mt-10">
+        <div className="col-12 col-md-2 col-lg-3">
           <Button
             type="button"
             color="link"
+            size="xl"
             onClick={handleGoBack}
+            icon
           >
-            GO BACK
+            <Icon name="arrow_back" />
           </Button>
         </div>
 
-        <div className="col-md-12 col-lg-6">
-          <div className="row">
+        <div className="col-12 col-md-8 col-lg-6">
+          <div className="row mb-60">
             <div className="col">
               <MainTitle
-                subtitleText="FORUM"
+                titleText="FORUM"
+                subtitleText={thread.name}
+                hasImg={false}
               />
             </div>
           </div>
 
-          <div className="row mt-40">
-            <div className="col text-align-center">
-              <h3>{thread.name}</h3>
-            </div>
-          </div>
-
-          <div className="row mt-20">
+          <div className="row">
             <div className="col">
               <Messages messages={thread.messages} />
             </div>
           </div>
-
-          <div className="row mt-40">
-            <div className="col">
-              <ReplyThread
-                onOk={(text) => dispatch(addMessage(thread.id, login, text))}
-              />
-            </div>
-          </div>
-
         </div>
+
+        <ReplyThread
+          onOk={(text) => dispatch(addMessage(thread.id, login, text))}
+        />
       </div>
     </div>
   );

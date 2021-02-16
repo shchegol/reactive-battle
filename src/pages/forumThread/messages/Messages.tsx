@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-
 import MessageItem from '@pages/forumThread/messageItem';
 import { Props } from './types';
 
@@ -10,14 +9,14 @@ import { Props } from './types';
  */
 
 const Messages: FC<Props> = ({ messages = [] }) => (
-  <div>
+  <ul>
     {messages.map((message) => (
       <MessageItem
         key={message.id}
         message={message}
       />
     ))}
-  </div>
+  </ul>
 );
 
 export default Messages;

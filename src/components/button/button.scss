@@ -43,6 +43,32 @@
         }
     }
 
+    &_size {
+        &_s {
+            font-size: .7rem;
+
+            &.button_icon {
+                font-size: 1.2rem;
+            }
+        }
+
+        &_l {
+            font-size: 1.3rem;
+
+            &.button_icon {
+                font-size: 2rem;
+            }
+        }
+
+        &_xl {
+            font-size: 2rem;
+
+            &.button_icon {
+                font-size: 3rem;
+            }
+        }
+    }
+
     &_color {
         &_success {
             background-color: map_get($colors, success);

@@ -40,6 +40,7 @@ export interface Message {
   author: string;
   date: Date;
   text: string;
+  answers: Message[];
 }
 
 export interface Thread {

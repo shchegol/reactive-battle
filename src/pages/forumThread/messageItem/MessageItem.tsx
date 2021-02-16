@@ -1,5 +1,5 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { FC } from 'react';
+import Messages from '@pages/forumThread/messages';
 import { Props } from './types';
 import './messageItem.scss';
 
@@ -12,22 +12,29 @@ import './messageItem.scss';
  * @constructor
  */
 
-const MessageItem: FC<Props> = ({ message = {} }) => (
-  <article className="message-item">
-    <div className="row">
-      <div className="col-8">
-        <h5 className="text-color-secondary">
-          {message.author}
-        </h5>
+const MessageItem: FC<Props> = ({ message = {} }) => {
+  console.log(message);
+  return (
+    <li className="message-item">
+      <div className="row">
+        <div className="col-8">
+          <h5 className="text-color-secondary">
+            {message.author}
+          </h5>
+        </div>
+        <div className="col-4 text-align-right text-color-gray-500">
+          <data className="text-size-s">{message.date?.toLocaleString()}</data>
+        </div>
+        <div className="col-12">
+          <p>{message.text}</p>
+        </div>
       </div>
-      <div className="col-4 text-align-right text-color-gray-500">
-        <data className="text-size-s">{message.date?.toLocaleString()}</data>
-      </div>
-      <div className="col-12">
-        <p>{message.text}</p>
-      </div>
-    </div>
-  </article>
-);
+
+      { !!message.answers && (
+      <Messages messages={message.answers} />
+      )}
+    </li>
+  );
+};
 
 export default MessageItem;
