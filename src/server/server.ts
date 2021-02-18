@@ -7,7 +7,8 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import renderMiddleware from './render-middleware';
 import { userRouterFactory } from './routes/userRouterFactory';
 
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+
 const app = express();
 const webpackConfig = require('../../webpack/ssr/client.dev.js');
 
@@ -29,7 +30,7 @@ app
   }))
   .use(express.static(path.resolve(__dirname, '../dist')))
   .use(bodyParser.urlencoded({
-    extended: true
+    extended: true,
   }))
   .use(bodyParser.json())
   .use(userRouterFactory());

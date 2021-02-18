@@ -10,7 +10,7 @@ const sequelizeOptions: SequelizeOptions = {
   database: 'reactive-battle',
 
   dialect: 'postgres',
-  models: [User]
+  models: [User],
 };
 
 export const sequelize = new Sequelize(sequelizeOptions);
