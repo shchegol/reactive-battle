@@ -5,7 +5,9 @@ import cors from 'cors';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import renderMiddleware from './render-middleware';
+import { userRouterFactory } from './routes/userRouterFactory';
 
+const bodyParser = require('body-parser')
 const app = express();
 const webpackConfig = require('../../webpack/ssr/client.dev.js');
 
@@ -25,7 +27,12 @@ app
   .use(cors({
     credentials: true,
   }))
-  .use(express.static(path.resolve(__dirname, '../dist')));
+  .use(express.static(path.resolve(__dirname, '../dist')))
+  .use(bodyParser.urlencoded({
+    extended: true
+  }))
+  .use(bodyParser.json())
+  .use(userRouterFactory());
 
 app.get('*', renderMiddleware);
 
