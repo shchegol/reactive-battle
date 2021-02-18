@@ -10,7 +10,7 @@ import './commentItem.scss';
  * Comment Item
  * @param {Object} comment - comment params
  * @param {string} comment.author - comment author
- * @param {string} comment.create_at - comment date
+ * @param {string} comment.created_at - comment date
  * @param {string} comment.body - comment text
  * @param {Comment[]} comment.comments - reply messages
  * @constructor
@@ -42,7 +42,7 @@ const CommentItem: FC<Props> = ({
 
         <div className="col-auto text-align-right text-color-gray-500">
           <data className="text-size-s">
-            {comment.create_at?.toLocaleString()}
+            {comment.created_at?.toLocaleString()}
           </data>
         </div>
       </div>

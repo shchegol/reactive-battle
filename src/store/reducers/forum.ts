@@ -8,14 +8,14 @@ const defaultState: ForumState = {
       id: 1,
       name: 'Типы танков',
       description: '',
-      create_at: '2021-01-17 07:37:16-08',
+      created_at: '2021-01-17 07:37:16-08',
       comments: [
         {
           id: 1001,
           topic_id: 1,
           comment_id: null,
           author: 'Федька',
-          create_at: '2021-01-18 07:37:16-08',
+          created_at: '2021-01-18 07:37:16-08',
           body: 'some text',
           comments: [
             {
@@ -24,7 +24,7 @@ const defaultState: ForumState = {
               comment_id: 1001,
               author: 'Васёк',
               body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-              create_at: '2021-01-19 07:37:16-08',
+              created_at: '2021-01-19 07:37:16-08',
               comments: [
                 {
                   id: 1001001001,
@@ -32,7 +32,7 @@ const defaultState: ForumState = {
                   comment_id: 1001,
                   author: 'Петя',
                   body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                  create_at: '2021-01-19 07:37:16-08',
+                  created_at: '2021-01-19 07:37:16-08',
                   comments: [],
                 },
               ],
@@ -43,7 +43,7 @@ const defaultState: ForumState = {
               comment_id: 1001,
               author: 'Петя',
               body: 'some text2',
-              create_at: '2021-01-20 07:37:16-08',
+              created_at: '2021-01-20 07:37:16-08',
               comments: [],
             },
           ],
@@ -54,7 +54,7 @@ const defaultState: ForumState = {
       id: 2,
       name: 'Типы танков',
       description: '',
-      create_at: '2021-01-22 07:37:16-08',
+      created_at: '2021-01-22 07:37:16-08',
       comments: [
         {
           id: 2001,
@@ -62,7 +62,7 @@ const defaultState: ForumState = {
           comment_id: null,
           author: 'Васёк',
           body: 'some text3',
-          create_at: '2021-01-23 07:37:16-08',
+          created_at: '2021-01-23 07:37:16-08',
           comments: [],
         },
       ],

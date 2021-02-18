@@ -48,7 +48,7 @@ export interface Topic {
   id: number;
   name: string;
   description: string;
-  create_at: string;
+  created_at: string;
   comments: Comment[];
 }
 
@@ -58,7 +58,7 @@ export interface Comment {
   comment_id: number | null;
   author: string;
   body: string;
-  create_at: string;
+  created_at: string;
   comments: Comment[];
 }
 
