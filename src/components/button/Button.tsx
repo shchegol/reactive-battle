@@ -7,7 +7,7 @@ import { Props } from './types';
  * Button
  * @param {*} [children=undefined] - content inside the button
  * @param {'danger'|'success'|'cancel'|'link'|undefined} [color=undefined] - button color
- * @param {'s'|'l'|'xl'|undefined} [size=undefined] - button size
+ * @param {'s'|'l'|'xl'|'icon'|undefined} [size=undefined] - button size
  * @param {'full'} [width=undefined] - button width
  * @param {boolean} [icon=false] - button with icon
  * @param {*} rest - rest params
@@ -35,6 +35,7 @@ const Button: FC<Props> = ({
         button_size_s: size === 's',
         button_size_l: size === 'l',
         button_size_xl: size === 'xl',
+        button_size_icon: size === 'icon',
         button_width_full: width === 'full',
         button_icon: icon,
       },

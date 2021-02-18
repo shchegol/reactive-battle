@@ -10,7 +10,7 @@ import Leaderboard from '@root/pages/leaderboard/Leaderboard';
 import Error404 from '@root/pages/error404';
 import Error5xx from '@root/pages/error5xx';
 import Forum from '@root/pages/forum/Forum';
-import ForumThread from '@root/pages/forumThread/ForumThread';
+import ForumTopic from '@root/pages/forumTopic/ForumTopic';
 import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationState } from '@store/types';
 import { fetchUser } from '@store/actionsCreators/user';
@@ -64,7 +64,7 @@ export default function App() {
       />
       <Route
         path="/forum/:id"
-        component={ForumThread}
+        component={ForumTopic}
       />
       <Route
         path="**"

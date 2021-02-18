@@ -11,7 +11,7 @@ import useAuth from '@root/hooks/useAuth';
 import useSnackbar from '@root/hooks/useSnackbar';
 
 export default function SignIn() {
-  const { isLoggedIn, signin } = useAuth();
+  const [isLoggedIn, signin] = useAuth();
   const [showSnackbar] = useSnackbar();
 
   const submitHandler = (event: React.FormEvent, userData: SignInRequest) => {

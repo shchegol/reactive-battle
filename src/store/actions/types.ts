@@ -3,6 +3,7 @@ import { UserActions } from '@store/actions/user';
 import { UserResponse } from '@api/types';
 import { AuthActions } from '@store/actions/auth';
 import { ForumActions } from '@store/actions/forum';
+import { Topic } from '@store/types';
 import { GameActions } from './game';
 
 export type TPayload<T, P> = {
@@ -27,17 +28,12 @@ export interface UserPayload {
 export type UserAction = TPayload<UserActions, UserPayload>;
 
 // Forum
-export interface AddThreadActionType {
-  type: ForumActions.ADD_THREAD;
-  name: string;
+export interface ForumPayload {
+  topic?: Topic;
+  error?: string;
 }
-export interface AddMessageActionType {
-  type: ForumActions.ADD_MESSAGE;
-  threadId: number;
-  author: string;
-  text: string;
-}
-export type ForumActionTypes = AddThreadActionType | AddMessageActionType;
+
+export type ForumAction = TPayload<ForumActions, ForumPayload>;
 
 // Snackbar
 export interface SnackbarPayload {

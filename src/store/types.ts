@@ -35,22 +35,31 @@ export interface Player {
 }
 
 // Forum
-export interface Message {
-  id: number;
-  author: string;
-  date: Date;
-  text: string;
-  answers: Message[];
-}
-
-export interface Thread {
-  id: number;
-  name: string;
-  messages: Message[];
+export interface ForumRootState {
+  forum: ForumState;
 }
 
 export interface ForumState {
-  threads: Thread[];
+  topics: Topic[];
+  error: string;
+}
+
+export interface Topic {
+  id: number;
+  name: string;
+  description: string;
+  create_at: string;
+  comments: Comment[];
+}
+
+export interface Comment {
+  id: number;
+  topic_id: number;
+  comment_id: number | null;
+  author: string;
+  body: string;
+  create_at: string;
+  comments: Comment[];
 }
 
 /**

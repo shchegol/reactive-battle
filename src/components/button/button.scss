@@ -23,18 +23,8 @@
     }
 
     &_icon {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         padding: 0;
-        background-color: transparent;
-        border: none;
-        color: map_get($colors, secondary);
-
-        &:hover,
-        &:active {
-            background-color: transparent;
-            border: none;
-            color: map_get($colors, primary);
-        }
     }
 
     &_width {
@@ -48,7 +38,7 @@
             font-size: .7rem;
 
             &.button_icon {
-                font-size: 1.2rem;
+                font-size: 1rem;
             }
         }
 
@@ -66,6 +56,10 @@
             &.button_icon {
                 font-size: 3rem;
             }
+        }
+
+        &_icon {
+            font-size: 1.25rem;
         }
     }
 
