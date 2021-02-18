@@ -4,7 +4,7 @@ import { User } from '../models/user';
 import { Comment } from '../models/comment';
 
 const sequelizeOptions: SequelizeOptions = {
-  host: 'localhost',
+  host: '172.18.0.1',
   port: 5432,
   username: 'postgres',
   password: 'newPassword',
