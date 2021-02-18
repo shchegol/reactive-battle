@@ -6,6 +6,8 @@ import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import renderMiddleware from './render-middleware';
 import { userRouterFactory } from './routes/userRouterFactory';
+import { topicRouterFactory } from './routes/topicRouterFactory';
+import { commentRouterFactory } from './routes/commentRouterFactory';
 
 const bodyParser = require('body-parser');
 
@@ -33,7 +35,9 @@ app
     extended: true,
   }))
   .use(bodyParser.json())
-  .use(userRouterFactory());
+  .use(userRouterFactory())
+  .use(topicRouterFactory())
+  .use(commentRouterFactory());
 
 app.get('*', renderMiddleware);
 

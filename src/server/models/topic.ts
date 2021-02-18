@@ -2,17 +2,17 @@
 
 import { DataTypes } from 'sequelize';
 import {
-  Column, Table, Model, HasMany,
+  Column, Table, Model, ForeignKey, BelongsTo, HasMany,
 } from 'sequelize-typescript';
-import { Topic } from './topic';
+import { User } from './user';
 import { Comment } from './comment';
 
 @Table({
   timestamps: true,
   paranoid: false,
-  tableName: 'users',
+  tableName: 'topics',
 })
-export class User extends Model {
+export class Topic extends Model {
   @Column({
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -27,8 +27,22 @@ export class User extends Model {
   })
   name: string;
 
-  @HasMany(() => Topic)
-  topics: Topic[];
+  @Column({
+    type: DataTypes.STRING,
+    allowNull: true,
+  })
+  description: string;
+
+  @Column({
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    field: 'user_id',
+  })
+  @ForeignKey(() => User)
+  userId: number;
+
+  @BelongsTo(() => User)
+  user: User;
 
   @HasMany(() => Comment)
   comments: Comment[];
