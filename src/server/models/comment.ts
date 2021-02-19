@@ -5,7 +5,6 @@ import {
   Column, Table, Model, ForeignKey, BelongsTo,
 } from 'sequelize-typescript';
 import { Topic } from './topic';
-import { User } from './user';
 
 @Table({
   timestamps: true,
@@ -27,16 +26,12 @@ export class Comment extends Model {
   })
   body: string;
 
-  @ForeignKey(() => User)
   @Column({
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
-    field: 'user_id',
+    field: 'login',
   })
-  userId: number;
-
-  @BelongsTo(() => User)
-  user: User;
+  login: string;
 
   @ForeignKey(() => Topic)
   @Column({

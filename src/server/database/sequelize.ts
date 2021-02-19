@@ -1,6 +1,5 @@
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
 import { Topic } from '../models/topic';
-import { User } from '../models/user';
 import { Comment } from '../models/comment';
 
 const sequelizeOptions: SequelizeOptions = {
@@ -11,7 +10,7 @@ const sequelizeOptions: SequelizeOptions = {
   database: 'reactive-battle',
 
   dialect: 'postgres',
-  models: [User, Topic, Comment],
+  models: [Topic, Comment],
 };
 
 export const sequelize = new Sequelize(sequelizeOptions);

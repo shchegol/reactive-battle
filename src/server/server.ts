@@ -5,7 +5,6 @@ import cors from 'cors';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import renderMiddleware from './render-middleware';
-import { userRouterFactory } from './routes/userRouterFactory';
 import { topicRouterFactory } from './routes/topicRouterFactory';
 import { commentRouterFactory } from './routes/commentRouterFactory';
 
@@ -35,7 +34,6 @@ app
     extended: true,
   }))
   .use(bodyParser.json())
-  .use(userRouterFactory())
   .use(topicRouterFactory())
   .use(commentRouterFactory());
 
