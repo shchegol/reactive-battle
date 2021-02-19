@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { hydrate } from 'react-dom';
-import '@styles/index.scss';
 import App from '@components/app/App';
 import ErrorBoundary from '@components/errorBoundary';
 import { Provider } from 'react-redux';
@@ -11,6 +10,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import { Helmet } from 'react-helmet';
 import { ApplicationState } from '@store/types';
 import createHistory from '@store/history';
+import '@styles/index.scss';
 
 const initialState = window.__PRELOADED_STATE__;
 delete window.__PRELOADED_STATE__;

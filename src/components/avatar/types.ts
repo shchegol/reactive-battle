@@ -1,5 +1,6 @@
 import React, { ImgHTMLAttributes } from 'react';
 
 export type Props = {
-  onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  size?: 'xs'
+  onInputChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 } & ImgHTMLAttributes<HTMLImageElement>;

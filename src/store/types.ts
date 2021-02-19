@@ -22,6 +22,10 @@ export interface AuthState {
 }
 
 // User
+export interface UserRootState {
+  user: UserState;
+}
+
 export interface UserState {
   info: UserResponse,
   error: string,

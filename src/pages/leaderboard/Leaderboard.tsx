@@ -4,6 +4,7 @@ import PlayersTable from '@root/pages/leaderboard/playersTable';
 import Button from '@components/button';
 import { useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import Icon from '@components/icon';
 
 export default function Leaderboard() {
   const history = useHistory();
@@ -23,9 +24,11 @@ export default function Leaderboard() {
           <Button
             type="button"
             color="link"
+            size="xl"
             onClick={handleGoBack}
+            icon
           >
-            GO BACK
+            <Icon name="arrow_back" />
           </Button>
         </div>
 

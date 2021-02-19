@@ -8,9 +8,12 @@ import BasicTank from '@engine/sprites/enemies/BasicTank';
 import Bullet from '@engine/sprites/Bullet';
 import EnemyTank from '@engine/sprites/enemies/EnemyTank';
 import { updateScore } from '@root/store/actionsCreators/game';
+import userSelector from '@store/selectors/user';
+import Avatar from '@components/avatar';
 
 export default function Game() {
-  const login = useSelector((state: ApplicationState) => state.user.info.login);
+  // const login = useSelector((state: ApplicationState) => state.user.info.login);
+  const { login, avatar } = useSelector(userSelector);
   const game = useSelector((state: ApplicationState) => state.game);
 
   const dispatch = useDispatch();
@@ -26,9 +29,15 @@ export default function Game() {
   }, []);
 
   return (
-    <div className="container">
-      <div className="row mt-10">
-        <div className="col-auto">
+    <div className="container-fluid">
+      <div className="row align-items-center mt-10">
+        <div className="col-auto pr-0">
+          <Avatar
+            src={avatar}
+            size="xs"
+          />
+        </div>
+        <div className="col-auto pl-0">
           <Link
             to={`/users/${login}`}
             className="button button_color_link"

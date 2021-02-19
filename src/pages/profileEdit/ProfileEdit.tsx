@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { ApplicationState } from '@store/types';
 import { changeProfile, changeAvatar, changePassword } from '@store/actionsCreators/user';
 import ProfileEditForm from '@pages/profileEdit/profileEditForm';
 import Button from '@components/button';
 import Avatar from '@components/avatar';
-import { API_URL } from '@root/constants';
 import authSelector from '@store/selectors/auth';
+import userSelector from '@store/selectors/user';
+import Icon from '@components/icon';
+import { Helmet } from 'react-helmet';
+import MainTitle from '@components/mainTitle';
 
 /**
  * User profile edit page
@@ -28,8 +30,7 @@ interface UserProfile {
 export default function ProfileEdit() {
   const dispatch = useDispatch();
   const history = useHistory();
-
-  const user = useSelector((state: ApplicationState) => state.user);
+  const { ...user } = useSelector(userSelector);
   const { isOAuth } = useSelector(authSelector);
   const [userData, setUserData] = useState({
     first_name: '',
@@ -42,21 +43,16 @@ export default function ProfileEdit() {
     newPassword: '',
   } as UserProfile);
 
-  // todo это надо переиспользовать. В profile тоже самое
-  const avatarUrl = user.info.avatar
-    ? new URL(user.info.avatar, API_URL).href
-    : undefined;
-
   useEffect(() => {
-    if (!user.info.display_name) {
+    if (!user.display_name) {
       setUserData({
-        ...user.info,
-        display_name: user.info.login,
+        ...user,
+        display_name: user.login,
       });
     } else {
-      setUserData(user.info);
+      setUserData(user);
     }
-  }, [user.info]);
+  }, []);
 
   const handleGoBack = useCallback(() => history.goBack(), [history]);
 
@@ -93,22 +89,35 @@ export default function ProfileEdit() {
 
   return (
     <div className="container-fluid">
+      <Helmet
+        title="Change profile"
+      />
+
       <div className="row mt-10">
-        <div className="col-auto">
+        <div className="col-12 col-md-2 col-lg-3">
           <Button
             type="button"
             color="link"
+            size="xl"
             onClick={handleGoBack}
+            icon
           >
-            GO BACK
+            <Icon name="arrow_back" />
           </Button>
+        </div>
+
+        <div className="col-12 col-md-8 col-lg-6">
+          <MainTitle
+            titleText="CHANGE PROFILE"
+            hasImg={false}
+          />
         </div>
       </div>
 
       <div className="row justify-content-center mt-60">
         <div className="col-3 col-sm-3 col-md-3 col-lg-2">
           <Avatar
-            src={avatarUrl}
+            src={user.avatar}
             alt="CHANGE AVATAR"
             onInputChange={handleAvatarChange}
           />
@@ -116,7 +125,7 @@ export default function ProfileEdit() {
         <div className="col-8 col-sm-6 col-md-5 col-lg-3">
           <ProfileEditForm
             userData={userData}
-            errorMsg={user.error}
+            errorMsg=""
             onInputChange={handleInputChange}
             isOAuth={isOAuth}
             onSubmit={handleSubmit}

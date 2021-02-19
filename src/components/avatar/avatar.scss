@@ -10,4 +10,11 @@
     height: 100%;
     cursor: pointer;
   }
+
+  &_size {
+    &_xs {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
 }

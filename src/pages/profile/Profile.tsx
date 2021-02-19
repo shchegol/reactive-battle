@@ -2,11 +2,11 @@ import React from 'react';
 import MainTitle from '@root/components/mainTitle';
 import Button from '@components/button';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
-import { API_URL } from '@root/constants';
 import { logout } from '@store/actionsCreators/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { ApplicationState } from '@store/types';
+import userSelector from '@store/selectors/user';
+import Icon from '@components/icon';
 
 /**
  * User profile page
@@ -17,11 +17,7 @@ export default function Profile() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { url } = useRouteMatch();
-
-  const user = useSelector((state: ApplicationState) => state.user.info);
-  const avatarUrl = user.avatar
-    ? new URL(user.avatar, API_URL).href
-    : undefined;
+  const { ...user } = useSelector(userSelector);
 
   const handleGoBack = () => history.goBack();
   const handleLogout = () => {
@@ -38,9 +34,11 @@ export default function Profile() {
           <Button
             type="button"
             color="link"
+            size="xl"
+            icon
             onClick={handleGoBack}
           >
-            GO BACK
+            <Icon name="arrow_back" />
           </Button>
         </div>
       </div>
@@ -50,7 +48,7 @@ export default function Profile() {
           <MainTitle
             titleText={user.login}
             subtitleText={user.email}
-            imgSrc={avatarUrl}
+            imgSrc={user.avatar}
           />
         </div>
       </div>

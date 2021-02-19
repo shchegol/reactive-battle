@@ -12,16 +12,16 @@ import Error5xx from '@root/pages/error5xx';
 import Forum from '@root/pages/forum/Forum';
 import ForumTopic from '@root/pages/forumTopic/ForumTopic';
 import { useDispatch, useSelector } from 'react-redux';
-import { ApplicationState } from '@store/types';
 import { fetchUser } from '@store/actionsCreators/user';
 import { getUrlParam } from '@utils/getUrlParams';
 import { yaOauth } from '@store/actionsCreators/auth';
 import authSelector from '@store/selectors/auth';
+import userSelector from '@store/selectors/user';
 
 export default function App() {
   const dispatch = useDispatch();
   const { isLoggedIn, oAuthCode } = useSelector(authSelector);
-  const login = useSelector((state: ApplicationState) => state.user.info.login);
+  const { login } = useSelector(userSelector);
 
   useEffect(() => {
     const code = oAuthCode || getUrlParam('code');

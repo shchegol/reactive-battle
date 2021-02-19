@@ -30,7 +30,7 @@ export default function ForumTopic() {
           title={`${topic.name} - Forum`}
         />
 
-        <div className="row justify-content-left mt-10">
+        <div className="row mt-10">
           <div className="col-12 col-md-2 col-lg-3">
             <Button
               type="button"
