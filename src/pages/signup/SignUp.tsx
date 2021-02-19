@@ -7,7 +7,7 @@ import useAuth from '@root/hooks/useAuth';
 import './signup.scss';
 
 export default function SignUp() {
-  const { isLoggedIn, signup } = useAuth();
+  const [isLoggedIn, signup] = useAuth();
 
   const submitHandler = async (event: React.FormEvent, userData: SignUpRequest) => {
     event.preventDefault();

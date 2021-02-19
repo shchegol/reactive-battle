@@ -23,23 +23,43 @@
     }
 
     &_icon {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         padding: 0;
-        background-color: transparent;
-        border: none;
-        color: map_get($colors, secondary);
-
-        &:hover,
-        &:active {
-            background-color: transparent;
-            border: none;
-            color: map_get($colors, primary);
-        }
     }
 
     &_width {
         &_full {
             width: 100%;
+        }
+    }
+
+    &_size {
+        &_s {
+            font-size: .7rem;
+
+            &.button_icon {
+                font-size: 1rem;
+            }
+        }
+
+        &_l {
+            font-size: 1.3rem;
+
+            &.button_icon {
+                font-size: 2rem;
+            }
+        }
+
+        &_xl {
+            font-size: 2rem;
+
+            &.button_icon {
+                font-size: 3rem;
+            }
+        }
+
+        &_icon {
+            font-size: 1.25rem;
         }
     }
 

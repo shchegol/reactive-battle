@@ -1,0 +1,12 @@
+@import "@styles/utilities/variables";
+
+.reply {
+  position: sticky;
+  display: flex;
+  justify-content: center;
+  bottom: 0;
+  width: 100%;
+  margin-top: 4rem;
+  background-color: map_get($colors, background);
+  box-shadow: 0 -2rem 2rem 0 map_get($colors, background);
+}
