@@ -9,7 +9,6 @@ import authSelector from '@store/selectors/auth';
 import userSelector from '@store/selectors/user';
 import Icon from '@components/icon';
 import { Helmet } from 'react-helmet';
-import MainTitle from '@components/mainTitle';
 
 /**
  * User profile edit page
@@ -89,11 +88,9 @@ export default function ProfileEdit() {
 
   return (
     <div className="container-fluid">
-      <Helmet
-        title="Change profile"
-      />
+      <Helmet title="Change profile" />
 
-      <div className="row mt-10">
+      <div className="row mt-20">
         <div className="col-12 col-md-2 col-lg-3">
           <Button
             type="button"
@@ -107,23 +104,19 @@ export default function ProfileEdit() {
         </div>
 
         <div className="col-12 col-md-8 col-lg-6">
-          <MainTitle
-            titleText="CHANGE PROFILE"
-            hasImg={false}
-          />
-        </div>
-      </div>
+          <div className="row justify-content-center">
+            <div className="col-auto">
+              <Avatar
+                src={user.avatar}
+                alt="CHANGE AVATAR"
+                size="l"
+                onInputChange={handleAvatarChange}
+              />
+            </div>
+          </div>
 
-      <div className="row justify-content-center mt-60">
-        <div className="col-3 col-sm-3 col-md-3 col-lg-2">
-          <Avatar
-            src={user.avatar}
-            alt="CHANGE AVATAR"
-            onInputChange={handleAvatarChange}
-          />
-        </div>
-        <div className="col-8 col-sm-6 col-md-5 col-lg-3">
           <ProfileEditForm
+            className="mt-40"
             userData={userData}
             errorMsg=""
             onInputChange={handleInputChange}

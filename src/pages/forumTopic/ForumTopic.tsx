@@ -30,7 +30,7 @@ export default function ForumTopic() {
           title={`${topic.name} - Forum`}
         />
 
-        <div className="row mt-10">
+        <div className="row mt-20">
           <div className="col-12 col-md-2 col-lg-3">
             <Button
               type="button"
@@ -54,7 +54,7 @@ export default function ForumTopic() {
       </div>
 
       <ReplyProvider>
-        <div className="container mt-60">
+        <div className="container mt-40">
           <div className="row">
             <div className="col">
               <Comments comments={topic.comments} />

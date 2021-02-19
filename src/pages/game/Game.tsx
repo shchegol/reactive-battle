@@ -6,13 +6,14 @@ import Interface from '@pages/game/interface/Interface';
 import { EngineBus, SPRITE_DESTROYED } from '@engine/EngineBus';
 import BasicTank from '@engine/sprites/enemies/BasicTank';
 import Bullet from '@engine/sprites/Bullet';
+import Button from '@components/button';
 import EnemyTank from '@engine/sprites/enemies/EnemyTank';
 import { updateScore } from '@root/store/actionsCreators/game';
 import userSelector from '@store/selectors/user';
 import Avatar from '@components/avatar';
+import Icon from '@components/icon';
 
 export default function Game() {
-  // const login = useSelector((state: ApplicationState) => state.user.info.login);
   const { login, avatar } = useSelector(userSelector);
   const game = useSelector((state: ApplicationState) => state.game);
 
@@ -24,19 +25,24 @@ export default function Game() {
     }
   };
 
+  const changeThemeHandler = () => {
+    console.log('change theme');
+  };
+
   useEffect(() => {
     EngineBus.on(SPRITE_DESTROYED, playerShot);
   }, []);
 
   return (
     <div className="container-fluid">
-      <div className="row align-items-center mt-10">
+      <div className="row align-items-center mt-20">
         <div className="col-auto pr-0">
           <Avatar
             src={avatar}
             size="xs"
           />
         </div>
+
         <div className="col-auto pl-0">
           <Link
             to={`/users/${login}`}
@@ -47,7 +53,21 @@ export default function Game() {
         </div>
 
         <div className="col">
-          <div className="row justify-content-end">
+          <div className="row justify-content-end align-items-center">
+            <div className="col-auto pr-0">
+              THEME
+            </div>
+            <div className="col-auto pl-4">
+              <Button
+                color="link"
+                icon
+                onClick={changeThemeHandler}
+              >
+                <Icon name="mode_night" />
+                {/* <Icon name="wb_sunny" /> */}
+              </Button>
+            </div>
+
             <div className="col-auto">
               <Link
                 to="/leaderboard"
@@ -56,6 +76,7 @@ export default function Game() {
                 Leaderboard
               </Link>
             </div>
+
             <div className="col-auto pl-0">
               <Link
                 to="/forum"

@@ -9,7 +9,7 @@ const avatarTmpl = require('@root/images/no-avatar.png').default;
 /**
  * Avatar
  * @param {string|null} [src=undefined] - image source url
- * @param {'xs' | undefined} [size=undefined] - avatar size
+ * @param {'xs' | 'l' | undefined} [size=undefined] - avatar size
  * @param {function|undefined} [onInputChange=undefined] - file input listener
  * @param {*} rest - rest params
  * @constructor
@@ -31,6 +31,7 @@ const Avatar: FC<Props> = ({
         'profile-avatar',
         {
           'profile-avatar_size_xs': size === 'xs',
+          'profile-avatar_size_l': size === 'l',
         },
         rest.className,
       )}
