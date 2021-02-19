@@ -11,6 +11,7 @@ const avatarTmpl = require('@root/images/engine/tanks/player-0.svg').default;
  * @param {string} [titleText='REACTIVE BATTLE'] - title text
  * @param {string} [subtitleText=''] - subtitle text
  * @param [imgSrc=logo] - img file
+ * @param [hasImg=true] - need for a picture
  * @param {*} rest - rest parameters
  * @constructor
  */
@@ -19,6 +20,7 @@ const MainTitle: FC<Props> = ({
   titleText = 'REACTIVE BATTLE',
   subtitleText = '',
   imgSrc = avatarTmpl,
+  hasImg = true,
   ...rest
 }) => (
   <header
@@ -27,11 +29,14 @@ const MainTitle: FC<Props> = ({
       rest.className,
     )}
   >
-    <img
-      src={imgSrc}
-      alt={subtitleText}
-      className="main-title__img"
-    />
+
+    {hasImg && (
+      <img
+        src={imgSrc}
+        alt={subtitleText}
+        className="main-title__img"
+      />
+    )}
 
     <h1 className="main-title__text">
       {titleText}

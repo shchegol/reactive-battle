@@ -1,15 +1,18 @@
 import React, { FC, useEffect, useState } from 'react';
 import Button from '@components/button';
 import Input from '@components/input';
+import Icon from '@components/icon';
 import { Props } from './types';
 
-const NewThread: FC<Props> = ({ onOk = () => { } }) => {
-  const [newThreadVisible, setNewThreadVisible] = useState(false);
+const NewTopic: FC<Props> = (
+  { onOk = () => { } },
+) => {
+  const [newTopicVisible, setNewTopicVisible] = useState(false);
   const [name, setName] = useState('');
 
-  useEffect(() => setName(''), [newThreadVisible]);
+  useEffect(() => setName(''), [newTopicVisible]);
 
-  if (newThreadVisible) {
+  if (newTopicVisible) {
     return (
       <form>
         <div className="row">
@@ -17,7 +20,7 @@ const NewThread: FC<Props> = ({ onOk = () => { } }) => {
             <Input
               value={name}
               onChange={(event) => setName(event.target.value)}
-              placeholder="THREAD NAME"
+              placeholder="TOPIC NAME"
             />
           </div>
         </div>
@@ -31,7 +34,7 @@ const NewThread: FC<Props> = ({ onOk = () => { } }) => {
               onClick={(e) => {
                 e.preventDefault();
                 onOk(name);
-                setNewThreadVisible(false);
+                setNewTopicVisible(false);
               }}
             >
               OK
@@ -42,7 +45,7 @@ const NewThread: FC<Props> = ({ onOk = () => { } }) => {
             <Button
               width="full"
               color="cancel"
-              onClick={() => { setNewThreadVisible(false); }}
+              onClick={() => { setNewTopicVisible(false); }}
             >
               cancel
             </Button>
@@ -58,13 +61,14 @@ const NewThread: FC<Props> = ({ onOk = () => { } }) => {
         <Button
           type="button"
           width="full"
-          onClick={() => { setNewThreadVisible(true); }}
+          onClick={() => { setNewTopicVisible(true); }}
         >
-          New thread
+          <Icon name="add" />
+          NEW TOPIC
         </Button>
       </div>
     </div>
   );
 };
 
-export default NewThread;
+export default NewTopic;

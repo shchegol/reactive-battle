@@ -1,29 +1,28 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { FC } from 'react';
-
 import { Props } from './types';
 
-import './threadItem.scss';
+import './topicItem.scss';
 
 /**
  * ThreadItem
- * @param {Thread} [thread={}] - one thread item
+ * @param {Topic} [topic={}] - one topic item
  * @param {()=>void} [onCLick] - on click action
  * @constructor
  */
 
-const ThreadItem: FC<Props> = ({
-  thread = {},
+const TopicItem: FC<Props> = ({
+  topic = {},
   onClick = () => {},
 }) => (
   <button
     type="button"
-    className="thread-item"
+    className="topic-item"
     role="link"
     onClick={() => onClick()}
   >
-    <span>{thread.name}</span>
+    <span>{topic.name}</span>
   </button>
 );
 
-export default ThreadItem;
+export default TopicItem;
