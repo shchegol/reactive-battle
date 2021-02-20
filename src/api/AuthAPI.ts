@@ -1,7 +1,7 @@
 import {
   SignUpRequest, UserRequest, UserResponse, YaServiceResponse,
 } from '@api/types';
-import axios from '@utils/apiRequest';
+import axios from '@root/utils/yandexApiRequest';
 
 class AuthAPI {
   static prefix = '/auth';

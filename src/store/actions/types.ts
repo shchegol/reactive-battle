@@ -29,6 +29,7 @@ export type UserAction = TPayload<UserActions, UserPayload>;
 
 // Forum
 export interface ForumPayload {
+  topics?: Topic[];
   topic?: Topic;
   error?: string;
 }

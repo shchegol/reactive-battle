@@ -76,11 +76,17 @@ export function forumReducer(
   action: Required<ForumAction>,
 ): ForumState {
   switch (action.type) {
+    case ForumActions.FETCH_TOPICS_REQUEST:
     case ForumActions.ADD_TOPIC_REQUEST:
     case ForumActions.UPDATE_TOPIC_REQUEST:
       return {
         ...state,
         error: '',
+      };
+    case ForumActions.FETCH_TOPICS_SUCCESS:
+      return {
+        ...state,
+        topics: action.payload.topics || [],
       };
     case ForumActions.ADD_TOPIC_SUCCESS:
       return {
@@ -106,6 +112,7 @@ export function forumReducer(
         }),
         error: '',
       };
+    case ForumActions.FETCH_TOPICS_FAILURE:
     case ForumActions.ADD_TOPIC_FAILURE:
     case ForumActions.UPDATE_TOPIC_FAILURE:
       return {
