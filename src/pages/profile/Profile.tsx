@@ -2,7 +2,7 @@ import React from 'react';
 import MainTitle from '@root/components/mainTitle';
 import Button from '@components/button';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
-import { API_URL } from '@root/constants';
+import { API_YANDEX_URL } from '@root/constants';
 import { logout } from '@store/actionsCreators/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -20,7 +20,7 @@ export default function Profile() {
 
   const user = useSelector((state: ApplicationState) => state.user.info);
   const avatarUrl = user.avatar
-    ? new URL(user.avatar, API_URL).href
+    ? new URL(user.avatar, API_YANDEX_URL).href
     : undefined;
 
   const handleGoBack = () => history.goBack();

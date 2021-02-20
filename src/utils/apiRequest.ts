@@ -1,9 +1,9 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { push } from 'connected-react-router';
-import { API_URL, API_VERSION } from '@root/constants';
+import { API_YANDEX_URL, API_YANDEX_VERSION } from '@root/constants';
 
-axios.defaults.baseURL = `${API_URL}/api/${API_VERSION}`;
+axios.defaults.baseURL = `${API_YANDEX_URL}/api/${API_YANDEX_VERSION}`;
 axios.defaults.withCredentials = true;
 axios.interceptors.response.use(
   (response) => response.data,

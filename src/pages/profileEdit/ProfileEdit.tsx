@@ -6,7 +6,7 @@ import { changeProfile, changeAvatar, changePassword } from '@store/actionsCreat
 import ProfileEditForm from '@pages/profileEdit/profileEditForm';
 import Button from '@components/button';
 import Avatar from '@components/avatar';
-import { API_URL } from '@root/constants';
+import { API_YANDEX_URL } from '@root/constants';
 import authSelector from '@store/selectors/auth';
 
 /**
@@ -44,7 +44,7 @@ export default function ProfileEdit() {
 
   // todo это надо переиспользовать. В profile тоже самое
   const avatarUrl = user.info.avatar
-    ? new URL(user.info.avatar, API_URL).href
+    ? new URL(user.info.avatar, API_YANDEX_URL).href
     : undefined;
 
   useEffect(() => {
