@@ -8,7 +8,7 @@ import Button from '@components/button';
 import MainTitle from '@components/mainTitle';
 import Icon from '@components/icon';
 import forumSelector from '@store/selectors/forum';
-import ReplyProvider from '@pages/forumTopic/ReplyContext';
+import { ReplyProvider } from '@root/contexts/reply';
 import { Helmet } from 'react-helmet';
 
 export default function ForumTopic() {

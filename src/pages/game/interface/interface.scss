@@ -55,7 +55,7 @@
     min-width: 5rem;
     text-align: right;
     padding-left: 1rem;
-    color: map_get($colors, secondary);
+    color: var(--color-secondary);
   }
 }
 

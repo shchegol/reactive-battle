@@ -20,7 +20,7 @@
 
   &__text {
     font-size: 2.5rem;
-    color: map_get($colors, primary);
+    color: var(--color-primary);
 
   }
 

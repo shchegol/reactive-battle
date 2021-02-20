@@ -10,6 +10,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import { Helmet } from 'react-helmet';
 import { ApplicationState } from '@store/types';
 import createHistory from '@store/history';
+import { ThemeProvider } from '@root/contexts/theme';
 import '@styles/index.scss';
 
 const initialState = window.__PRELOADED_STATE__;
@@ -26,7 +27,9 @@ const markup = (
         titleTemplate="%s - Reactive Battle"
       />
       <ConnectedRouter history={history}>
-        <AppWithLoading />
+        <ThemeProvider>
+          <AppWithLoading />
+        </ThemeProvider>
       </ConnectedRouter>
       <Snackbar />
     </Provider>

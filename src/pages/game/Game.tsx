@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationState } from '@store/types';
@@ -12,10 +12,13 @@ import { updateScore } from '@root/store/actionsCreators/game';
 import userSelector from '@store/selectors/user';
 import Avatar from '@components/avatar';
 import Icon from '@components/icon';
+import { ThemeContext, TThemeContext } from '@root/contexts/theme';
 
 export default function Game() {
   const { login, avatar } = useSelector(userSelector);
   const game = useSelector((state: ApplicationState) => state.game);
+  const [themeIcon, setThemeIcon] = useState('mode_night');
+  const { theme, updateTheme } = useContext(ThemeContext) as TThemeContext;
 
   const dispatch = useDispatch();
 
@@ -26,7 +29,8 @@ export default function Game() {
   };
 
   const changeThemeHandler = () => {
-    console.log('change theme');
+    updateTheme();
+    setThemeIcon(theme === 'dark' ? 'mode_night' : 'wb_sunny');
   };
 
   useEffect(() => {
@@ -63,8 +67,7 @@ export default function Game() {
                 icon
                 onClick={changeThemeHandler}
               >
-                <Icon name="mode_night" />
-                {/* <Icon name="wb_sunny" /> */}
+                <Icon name={themeIcon} />
               </Button>
             </div>
 
