@@ -1,4 +1,5 @@
 import React, { FC, useContext } from 'react';
+import { Comment } from '@store/types';
 import Comments from '@pages/forumTopic/comments';
 import Button from '@components/button';
 import Icon from '@components/icon';
@@ -12,11 +13,12 @@ import './commentItem.scss';
  * @param {string} comment.author - comment author
  * @param {string} comment.created_at - comment date
  * @param {string} comment.body - comment text
- * @param {Comment[]} comment.comments - reply messages
+ * @param {Comment[]} topicComments - All comments for topic
  * @constructor
  */
 const CommentItem: FC<Props> = ({
-  comment = {},
+  comment = {} as Comment,
+  topicComments = [],
 }) => {
   const { updateReply } = useContext(ReplyContext) as TReplyContext;
 
@@ -53,9 +55,10 @@ const CommentItem: FC<Props> = ({
         </div>
       </div>
 
-      { !!comment.comments && (
-        <Comments comments={comment.comments} />
-      )}
+      <Comments
+        topicComments={topicComments}
+        parentCommentId={comment.id}
+      />
     </li>
   );
 };

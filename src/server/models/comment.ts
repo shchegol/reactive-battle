@@ -50,8 +50,5 @@ export class Comment extends Model {
     allowNull: true,
     field: 'comment_id',
   })
-  commentId: number;
-
-  @BelongsTo(() => Comment)
-  comment: Comment;
+  commentId: number | null;
 }

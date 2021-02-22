@@ -8,7 +8,7 @@ import Button from '@components/button';
 import { Helmet } from 'react-helmet';
 import Icon from '@components/icon';
 import forumSelector from '@store/selectors/forum';
-import { addTopic, fetchTopics } from '@root/store/actionsCreators/forum';
+import { addTopic, fetchTopicsList } from '@root/store/actionsCreators/forum';
 import loginSelector from '@root/store/selectors/login';
 
 export default function Forum() {
@@ -18,7 +18,7 @@ export default function Forum() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchTopics());
+    dispatch(fetchTopicsList());
   }, []);
 
   const handleGoBack = () => history.goBack();

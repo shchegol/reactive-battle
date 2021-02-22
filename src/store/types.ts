@@ -59,7 +59,6 @@ export interface Comment {
   author: string;
   body: string;
   created_at: string;
-  comments: Comment[];
 }
 
 /**

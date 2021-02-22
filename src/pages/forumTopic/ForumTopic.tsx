@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { Topic } from '@root/store/types';
 import Reply from '@root/pages/forumTopic/reply';
@@ -10,16 +10,24 @@ import Icon from '@components/icon';
 import forumSelector from '@store/selectors/forum';
 import ReplyProvider from '@pages/forumTopic/ReplyContext';
 import { Helmet } from 'react-helmet';
+import { addComment, fetchTopic } from '@root/store/actionsCreators/forum';
+import loginSelector from '@root/store/selectors/login';
 
 export default function ForumTopic() {
   const history = useHistory();
-  const params = useParams<{id: string}>();
+  const params = useParams<{ id: string }>();
 
   const topicId = Number.parseInt(params.id, 10);
   const { topics } = useSelector(forumSelector);
   const topic = topics.find((f) => f.id === topicId) || {} as Topic;
-  // const login = useSelector((state: ApplicationState) => state.user.info.login);
-  // const dispatch = useDispatch();
+  const comments = topic?.comments || [];
+
+  const login = useSelector(loginSelector);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchTopic(topicId));
+  }, []);
 
   const handleGoBack = () => history.goBack();
 
@@ -57,15 +65,16 @@ export default function ForumTopic() {
         <div className="container mt-60">
           <div className="row">
             <div className="col">
-              <Comments comments={topic.comments} />
+              <Comments
+                topicComments={comments}
+                parentCommentId={null}
+              />
             </div>
           </div>
         </div>
 
         <Reply
-            // todo дописать когда будет готово API
-            // onOk={(text) => dispatch(addMessage(thread.id, login, text))}
-          onOk={(text, commentId) => console.log(text, commentId)}
+          onOk={(text, commentId) => dispatch(addComment(topicId, commentId, text, login))}
         />
       </ReplyProvider>
     </>
