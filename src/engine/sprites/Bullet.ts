@@ -41,8 +41,11 @@ export default class Bullet extends Sprite {
     this.direction = direction;
     this.tank = tank;
 
-    EngineBus.on(SPRITE_OUT_OF_BOUNDS, (sprite: Sprite) => this.onOutOfBounds(sprite));
-    EngineBus.on(SPRITE_COLLIDED, (sprite: Sprite, collideWith: Sprite) => this.onSpriteCollided(sprite, collideWith));
+    this.onSpriteCollided = this.onSpriteCollided.bind(this);
+    this.onOutOfBounds = this.onOutOfBounds.bind(this);
+
+    EngineBus.on(SPRITE_COLLIDED, this.onSpriteCollided);
+    EngineBus.on(SPRITE_OUT_OF_BOUNDS, this.onOutOfBounds);
   }
 
   public get Direction() {
@@ -120,5 +123,12 @@ export default class Bullet extends Sprite {
         EngineBus.emit(SPRITE_DESTROYED, collideWith);
       }
     }
+  }
+
+  public detach() {
+    super.detach();
+
+    EngineBus.off(SPRITE_COLLIDED, this.onSpriteCollided);
+    EngineBus.off(SPRITE_OUT_OF_BOUNDS, this.onOutOfBounds);
   }
 }

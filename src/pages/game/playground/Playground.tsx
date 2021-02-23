@@ -17,15 +17,24 @@ const Playground: FC<PlaygroundProps> = ({ state = GameStates.NotStarted }) => {
 
   useEffect(() => {
     spritesSheet.init();
-    spritesManager.init();
     CollisionManager.init();
-    scene.init();
     gameControl.init();
 
     return () => {
       gameControl.pause();
     };
   }, []);
+
+  useEffect(() => {
+    if (state === GameStates.Play) {
+      spritesManager.start();
+      scene.start();
+    }
+
+    if (state === GameStates.GameOver) {
+      scene.stop();
+    }
+  }, [state]);
 
   useEffect(() => {
     KeyboardManager.init();

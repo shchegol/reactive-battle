@@ -6,7 +6,7 @@ import { EngineBus, LEVEL_NEW_ROUND, LEVEL_START } from './EngineBus';
 const ROUND_TIME = 10000;
 
 export default class Stage {
-  private level: Level;
+  private level: Level | null;
 
   private round: NodeJS.Timeout;
 
@@ -17,11 +17,19 @@ export default class Stage {
 
     EngineBus.emit(LEVEL_START, this.level);
 
-    if (!this.round) {
+    if (this.round) {
       clearInterval(this.round);
     }
 
     this.round = setInterval(Stage.onNewRound, ROUND_TIME);
+  }
+
+  public gameOver() {
+    this.level = null;
+
+    if (this.round) {
+      clearInterval(this.round);
+    }
   }
 
   public render(ctx: CanvasRenderingContext2D) {
