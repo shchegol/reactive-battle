@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import toClassNames from '@utils/toClassNames';
-import { API_URL } from '@root/constants';
+import { API_YANDEX_URL } from '@root/constants';
 import { Props } from './types';
 import './avatar.scss';
 
@@ -22,7 +22,7 @@ const Avatar: FC<Props> = ({
   ...rest
 }) => {
   const avatarUrl = src
-    ? new URL(src, API_URL).href
+    ? new URL(src, API_YANDEX_URL).href
     : undefined;
 
   return (

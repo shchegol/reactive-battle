@@ -8,7 +8,7 @@ const ROUND_TIME = 10000;
 export default class Stage {
   private level: Level;
 
-  private round: NodeJS.Timeout;
+  private round: number;
 
   public nextLevel() {
     this.level = Level1;
@@ -21,7 +21,7 @@ export default class Stage {
       clearInterval(this.round);
     }
 
-    this.round = setInterval(Stage.onNewRound, ROUND_TIME);
+    this.round = window.setInterval(Stage.onNewRound, ROUND_TIME);
   }
 
   public render(ctx: CanvasRenderingContext2D) {

@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import toClassNames from '@root/utils/toClassNames';
 
 import './mainTitle.scss';
-import { API_URL } from '@root/constants';
+import { API_YANDEX_URL } from '@root/constants';
 import { Props } from './types';
 
 const avatarTmpl = require('@root/images/engine/tanks/player-0.svg').default;
@@ -25,7 +25,7 @@ const MainTitle: FC<Props> = ({
   ...rest
 }) => {
   const avatarUrl = imgSrc
-    ? new URL(imgSrc, API_URL).href
+    ? new URL(imgSrc, API_YANDEX_URL).href
     : avatarTmpl;
 
   return (
