@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationState } from '@store/types';
 import Interface from '@pages/game/interface/Interface';
-import { EngineBus, SPRITE_DESTROYED } from '@engine/EngineBus';
+import { EngineBus, SPRITE_DESTROYED, GAME_OVER } from '@engine/EngineBus';
 import BasicTank from '@engine/sprites/enemies/BasicTank';
 import Bullet from '@engine/sprites/Bullet';
 import EnemyTank from '@engine/sprites/enemies/EnemyTank';
 import { updateScore } from '@root/store/actionsCreators/game';
+// import LeaderboardAPI from '@api/LeaderboardAPI';
 
 export default function Game() {
   const login = useSelector((state: ApplicationState) => state.user.info.login);
   const game = useSelector((state: ApplicationState) => state.game);
-
   const dispatch = useDispatch();
 
   const playerShot = (ctx: BasicTank | Bullet) => {
@@ -21,8 +21,22 @@ export default function Game() {
     }
   };
 
+  const addPlayerScore = () => {
+    console.log('add player to leaderboard', game.player.score);
+  };
+
   useEffect(() => {
     EngineBus.on(SPRITE_DESTROYED, playerShot);
+    // todo неожиданное поведение
+    EngineBus.on(GAME_OVER, addPlayerScore);
+    //
+    // LeaderboardAPI.addNewLeader({
+    //   data: {
+    //     login: 'test',
+    //     score: 2000,
+    //   },
+    //   ratingFieldName: 'score',
+    // });
   }, []);
 
   return (

@@ -1,17 +1,7 @@
 import React, { FC } from 'react';
 import toClassNames from '@utils/toClassNames';
 import { Props } from './types';
-import './playersTableItem.scss';
-
-const getTopPlacesColor = (position: number): string => {
-  const colors = [null, 'first', 'second', 'third'];
-
-  if (position > 0 && position < 4) {
-    return `leaders-item_color_${colors[position]}`;
-  }
-
-  return '';
-};
+import './playersListItem.scss';
 
 /**
  * leaderboard item
@@ -21,18 +11,21 @@ const getTopPlacesColor = (position: number): string => {
  * @param {Number} [player.score=0] - player score
  * @constructor
  */
-
-const PlayersTableItem: FC<Props> = ({ player = { position: 0, name: '', score: 0 } }: Props) => (
-  <div
+const PlayersListItem: FC<Props> = ({
+  player = { position: 0, login: '', score: 0 },
+}: Props) => (
+  <li
     className={toClassNames(
       'leaders-item',
-      getTopPlacesColor(player.position),
+      { 'leaders-item_color_first': player.position === 1 },
+      { 'leaders-item_color_second': player.position === 2 },
+      { 'leaders-item_color_third': player.position === 3 },
     )}
   >
     <span className="leaders-item__position">{player.position}</span>
-    <span className="leaders-item__user">{player.name}</span>
+    <span className="leaders-item__user">{player.login}</span>
     <span className="leaders-item__score">{player.score}</span>
-  </div>
+  </li>
 );
 
-export default PlayersTableItem;
+export default PlayersListItem;
