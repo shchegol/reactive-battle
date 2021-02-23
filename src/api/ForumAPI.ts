@@ -14,13 +14,13 @@ class ForumAPI {
     return apiAxios.post(`${ForumAPI.topicsPrefix}`, { name, description, login });
   }
 
-  static fetchTopic(topicId: number): Promise<Topic> {
-    return apiAxios.get(`${ForumAPI.topicsPrefix}/${topicId}`);
+  static fetchTopic(topic_id: number): Promise<Topic> {
+    return apiAxios.get(`${ForumAPI.topicsPrefix}/${topic_id}`);
   }
 
-  static addComment(topicId: number, body: string, login: string, commentId: number | null): Promise<Comment> {
+  static addComment(topic_id: number, body: string, login: string, comment_id: number | null): Promise<Comment> {
     return apiAxios.post(`${ForumAPI.commentsPrefix}`, {
-      topicId, body, login, commentId,
+      topic_id, body, login, comment_id,
     });
   }
 }

@@ -33,8 +33,11 @@ const NewTopic: FC<Props> = (
               color="success"
               onClick={(e) => {
                 e.preventDefault();
-                onOk(name);
-                setNewTopicVisible(false);
+
+                if (name) {
+                  onOk(name);
+                  setNewTopicVisible(false);
+                }
               }}
             >
               OK
