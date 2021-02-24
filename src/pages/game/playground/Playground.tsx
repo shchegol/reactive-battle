@@ -32,7 +32,7 @@ const Playground: FC<PlaygroundProps> = ({ state = GameStates.NotStarted }) => {
     }
 
     if (state === GameStates.GameOver) {
-      scene.stop();
+      scene.onGameOver();
     }
   }, [state]);
 

@@ -1,43 +1,56 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationState } from '@store/types';
 import Interface from '@pages/game/interface/Interface';
 import { EngineBus, SPRITE_DESTROYED, GAME_OVER } from '@engine/EngineBus';
+import FastTank from '@engine/sprites/enemies/FastTank';
 import BasicTank from '@engine/sprites/enemies/BasicTank';
 import Bullet from '@engine/sprites/Bullet';
 import EnemyTank from '@engine/sprites/enemies/EnemyTank';
-import { updateScore } from '@root/store/actionsCreators/game';
-// import LeaderboardAPI from '@api/LeaderboardAPI';
+import { updateScore, clearScore } from '@root/store/actionsCreators/game';
+import LeaderboardAPI from '@api/LeaderboardAPI';
 
 export default function Game() {
   const login = useSelector((state: ApplicationState) => state.user.info.login);
   const game = useSelector((state: ApplicationState) => state.game);
   const dispatch = useDispatch();
 
-  const playerShot = (ctx: BasicTank | Bullet) => {
+  const playerShot = (ctx: BasicTank | FastTank | Bullet) => {
     if (ctx instanceof EnemyTank) {
-      dispatch(updateScore());
+      if (ctx instanceof BasicTank) {
+        dispatch(updateScore({ tankType: 'basic' }));
+      }
+
+      if (ctx instanceof FastTank) {
+        dispatch(updateScore({ tankType: 'fast' }));
+      }
     }
   };
 
-  const addPlayerScore = () => {
-    console.log('add player to leaderboard', game.player.score);
-  };
+  const addPlayerScore = useCallback(() => {
+    console.log('1', login, game.player);
+
+    LeaderboardAPI.addNewLeader({
+      data: {
+        login,
+        score: game.player.score,
+      },
+      ratingFieldName: 'score',
+    }).then(() => dispatch(clearScore()));
+  }, [dispatch, game.player, login]);
 
   useEffect(() => {
     EngineBus.on(SPRITE_DESTROYED, playerShot);
-    // todo неожиданное поведение
+
+    return () => EngineBus.off(SPRITE_DESTROYED, playerShot);
+  }, [playerShot]);
+
+  useEffect(() => {
     EngineBus.on(GAME_OVER, addPlayerScore);
-    //
-    // LeaderboardAPI.addNewLeader({
-    //   data: {
-    //     login: 'test',
-    //     score: 2000,
-    //   },
-    //   ratingFieldName: 'score',
-    // });
-  }, []);
+
+    return () => EngineBus.off(GAME_OVER, addPlayerScore);
+  }, [addPlayerScore, game]);
 
   return (
     <div className="container">
