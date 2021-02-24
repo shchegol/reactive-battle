@@ -29,16 +29,15 @@
         text-align: right;
     }
 
-    &_color {
-        &_first {
-            border-color: map_get($colors, gold);
-        }
-        &_second {
-            border-color: map_get($colors, silver);
-        }
-        &_third {
-            border-color: map_get($colors, bronze);
-        }
+    &_color_first {
+        border-color: map_get($colors, gold);
+    }
 
+    &_color_second {
+        border-color: map_get($colors, silver);
+    }
+
+    &_color_third {
+        border-color: map_get($colors, bronze);
     }
 }

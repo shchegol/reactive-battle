@@ -4,7 +4,7 @@ import { playerManager } from '@engine/PlayerManager';
 import { spritesManager } from '@engine/SpritesManager';
 import Stage from '@engine/Stage';
 import { enemiesManager } from './EnemiesManager';
-import { EngineBus, SPRITE_CREATED } from './EngineBus';
+import { EngineBus, GAME_OVER, SPRITE_CREATED } from './EngineBus';
 import { GameStates } from './types/GameStates';
 import { gameControl } from './GameControl';
 
@@ -12,15 +12,15 @@ export const CANVAS_WIDTH = 416;
 export const CANVAS_HEIGHT = 416;
 
 export default class Scene {
-  private stage: Stage;
+  private stage: Stage | null;
 
-  private player: Player;
+  private player: Player | null;
 
-  private wasInit: boolean = false;
+  constructor() {
+    EngineBus.on(GAME_OVER, () => this.onGameOver());
+  }
 
-  public init() {
-    if (this.wasInit) return;
-
+  public start() {
     this.stage = new Stage();
     this.player = new Player(132, 386);
 
@@ -30,8 +30,17 @@ export default class Scene {
 
     this.stage.nextLevel();
     EngineBus.emit(SPRITE_CREATED, this.player);
+  }
 
-    this.wasInit = true;
+  public onGameOver() {
+    this.stage?.gameOver();
+    this.stage = null;
+
+    this.player = null;
+
+    playerManager.stop();
+    enemiesManager.stop();
+    aiManager.stop();
   }
 
   public render(context: CanvasRenderingContext2D) {
@@ -43,8 +52,8 @@ export default class Scene {
     context.fillStyle = 'black';
     context.fillRect(0, 0, context.canvas.width, context.canvas.height);
 
-    this.stage.render(context);
-    this.player.render(context);
+    this.stage?.render(context);
+    this.player?.render(context);
   }
 }
 

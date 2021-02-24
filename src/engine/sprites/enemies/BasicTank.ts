@@ -5,7 +5,7 @@ export default class BasicTank extends EnemyTank {
   protected speed: number = 1;
 
   constructor(x: number, y: number) {
-    super(x, y, 13, 13);
+    super('basic', x, y, 13, 13);
   }
 
   protected GetSprite() {
