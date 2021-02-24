@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationState } from '@store/types';
 import Interface from '@pages/game/interface/Interface';
 import { EngineBus, SPRITE_DESTROYED, GAME_OVER } from '@engine/EngineBus';
-import FastTank from '@engine/sprites/enemies/FastTank';
-import BasicTank from '@engine/sprites/enemies/BasicTank';
 import Bullet from '@engine/sprites/Bullet';
 import EnemyTank from '@engine/sprites/enemies/EnemyTank';
 import { updateScore, clearScore } from '@root/store/actionsCreators/game';
@@ -16,15 +14,9 @@ export default function Game() {
   const game = useSelector((state: ApplicationState) => state.game);
   const dispatch = useDispatch();
 
-  const playerShot = (ctx: BasicTank | FastTank | Bullet) => {
+  const playerShot = (ctx: EnemyTank | Bullet) => {
     if (ctx instanceof EnemyTank) {
-      if (ctx instanceof BasicTank) {
-        dispatch(updateScore({ tankType: 'basic' }));
-      }
-
-      if (ctx instanceof FastTank) {
-        dispatch(updateScore({ tankType: 'fast' }));
-      }
+      dispatch(updateScore({ tankType: ctx.Type }));
     }
   };
 
