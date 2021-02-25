@@ -17,7 +17,9 @@ export default class BrickWall extends Wall {
   constructor(x: number = 0, y: number = 0) {
     super(x, y);
 
-    EngineBus.on(SPRITE_COLLIDED, (sprite1: Sprite, sprite2: Sprite) => this.onSpriteCollided(sprite1, sprite2));
+    this.onSpriteCollided = this.onSpriteCollided.bind(this);
+
+    EngineBus.on(SPRITE_COLLIDED, this.onSpriteCollided);
   }
 
   public get ActualWidth() {
@@ -86,5 +88,10 @@ export default class BrickWall extends Wall {
         }
       }
     }
+  }
+
+  public detach() {
+    super.detach();
+    EngineBus.off(SPRITE_COLLIDED, this.onSpriteCollided);
   }
 }

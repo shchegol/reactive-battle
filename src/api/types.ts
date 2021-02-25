@@ -40,7 +40,7 @@ export interface YaServiceResponse {
  * @param {Number} - player score
  */
 export interface LeaderboardData {
-  name: string;
+  login: string;
   score: number;
 }
 

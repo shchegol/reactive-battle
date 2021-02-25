@@ -34,7 +34,7 @@ export interface UserState {
 // Leaderboard
 export interface Player {
   position: number;
-  name: string;
+  login: string;
   score: number;
 }
 

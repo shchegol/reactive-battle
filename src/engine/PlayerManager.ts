@@ -16,7 +16,7 @@ import Player from '@engine/sprites/Player';
 import Sprite from '@engine/sprites/Sprite';
 
 export default class PlayerManager {
-  private player: Player;
+  private player: Player | null;
 
   private inMoveRight: boolean;
 
@@ -42,6 +42,10 @@ export default class PlayerManager {
     EngineBus.on(PLAYER_STOP_BACKWARD, () => this.stopBackward());
 
     EngineBus.on(PLAYER_SHOT, () => this.shot());
+  }
+
+  public stop() {
+    this.player = null;
   }
 
   public get Player() {
@@ -91,11 +95,11 @@ export default class PlayerManager {
   }
 
   private move(direction: Direction, _allSprites: Sprite[], _context: CanvasRenderingContext2D) {
-    this.player.move(direction);
+    this.player?.move(direction);
   }
 
   private shot() {
-    this.player.shot();
+    this.player?.shot();
   }
 }
 

@@ -1,5 +1,5 @@
 import React, {
-  FC, useRef, useState,
+  FC, useEffect, useRef, useState,
 } from 'react';
 import Playground from '@pages/game/playground';
 import { Props } from '@pages/game/interface/types';
@@ -9,6 +9,9 @@ import Icon from '@components/icon';
 import { activateFullscreen, deactivateFullscreen } from '@utils/fullscreen';
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from '@engine/Scene';
 import { GameStates } from '@engine/types/GameStates';
+import {
+  EngineBus, GAME_OVER, GAME_PAUSE, GAME_RESUME, GAME_START,
+} from '@engine/EngineBus';
 
 /**
  * @param {number} [enemies=20] - number of enemies
@@ -29,6 +32,13 @@ const Interface: FC<Props> = ({
   const gameWindow = useRef<HTMLDivElement>(null);
   const [fullScreenBtnIcon, setFullScreenBtnIcon] = useState('fullscreen');
   const [gameState, setGameState] = useState<GameStates>(GameStates.NotStarted);
+
+  useEffect(() => {
+    EngineBus.on(GAME_START, () => setGameState(GameStates.Play));
+    EngineBus.on(GAME_PAUSE, () => setGameState(GameStates.Pause));
+    EngineBus.on(GAME_RESUME, () => setGameState(GameStates.Play));
+    EngineBus.on(GAME_OVER, () => setGameState(GameStates.GameOver));
+  }, []);
 
   const renderEnemies = (enemiesNumber: number) => {
     const content = [];
@@ -67,6 +77,9 @@ const Interface: FC<Props> = ({
       case GameStates.Play:
       case GameStates.Pause:
         return <Playground state={gameState} />;
+
+      case GameStates.GameOver:
+        return <Button onClick={() => setGameState(GameStates.Play)}>PLAY AGAIN!</Button>;
 
       case GameStates.NotStarted:
       default:

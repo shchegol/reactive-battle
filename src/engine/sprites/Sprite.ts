@@ -1,5 +1,6 @@
 /* eslint-disable class-methods-use-this */
 
+import { EngineBus, SPRITE_DESTROYED } from '@engine/EngineBus';
 import { spritesSheet } from '../SpritesSheet';
 
 export default class Sprite {
@@ -18,6 +19,10 @@ export default class Sprite {
     this.y = y;
     this.width = width;
     this.height = height;
+
+    this.onSpriteDestroyed = this.onSpriteDestroyed.bind(this);
+
+    EngineBus.on(SPRITE_DESTROYED, this.onSpriteDestroyed);
   }
 
   public get X() {
@@ -51,5 +56,15 @@ export default class Sprite {
 
   protected GetSprite() {
     return [0, 0];
+  }
+
+  protected onSpriteDestroyed(sprite: Sprite) {
+    if (sprite !== this) return;
+
+    this.detach();
+  }
+
+  public detach() {
+    EngineBus.off(SPRITE_DESTROYED, this.onSpriteDestroyed);
   }
 }

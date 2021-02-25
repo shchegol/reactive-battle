@@ -5,7 +5,6 @@ import {
   EngineBus,
   SPRITE_COLLIDED,
   SPRITE_CREATED,
-  SPRITE_DESTROYED,
   SPRITE_MOVED,
   SPRITE_OUT_OF_BOUNDS,
 } from '@engine/EngineBus';
@@ -26,9 +25,20 @@ export default class Tank extends Sprite {
   constructor(x: number, y: number, width: number = 16, height: number = 16) {
     super(x, y, width, height);
 
-    EngineBus.on(SPRITE_DESTROYED, (sprite: Sprite) => this.onSpriteDestroyed(sprite));
-    EngineBus.on(SPRITE_COLLIDED, (sprite: Sprite, collideWith: Sprite, oldX: number, oldY: number) => this.onSpriteCollided(sprite, collideWith, oldX, oldY));
-    EngineBus.on(SPRITE_OUT_OF_BOUNDS, (sprite: Sprite, oldX: number, oldY: number) => this.onSpriteOutOfBounds(sprite, oldX, oldY));
+    this.onSpriteCollided = this.onSpriteCollided.bind(this);
+    this.onSpriteOutOfBounds = this.onSpriteOutOfBounds.bind(this);
+
+    EngineBus.on(SPRITE_COLLIDED, this.onSpriteCollided);
+    EngineBus.on(SPRITE_OUT_OF_BOUNDS, this.onSpriteOutOfBounds);
+  }
+
+  public detach() {
+    super.detach();
+
+    this.bullet = null;
+
+    EngineBus.off(SPRITE_COLLIDED, this.onSpriteCollided);
+    EngineBus.off(SPRITE_OUT_OF_BOUNDS, this.onSpriteOutOfBounds);
   }
 
   /**
@@ -152,7 +162,9 @@ export default class Tank extends Sprite {
     return { x, y };
   }
 
-  private onSpriteDestroyed(sprite: Sprite) {
+  protected onSpriteDestroyed(sprite: Sprite) {
+    super.onSpriteDestroyed(sprite);
+
     if (sprite === this.bullet) {
       this.bullet = null;
     }

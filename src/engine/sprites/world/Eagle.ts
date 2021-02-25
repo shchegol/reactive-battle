@@ -1,4 +1,9 @@
-import { EngineBus, GAME_OVER, SPRITE_COLLIDED } from '@engine/EngineBus';
+import {
+  EngineBus,
+  GAME_OVER,
+  SPRITE_COLLIDED,
+  SPRITE_DESTROYED,
+} from '@engine/EngineBus';
 import Sprite from '@engine/sprites/Sprite';
 import Bullet from '../Bullet';
 
@@ -9,7 +14,9 @@ export default class Eagle extends Sprite {
   constructor(x: number, y: number) {
     super(x, y, 16, 16);
 
-    EngineBus.on(SPRITE_COLLIDED, (sprite1: Sprite, sprite2: Sprite) => this.onSpriteCollided(sprite1, sprite2));
+    this.onSpriteCollided = this.onSpriteCollided.bind(this);
+
+    EngineBus.on(SPRITE_COLLIDED, this.onSpriteCollided);
   }
 
   protected GetSprite() {
@@ -24,8 +31,20 @@ export default class Eagle extends Sprite {
     if (!sprite1 || sprite2 !== this) return;
 
     if (sprite1 instanceof Bullet) {
-      this.isBroken = true;
-      EngineBus.emit(GAME_OVER, this);
+      const bullet = sprite1;
+
+      EngineBus.emit(SPRITE_DESTROYED, bullet);
+
+      if (!this.isBroken) {
+        this.isBroken = true;
+        EngineBus.emit(GAME_OVER, this);
+      }
     }
+  }
+
+  public detach() {
+    super.detach();
+
+    EngineBus.off(SPRITE_COLLIDED, this.onSpriteCollided);
   }
 }
