@@ -6,20 +6,24 @@ import './comments.scss';
 
 /**
  * Messages
- * @param {Comment[]} [comments=[]] - comments
+ * @param {Comment[]} [topicComments=[]] - All comments for topic
+ * @param {number | null} [parentCommentId=null] - Parent comment or null for root comments
  * @constructor
  */
 
 const Comments: FC<Props> = (
-  { comments = [] },
+  { topicComments = [], parentCommentId = null },
 ) => (
   <ul className="messages">
-    {comments.map((comment) => (
-      <MessageItem
-        key={comment.id}
-        comment={comment}
-      />
-    ))}
+    {topicComments
+      .filter(((comment) => comment.comment_id === parentCommentId))
+      .map((comment) => (
+        <MessageItem
+          key={comment.id}
+          comment={comment}
+          topicComments={topicComments}
+        />
+      ))}
   </ul>
 );
 

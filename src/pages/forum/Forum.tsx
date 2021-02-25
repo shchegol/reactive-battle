@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import NewTopic from '@pages/forum/newTopic';
 import Topics from '@pages/forum/topics';
 import MainTitle from '@components/mainTitle';
@@ -8,10 +8,18 @@ import Button from '@components/button';
 import { Helmet } from 'react-helmet';
 import Icon from '@components/icon';
 import forumSelector from '@store/selectors/forum';
+import { addTopic, fetchTopicsList } from '@root/store/actionsCreators/forum';
+import loginSelector from '@root/store/selectors/login';
 
 export default function Forum() {
   const history = useHistory();
   const { topics } = useSelector(forumSelector);
+  const login = useSelector(loginSelector);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchTopicsList());
+  }, []);
 
   const handleGoBack = () => history.goBack();
 
@@ -43,9 +51,7 @@ export default function Forum() {
           </div>
 
           <NewTopic
-              // todo реализовать после написания API
-            // onOk={(name) => dispatch(addThread(name))}
-            onOk={(name) => console.log(name)}
+            onOk={(name) => dispatch(addTopic(name, '', login))}
           />
 
           <div className="row justify-content-center mt-20">

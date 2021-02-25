@@ -3,7 +3,7 @@ import { UserActions } from '@store/actions/user';
 import { UserResponse } from '@api/types';
 import { AuthActions } from '@store/actions/auth';
 import { ForumActions } from '@store/actions/forum';
-import { Topic } from '@store/types';
+import { Comment, Topic } from '@store/types';
 import { GameActions } from './game';
 
 export type TPayload<T, P> = {
@@ -29,7 +29,9 @@ export type UserAction = TPayload<UserActions, UserPayload>;
 
 // Forum
 export interface ForumPayload {
+  topics?: Topic[];
   topic?: Topic;
+  comment?: Comment;
   error?: string;
 }
 

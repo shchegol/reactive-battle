@@ -1,5 +1,6 @@
 import { Comment } from '@store/types';
 
 export type Props = {
-  comments: Comment[];
+  topicComments: Comment[];
+  parentCommentId: number | null;
 };

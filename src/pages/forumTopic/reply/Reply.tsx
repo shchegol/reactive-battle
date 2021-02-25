@@ -34,7 +34,7 @@ const Reply: FC<Props> = ({
             <div className="row">
               <div className="col">
                 <p className="text-color-secondary text-size-s">
-                  {reply.author}
+                  {reply.login}
                 </p>
               </div>
             </div>

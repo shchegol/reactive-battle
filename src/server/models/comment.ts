@@ -39,7 +39,7 @@ export class Comment extends Model {
     allowNull: false,
     field: 'topic_id',
   })
-  topicId: number;
+  topic_id: number;
 
   @BelongsTo(() => Topic)
   topic: Topic;
@@ -50,8 +50,5 @@ export class Comment extends Model {
     allowNull: true,
     field: 'comment_id',
   })
-  commentId: number;
-
-  @BelongsTo(() => Comment)
-  comment: Comment;
+  comment_id: number | null;
 }

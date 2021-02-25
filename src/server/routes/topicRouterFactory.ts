@@ -13,6 +13,7 @@ export const topicRouterFactory = () => Router()
     include: [
       {
         model: Comment,
+        required: false,
       },
     ],
   })

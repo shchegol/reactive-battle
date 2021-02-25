@@ -1,5 +1,5 @@
 import { PasswordRequest, UserRequest, UserResponse } from '@api/types';
-import axios from '@utils/apiRequest';
+import axios from '@root/utils/yandexApiRequest';
 
 class UserAPI {
   static prefix = '/user';
