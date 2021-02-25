@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { TTheme, TThemeContext } from './types';
 
-export const ThemeContext = React.createContext<TThemeContext | null>(null);
+export const ThemeContext = React.createContext<TThemeContext>({ theme: 'dark', updateTheme: () => {} });
 
 export const ThemeProvider: React.FC<React.ReactNode> = ({
   children,

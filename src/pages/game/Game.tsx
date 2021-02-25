@@ -28,7 +28,7 @@ export default function Game() {
    * Players shot handler
    * @param {EnemyTank | Bullet} ctx - shot context
    */
-  const playerShot = useCallback((ctx: EnemyTank | Bullet) => {
+  const playerShot = useCallback((ctx?: EnemyTank | Bullet) => {
     if (ctx instanceof EnemyTank) {
       dispatch(updateScore({ tankType: ctx.Type }));
     }
