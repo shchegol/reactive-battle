@@ -1,4 +1,6 @@
-import React, { useState, useCallback, useEffect, useContext } from 'react';
+import React, {
+  useState, useCallback, useEffect, useContext,
+} from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationState } from '@store/types';
@@ -22,15 +24,17 @@ export default function Game() {
 
   const dispatch = useDispatch();
 
-  const playerShot = (ctx: EnemyTank | Bullet) => {
+  /**
+   * Players shot handler
+   * @param {EnemyTank | Bullet} ctx - shot context
+   */
+  const playerShot = useCallback((ctx: EnemyTank | Bullet) => {
     if (ctx instanceof EnemyTank) {
       dispatch(updateScore({ tankType: ctx.Type }));
     }
-  };
+  }, [dispatch]);
 
   const addPlayerScore = useCallback(() => {
-    console.log('1', login, game.player);
-
     LeaderboardAPI.addNewLeader({
       data: {
         login,
@@ -42,7 +46,7 @@ export default function Game() {
 
   const changeThemeHandler = () => {
     updateTheme();
-    setThemeIcon(theme === 'dark' ? 'mode_night' : 'wb_sunny');
+    setThemeIcon(theme === 'dark' ? 'wb_sunny' : 'mode_night');
   };
 
   useEffect(() => {
