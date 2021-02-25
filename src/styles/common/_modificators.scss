@@ -13,11 +13,11 @@
 .text {
   &-color {
     &-primary {
-      color: map_get($colors, primary);
+      color: var(--color-primary);
     }
 
     &-secondary {
-      color: map_get($colors, secondary);
+      color: var(--color-secondary);
     }
 
     &-success {

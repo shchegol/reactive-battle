@@ -7,6 +7,7 @@ import { Helmet } from 'react-helmet';
 import LeaderboardAPI from '@api/LeaderboardAPI';
 import { Player } from '@store/types';
 import SearchBox from '@components/searchBox';
+import Icon from '@components/icon';
 
 /**
  * Leaderboard page
@@ -56,25 +57,28 @@ export default function Leaderboard() {
   return (
     <div className="container-fluid">
       <Helmet title="Leaderboard" />
-      <div className="row justify-content-left mt-10">
-        <div className="col-12 col-md-3 col-lg-4">
+
+      <div className="row mt-20">
+        <div className="col-12 col-md-2 col-lg-3">
           <Button
             type="button"
             color="link"
+            size="xl"
             onClick={handleGoBack}
+            icon
           >
-            GO BACK
+            <Icon name="arrow_back" />
           </Button>
         </div>
 
-        <div className="col-12 col-md-6 col-lg-4">
+        <div className="col-12 col-md-8 col-lg-6">
           <div className="row">
             <div className="col">
               <MainTitle subtitleText="LEADERBOARD" />
             </div>
           </div>
 
-          <div className="row mt-60">
+          <div className="row mt-40">
             <div className="col">
               <div className="row">
                 <div className="col">

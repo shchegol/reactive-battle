@@ -2,11 +2,11 @@ import React from 'react';
 import MainTitle from '@root/components/mainTitle';
 import Button from '@components/button';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
-import { API_YANDEX_URL } from '@root/constants';
 import { logout } from '@store/actionsCreators/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { ApplicationState } from '@store/types';
+import userSelector from '@store/selectors/user';
+import Icon from '@components/icon';
 
 /**
  * User profile page
@@ -17,11 +17,7 @@ export default function Profile() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { url } = useRouteMatch();
-
-  const user = useSelector((state: ApplicationState) => state.user.info);
-  const avatarUrl = user.avatar
-    ? new URL(user.avatar, API_YANDEX_URL).href
-    : undefined;
+  const { ...user } = useSelector(userSelector);
 
   const handleGoBack = () => history.goBack();
   const handleLogout = () => {
@@ -33,31 +29,27 @@ export default function Profile() {
     <div className="container-fluid">
       <Helmet title="Profile" />
 
-      <div className="row mt-10">
-        <div className="col-auto">
+      <div className="row mt-20">
+        <div className="col-12 col-md-2 col-lg-3">
           <Button
             type="button"
             color="link"
+            size="xl"
+            icon
             onClick={handleGoBack}
           >
-            GO BACK
+            <Icon name="arrow_back" />
           </Button>
         </div>
-      </div>
 
-      <div className="row">
-        <div className="col">
+        <div className="col-12 col-md-8 col-lg-6 ">
           <MainTitle
             titleText={user.login}
             subtitleText={user.email}
-            imgSrc={avatarUrl}
+            imgSrc={user.avatar}
           />
-        </div>
-      </div>
 
-      <div className="row justify-content-center mt-60">
-        <div className="col-8">
-          <div className="row">
+          <div className="row mt-40">
             <div className="col text-align-right text-color-secondary pr-4">
               NAME
             </div>
@@ -102,10 +94,11 @@ export default function Profile() {
                 Change
               </Link>
 
-              <div className="text-align-center mt-20">
+              <div className="mt-20">
                 <Button
                   type="button"
                   color="link"
+                  width="full"
                   onClick={handleLogout}
                 >
                   LOGOUT

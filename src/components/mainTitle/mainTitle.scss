@@ -1,13 +1,14 @@
 @import "@styles/utilities/variables";
 
 .main-title {
-  margin-top: 2.2rem; // 40px
+  //margin-top: 2.2rem; // 40px
   text-align: center;
 
   &__img {
     display: inline-block;
     width: 5rem;
     height: 5rem;
+    margin-bottom: 1rem;
     background-size: contain;
   }
 
@@ -18,9 +19,8 @@
   }
 
   &__text {
-    margin-top: 1rem;
     font-size: 2.5rem;
-    color: map_get($colors, primary);
+    color: var(--color-primary);
 
   }
 

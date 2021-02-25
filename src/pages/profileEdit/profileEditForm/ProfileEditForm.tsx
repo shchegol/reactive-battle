@@ -11,76 +11,95 @@ const ProfileEditForm: FC<Props> = ({
   ...rest
 }) => (
   <form
+    className={rest.className}
     onSubmit={rest.onSubmit}
   >
-    <Input
-      labelText="LOGIN"
-      value={userData.login}
-      name="login"
-      placeholder="LOGIN"
-      onChange={onInputChange}
-    />
+    <div className="row">
+      <div className="col pr-4">
+        <Input
+          labelText="LOGIN"
+          value={userData.login}
+          name="login"
+          placeholder="LOGIN"
+          onChange={onInputChange}
+        />
+      </div>
+      <div className="col pl-4">
+        <Input
+          labelText="DISPLAY NAME"
+          value={userData.display_name}
+          name="display_name"
+          placeholder="DISPLAY NAME"
+          onChange={onInputChange}
+        />
+      </div>
+    </div>
 
-    <Input
-      labelText="DISPLAY NAME"
-      value={userData.display_name}
-      name="display_name"
-      placeholder="DISPLAY NAME"
-      onChange={onInputChange}
-    />
+    <div className="row">
+      <div className="col pr-4">
+        <Input
+          labelText="FIRST NAME"
+          value={userData.first_name}
+          name="first_name"
+          placeholder="FIRST NAME"
+          onChange={onInputChange}
+        />
+      </div>
+      <div className="col pl-4">
+        <Input
+          labelText="SECOND NAME"
+          value={userData.second_name}
+          name="second_name"
+          placeholder="SECOND NAME"
+          onChange={onInputChange}
+        />
+      </div>
+    </div>
 
-    <Input
-      labelText="FIRST NAME"
-      value={userData.first_name}
-      name="first_name"
-      placeholder="FIRST NAME"
-      onChange={onInputChange}
-    />
-
-    <Input
-      labelText="SECOND NAME"
-      value={userData.second_name}
-      name="second_name"
-      placeholder="SECOND NAME"
-      onChange={onInputChange}
-    />
-
-    <Input
-      labelText="EMAIL"
-      value={userData.email}
-      name="email"
-      placeholder="EMAIL"
-      onChange={onInputChange}
-    />
-
-    <Input
-      labelText="PHONE"
-      value={userData.phone}
-      name="phone"
-      placeholder="PHONE"
-      onChange={onInputChange}
-    />
+    <div className="row">
+      <div className="col pr-4">
+        <Input
+          labelText="EMAIL"
+          value={userData.email}
+          name="email"
+          placeholder="EMAIL"
+          onChange={onInputChange}
+        />
+      </div>
+      <div className="col pl-4">
+        <Input
+          labelText="PHONE"
+          value={userData.phone}
+          name="phone"
+          placeholder="PHONE"
+          onChange={onInputChange}
+        />
+      </div>
+    </div>
 
     { !isOAuth && (
-    <>
-      <Input
-        labelText="OLD PASSWORD"
-        type="password"
-        value={userData.oldPassword}
-        name="oldPassword"
-        placeholder="OLD PASSWORD"
-        onChange={onInputChange}
-      />
-
-      <Input
-        labelText="NEW PASSWORD"
-        type="password"
-        value={userData.newPassword}
-        name="newPassword"
-        placeholder="NEW PASSWORD"
-        onChange={onInputChange}
-      />
-    </>
+      <div className="row">
+        <div className="col pr-4">
+          <Input
+            labelText="OLD PASSWORD"
+            type="password"
+            value={userData.oldPassword}
+            name="oldPassword"
+            placeholder="OLD PASSWORD"
+            onChange={onInputChange}
+          />
+        </div>
+        <div className="col pl-4">
+          <Input
+            labelText="NEW PASSWORD"
+            type="password"
+            value={userData.newPassword}
+            name="newPassword"
+            placeholder="NEW PASSWORD"
+            onChange={onInputChange}
+          />
+        </div>
+      </div>
     ) }
 
     { !!errorMsg && (
@@ -89,12 +108,16 @@ const ProfileEditForm: FC<Props> = ({
       </div>
     ) }
 
-    <Button
-      type="submit"
-      className="mt-40"
-    >
-      CHANGE
-    </Button>
+    <div className="row justify-content-center mt-40">
+      <div className="col-6">
+        <Button
+          type="submit"
+          width="full"
+        >
+          SAVE
+        </Button>
+      </div>
+    </div>
   </form>
 );
 
