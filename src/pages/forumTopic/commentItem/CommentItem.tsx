@@ -27,7 +27,7 @@ const CommentItem: FC<Props> = ({
       <div className="row align-items-center">
         <div className="col">
           <h5 className="text-color-secondary">
-            {comment.author}
+            {comment.login}
           </h5>
         </div>
 
@@ -44,7 +44,7 @@ const CommentItem: FC<Props> = ({
 
         <div className="col-auto text-align-right text-color-gray-500">
           <data className="text-size-s">
-            {comment.created_at?.toLocaleString()}
+            {new Date(comment.createdAt.replace(' ', 'T')).toLocaleString()}
           </data>
         </div>
       </div>

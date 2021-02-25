@@ -48,7 +48,8 @@ export interface Topic {
   id: number;
   name: string;
   description: string;
-  created_at: string;
+  login: string;
+  createdAt: string;
   comments: Comment[];
 }
 
@@ -56,9 +57,9 @@ export interface Comment {
   id: number;
   topic_id: number;
   comment_id: number | null;
-  author: string;
+  login: string;
   body: string;
-  created_at: string;
+  createdAt: string;
 }
 
 /**

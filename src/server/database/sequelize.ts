@@ -3,7 +3,8 @@ import { Topic } from '../models/topic';
 import { Comment } from '../models/comment';
 
 const sequelizeOptions: SequelizeOptions = {
-  host: '172.18.0.1',
+  // host: '172.18.0.1',
+  host: '0.0.0.0',
   port: 5432,
   username: 'postgres',
   password: 'newPassword',
