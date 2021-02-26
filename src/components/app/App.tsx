@@ -29,13 +29,15 @@ export default function App() {
     const code = oAuthCode || getUrlParam('code');
     if (code) dispatch(yaOauth(code));
     if (isLoggedIn) dispatch(fetchUser());
+  }, [dispatch, isLoggedIn, oAuthCode]);
 
+  useEffect(() => {
     if (theme === 'dark') {
       document.documentElement.removeAttribute('theme');
     } else {
       document.documentElement.setAttribute('theme', 'light');
     }
-  }, [dispatch, isLoggedIn, oAuthCode, theme]);
+  }, [theme]);
 
   return (
     <Switch>

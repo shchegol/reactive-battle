@@ -4,9 +4,8 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
+import router from '@root/server/routes';
 import renderMiddleware from './render-middleware';
-import { topicRouterFactory } from './routes/topicRouterFactory';
-import { commentRouterFactory } from './routes/commentRouterFactory';
 
 const bodyParser = require('body-parser');
 
@@ -34,8 +33,7 @@ app
     extended: true,
   }))
   .use(bodyParser.json())
-  .use(topicRouterFactory())
-  .use(commentRouterFactory());
+  .use(router);
 
 app.get('*', renderMiddleware);
 

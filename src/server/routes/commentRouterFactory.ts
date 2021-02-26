@@ -2,8 +2,7 @@ import { API_URL } from '@root/constants';
 import { Router } from 'express';
 import { Comment } from '../models/comment';
 
-export const commentRouterFactory = () => Router()
-
+export const commentRouterFactory = (router: Router) => router
   .get(`${API_URL}/comments`, (_req, res, next) => Comment.findAll()
     .then((comment) => res.json(comment))
     .catch(next))
