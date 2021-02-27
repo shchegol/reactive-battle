@@ -1,5 +1,5 @@
 import path from 'path';
-import express from 'express';
+import express, { Router } from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import webpack from 'webpack';
@@ -14,6 +14,8 @@ const app = express();
 const webpackConfig = require('../../webpack/ssr/client.dev.js');
 
 const compiler = webpack(webpackConfig);
+
+const router: Router = Router();
 
 app
   .use(
@@ -34,7 +36,7 @@ app
     extended: true,
   }))
   .use(bodyParser.json())
-  .use(topicRouterFactory())
+  .use(topicRouterFactory(router))
   .use(commentRouterFactory());
 
 app.get('*', renderMiddleware);

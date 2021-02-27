@@ -2,10 +2,11 @@ import { Router } from 'express';
 import { API_URL } from '@root/constants';
 import { Topic } from '../models/topic';
 import { Comment } from '../models/comment';
+import { auth } from '../auth-middleware';
 
-export const topicRouterFactory = () => Router()
+export const topicRouterFactory = (router: Router) => router
 
-  .get(`${API_URL}/topics`, (_req, res, next) => Topic.findAll()
+  .get(`${API_URL}/topics`, auth, (_req, res, next) => Topic.findAll()
     .then((topic) => res.json(topic))
     .catch(next))
 
