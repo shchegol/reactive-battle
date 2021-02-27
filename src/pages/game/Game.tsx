@@ -1,29 +1,48 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationState } from '@store/types';
 import Interface from '@pages/game/interface/Interface';
-import { EngineBus, SPRITE_DESTROYED } from '@engine/EngineBus';
-import BasicTank from '@engine/sprites/enemies/BasicTank';
+import { EngineBus, SPRITE_DESTROYED, GAME_OVER } from '@engine/EngineBus';
 import Bullet from '@engine/sprites/Bullet';
 import EnemyTank from '@engine/sprites/enemies/EnemyTank';
-import { updateScore } from '@root/store/actionsCreators/game';
+import { updateScore, clearScore } from '@root/store/actionsCreators/game';
+import LeaderboardAPI from '@api/LeaderboardAPI';
 
 export default function Game() {
   const login = useSelector((state: ApplicationState) => state.user.info.login);
   const game = useSelector((state: ApplicationState) => state.game);
-
   const dispatch = useDispatch();
 
-  const playerShot = (ctx: BasicTank | Bullet) => {
+  const playerShot = (ctx: EnemyTank | Bullet) => {
     if (ctx instanceof EnemyTank) {
-      dispatch(updateScore());
+      dispatch(updateScore({ tankType: ctx.Type }));
     }
   };
 
+  const addPlayerScore = useCallback(() => {
+    console.log('1', login, game.player);
+
+    LeaderboardAPI.addNewLeader({
+      data: {
+        login,
+        score: game.player.score,
+      },
+      ratingFieldName: 'score',
+    }).then(() => dispatch(clearScore()));
+  }, [dispatch, game.player, login]);
+
   useEffect(() => {
     EngineBus.on(SPRITE_DESTROYED, playerShot);
-  }, []);
+
+    return () => EngineBus.off(SPRITE_DESTROYED, playerShot);
+  }, [playerShot]);
+
+  useEffect(() => {
+    EngineBus.on(GAME_OVER, addPlayerScore);
+
+    return () => EngineBus.off(GAME_OVER, addPlayerScore);
+  }, [addPlayerScore, game]);
 
   return (
     <div className="container">

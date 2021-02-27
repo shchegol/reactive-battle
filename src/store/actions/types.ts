@@ -47,8 +47,10 @@ export interface SnackbarPayload {
 export type SnackbarAction = TPayload<SnackbarActions, SnackbarPayload>;
 
 // Game
-export interface UpdateScoreActionType {
-  type: GameActions.UPDATE_SCORE;
+export type TankTypes = 'basic' | 'fast' | 'armor' | 'power';
+
+export interface GamePayload {
+  tankType: TankTypes
 }
 
-export type GameAction = UpdateScoreActionType;
+export type GameAction = Required<TPayload<GameActions, GamePayload>>;

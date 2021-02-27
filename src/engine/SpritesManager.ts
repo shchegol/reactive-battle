@@ -1,4 +1,6 @@
-import { EngineBus, SPRITE_CREATED, SPRITE_DESTROYED } from '@engine/EngineBus';
+import {
+  EngineBus, GAME_OVER, SPRITE_CREATED, SPRITE_DESTROYED,
+} from '@engine/EngineBus';
 import Sprite from '@engine/sprites/Sprite';
 import Eagle from './sprites/world/Eagle';
 import Spawn from './sprites/world/Spawn';
@@ -6,15 +8,16 @@ import Spawn from './sprites/world/Spawn';
 export default class SpritesManager {
   private sprites: Array<Sprite> = [];
 
-  private wasInit: boolean = false;
+  public start() {
+    this.sprites = [];
 
-  public init() {
-    if (this.wasInit) return;
+    this.onSpriteCreated = this.onSpriteCreated.bind(this);
+    this.onSpriteDestroyed = this.onSpriteDestroyed.bind(this);
+    this.onGameOver = this.onGameOver.bind(this);
 
-    EngineBus.on(SPRITE_CREATED, (sprite: Sprite) => this.onSpriteCreated(sprite));
-    EngineBus.on(SPRITE_DESTROYED, (sprite: Sprite) => this.onSpriteDestroyed(sprite));
-
-    this.wasInit = true;
+    EngineBus.on(SPRITE_CREATED, this.onSpriteCreated);
+    EngineBus.on(SPRITE_DESTROYED, this.onSpriteDestroyed);
+    EngineBus.on(GAME_OVER, this.onGameOver);
   }
 
   public get Sprites() {
@@ -39,6 +42,15 @@ export default class SpritesManager {
     if (sprite) {
       this.sprites = this.sprites.filter((s) => s !== sprite);
     }
+  }
+
+  private onGameOver() {
+    this.sprites.forEach((sprite) => sprite.detach());
+    this.sprites = [];
+
+    EngineBus.off(SPRITE_CREATED, this.onSpriteCreated);
+    EngineBus.off(SPRITE_DESTROYED, this.onSpriteDestroyed);
+    EngineBus.off(GAME_OVER, this.onGameOver);
   }
 }
 

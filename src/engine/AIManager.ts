@@ -2,6 +2,7 @@ import Direction from './Direction';
 import { EngineBus, LEVEL_NEW_ROUND } from './EngineBus';
 import { playerManager } from './PlayerManager';
 import EnemyTank from './sprites/enemies/EnemyTank';
+import Player from './sprites/Player';
 import Sprite from './sprites/Sprite';
 import { spritesManager } from './SpritesManager';
 
@@ -16,8 +17,16 @@ enum EnemyBehavior {
 export default class AIManager {
   private behavior: EnemyBehavior = EnemyBehavior.Chaotic;
 
+  constructor() {
+    this.changeBehavior = this.changeBehavior.bind(this);
+  }
+
   public init() {
-    EngineBus.on(LEVEL_NEW_ROUND, () => this.changeBehavior());
+    EngineBus.on(LEVEL_NEW_ROUND, this.changeBehavior);
+  }
+
+  public stop() {
+    EngineBus.off(LEVEL_NEW_ROUND, this.changeBehavior);
   }
 
   public update() {
@@ -99,13 +108,17 @@ export default class AIManager {
   }
 
   private static tryKillPlayer(enemies: EnemyTank[]) {
-    enemies.forEach((enemy: EnemyTank, index: number) => {
-      if (index % 2 === 0) {
-        this.tryKillTarget(playerManager.Player, enemy);
-      } else {
-        AIManager.tankRandomMovement(enemy);
-      }
-    });
+    if (playerManager.Player) {
+      enemies.forEach((enemy: EnemyTank, index: number) => {
+        if (index % 2 === 0) {
+          this.tryKillTarget(playerManager.Player as Player, enemy);
+        } else {
+          AIManager.tankRandomMovement(enemy);
+        }
+      });
+    } else {
+      this.randomMovement(enemies);
+    }
   }
 
   private static tryKillBase(enemies: EnemyTank[]) {

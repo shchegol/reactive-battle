@@ -19,15 +19,38 @@ export default class EnemiesManager {
 
   private nextSpawn: number = 0;
 
+  private timer?: NodeJS.Timeout;
+
+  constructor() {
+    this.onLevelStart = this.onLevelStart.bind(this);
+  }
+
   public init() {
-    EngineBus.on(LEVEL_START, (level: Level) => this.onLevelStart(level));
+    EngineBus.on(LEVEL_START, this.onLevelStart);
+  }
+
+  public stop() {
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
+
+    EngineBus.off(LEVEL_START, this.onLevelStart);
+
+    this.enemies.forEach((enemy) => enemy.detach());
+    this.restEnemies.forEach((enemy) => enemy.detach());
+
+    this.enemies = [];
+    this.restEnemies = [];
+    this.nextSpawn = 0;
+
+    this.timer = undefined;
   }
 
   public get RestEnemies() {
     return this.restEnemies;
   }
 
-  private onLevelStart(level: Level) {
+  private onLevelStart(level?: Level) {
     if (!level) return;
 
     level.enemies.forEach((enemyType) => {
@@ -45,7 +68,7 @@ export default class EnemiesManager {
       }
     });
 
-    setInterval(() => this.onTimer(), 3000);
+    this.timer = setInterval(() => this.onTimer(), 3000);
   }
 
   private onTimer() {
@@ -70,11 +93,12 @@ export default class EnemiesManager {
     if (this.restEnemies.length === 0) return;
 
     const activeEnemies = spritesManager.Sprites.filter((sprite) => sprite instanceof EnemyTank);
+
     if (activeEnemies.length >= MAX_ENEMIES_ON_FIELD) return;
 
     const nextSpawn = spritesManager.Spawns[this.nextSpawn];
     if (nextSpawn) {
-      if (CollisionManager.checkSpritesCollision(nextSpawn, [...activeEnemies, playerManager.Player]).length > 0) {
+      if (CollisionManager.checkSpritesCollision(nextSpawn, playerManager.Player ? [...activeEnemies, playerManager.Player] : activeEnemies).length > 0) {
         // this.setNextSpawn();
         return;
       }
