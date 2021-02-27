@@ -26,7 +26,6 @@ export class UserTheme extends Model<UserTheme> {
 
   @Column({
     type: DataTypes.STRING,
-    primaryKey: true,
     allowNull: false,
     unique: true,
   })
