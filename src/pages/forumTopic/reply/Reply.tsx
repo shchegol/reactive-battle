@@ -2,7 +2,7 @@ import React, { FC, useContext, useState } from 'react';
 import Button from '@components/button';
 import Input from '@components/input';
 import Icon from '@components/icon';
-import { ReplyContext, TReplyContext } from '@pages/forumTopic/ReplyContext';
+import { ReplyContext, TReplyContext } from '@root/contexts/reply';
 import { Props } from './types';
 import './reply.scss';
 

@@ -44,6 +44,8 @@ const Button: FC<Props> = ({
     title={rest.title}
     disabled={rest.disabled}
     onClick={rest.onClick}
+    onMouseEnter={rest.onMouseEnter}
+    onMouseLeave={rest.onMouseLeave}
   >
     {children}
   </button>

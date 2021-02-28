@@ -3,7 +3,7 @@ import { Comment } from '@store/types';
 import Comments from '@pages/forumTopic/comments';
 import Button from '@components/button';
 import Icon from '@components/icon';
-import { ReplyContext, TReplyContext, TReply } from '@pages/forumTopic/ReplyContext';
+import { ReplyContext, TReplyContext, TReply } from '@root/contexts/reply';
 import { Props } from './types';
 import './commentItem.scss';
 

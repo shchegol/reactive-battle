@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import toClassNames from '@root/utils/toClassNames';
 
 import './mainTitle.scss';
+import { API_YANDEX_URL } from '@root/constants';
 import { Props } from './types';
 
 const avatarTmpl = require('@root/images/engine/tanks/player-0.svg').default;
@@ -19,33 +20,38 @@ const avatarTmpl = require('@root/images/engine/tanks/player-0.svg').default;
 const MainTitle: FC<Props> = ({
   titleText = 'REACTIVE BATTLE',
   subtitleText = '',
-  imgSrc = avatarTmpl,
+  imgSrc = undefined,
   hasImg = true,
   ...rest
-}) => (
-  <header
-    className={toClassNames(
-      'main-title',
-      rest.className,
-    )}
-  >
+}) => {
+  const avatarUrl = imgSrc
+    ? new URL(imgSrc, API_YANDEX_URL).href
+    : avatarTmpl;
 
-    {hasImg && (
-      <img
-        src={imgSrc}
-        alt={subtitleText}
-        className="main-title__img"
-      />
-    )}
+  return (
+    <header
+      className={toClassNames(
+        'main-title',
+        rest.className,
+      )}
+    >
+      {hasImg && (
+        <img
+          src={avatarUrl}
+          alt={subtitleText}
+          className="main-title__img"
+        />
+      )}
 
-    <h1 className="main-title__text">
-      {titleText}
-    </h1>
+      <h1 className="main-title__text">
+        {titleText}
+      </h1>
 
-    <p className="main-title__subtitle">
-      {subtitleText}
-    </p>
-  </header>
-);
+      <p className="main-title__subtitle">
+        {subtitleText}
+      </p>
+    </header>
+  );
+};
 
 export default MainTitle;

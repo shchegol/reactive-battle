@@ -8,7 +8,7 @@ import Button from '@components/button';
 import MainTitle from '@components/mainTitle';
 import Icon from '@components/icon';
 import forumSelector from '@store/selectors/forum';
-import ReplyProvider from '@pages/forumTopic/ReplyContext';
+import { ReplyProvider } from '@root/contexts/reply';
 import { Helmet } from 'react-helmet';
 import { addComment, fetchTopic } from '@root/store/actionsCreators/forum';
 import loginSelector from '@root/store/selectors/login';
@@ -38,7 +38,7 @@ export default function ForumTopic() {
           title={`${topic.name} - Forum`}
         />
 
-        <div className="row justify-content-left mt-10">
+        <div className="row mt-20">
           <div className="col-12 col-md-2 col-lg-3">
             <Button
               type="button"
@@ -62,7 +62,7 @@ export default function ForumTopic() {
       </div>
 
       <ReplyProvider>
-        <div className="container mt-60">
+        <div className="container mt-40">
           <div className="row">
             <div className="col">
               <Comments

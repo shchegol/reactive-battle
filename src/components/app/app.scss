@@ -11,6 +11,6 @@
   &__title {
     text-align: center;
     font-size: 3rem;
-    color: map_get($colors, primary);
+    color: var(--color-primary);
   }
 }

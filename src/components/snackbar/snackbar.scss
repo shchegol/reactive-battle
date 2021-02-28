@@ -11,7 +11,7 @@
     padding: .5rem 1rem;
     margin-top: .5rem;
     background-color: map_get($colors, gray800);
-    color: map_get($colors, primary);
+    color: var(--color-primary);
   }
 
   &_color {

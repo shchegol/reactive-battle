@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from '@components/privateRoute';
 import SignIn from '@root/pages/signin/SignIn';
@@ -12,22 +12,30 @@ import Error5xx from '@root/pages/error5xx';
 import Forum from '@root/pages/forum/Forum';
 import ForumTopic from '@root/pages/forumTopic/ForumTopic';
 import { useDispatch, useSelector } from 'react-redux';
-import { ApplicationState } from '@store/types';
 import { fetchUser } from '@store/actionsCreators/user';
 import { getUrlParam } from '@utils/getUrlParams';
 import { yaOauth } from '@store/actionsCreators/auth';
 import authSelector from '@store/selectors/auth';
+import userSelector from '@store/selectors/user';
+import { ThemeContext, TThemeContext } from '@root/contexts/theme';
 
 export default function App() {
   const dispatch = useDispatch();
   const { isLoggedIn, oAuthCode } = useSelector(authSelector);
-  const login = useSelector((state: ApplicationState) => state.user.info.login);
+  const { login } = useSelector(userSelector);
+  const { theme } = useContext(ThemeContext) as TThemeContext;
 
   useEffect(() => {
     const code = oAuthCode || getUrlParam('code');
     if (code) dispatch(yaOauth(code));
     if (isLoggedIn) dispatch(fetchUser());
-  }, [dispatch, isLoggedIn, oAuthCode]);
+
+    if (theme === 'dark') {
+      document.documentElement.removeAttribute('theme');
+    } else {
+      document.documentElement.setAttribute('theme', 'light');
+    }
+  }, [dispatch, isLoggedIn, oAuthCode, theme]);
 
   return (
     <Switch>

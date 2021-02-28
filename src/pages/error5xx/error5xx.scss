@@ -12,7 +12,7 @@
   &__title {
     text-align: center;
     font-size: 47px;
-    color: map_get($colors, primary);
+    color: var(--color-primary);
   }
 
   &__subtitle {
