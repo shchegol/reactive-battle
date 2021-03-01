@@ -10,7 +10,7 @@ export const topicRouterFactory = (router: Router) => router
     .then((topic) => res.json(topic))
     .catch(next))
 
-  .get(`${API_URL}/topics/:id`, (req, res, next) => Topic.findByPk(req.params.id, {
+  .get(`${API_URL}/topics/:id`, auth, (req, res, next) => Topic.findByPk(req.params.id, {
     include: [
       {
         model: Comment,
@@ -23,7 +23,7 @@ export const topicRouterFactory = (router: Router) => router
       : next({ statusCode: 404 })))
     .catch(next))
 
-  .post(`${API_URL}/topics`, (req, res, next) => {
+  .post(`${API_URL}/topics`, auth, (req, res, next) => {
     Topic.create(req.body)
       .then((topic) => res.json(topic))
       .catch(next);
