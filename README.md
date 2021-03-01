@@ -12,6 +12,16 @@
 ## Технологии
 React, TypeScript, Canvas
 
+## Сертификат для разработки
+Для запуска локального сервера нужен сертификат. Сертификат можно создать так:
+
+`openssl req -x509 -newkey rsa:2048 -keyout keytmp.pem -out cert.pem -days 365`
+
+`openssl rsa -in keytmp.pem -out key.pem`
+
+Подробнее тут:
+https://medium.com/@nitinpatel_20236/how-to-create-an-https-server-on-localhost-using-express-366435d61f28
+
 ## Сборка
 * `npm i` — установка стабильной версии,
 * `npm start` — запуск версии для разработки.
