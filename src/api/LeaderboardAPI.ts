@@ -1,5 +1,5 @@
 import { LeaderboardNewLeaderRequest, LeaderboardRequest } from '@api/types';
-import axios from 'axios';
+import axios from '@root/utils/yandexApiRequest';
 
 interface IResponsePlayer {
   data: {

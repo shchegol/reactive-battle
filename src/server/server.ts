@@ -4,10 +4,8 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
-import renderMiddleware from './render-middleware';
-import { topicRouterFactory } from './routes/topicRouterFactory';
-import { commentRouterFactory } from './routes/commentRouterFactory';
-import { reviewRouterFactory } from './routes/reviewRouterFactory';
+import router from '@server/routes';
+import renderMiddleware from '@server/middlewares/render';
 
 require('dotenv').config({ path: '.env.local' });
 
@@ -37,9 +35,7 @@ app
     extended: true,
   }))
   .use(bodyParser.json())
-  .use(topicRouterFactory())
-  .use(commentRouterFactory())
-  .use(reviewRouterFactory());
+  .use(router)
 
 app.get('*', renderMiddleware);
 

@@ -34,6 +34,7 @@
       "^@engine(.*)$": "<rootDir>/src/engine/$1",
       "^@pages(.*)$": "<rootDir>/src/pages/$1",
       "^@root(.*)$": "<rootDir>/src/$1",
+      "^@server(.*)$": "<rootDir>/src/server/$1",
       "^@store(.*)$": "<rootDir>/src/store/$1",
       "^@styles(.*)$": "<rootDir>/src/styles/$1",
       "^@utils(.*)$": "<rootDir>/src/utils/$1"
@@ -120,7 +121,7 @@
     "workbox-webpack-plugin": "6.1.0"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "0.21.1",
     "body-parser": "1.19.0",
     "connected-react-router": "6.8.0",
     "cookie-parser": "1.4.5",
