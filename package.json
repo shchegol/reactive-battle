@@ -34,6 +34,7 @@
       "^@engine(.*)$": "<rootDir>/src/engine/$1",
       "^@pages(.*)$": "<rootDir>/src/pages/$1",
       "^@root(.*)$": "<rootDir>/src/$1",
+      "^@server(.*)$": "<rootDir>/src/server/$1",
       "^@store(.*)$": "<rootDir>/src/store/$1",
       "^@styles(.*)$": "<rootDir>/src/styles/$1",
       "^@utils(.*)$": "<rootDir>/src/utils/$1"
@@ -113,13 +114,13 @@
     "webpack-cli": "4.5.0",
     "webpack-dev-middleware": "3.7.3",
     "webpack-dev-server": "3.11.2",
-    "webpack-hot-middleware": "^2.25.0",
+    "webpack-hot-middleware": "2.25.0",
     "webpack-merge": "5.7.3",
     "webpack-node-externals": "2.5.2",
     "workbox-webpack-plugin": "6.1.0"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "0.21.1",
     "body-parser": "1.19.0",
     "connected-react-router": "6.8.0",
     "cookie-parser": "1.4.5",
@@ -128,7 +129,7 @@
     "history": "4.10.1",
     "js-cookie": "2.2.1",
     "npm-run-all": "4.1.5",
-    "null-loader": "^4.0.1",
+    "null-loader": "4.0.1",
     "pg": "8.5.1",
     "react": "16.14.0",
     "react-dom": "16.14.0",

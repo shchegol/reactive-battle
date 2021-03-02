@@ -1,6 +1,5 @@
 import AuthAPI from '@api/AuthAPI';
-import yandexAxios from '@root/utils/yandexApiRequest';
-// import cookieParser from 'cookie-parser';
+import yandexAxios from '@utils/yandexApiRequest';
 import { Request, Response, NextFunction } from 'express';
 
 export const auth = async (req: Request, res: Response, next: NextFunction) => {

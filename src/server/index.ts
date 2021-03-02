@@ -1,5 +1,5 @@
-import { app } from './server';
-import { sequelize } from './database/sequelize';
+import { app } from '@server/server';
+import { sequelize } from '@server/database/sequelize';
 
 const fs = require('fs');
 const path = require('path');

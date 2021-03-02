@@ -1,12 +1,11 @@
 import path from 'path';
-import express, { Router } from 'express';
+import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
-import renderMiddleware from './render-middleware';
-import { topicRouterFactory } from './routes/topicRouterFactory';
-import { commentRouterFactory } from './routes/commentRouterFactory';
+import router from '@server/routes';
+import renderMiddleware from '@server/middlewares/render';
 
 const bodyParser = require('body-parser');
 
@@ -14,8 +13,6 @@ const app = express();
 const webpackConfig = require('../../webpack/ssr/client.dev.js');
 
 const compiler = webpack(webpackConfig);
-
-const router: Router = Router();
 
 app
   .use(
@@ -36,8 +33,7 @@ app
     extended: true,
   }))
   .use(bodyParser.json())
-  .use(topicRouterFactory(router))
-  .use(commentRouterFactory());
+  .use(router);
 
 app.get('*', renderMiddleware);
 
