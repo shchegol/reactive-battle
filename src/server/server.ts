@@ -9,6 +9,8 @@ import { topicRouterFactory } from './routes/topicRouterFactory';
 import { commentRouterFactory } from './routes/commentRouterFactory';
 import { reviewRouterFactory } from './routes/reviewRouterFactory';
 
+require('dotenv').config({ path: '.env.local' });
+
 const bodyParser = require('body-parser');
 
 const app = express();
