@@ -2,12 +2,12 @@ import { DataTypes } from 'sequelize';
 import {
   Column, Table, Model, ForeignKey,
 } from 'sequelize-typescript';
-import { SiteTheme } from '@root/server/models/siteTheme';
+import { SiteTheme } from '@server/models/siteTheme';
 
 @Table({
   timestamps: false,
   paranoid: true,
-  tableName: 'user_theme',
+  tableName: 'user_themes',
 })
 export class UserTheme extends Model<UserTheme> {
   @Column({

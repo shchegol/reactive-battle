@@ -6,7 +6,7 @@ import {
 @Table({
   timestamps: false,
   paranoid: true,
-  tableName: 'site_theme',
+  tableName: 'site_themes',
 })
 export class SiteTheme extends Model<SiteTheme> {
   @Column({

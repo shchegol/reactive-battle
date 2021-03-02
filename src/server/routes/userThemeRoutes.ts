@@ -1,6 +1,7 @@
 import { API_URL } from '@root/constants';
 import { Router } from 'express';
-import { UserTheme } from '@root/server/models/userTheme';
+import { UserTheme } from '@server/models/userTheme';
+import { auth } from '@server/middlewares/auth';
 
 export const userThemeRoutes = (router: Router) => {
   const userThemeRouter: Router = Router();
@@ -45,5 +46,5 @@ export const userThemeRoutes = (router: Router) => {
       .catch(next);
   });
 
-  router.use(`${API_URL}/user-theme`, userThemeRouter);
+  router.use(`${API_URL}/user-theme`, auth, userThemeRouter);
 };

@@ -1,9 +1,9 @@
-import { API_URL } from '@root/constants';
 import { Router } from 'express';
-import { auth } from '../auth-middleware';
-import { Comment } from '../models/comment';
+import { API_URL } from '@root/constants';
+import { auth } from '@server/middlewares/auth';
+import { Comment } from '@server/models/comment';
 
-export const commentRouterFactory = () => Router()
+export const commentRouterFactory = (router: Router) => router
 
   .get(`${API_URL}/comments`, auth, (_req, res, next) => Comment.findAll()
     .then((comment) => res.json(comment))
