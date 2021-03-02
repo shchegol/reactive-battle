@@ -19,6 +19,9 @@ React, TypeScript, Canvas
 * `npm build` — сборка проекта.
 * `npm test` — запуск тестов.
 
+## Environment
+Для корректного запуска проекта необходимо скопировать файлы `.env.example` и `.env.local.example`, убрав расширение `.example` у них
+
 ## Полезные ссылки для разработки
 https://ru.wikipedia.org/wiki/Battle_City
 

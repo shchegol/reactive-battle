@@ -11,6 +11,7 @@ import Error404 from '@root/pages/error404';
 import Error5xx from '@root/pages/error5xx';
 import Forum from '@root/pages/forum/Forum';
 import ForumTopic from '@root/pages/forumTopic/ForumTopic';
+import Feedback from '@pages/feedback/Feedback';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUser } from '@store/actionsCreators/user';
 import { getUrlParam } from '@utils/getUrlParams';
@@ -73,6 +74,11 @@ export default function App() {
       <Route
         path="/forum/:id"
         component={ForumTopic}
+      />
+      <Route
+        exact
+        path="/feedback"
+        component={Feedback}
       />
       <Route
         path="**"

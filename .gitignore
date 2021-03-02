@@ -4,9 +4,11 @@
 node_modules/
 
 .env
+.env.local
 .eslintcache
 
 docs/
 build/
 dist/
 postgresdata/
+mongodata/

@@ -3,10 +3,17 @@ import mongoose from 'mongoose';
 export default ({
   MONGO_USERNAME: user,
   MONGO_PASSWORD: password,
+  MONGO_HOST: host,
   MONGO_PORT: port,
   MONGO_DB: db,
 } = process.env) => {
-  const url = `mongodb://${user}:${password}@mongo:${port}/${db}`;
+  let url;
+  if (user) {
+    url = `mongodb://${user}:${password}@${host}:${port}/${db}`;
+  } else {
+    url = `mongodb://localhost/${db}`;
+  }
+
   const options = {
     useNewUrlParser: true,
     reconnectTries: Number.MAX_VALUE,

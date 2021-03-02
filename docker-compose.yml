@@ -20,7 +20,7 @@ services:
     volumes:
       - ./postgresdata:/var/lib/postgresql/data
     ports:
-      - ${POSTGRES_PORT}:5432
+      - 5433:5432
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4:latest
@@ -35,14 +35,13 @@ services:
     container_name: mongodb
     image: mongo:bionic
     restart: always
-    env_file: .env
-    environment:
-      MONGO_INITDB_DATABASE: reactive_battle
+    env_file:
+      - .env
     volumes:
-      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - ./mongodata:/data/db
+      - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh
     ports:
       - 27018:27017
-    command: mongod
 volumes:
-    db-data:
+    mongo-data:
     pgadmin-data:
