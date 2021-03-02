@@ -2,7 +2,7 @@ import { API_URL } from '@root/constants';
 import { Router } from 'express';
 import Review from '../models/review';
 
-export const reviewRouterFactory = () => Router()
+export const reviewRouterFactory = (router: Router) => router
 
   .get(`${API_URL}/reviews/:login`, (req, res, next) => {
     Review.find({ login: req.params.login })

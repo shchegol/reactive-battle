@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { reviewRouterFactory } from './reviewRouterFactory';
 import { commentRouterFactory } from './commentRouterFactory';
 import { topicRouterFactory } from './topicRouterFactory';
 import { themesRoutes } from './themesRoutes';
@@ -10,5 +11,6 @@ commentRouterFactory(router);
 topicRouterFactory(router);
 themesRoutes(router);
 userThemeRoutes(router);
+reviewRouterFactory(router);
 
 export default router;
