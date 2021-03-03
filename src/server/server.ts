@@ -35,7 +35,7 @@ app
     extended: true,
   }))
   .use(bodyParser.json())
-  .use(router)
+  .use(router);
 
 app.get('*', renderMiddleware);
 
