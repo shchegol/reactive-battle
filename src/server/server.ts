@@ -7,6 +7,8 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import router from '@server/routes';
 import renderMiddleware from '@server/middlewares/render';
 
+require('dotenv').config({ path: '.env.local' });
+
 const bodyParser = require('body-parser');
 
 const app = express();

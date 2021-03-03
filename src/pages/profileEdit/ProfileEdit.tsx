@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { changeProfile, changeAvatar, changePassword } from '@store/actionsCreators/user';
 import ProfileEditForm from '@pages/profileEdit/profileEditForm';
+import { UserProfile } from '@pages/profileEdit/profileEditForm/types';
 import Button from '@components/button';
 import Avatar from '@components/avatar';
 import authSelector from '@store/selectors/auth';
@@ -14,17 +15,6 @@ import { Helmet } from 'react-helmet';
  * User profile edit page
  * @constructor
  */
-
-interface UserProfile {
-  first_name: string;
-  second_name: string;
-  display_name: string;
-  login: string;
-  email: string;
-  phone: string;
-  oldPassword?: string;
-  newPassword?: string;
-}
 
 export default function ProfileEdit() {
   const dispatch = useDispatch();
@@ -40,7 +30,7 @@ export default function ProfileEdit() {
     phone: '',
     oldPassword: '',
     newPassword: '',
-  } as UserProfile);
+  } as Partial<UserProfile>);
 
   useEffect(() => {
     if (!user.display_name) {

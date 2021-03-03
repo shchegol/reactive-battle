@@ -66,6 +66,14 @@ export interface Comment {
   createdAt: string;
 }
 
+export interface Review {
+  login: string;
+  name: string;
+  email: string;
+  text: string;
+  createdAt: string;
+}
+
 /**
  * Snackbar state
  * @param {boolean} isShow - visibility

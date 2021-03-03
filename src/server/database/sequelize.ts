@@ -4,13 +4,20 @@ import { Comment } from '@server/models/comment';
 import { SiteTheme } from '@server/models/siteTheme';
 import { UserTheme } from '@server/models/userTheme';
 
-const sequelizeOptions: SequelizeOptions = {
-  host: '0.0.0.0',
-  port: 5432,
-  username: 'postgres',
-  password: 'newPassword',
-  database: 'reactive-battle',
+const {
+  POSTGRES_HOST: host,
+  POSTGRES_PORT: port,
+  POSTGRES_USER: username,
+  POSTGRES_PASSWORD: password,
+  POSTGRES_DB: database,
+} = process.env;
 
+const sequelizeOptions: SequelizeOptions = {
+  username,
+  password,
+  database,
+  host,
+  port: parseInt(<string>port, 10),
   dialect: 'postgres',
   models: [Topic, Comment, SiteTheme, UserTheme],
 };

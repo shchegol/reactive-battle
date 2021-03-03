@@ -3,7 +3,8 @@ import { UserActions } from '@store/actions/user';
 import { UserResponse } from '@api/types';
 import { AuthActions } from '@store/actions/auth';
 import { ForumActions } from '@store/actions/forum';
-import { Comment, Topic } from '@store/types';
+import { Comment, Topic, Review } from '@store/types';
+import { FeedbackActions } from '@store/actions/feedback';
 import { GameActions } from './game';
 
 export type TPayload<T, P> = {
@@ -36,6 +37,14 @@ export interface ForumPayload {
 }
 
 export type ForumAction = TPayload<ForumActions, ForumPayload>;
+
+// Feedback
+export interface FeedbackPayload {
+  review?: Review;
+  error?: string;
+}
+
+export type FeedbackAction = TPayload<FeedbackActions, FeedbackPayload>;
 
 // Snackbar
 export interface SnackbarPayload {

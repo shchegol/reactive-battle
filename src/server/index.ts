@@ -1,5 +1,6 @@
 import { app } from '@server/server';
 import { sequelize } from '@server/database/sequelize';
+import mongooseConnect from '@server/database/mongoose';
 
 const fs = require('fs');
 const path = require('path');
@@ -23,6 +24,10 @@ const info = `
 
 (async () => {
   await sequelize.sync({ force: true });
+
+  mongooseConnect()
+    .then(() => console.log('MongoDB is connected'))
+    .catch((err: any) => console.log(err));
 
   server.listen(PORT, () => {
     console.log(info);
