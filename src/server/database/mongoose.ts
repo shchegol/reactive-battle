@@ -7,12 +7,7 @@ export default ({
   MONGO_PORT: port,
   MONGO_DB: db,
 } = process.env) => {
-  let url;
-  if (user) {
-    url = `mongodb://${user}:${password}@${host}:${port}/${db}`;
-  } else {
-    url = `mongodb://localhost/${db}`;
-  }
+  const url = `mongodb://${user}:${password}@${host}:${port}/${db}`;
 
   const options = {
     useNewUrlParser: true,

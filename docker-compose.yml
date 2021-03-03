@@ -20,7 +20,7 @@ services:
     volumes:
       - ./postgresdata:/var/lib/postgresql/data
     ports:
-      - 5433:5432
+      - 5432:5432
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4:latest
@@ -41,7 +41,7 @@ services:
       - ./mongodata:/data/db
       - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh
     ports:
-      - 27018:27017
+      - 27017:27017
 volumes:
     mongo-data:
     pgadmin-data:
