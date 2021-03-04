@@ -8,7 +8,7 @@ import { TUseSnackbar, TShowSnackbar } from '@root/hooks/types';
 export default function useSnackbar(): TUseSnackbar {
   const dispatch = useDispatch();
 
-  const showSnackbar: TShowSnackbar = (message, type, duration) => {
+  const showSnackbar: TShowSnackbar = (message, type, duration = 10) => {
     dispatch(showSnackbarAC({ message, type, duration }));
   };
 

@@ -1,11 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import toClassNames from '@root/utils/toClassNames';
-
 import './mainTitle.scss';
 import { API_YANDEX_URL } from '@root/constants';
 import { Props } from './types';
-
-const avatarTmpl = require('@root/images/engine/tanks/player-0.svg').default;
 
 /**
  * Main title
@@ -24,9 +21,34 @@ const MainTitle: FC<Props> = ({
   hasImg = true,
   ...rest
 }) => {
-  const avatarUrl = imgSrc
-    ? new URL(imgSrc, API_YANDEX_URL).href
-    : avatarTmpl;
+  const [avatar, setAvatar] = useState('');
+
+  useEffect(() => {
+    if (imgSrc) {
+      setAvatar(new URL(imgSrc, API_YANDEX_URL).href);
+    } else {
+      // eslint-disable-next-line global-require
+      setAvatar(require('@root/images/engine/tanks/player-0.svg').default);
+    }
+  }, [imgSrc]);
+
+  const renderAvatar = () => {
+    if (hasImg) {
+      if (avatar) {
+        return (
+          <img
+            src={avatar}
+            alt={subtitleText}
+            className="main-title__img"
+          />
+
+        );
+      }
+      return <div className="main-title__img" />;
+    }
+
+    return null;
+  };
 
   return (
     <header
@@ -35,13 +57,9 @@ const MainTitle: FC<Props> = ({
         rest.className,
       )}
     >
-      {hasImg && (
-        <img
-          src={avatarUrl}
-          alt={subtitleText}
-          className="main-title__img"
-        />
-      )}
+      {
+        renderAvatar()
+      }
 
       <h1 className="main-title__text">
         {titleText}

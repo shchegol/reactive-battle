@@ -9,12 +9,12 @@ import { Helmet } from 'react-helmet';
 import Icon from '@components/icon';
 import forumSelector from '@store/selectors/forum';
 import { addTopic, fetchTopicsList } from '@root/store/actionsCreators/forum';
-import loginSelector from '@root/store/selectors/login';
+import userSelector from '@store/selectors/user';
 
 export default function Forum() {
   const history = useHistory();
   const { topics } = useSelector(forumSelector);
-  const login = useSelector(loginSelector);
+  const { login } = useSelector(userSelector);
 
   const dispatch = useDispatch();
   useEffect(() => {

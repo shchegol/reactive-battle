@@ -1,6 +1,8 @@
 import { app } from '@server/server';
 import { sequelize } from '@server/database/sequelize';
+import { SiteTheme } from '@server/models/siteTheme';
 import mongooseConnect from '@server/database/mongoose';
+import { Model } from 'sequelize-typescript';
 
 const fs = require('fs');
 const path = require('path');
@@ -14,16 +16,26 @@ const HOST = process.env.HOST || 'local.ya-praktikum.tech';
 const PORT = process.env.PORT || 5000;
 
 const info = `
-  \x1b[32m######### SERVER IS RUNNING #########
-  https://${HOST}:${PORT}
+  \x1b[32m######### SERVER IS RUNNING #########\x1b[0m
+  \x1b[32mhttps://${HOST}:${PORT}\x1b[0m
   
-  HOST: ${HOST}
-  PORT: ${PORT}
-  #####################################\x1b[0m
+  \x1b[32mHOST: ${HOST}\x1b[0m
+  \x1b[32mPORT: ${PORT}\x1b[0m
+  \x1b[32m#####################################\x1b[0m
 `;
 
 (async () => {
-  await sequelize.sync({ force: true });
+  try {
+    await sequelize.sync({ force: true });
+    await SiteTheme.bulkCreate<Model<Partial<SiteTheme>>>([
+      { theme: 'dark', description: 'Default dark theme' },
+      { theme: 'light', description: 'Light theme' },
+    ]);
+
+    console.log('\x1b[32mPostgreSQL is connected\x1b[0m');
+  } catch (e) {
+    console.error(e);
+  }
 
   mongooseConnect()
     .then(() => console.log('MongoDB is connected'))

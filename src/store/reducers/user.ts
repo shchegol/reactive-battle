@@ -46,6 +46,10 @@ export default function userReducer(
         ...state,
         ...action.payload,
       };
+    case UserActions.CLEAR:
+      return {
+        ...defaultState,
+      };
     default:
       return state;
   }

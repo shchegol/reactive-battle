@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import toClassNames from '@utils/toClassNames';
 import { API_YANDEX_URL } from '@root/constants';
 import { Props } from './types';
@@ -21,9 +21,16 @@ const Avatar: FC<Props> = ({
   onInputChange = undefined,
   ...rest
 }) => {
-  const avatarUrl = src
-    ? new URL(src, API_YANDEX_URL).href
-    : undefined;
+  const [avatar, setAvatar] = useState('');
+
+  useEffect(() => {
+    if (src) {
+      setAvatar(new URL(src, API_YANDEX_URL).href);
+    } else {
+      // eslint-disable-next-line global-require
+      setAvatar(require('@root/images/engine/tanks/player-0.svg').default);
+    }
+  }, [src]);
 
   return (
     <div
@@ -44,11 +51,21 @@ const Avatar: FC<Props> = ({
         />
       )}
 
-      <img
-        className="profile-avatar__image"
-        src={avatarUrl}
-        alt={rest.alt}
-      />
+      {
+        avatar
+          ? (
+            <img
+              className="profile-avatar__image"
+              src={avatar}
+              alt={rest.alt}
+            />
+
+          )
+          : (
+            <div className="profile-avatar__image" />
+          )
+      }
+
     </div>
   );
 };

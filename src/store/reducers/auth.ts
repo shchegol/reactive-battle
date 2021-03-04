@@ -8,7 +8,6 @@ const isOAuth = Cookies.get('isOAuth');
 const initialState = {
   isLoggedIn: !!login,
   isOAuth: !!isOAuth,
-  isLoading: false,
   oAuthCode: '',
   error: '',
 };
@@ -22,7 +21,6 @@ export function auth(
     case AuthActions.SIGNIN_REQUEST:
       return {
         ...state,
-        isLoading: true,
         isLoggedIn: false,
         isOAuth: false,
         oAuthCode: '',
@@ -31,7 +29,6 @@ export function auth(
     case AuthActions.YAAUTH_REQUEST:
       return {
         ...state,
-        isLoading: false,
         isLoggedIn: false,
         isOAuth: false,
         oAuthCode: action.payload?.oAuthCode,
@@ -41,7 +38,6 @@ export function auth(
     case AuthActions.SIGNIN_SUCCESS:
       return {
         ...state,
-        isLoading: false,
         isLoggedIn: true,
         isOAuth: false,
         oAuthCode: '',
@@ -50,7 +46,6 @@ export function auth(
     case AuthActions.YAAUTH_SUCCESS:
       return {
         ...state,
-        isLoading: false,
         isLoggedIn: true,
         isOAuth: true,
         oAuthCode: '',
@@ -61,7 +56,6 @@ export function auth(
     case AuthActions.YAAUTH_FAILURE:
       return {
         ...state,
-        isLoading: false,
         isLoggedIn: false,
         isOAuth: false,
         oAuthCode: '',
@@ -70,7 +64,6 @@ export function auth(
     case AuthActions.LOGOUT:
       return {
         ...state,
-        isLoading: false,
         isLoggedIn: false,
         isOAuth: false,
         oAuthCode: '',

@@ -24,12 +24,14 @@ export const userThemeRoutes = (router: Router) => {
    */
   userThemeRouter.get('/:login',
     (req, res, next) => UserTheme
-      .findOne(
-        { where: { ownerLogin: req.params.login } },
-      )
-      .then((userTheme) => (userTheme
-        ? res.json(userTheme)
-        : next({ statusCode: 404 })))
+      .findOrCreate({
+        where: { ownerLogin: req.params.login },
+        defaults: {
+          themeId: 1,
+          ownerLogin: req.params.login,
+        } as UserTheme,
+      })
+      .then((userTheme) => res.json(userTheme[0]))
       .catch(next));
 
   /**
@@ -46,5 +48,5 @@ export const userThemeRoutes = (router: Router) => {
       .catch(next);
   });
 
-  router.use(`${API_URL}/user-theme`, auth, userThemeRouter);
+  router.use(`${API_URL}/user-themes`, auth, userThemeRouter);
 };

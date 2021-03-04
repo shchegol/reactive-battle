@@ -19,3 +19,9 @@ export type TUseSnackbar = [
   TShowSnackbar,
   () => void,
 ];
+
+// loading
+export type TUseLoading = {
+  showLoading: () => void,
+  hideLoading: () => void,
+};

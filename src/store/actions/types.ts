@@ -5,6 +5,7 @@ import { AuthActions } from '@store/actions/auth';
 import { ForumActions } from '@store/actions/forum';
 import { Comment, Topic, Review } from '@store/types';
 import { FeedbackActions } from '@store/actions/feedback';
+import { LoadingActions } from '@store/actions/loading';
 import { GameActions } from './game';
 
 export type TPayload<T, P> = {
@@ -63,3 +64,8 @@ export interface GamePayload {
 }
 
 export type GameAction = Required<TPayload<GameActions, GamePayload>>;
+
+// Loading
+export interface LoadingAction {
+  type: LoadingActions;
+}

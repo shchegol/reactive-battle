@@ -19,13 +19,13 @@ export function snackbar(
   action: SnackbarAction,
 ) {
   switch (action.type) {
-    case SnackbarActions.SNACKBAR_SHOW:
+    case SnackbarActions.SHOW:
       return {
         ...state,
         ...action.payload,
         isShow: true,
       };
-    case SnackbarActions.SNACKBAR_HIDE:
+    case SnackbarActions.HIDE:
       return {
         ...state,
         isShow: false,

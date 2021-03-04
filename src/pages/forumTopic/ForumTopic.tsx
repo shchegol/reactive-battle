@@ -11,7 +11,7 @@ import forumSelector from '@store/selectors/forum';
 import { ReplyProvider } from '@root/contexts/reply';
 import { Helmet } from 'react-helmet';
 import { addComment, fetchTopic } from '@root/store/actionsCreators/forum';
-import loginSelector from '@root/store/selectors/login';
+import userSelector from '@store/selectors/user';
 
 export default function ForumTopic() {
   const history = useHistory();
@@ -19,10 +19,10 @@ export default function ForumTopic() {
 
   const topicId = Number.parseInt(params.id, 10);
   const { topics } = useSelector(forumSelector);
+  const { login } = useSelector(userSelector);
   const topic = topics.find((f) => f.id === topicId) || {} as Topic;
-  const comments = topic?.comments || [];
 
-  const login = useSelector(loginSelector);
+  const comments = topic?.comments || [];
 
   const dispatch = useDispatch();
   useEffect(() => {
