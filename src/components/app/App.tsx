@@ -28,7 +28,7 @@ export default function App() {
   const { isLoggedIn, oAuthCode } = useSelector(authSelector);
   const { login } = useSelector(userSelector);
   const { theme, updateTheme } = useContext(ThemeContext) as TThemeContext;
-  const [showSnackbar] = useSnackbar();
+  const { showSnackbar } = useSnackbar();
   const { hideLoading } = useLoading();
 
   useEffect(() => {

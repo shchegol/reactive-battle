@@ -22,7 +22,7 @@ export default function Game() {
   const { login, avatar } = useSelector(userSelector);
   const { theme, updateTheme } = useContext(ThemeContext) as TThemeContext;
   const game = useSelector((state: ApplicationState) => state.game);
-  const [showSnackbar] = useSnackbar();
+  const { showSnackbar } = useSnackbar();
   const [themeIcon, setThemeIcon] = useState('mode_night');
 
   const dispatch = useDispatch();

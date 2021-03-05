@@ -3,9 +3,9 @@ import {
   showLoading as showLoadingAC,
   hideLoading as hideLoadingAC,
 } from '@store/actionsCreators/loading';
-import { TUseLoading } from '@root/hooks/types';
+import { UseLoading } from '@root/hooks/types';
 
-export default function useLoading(): TUseLoading {
+export default function useLoading(): UseLoading {
   const dispatch = useDispatch();
 
   const showLoading = () => {

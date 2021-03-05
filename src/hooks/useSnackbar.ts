@@ -3,12 +3,12 @@ import {
   showSnackbar as showSnackbarAC,
   hideSnackbar as hideSnackbarAC,
 } from '@store/actionsCreators/snackbar';
-import { TUseSnackbar, TShowSnackbar } from '@root/hooks/types';
+import { UseSnackbar, ShowSnackbar } from '@root/hooks/types';
 
-export default function useSnackbar(): TUseSnackbar {
+export default function useSnackbar(): UseSnackbar {
   const dispatch = useDispatch();
 
-  const showSnackbar: TShowSnackbar = (message, type, duration = 10) => {
+  const showSnackbar: ShowSnackbar = (message, type, duration = 10) => {
     dispatch(showSnackbarAC({ message, type, duration }));
   };
 
@@ -16,5 +16,5 @@ export default function useSnackbar(): TUseSnackbar {
     dispatch(hideSnackbarAC());
   };
 
-  return [showSnackbar, hideSnackbar];
+  return { showSnackbar, hideSnackbar };
 }

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { SignUpRequest, UserRequest } from '@api/types';
-import { TUseAuth } from '@root/hooks/types';
+import { UseAuth } from '@root/hooks/types';
 import {
   signin as signinAC,
   signup as signupAC,
@@ -8,7 +8,7 @@ import {
 } from '@store/actionsCreators/auth';
 import authSelector from '../store/selectors/auth';
 
-const useAuth = (): TUseAuth => {
+const useAuth = (): UseAuth => {
   const dispatch = useDispatch();
   const auth = useSelector(authSelector);
 
@@ -26,9 +26,9 @@ const useAuth = (): TUseAuth => {
     dispatch(logoutAC());
   };
 
-  return [
+  return {
     isLoggedIn, signin, signup, logout,
-  ];
+  };
 };
 
 export default useAuth;

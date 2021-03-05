@@ -33,7 +33,7 @@ const Interface: FC<Props> = ({
   const gameWindow = useRef<HTMLDivElement>(null);
   const [fullScreenBtnIcon, setFullScreenBtnIcon] = useState('fullscreen');
   const [gameState, setGameState] = useState<GameStates>(GameStates.NotStarted);
-  const [showSnackbar] = useSnackbar();
+  const { showSnackbar } = useSnackbar();
 
   useEffect(() => {
     EngineBus.on(GAME_START, () => setGameState(GameStates.Play));

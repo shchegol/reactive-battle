@@ -1,27 +1,27 @@
 import { SignUpRequest, UserRequest } from '@api/types';
 
-// TUseAuth
-export type TUseAuth = [
-  isLoggedIn: boolean,
-  signin: (data: UserRequest) => void,
-  signup: (data: SignUpRequest) => void,
-  logout: () => void,
-];
+// useAuth
+export interface UseAuth {
+  isLoggedIn: boolean;
+  signin: (data: UserRequest) => void;
+  signup: (data: SignUpRequest) => void;
+  logout: () => void;
+}
 
 // useSnackbar
-export type TShowSnackbar = (
+export type ShowSnackbar = (
   message: string,
   type?: 'danger' | 'success',
   duration?: number,
 ) => void;
 
-export type TUseSnackbar = [
-  TShowSnackbar,
-  () => void,
-];
+export interface UseSnackbar {
+  showSnackbar: ShowSnackbar;
+  hideSnackbar: () => void;
+}
 
-// loading
-export type TUseLoading = {
+// useLoading
+export interface UseLoading {
   showLoading: () => void,
   hideLoading: () => void,
-};
+}
