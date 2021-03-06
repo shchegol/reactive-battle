@@ -14,7 +14,6 @@ export const addReview = (
   return (dispatch: Dispatch<FeedbackAction>) => {
     dispatch(request());
 
-    console.log('addreview', data);
     return FeedbackAPI.addReview(data)
       .then((review) => {
         dispatch(success(review));

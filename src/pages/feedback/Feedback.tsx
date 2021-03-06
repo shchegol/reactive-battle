@@ -41,7 +41,7 @@ export default function Feedback() {
   return (
     <div className="container-fluid">
       <Helmet
-        title="Forum"
+        title="Feedback"
       />
       <div className="row justify-content-left mt-20">
         <div className="col-12 col-md-2 col-lg-3">
