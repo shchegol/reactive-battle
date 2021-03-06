@@ -60,7 +60,9 @@ export type SnackbarAction = TPayload<SnackbarActions, SnackbarPayload>;
 export type TankTypes = 'basic' | 'fast' | 'armor' | 'power';
 
 export interface GamePayload {
-  tankType: TankTypes
+  tankType?: TankTypes,
+  level?: number,
+  enemies?: number,
 }
 
 export type GameAction = Required<TPayload<GameActions, GamePayload>>;

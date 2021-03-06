@@ -10,7 +10,7 @@ import { activateFullscreen, deactivateFullscreen } from '@utils/fullscreen';
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from '@engine/Scene';
 import { GameStates } from '@engine/types/GameStates';
 import {
-  EngineBus, GAME_OVER, GAME_PAUSE, GAME_RESUME, GAME_START,
+  EngineBus, GAME_OVER, GAME_PAUSE, GAME_RESUME, GAME_START, GAME_WIN,
 } from '@engine/EngineBus';
 import useSnackbar from '@root/hooks/useSnackbar';
 
@@ -40,6 +40,7 @@ const Interface: FC<Props> = ({
     EngineBus.on(GAME_PAUSE, () => setGameState(GameStates.Pause));
     EngineBus.on(GAME_RESUME, () => setGameState(GameStates.Play));
     EngineBus.on(GAME_OVER, () => setGameState(GameStates.GameOver));
+    EngineBus.on(GAME_WIN, () => setGameState(GameStates.GameOver));
   }, []);
 
   const renderEnemies = (enemiesNumber: number) => {

@@ -1,3 +1,4 @@
+// Sprites
 // - empty
 // b - brick wall
 // c - concrete wall
@@ -7,10 +8,13 @@
 // e - eagle (base)
 // s - spawn
 
+// Enemies
+// b - basic
+// f - fast
+
 export type Level = {
-  index: number;
   field: Array<string>;
-  enemies: Array<EnemyType>;
+  enemies: string;
 };
 
 export enum EnemyType {
@@ -20,8 +24,7 @@ export enum EnemyType {
   Power,
 }
 
-export const Level1: Level = {
-  index: 0,
+const Level1: Level = {
   field: [
     's-----------s-----------s-',
     '--------------------------',
@@ -50,26 +53,39 @@ export const Level1: Level = {
     '-----------be-b-----------',
     '-----------b--b-----------',
   ],
-  enemies: [
-    EnemyType.Basic,
-    EnemyType.Basic,
-    EnemyType.Basic,
-    EnemyType.Basic,
-    EnemyType.Basic,
-    EnemyType.Basic,
-    EnemyType.Basic,
-    EnemyType.Basic,
-    EnemyType.Basic,
-    EnemyType.Basic,
-    EnemyType.Basic,
-    EnemyType.Basic,
-    EnemyType.Basic,
-    EnemyType.Basic,
-    EnemyType.Basic,
-    EnemyType.Basic,
-    EnemyType.Basic,
-    EnemyType.Basic,
-    EnemyType.Fast,
-    EnemyType.Fast,
-  ],
+  enemies: 'bbbbbbbbbbbbbbbbbbff',
 };
+
+const Level2: Level = {
+  field: [
+    's-----cc----s-cc--------s-',
+    '------cc------cc----------',
+    '--bb--cc------bb--bb--bb--',
+    '--bb--cc------bb--bb--bb--',
+    '--bb--------bbbb--bbccbb--',
+    '--bb--------bbbb--bbccbb--',
+    '------bb----------cc------',
+    '------bb----------cc------',
+    'tt----bb----cc----bbttbbcc',
+    'tt----bb----cc----bbttbbcc',
+    'tttt------bb----cc--tt----',
+    'tttt------bb----cc--tt----',
+    '--bbbbbbttttttcc----ttbb--',
+    '--bbbbbbttttttcc----ttbb--',
+    '------ccttbb--bb--bb--bb--',
+    '------ccttbb--bb--bb--bb--',
+    'ccbb--cc--bb--bb------bb--',
+    'ccbb--cc--bb--bb------bb--',
+    '--bb--bb--bbbbbb--bbccbb--',
+    '--bb--bb--bbbbbb--bbccbb--',
+    '--bb--bb--bbbbbb----------',
+    '--bb--bb--bbbbbb----------',
+    '--bb--------------bb--bb--',
+    '--bb-------bbbb---bb--bb--',
+    '--bb--bb---be-b---bbbbbb--',
+    '--bb--bb---b--b---bbbbbb--',
+  ],
+  enemies: 'ffffbbbbbbbbbbbbbbbb',
+};
+
+export const gameLevels = [Level1, Level2];

@@ -5,7 +5,13 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationState } from '@store/types';
 import Interface from '@pages/game/interface/Interface';
-import { EngineBus, SPRITE_DESTROYED, GAME_OVER } from '@engine/EngineBus';
+import {
+  EngineBus,
+  SPRITE_DESTROYED,
+  GAME_OVER,
+  GAME_WIN,
+  LEVEL_WIN,
+} from '@engine/EngineBus';
 import Bullet from '@engine/sprites/Bullet';
 import Button from '@components/button';
 import EnemyTank from '@engine/sprites/enemies/EnemyTank';
@@ -13,7 +19,7 @@ import userSelector from '@store/selectors/user';
 import Avatar from '@components/avatar';
 import Icon from '@components/icon';
 import { ThemeContext, TThemeContext } from '@root/contexts/theme';
-import { updateScore, clearScore } from '@root/store/actionsCreators/game';
+import { updateScore, clearScore, updateLevel } from '@root/store/actionsCreators/game';
 import LeaderboardAPI from '@api/LeaderboardAPI';
 import ThemeAPI from '@api/ThemeAPI';
 import useSnackbar from '@root/hooks/useSnackbar';
@@ -47,6 +53,10 @@ export default function Game() {
     }).then(() => dispatch(clearScore()));
   }, [dispatch, game.player, login]);
 
+  const updateLevelHandler = useCallback(() => {
+    dispatch(updateLevel({ level: game.level + 1, enemies: 20 }));
+  }, [dispatch, game.level]);
+
   const changeThemeHandler = async () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
     const newThemeIcon = theme === 'dark' ? 'wb_sunny' : 'mode_night';
@@ -77,9 +87,15 @@ export default function Game() {
 
   useEffect(() => {
     EngineBus.on(GAME_OVER, addPlayerScore);
+    EngineBus.on(GAME_WIN, addPlayerScore);
+    EngineBus.on(LEVEL_WIN, updateLevelHandler);
 
-    return () => EngineBus.off(GAME_OVER, addPlayerScore);
-  }, [addPlayerScore, game]);
+    return () => {
+      EngineBus.off(GAME_OVER, addPlayerScore);
+      EngineBus.off(GAME_WIN, addPlayerScore);
+      EngineBus.off(LEVEL_WIN, updateLevelHandler);
+    };
+  }, [addPlayerScore, updateLevelHandler, game]);
 
   return (
     <div className="container-fluid">
@@ -148,6 +164,7 @@ export default function Game() {
       <Interface
         enemies={game.enemies}
         player={game.player}
+        level={game.level}
       />
     </div>
   );
