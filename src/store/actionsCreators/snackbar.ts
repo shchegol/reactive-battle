@@ -7,12 +7,12 @@ import { Dispatch } from 'react';
  * @param {SnackbarPayload} payload - snackbar info
  */
 export const showSnackbar = (payload: SnackbarPayload) => (dispatch: Dispatch<SnackbarAction>) => {
-  dispatch({ type: SnackbarActions.SNACKBAR_SHOW, payload });
+  dispatch({ type: SnackbarActions.SHOW, payload });
 };
 
 /**
  * Hides the snackbar
  */
 export const hideSnackbar = () => (dispatch: Dispatch<SnackbarAction>) => {
-  dispatch({ type: SnackbarActions.SNACKBAR_HIDE });
+  dispatch({ type: SnackbarActions.HIDE });
 };

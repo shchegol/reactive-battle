@@ -15,12 +15,15 @@ import Icon from '@components/icon';
 import { ThemeContext, TThemeContext } from '@root/contexts/theme';
 import { updateScore, clearScore } from '@root/store/actionsCreators/game';
 import LeaderboardAPI from '@api/LeaderboardAPI';
+import ThemeAPI from '@api/ThemeAPI';
+import useSnackbar from '@root/hooks/useSnackbar';
 
 export default function Game() {
   const { login, avatar } = useSelector(userSelector);
-  const game = useSelector((state: ApplicationState) => state.game);
-  const [themeIcon, setThemeIcon] = useState('mode_night');
   const { theme, updateTheme } = useContext(ThemeContext) as TThemeContext;
+  const game = useSelector((state: ApplicationState) => state.game);
+  const { showSnackbar } = useSnackbar();
+  const [themeIcon, setThemeIcon] = useState('mode_night');
 
   const dispatch = useDispatch();
 
@@ -44,10 +47,27 @@ export default function Game() {
     }).then(() => dispatch(clearScore()));
   }, [dispatch, game.player, login]);
 
-  const changeThemeHandler = () => {
-    updateTheme();
-    setThemeIcon(theme === 'dark' ? 'wb_sunny' : 'mode_night');
+  const changeThemeHandler = async () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    const newThemeIcon = theme === 'dark' ? 'wb_sunny' : 'mode_night';
+
+    try {
+      const themeRes = await ThemeAPI.getTheme({ name: newTheme });
+      await ThemeAPI.updateUserTheme(login, themeRes.id);
+
+      updateTheme(newTheme);
+      setThemeIcon(newThemeIcon);
+      showSnackbar(`Set ${newTheme} theme`);
+    } catch (e) {
+      console.error(e);
+      showSnackbar(`Unfortunately the theme "${newTheme}" is not set. Something goes wrong.`, 'danger');
+    }
   };
+
+  useEffect(() => {
+    const newThemeIcon = theme === 'dark' ? 'mode_night' : 'wb_sunny';
+    setThemeIcon(newThemeIcon);
+  }, [theme]);
 
   useEffect(() => {
     EngineBus.on(SPRITE_DESTROYED, playerShot);

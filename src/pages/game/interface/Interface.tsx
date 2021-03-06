@@ -12,6 +12,7 @@ import { GameStates } from '@engine/types/GameStates';
 import {
   EngineBus, GAME_OVER, GAME_PAUSE, GAME_RESUME, GAME_START,
 } from '@engine/EngineBus';
+import useSnackbar from '@root/hooks/useSnackbar';
 
 /**
  * @param {number} [enemies=20] - number of enemies
@@ -32,6 +33,7 @@ const Interface: FC<Props> = ({
   const gameWindow = useRef<HTMLDivElement>(null);
   const [fullScreenBtnIcon, setFullScreenBtnIcon] = useState('fullscreen');
   const [gameState, setGameState] = useState<GameStates>(GameStates.NotStarted);
+  const { showSnackbar } = useSnackbar();
 
   useEffect(() => {
     EngineBus.on(GAME_START, () => setGameState(GameStates.Play));
@@ -55,6 +57,7 @@ const Interface: FC<Props> = ({
     return content;
   };
 
+  // todo переписать на хук
   const handleFullScreen = () => {
     if (document.fullscreenElement || document.webkitFullscreenElement) {
       deactivateFullscreen();
@@ -65,9 +68,7 @@ const Interface: FC<Props> = ({
           setFullScreenBtnIcon('fullscreen_exit');
         })
         .catch((err: Error) => {
-          // todo заменить на всплывающее уведомление
-          // eslint-disable-next-line no-console
-          console.error(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+          showSnackbar(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`, 'danger');
         });
     }
   };

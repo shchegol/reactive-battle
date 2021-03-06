@@ -10,6 +10,10 @@ import configureStore from '@store/store';
 import { ApplicationState } from '@store/types';
 import { AuthActions } from '@store/actions/auth';
 import { UserActions } from '@store/actions/user';
+import { LoadingActions } from '@store/actions/loading';
+import { withLoading } from '@root/hocs/withLoading';
+
+const AppWithLoading = withLoading(App);
 
 function getHtml(
   reactHtml: string,
@@ -66,13 +70,16 @@ export default (req: Request, res: Response) => {
     store.dispatch({ type: UserActions.FETCH_SUCCESS, payload: { info: { login } } });
   }
 
+  // show preloader
+  store.dispatch({ type: LoadingActions.SHOW });
+
   const content = renderToString(
     <Provider store={store}>
       <StaticRouter
         location={location}
         context={context}
       >
-        <App />
+        <AppWithLoading />
       </StaticRouter>
     </Provider>,
   );

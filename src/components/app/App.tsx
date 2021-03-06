@@ -18,19 +18,47 @@ import { getUrlParam } from '@utils/getUrlParams';
 import { yaOauth } from '@store/actionsCreators/auth';
 import authSelector from '@store/selectors/auth';
 import userSelector from '@store/selectors/user';
-import { ThemeContext, TThemeContext } from '@root/contexts/theme';
+import { ThemeContext, TTheme, TThemeContext } from '@root/contexts/theme';
+import ThemeAPI from '@api/ThemeAPI';
+import useSnackbar from '@root/hooks/useSnackbar';
+import useLoading from '@root/hooks/useLoading';
 
 export default function App() {
   const dispatch = useDispatch();
   const { isLoggedIn, oAuthCode } = useSelector(authSelector);
   const { login } = useSelector(userSelector);
-  const { theme } = useContext(ThemeContext) as TThemeContext;
+  const { theme, updateTheme } = useContext(ThemeContext) as TThemeContext;
+  const { showSnackbar } = useSnackbar();
+  const { hideLoading } = useLoading();
 
   useEffect(() => {
     const code = oAuthCode || getUrlParam('code');
     if (code) dispatch(yaOauth(code));
     if (isLoggedIn) dispatch(fetchUser());
   }, [dispatch, isLoggedIn, oAuthCode]);
+
+  useEffect(() => {
+    if (login) {
+      (async () => {
+        try {
+          const userThemeRes = await ThemeAPI.getUserTheme(login);
+          const themeRes = await ThemeAPI.getTheme({ id: userThemeRes.themeId });
+          updateTheme(themeRes.theme as TTheme);
+        } catch (e) {
+          showSnackbar(`Unfortunately the theme "${theme}" is not set. Something goes wrong.`, 'danger');
+        }
+
+        /**
+         * прелоадер открывается на сервере, либо при аутентификации,
+         * а закрывается после присвоения темы
+         */
+        hideLoading();
+      })();
+    } else {
+      updateTheme('dark');
+      hideLoading();
+    }
+  }, [login]);
 
   useEffect(() => {
     if (theme === 'dark') {

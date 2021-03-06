@@ -38,6 +38,8 @@ export default function Leaderboard() {
 
         setPlayers(newPlayers);
         setSearchedPlayers(newPlayers);
+      }, (err) => {
+        console.error(err);
       });
   };
 

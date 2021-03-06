@@ -22,7 +22,7 @@ const PlayersList: FC<Props> = ({
   >
     {players.map((player) => (
       <PlayersListItem
-        key={player.login}
+        key={player.position}
         player={player}
       />
     ))}

@@ -64,3 +64,15 @@ export interface LeaderboardRequest {
   cursor: number,
   limit: number,
 }
+
+export interface UserThemeResponse {
+  id: number;
+  themeId: number;
+  ownerLogin: string;
+}
+
+export interface SiteThemeResponse {
+  id: number;
+  theme: string;
+  description: string;
+}

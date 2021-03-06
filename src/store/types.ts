@@ -6,6 +6,7 @@ export interface ApplicationState {
   forum: ForumState;
   snackbar: SnackbarState;
   game: GameState;
+  loading: LoadingState;
 }
 
 // Auth
@@ -14,7 +15,6 @@ export interface AuthRootState {
 }
 
 export interface AuthState {
-  isLoading: boolean,
   isLoggedIn: boolean,
   isOAuth: boolean,
   oAuthCode: string,
@@ -98,4 +98,13 @@ export interface PlayerState {
 export interface GameState {
   player: PlayerState,
   enemies: number,
+}
+
+// loading
+export interface LoadingRootState {
+  loading: LoadingState;
+}
+
+export interface LoadingState {
+  isShow: boolean,
 }

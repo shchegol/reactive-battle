@@ -1,12 +1,17 @@
 import Loading from '@pages/loading';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import authSelector from '@store/selectors/auth';
+import loadingSelector from '@store/selectors/loading';
 
 export const withLoading = (WrappedComponent: any) => () => {
-  const selector = useSelector(authSelector);
+  const selector = useSelector(loadingSelector);
 
   return (
-    selector.isLoading ? <Loading /> : <WrappedComponent />
+    <>
+      {selector.isShow && (
+      <Loading />
+      )}
+      <WrappedComponent />
+    </>
   );
 };
