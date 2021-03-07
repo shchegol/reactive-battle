@@ -14,6 +14,7 @@ import { LoadingActions } from '@store/actions/loading';
 import { withLoading } from '@root/hocs/withLoading';
 
 const AppWithLoading = withLoading(App);
+const isProd = process.env.NODE_ENV === 'production';
 
 function getHtml(
   reactHtml: string,
@@ -42,6 +43,7 @@ function getHtml(
           <div id="root">${reactHtml}</div>
           <div id="snackbar"></div>
           <script>
+              ${isProd ? 'window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {}' : ''}
               window.__PRELOADED_STATE__ = ${JSON.stringify(reduxState).replace(/</g, '\\u003c')}
           </script>
           <script src="/bundle.js"></script>
