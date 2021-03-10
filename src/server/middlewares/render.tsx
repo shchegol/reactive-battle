@@ -13,6 +13,8 @@ import { UserActions } from '@store/actions/user';
 import { LoadingActions } from '@store/actions/loading';
 import { withLoading } from '@root/hocs/withLoading';
 
+const serialize = require('serialize-javascript');
+
 const AppWithLoading = withLoading(App);
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -44,7 +46,7 @@ function getHtml(
           <div id="snackbar"></div>
           <script>
               ${isProd ? 'window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {}' : ''}
-              window.__PRELOADED_STATE__ = ${JSON.stringify(reduxState).replace(/</g, '\\u003c')}
+              window.__PRELOADED_STATE__ = ${serialize(reduxState, { isJSON: true })}
           </script>
           <script src="/bundle.js"></script>
       </body>

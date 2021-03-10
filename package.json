@@ -148,7 +148,8 @@
     "redux-thunk": "2.3.0",
     "reflect-metadata": "0.1.13",
     "sequelize": "6.5.0",
-    "sequelize-typescript": "2.1.0"
+    "sequelize-typescript": "2.1.0",
+    "serialize-javascript": "5.0.1"
   },
   "engines": {
     "node": ">=14.13.0"
