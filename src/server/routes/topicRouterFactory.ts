@@ -19,7 +19,7 @@ export const topicRouterFactory = (router: Router) => router
   })
     .then((topic) => (topic
       ? res.json(topic)
-      : next({ statusCode: 404 })))
+      : next({ status: 404, message: `Topic id:${req.params.id} did not found` })))
     .catch(next))
 
   .post(`${API_URL}/topics`, auth, (req, res, next) => {

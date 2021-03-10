@@ -6,6 +6,7 @@ import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import router from '@server/routes';
 import renderMiddleware from '@server/middlewares/render';
+import logger from '@server/middlewares/logger';
 
 require('dotenv').config({ path: '.env.local' });
 
@@ -27,7 +28,8 @@ if (!ifProd) {
     )
     .use(webpackHotMiddleware(compiler, {
       path: '/__webpack_hmr',
-    }));
+    }))
+    .use(logger);
 }
 
 app.use(cookieParser())

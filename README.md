@@ -1,20 +1,18 @@
 # [Reactive Battle](https://reactive-battle.herokuapp.com/) [![License](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
 
-:eyes: Где смотреть:    
-https://reactive-battle.herokuapp.com/
+Где смотреть:    
+:eyes: https://reactive-battle.herokuapp.com/
 
-Поддержи проект :pray::point_up::star::relieved:
+:pray: Поддержи проект :point_up_2::star::relieved:
 
 ## Описание
-Попытка создать легендарную игру Battle City в браузере
+Попытка создать легендарную игру Battle City в браузере.
 
 ## Технологии
 TypeScript, React.js, Redux, Canvas, Express.js, PostgreSQL, MongoDB, Docker, Webpack, ESLint, Jest и многое другое...
 
 ## Управление
-:boom: (кнопка пробел) - стрельба
-
-__передвижение__   
+:boom: (кнопка пробел) - стрельба   
 :arrow_up: (кнопка вверх) - вверх    
 :arrow_right: (кнопка вправо) - вправо    
 :arrow_down: (кнопка вниз) - вниз    
@@ -46,7 +44,7 @@ __Остальное__
 `npm eslint` — запуск eslint
 
 ## Environment
-Для корректного запуска проекта необходимо скопировать файлы `.env.example` и `.env.local.example`, убрав расширение `.example` у них
+Для корректного запуска проекта необходимо скопировать файлы `.env.example` и `.env.local.example`, убрав расширение `.example` у них.
 
 ## Полезные ссылки для разработки
 https://ru.wikipedia.org/wiki/Battle_City    
@@ -54,3 +52,8 @@ https://habr.com/ru/post/142126/
 https://github.com/newagebegins/BattleCity    
 https://strategywiki.org/wiki/Battle_City/Walkthrough    
 https://yarnthen.github.io/yarnthencohosking/tutorials/2018/03/10/battle-city-unity-7.html
+
+## Разработчики
+[![zemer](https://avatars.githubusercontent.com/u/897766?s=100)](https://github.com/zemer)
+[![alexch365](https://avatars.githubusercontent.com/u/16709337?s=100)](https://github.com/alexch365)
+[![shchegol](https://avatars.githubusercontent.com/u/10686186?s=100)](https://github.com/shchegol)
