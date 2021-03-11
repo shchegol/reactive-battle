@@ -2,7 +2,7 @@
 import {
   EngineBus,
   GAMEPAD_CONNECTED,
-  GAMEPAD_DISCONECTED,
+  GAMEPAD_DISCONNECTED,
   PLAYER_SHOT,
   PLAYER_MOVE_BACKWARD,
   PLAYER_MOVE_FORWARD,
@@ -14,6 +14,12 @@ import {
   PLAYER_STOP_RIGHT,
 } from '@engine/EngineBus';
 
+/**
+ * Gamepad manager
+ * So far only for XBOX 360 controllers
+ *
+ * todo separate a joystick into a separate class
+ */
 export default class GamepadManager {
   protected controllers: Record<string, GamepadEvent['gamepad']>;
 
@@ -38,6 +44,7 @@ export default class GamepadManager {
   constructor() {
     this.controllers = {};
     this.opt = {
+      // change buttons id here
       buttons: {
         up: 12,
         down: 13,
@@ -56,37 +63,50 @@ export default class GamepadManager {
     };
   }
 
-  public get gamepadsId() {
+  /**
+   * Get all controllers id
+   */
+  public get gamepadsId(): string[] {
     return Object.keys(this.controllers);
   }
 
-  public get hasGamepads() {
+  /**
+   * Checks for joysticks
+   */
+  public get hasGamepads(): number {
     return this.gamepadsId.length;
   }
 
   public init(): void {
     window.addEventListener('gamepadconnected', this.connected, false);
-    window.addEventListener('gamepaddisconnected', this.disconected, false);
+    window.addEventListener('gamepaddisconnected', this.disconnected, false);
   }
 
   public destroy(): void {
     window.addEventListener('gamepadconnected', this.connected, false);
-    window.addEventListener('gamepaddisconnected', this.disconected, false);
+    window.addEventListener('gamepaddisconnected', this.disconnected, false);
   }
 
-  public updateState() {
+  /**
+   * The main function for check joystick state
+   * Must be placed to render loop (requestAnimationFrame)
+   */
+  public updateState(): void {
+    // scan controllers state
     this.scanGamepads();
 
+    // stop machine
     EngineBus.emit(PLAYER_STOP_FORWARD);
     EngineBus.emit(PLAYER_STOP_RIGHT);
     EngineBus.emit(PLAYER_STOP_BACKWARD);
     EngineBus.emit(PLAYER_STOP_LEFT);
 
-    Object.keys(this.controllers).forEach((id) => {
+    // check controllers
+    this.gamepadsId.forEach((id) => {
       const controller = this.controllers[id];
       const axes = { x: 0, y: 0 };
 
-      // buttons
+      // check buttons
       for (let i = 0; i < controller.buttons.length; i += 1) {
         let val: number | GamepadButton = controller.buttons[i];
 
@@ -94,12 +114,13 @@ export default class GamepadManager {
           val = val?.value;
         }
 
+        // this button pushed
         if (val === 1) {
           this.buttonHandler(i);
         }
       }
 
-      // axes
+      // check axes
       for (let i = 0; i < controller.axes.length; i += 1) {
         const direction = controller.axes[i];
 
@@ -118,26 +139,49 @@ export default class GamepadManager {
     });
   }
 
+  /**
+   * Controller connected
+   * @param {GamepadEvent} event - event from listener
+   */
   private connected = (event: GamepadEvent): void => {
     const { gamepad } = event;
     this.addGamepad(gamepad);
     EngineBus.emit(GAMEPAD_CONNECTED, gamepad);
   };
 
-  private disconected = (event: GamepadEvent): void => {
+  /**
+   * Controller connected
+   * @param {GamepadEvent} event - event from listener
+   */
+  private disconnected = (event: GamepadEvent): void => {
     const { gamepad } = event;
     this.removeGamepad(gamepad);
-    EngineBus.emit(GAMEPAD_DISCONECTED, gamepad);
+    EngineBus.emit(GAMEPAD_DISCONNECTED, gamepad);
   };
 
+  /**
+   * Add gamepad to controllers
+   * @param {Gamepad} gamepad - Gamepad object
+   * @private
+   */
   private addGamepad(gamepad: Gamepad): void {
     this.controllers[gamepad.index] = gamepad;
   }
 
+  /**
+   * Remove gamepad to controllers
+   * @param {Gamepad} gamepad - Gamepad object
+   * @private
+   */
   private removeGamepad(gamepad: Gamepad) {
     delete this.controllers[gamepad.index];
   }
 
+  /**
+   * Button click handler
+   * @param {number} buttonId - button index
+   * @private
+   */
   private buttonHandler(buttonId: number): void {
     switch (buttonId) {
       case this.opt.buttons.a: EngineBus.emit(PLAYER_SHOT); break;
@@ -148,12 +192,18 @@ export default class GamepadManager {
       case this.opt.buttons.down: EngineBus.emit(PLAYER_MOVE_BACKWARD); break;
       case this.opt.buttons.left: EngineBus.emit(PLAYER_MOVE_LEFT); break;
       case this.opt.buttons.right: EngineBus.emit(PLAYER_MOVE_RIGHT); break;
-      case this.opt.buttons.start:
-      case this.opt.buttons.select:
+      case this.opt.buttons.start: // todo do something when the start button is pressed
+      case this.opt.buttons.select: // todo do something when the select button is pressed
       default:
     }
   }
 
+  /**
+   * Controller axes handler
+   * @param {number} x - x-axis
+   * @param {number} y - y-axis
+   * @private
+   */
   private axesHandler(x: number, y: number) {
     if (x > this.opt.axes.sensitivity) {
       EngineBus.emit(PLAYER_MOVE_RIGHT);
@@ -172,6 +222,11 @@ export default class GamepadManager {
     }
   }
 
+  /**
+   * Gamepads scanner
+   * Makes a snapshot of gamepads state
+   * @private
+   */
   private scanGamepads(): void {
     const gamepads = navigator.getGamepads();
 

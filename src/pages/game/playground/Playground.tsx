@@ -14,7 +14,7 @@ import {
   GAME_PAUSE,
   GAME_RESUME,
   GAMEPAD_CONNECTED,
-  GAMEPAD_DISCONECTED
+  GAMEPAD_DISCONNECTED
 } from '@engine/EngineBus';
 import { gameControl } from '@engine/GameControl';
 import useSnackbar from '@root/hooks/useSnackbar';
@@ -50,7 +50,7 @@ const Playground: FC<PlaygroundProps> = ({ state = GameStates.NotStarted }) => {
     gamepadManager.init();
 
     EngineBus.on(GAMEPAD_CONNECTED, (e) => {showSnackbar(`Controller ${e.id} connected`)});
-    EngineBus.on(GAMEPAD_DISCONECTED, (e) => {showSnackbar(`Controller ${e.id} disconnected`)});
+    EngineBus.on(GAMEPAD_DISCONNECTED, (e) => {showSnackbar(`Controller ${e.id} disconnected`)});
 
     return () => {
       KeyboardManager.destroy();
