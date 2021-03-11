@@ -16,7 +16,7 @@
         "image_family": "debian-web-server",
         "image_description": "Yet another debian build 2",
   
-        "source_image_family": "debian-10",
+        "source_image_family": "debian-9",
         "disk_type":           "network-nvme",
         "ssh_username":        "debian",
   
