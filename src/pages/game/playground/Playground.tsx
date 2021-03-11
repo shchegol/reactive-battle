@@ -29,6 +29,8 @@ const Playground: FC<PlaygroundProps> = ({ state = GameStates.NotStarted }) => {
 
   useEffect(() => {
     spritesSheet.init();
+    spritesManager.init();
+    scene.init();
     CollisionManager.init();
     gameControl.init();
 
@@ -38,11 +40,6 @@ const Playground: FC<PlaygroundProps> = ({ state = GameStates.NotStarted }) => {
   }, []);
 
   useEffect(() => {
-    if (state === GameStates.Play) {
-      spritesManager.start();
-      scene.start();
-    }
-
     if (state === GameStates.GameOver) {
       scene.onGameOver();
     }

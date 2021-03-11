@@ -1,21 +1,41 @@
 import createLevelSprites from '@engine/LevelGenerator';
-import { Level, Level1 } from '@engine/Levels';
+import { gameLevels, Level } from '@engine/Levels';
 import { spritesManager } from '@engine/SpritesManager';
-import { EngineBus, LEVEL_NEW_ROUND, LEVEL_START } from './EngineBus';
+import {
+  EngineBus,
+  GAME_WIN,
+  LEVEL_NEW_ROUND,
+  LEVEL_START,
+} from './EngineBus';
 
 const ROUND_TIME = 10000;
 
 export default class Stage {
-  private level: Level | null;
+  private currentLevelIndex: number = -1;
+
+  private currentLevel: Level | null;
 
   private round: number;
 
   public nextLevel() {
-    this.level = Level1;
+    this.currentLevelIndex += 1;
 
-    createLevelSprites(this.level);
+    if (this.currentLevelIndex >= gameLevels.length) {
+      this.currentLevel = null;
 
-    EngineBus.emit(LEVEL_START, this.level);
+      if (this.round) {
+        clearInterval(this.round);
+      }
+
+      EngineBus.emit(GAME_WIN);
+      return;
+    }
+
+    this.currentLevel = gameLevels[this.currentLevelIndex];
+
+    createLevelSprites(this.currentLevel);
+
+    EngineBus.emit(LEVEL_START, this.currentLevel);
 
     if (this.round) {
       clearInterval(this.round);
@@ -25,7 +45,7 @@ export default class Stage {
   }
 
   public gameOver() {
-    this.level = null;
+    this.currentLevel = null;
 
     if (this.round) {
       clearInterval(this.round);
