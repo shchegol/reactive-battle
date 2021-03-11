@@ -9,3 +9,8 @@ export const updateScore = (payload: GamePayload) => ({
 export const clearScore = () => ({
   type: GameActions.CLEAR_SCORE,
 });
+
+export const updateLevel = (payload: GamePayload) => ({
+  type: GameActions.UPDATE_LEVEL,
+  payload,
+});

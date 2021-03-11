@@ -98,6 +98,7 @@ export interface PlayerState {
 export interface GameState {
   player: PlayerState,
   enemies: number,
+  level: number,
 }
 
 // loading

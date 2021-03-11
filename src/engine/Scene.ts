@@ -4,7 +4,13 @@ import { playerManager } from '@engine/PlayerManager';
 import { spritesManager } from '@engine/SpritesManager';
 import Stage from '@engine/Stage';
 import { enemiesManager } from './EnemiesManager';
-import { EngineBus, GAME_OVER, SPRITE_CREATED } from './EngineBus';
+import {
+  EngineBus,
+  GAME_OVER,
+  GAME_WIN,
+  LEVEL_WIN,
+  SPRITE_CREATED,
+} from './EngineBus';
 import { GameStates } from './types/GameStates';
 import { gameControl } from './GameControl';
 
@@ -17,10 +23,12 @@ export default class Scene {
   private player: Player | null;
 
   constructor() {
+    EngineBus.on(LEVEL_WIN, () => this.onLevelWin());
     EngineBus.on(GAME_OVER, () => this.onGameOver());
+    EngineBus.on(GAME_WIN, () => this.onGameOver());
   }
 
-  public start() {
+  public init() {
     this.stage = new Stage();
     this.player = new Player(132, 386);
 
@@ -29,6 +37,23 @@ export default class Scene {
     aiManager.init();
 
     this.stage.nextLevel();
+    EngineBus.emit(SPRITE_CREATED, this.player);
+  }
+
+  public onLevelWin() {
+    playerManager.stop();
+    enemiesManager.stop();
+    aiManager.stop();
+    spritesManager.deatachAllSprites();
+
+    this.player = new Player(132, 386);
+
+    playerManager.init(this.player);
+    enemiesManager.init();
+    aiManager.init();
+
+    this.stage?.nextLevel();
+
     EngineBus.emit(SPRITE_CREATED, this.player);
   }
 
