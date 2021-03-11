@@ -25,16 +25,15 @@
     ],
     "provisioners": [
       {
-        "type": "shell",
-        "inline": [
-          "echo 'kernel update'",
-          "until ping -c1 mirror.yandex.ru &>/dev/null; do :; done",
-          "sudo apt-get update -y",
-          "sleep 10",
-          "echo changed",
-      "export DEBIAN_FRONTEND=noninteractive",
-      "sudo apt-get install -y linux-image-amd64=4.19+105 linux-image-4.19.0-5-amd64=4.19.37-5"
-        ]
+          "type": "shell",
+          "inline": [
+            "echo 'updating APT'",
+            "sudo apt-get update -y",
+            "sudo apt-get install -y nginx",
+            "sudo su -",
+            "sudo systemctl enable nginx.service",
+            "curl localhost"
+          ]
       }
     ]
   }
