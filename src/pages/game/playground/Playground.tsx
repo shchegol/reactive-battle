@@ -67,7 +67,9 @@ const Playground: FC<PlaygroundProps> = ({ state = GameStates.NotStarted }) => {
         scene.render(ctx);
       }
 
-      gamepadManager.updateState()
+      if (gamepadManager.hasGamepads) {
+        gamepadManager.updateState()
+      }
 
       requestId = requestAnimationFrame(render);
     };

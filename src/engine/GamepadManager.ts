@@ -73,8 +73,8 @@ export default class GamepadManager {
   /**
    * Checks for joysticks
    */
-  public get hasGamepads(): number {
-    return this.gamepadsId.length;
+  public get hasGamepads(): boolean {
+    return !!this.gamepadsId.length;
   }
 
   public init(): void {

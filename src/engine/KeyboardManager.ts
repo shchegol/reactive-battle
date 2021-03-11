@@ -10,6 +10,7 @@ import {
   PLAYER_STOP_LEFT,
   PLAYER_STOP_RIGHT,
 } from '@engine/EngineBus';
+import { gamepadManager } from '@engine/GamepadManager';
 import { gameControl } from './GameControl';
 import { GameStates } from './types/GameStates';
 
@@ -27,7 +28,7 @@ export default class KeyboardManager {
   private static keyDownHandler(event: KeyboardEvent) {
     event.preventDefault();
 
-    if (gameControl.State !== GameStates.Play) return;
+    if (gameControl.State !== GameStates.Play || gamepadManager.hasGamepads) return;
 
     switch (event.key) {
       case 'ArrowRight':
@@ -58,7 +59,7 @@ export default class KeyboardManager {
   private static keyUpHandler(event: KeyboardEvent) {
     event.preventDefault();
 
-    if (gameControl.State !== GameStates.Play) return;
+    if (gameControl.State !== GameStates.Play || gamepadManager.hasGamepads) return;
 
     switch (event.code) {
       case 'ArrowRight':
