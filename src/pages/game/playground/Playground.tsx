@@ -1,12 +1,23 @@
+/* eslint-disable */
+// @ts-nocheck
+// todo не забыть убрать
 import React, { FC, useEffect, useRef } from 'react';
 import { CANVAS_HEIGHT, CANVAS_WIDTH, scene } from '@engine/Scene';
 import { spritesSheet } from '@engine/SpritesSheet';
 import { spritesManager } from '@engine/SpritesManager';
 import KeyboardManager from '@engine/KeyboardManager';
+import { gamepadManager } from '@engine/GamepadManager';
 import CollisionManager from '@engine/CollisionManager';
 import { GameStates } from '@engine/types/GameStates';
-import { EngineBus, GAME_PAUSE, GAME_RESUME } from '@engine/EngineBus';
+import {
+  EngineBus,
+  GAME_PAUSE,
+  GAME_RESUME,
+  GAMEPAD_CONNECTED,
+  GAMEPAD_DISCONECTED
+} from '@engine/EngineBus';
 import { gameControl } from '@engine/GameControl';
+import useSnackbar from '@root/hooks/useSnackbar';
 
 type PlaygroundProps = {
   state: GameStates;
@@ -14,6 +25,7 @@ type PlaygroundProps = {
 
 const Playground: FC<PlaygroundProps> = ({ state = GameStates.NotStarted }) => {
   const canvas = useRef<HTMLCanvasElement>(null);
+  const { showSnackbar } = useSnackbar();
 
   useEffect(() => {
     spritesSheet.init();
@@ -38,9 +50,14 @@ const Playground: FC<PlaygroundProps> = ({ state = GameStates.NotStarted }) => {
 
   useEffect(() => {
     KeyboardManager.init();
+    gamepadManager.init();
+
+    EngineBus.on(GAMEPAD_CONNECTED, (e) => {showSnackbar(`Controller ${e.id} connected`)});
+    EngineBus.on(GAMEPAD_DISCONECTED, (e) => {showSnackbar(`Controller ${e.id} disconnected`)});
 
     return () => {
       KeyboardManager.destroy();
+      gamepadManager.destroy();
     };
   }, []);
 
@@ -52,6 +69,8 @@ const Playground: FC<PlaygroundProps> = ({ state = GameStates.NotStarted }) => {
       if (ctx && canvas.current) {
         scene.render(ctx);
       }
+
+      gamepadManager.updateState()
 
       requestId = requestAnimationFrame(render);
     };
