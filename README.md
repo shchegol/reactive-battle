@@ -1,16 +1,22 @@
 # [Reactive Battle](https://reactive-battle.herokuapp.com/) [![License](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
-Проект на стадии разработки...
 
-Релиз: https://reactive-battle.herokuapp.com/
+Где смотреть:    
+:eyes: https://reactive-battle.herokuapp.com/
+
+:pray: Поддержи проект :point_up_2::star::relieved:
 
 ## Описание
-Попытка создать легендарную игру Battle City в браузере
-
-## Управление
-В разработке ...
+Попытка создать легендарную игру Battle City в браузере.
 
 ## Технологии
-React, TypeScript, Canvas
+TypeScript, React.js, Redux, Canvas, Express.js, PostgreSQL, MongoDB, Docker, Webpack, ESLint, Jest и многое другое...
+
+## Управление
+:boom: (кнопка пробел) - стрельба   
+:arrow_up: (кнопка вверх) - вверх    
+:arrow_right: (кнопка вправо) - вправо    
+:arrow_down: (кнопка вниз) - вниз    
+:arrow_left: (кнопка влево) - влево
 
 ## Сертификат для разработки
 Для запуска локального сервера нужен сертификат. Сертификат можно создать так:
@@ -25,22 +31,29 @@ https://medium.com/@nitinpatel_20236/how-to-create-an-https-server-on-localhost-
 Файлы key.pem и cert.pem нужно положить в папку ssl в корне проекта.
 
 ## Сборка
-* `npm i` — установка стабильной версии,
-* `npm start` — запуск версии для разработки.
-* `npm dev:ssr:start` — запуск версии c SSR для разработки.
-* `npm build` — сборка проекта.
-* `npm test` — запуск тестов.
+`npm i` — установка стабильной версии    
+`npm start` — запуск версии для разработки    
+`build:prod` — сборка продуктовой версии    
+
+__SSR__    
+`ssr:start:dev` — запуск версии c SSR для разработки    
+`ssr:start:prod` — сборка продуктовой версии c SSR    
+
+__Остальное__    
+`npm test` — запуск тестов    
+`npm eslint` — запуск eslint
 
 ## Environment
-Для корректного запуска проекта необходимо скопировать файлы `.env.example` и `.env.local.example`, убрав расширение `.example` у них
+Для корректного запуска проекта необходимо скопировать файлы `.env.example` и `.env.local.example`, убрав расширение `.example` у них.
 
 ## Полезные ссылки для разработки
-https://ru.wikipedia.org/wiki/Battle_City
-
-https://habr.com/ru/post/142126/
-
-https://github.com/newagebegins/BattleCity
-
-https://strategywiki.org/wiki/Battle_City/Walkthrough
-
+https://ru.wikipedia.org/wiki/Battle_City    
+https://habr.com/ru/post/142126/    
+https://github.com/newagebegins/BattleCity    
+https://strategywiki.org/wiki/Battle_City/Walkthrough    
 https://yarnthen.github.io/yarnthencohosking/tutorials/2018/03/10/battle-city-unity-7.html
+
+## Разработчики
+[![zemer](https://avatars.githubusercontent.com/u/897766?s=100)](https://github.com/zemer)
+[![alexch365](https://avatars.githubusercontent.com/u/16709337?s=100)](https://github.com/alexch365)
+[![shchegol](https://avatars.githubusercontent.com/u/10686186?s=100)](https://github.com/shchegol)

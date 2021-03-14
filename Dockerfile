@@ -5,4 +5,4 @@ WORKDIR /project
 RUN npm install
 EXPOSE 5000
 
-CMD npm run dev:ssr:start
+CMD npm run ssr:start:prod
