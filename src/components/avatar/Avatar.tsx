@@ -4,8 +4,6 @@ import { API_YANDEX_URL } from '@root/constants';
 import { Props } from './types';
 import './avatar.scss';
 
-const avatarTmpl = require('@root/images/no-avatar.png').default;
-
 /**
  * Avatar
  * @param {string|null} [src=undefined] - image source url
@@ -16,7 +14,7 @@ const avatarTmpl = require('@root/images/no-avatar.png').default;
  */
 
 const Avatar: FC<Props> = ({
-  src = avatarTmpl,
+  src = undefined,
   size = undefined,
   onInputChange = undefined,
   ...rest

@@ -27,3 +27,6 @@ export const GAME_PAUSE = 'GAME/PAUSE';
 export const GAME_RESUME = 'GAME/RESUME';
 export const GAME_OVER = 'GAME/OVER';
 export const GAME_WIN = 'GAME/WIN';
+
+export const GAMEPAD_CONNECTED = 'GAMEPAD/CONNECTED';
+export const GAMEPAD_DISCONNECTED = 'GAMEPAD/DISCONNECTED';
