@@ -32,7 +32,7 @@ export default function Leaderboard() {
       .then((rPlayers) => {
         const newPlayers = rPlayers.map((rPlayer, i) => ({
           position: i + 1,
-          login: rPlayer.data.login || rPlayer.data.name || 'noname',
+          login: rPlayer.data.login,
           score: rPlayer.data.score,
         }));
 

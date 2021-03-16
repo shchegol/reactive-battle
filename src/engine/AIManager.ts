@@ -17,10 +17,6 @@ enum EnemyBehavior {
 export default class AIManager {
   private behavior: EnemyBehavior = EnemyBehavior.Chaotic;
 
-  constructor() {
-    this.changeBehavior = this.changeBehavior.bind(this);
-  }
-
   public init() {
     EngineBus.on(LEVEL_NEW_ROUND, this.changeBehavior);
   }
@@ -48,7 +44,7 @@ export default class AIManager {
     }
   }
 
-  private changeBehavior() {
+  private changeBehavior = () => {
     switch (this.behavior) {
       case EnemyBehavior.ToPlayer:
         this.behavior = EnemyBehavior.ToBase;
@@ -63,7 +59,7 @@ export default class AIManager {
         this.behavior = EnemyBehavior.ToPlayer;
         break;
     }
-  }
+  };
 
   private static randomMovement(enemies: EnemyTank[]) {
     enemies.forEach((enemy: EnemyTank) => {

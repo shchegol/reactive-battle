@@ -15,7 +15,7 @@ export default class Stage {
 
   private currentLevel: Level | null;
 
-  private round: number;
+  private round: null | ReturnType<typeof setTimeout> = null;
 
   public nextLevel() {
     this.currentLevelIndex += 1;
@@ -41,7 +41,7 @@ export default class Stage {
       clearInterval(this.round);
     }
 
-    this.round = window.setInterval(Stage.onNewRound, ROUND_TIME);
+    this.round = setInterval(Stage.onNewRound, ROUND_TIME);
   }
 
   public gameOver() {

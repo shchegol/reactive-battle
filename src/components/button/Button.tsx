@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import toClassNames from '@root/utils/toClassNames';
+import toClassNames from '@utils/toClassNames';
 import './button.scss';
 import { Props } from './types';
 
@@ -28,15 +28,9 @@ const Button: FC<Props> = ({
     className={toClassNames(
       'button',
       {
-        button_color_danger: color === 'danger',
-        button_color_success: color === 'success',
-        button_color_link: color === 'link',
-        button_color_cancel: color === 'cancel',
-        button_size_s: size === 's',
-        button_size_l: size === 'l',
-        button_size_xl: size === 'xl',
-        button_size_icon: size === 'icon',
-        button_width_full: width === 'full',
+        [`button_color_${color}`]: color,
+        [`button_size_${size}`]: size,
+        [`button_width_${width}`]: width,
         button_icon: icon,
       },
       rest.className,

@@ -18,13 +18,20 @@ const Topics: FC<Props> = (
   return (
     <div>
       {
-        topics.map((topic) => (
-          <TopicItem
-            key={topic.id}
-            topic={topic}
-            onClick={() => history.push(`/forum/${topic.id}`, topic)}
-          />
-        ))
+        topics.length !== 0
+          ? topics.map((topic) => (
+            <TopicItem
+              key={topic.id}
+              topic={topic}
+              onClick={() => history.push(`/forum/${topic.id}`, topic)}
+            />
+          ))
+          : (
+            <div className="text-color-gray-500 text-align-center mt-60">
+              <p>There are no topics here yet</p>
+              <p>Be first ;)</p>
+            </div>
+          )
       }
     </div>
   );

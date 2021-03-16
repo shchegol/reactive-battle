@@ -1,8 +1,8 @@
 import { Review } from '@root/store/types';
-import apiAxios from '@root/utils/apiRequest';
+import apiAxios from '@utils/apiRequest';
 
-export default class FeedbackAPI {
-  static addReview(data: Partial<Review>): Promise<Review> {
-    return apiAxios.post('reviews', data);
-  }
-}
+export const addReview = (data: Partial<Review>): Promise<Review> => apiAxios.post('reviews', data);
+
+export default {
+  addReview,
+};

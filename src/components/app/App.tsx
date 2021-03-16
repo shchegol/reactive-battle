@@ -19,9 +19,10 @@ import { yaOauth } from '@store/actionsCreators/auth';
 import authSelector from '@store/selectors/auth';
 import userSelector from '@store/selectors/user';
 import { ThemeContext, TTheme, TThemeContext } from '@root/contexts/theme';
-import ThemeAPI from '@api/ThemeAPI';
+import { getUserTheme, getTheme } from '@api/ThemeAPI';
 import useSnackbar from '@root/hooks/useSnackbar';
 import useLoading from '@root/hooks/useLoading';
+import { SiteThemeResponse } from '@api/types';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -30,6 +31,18 @@ export default function App() {
   const { theme, updateTheme } = useContext(ThemeContext) as TThemeContext;
   const { showSnackbar } = useSnackbar();
   const { hideLoading } = useLoading();
+  const setTheme = async (userLogin: string) => {
+    if (!userLogin) {
+      throw new Error();
+    }
+
+    try {
+      const userThemeRes = await getUserTheme(login);
+      return await getTheme({ id: userThemeRes.themeId });
+    } catch (e) {
+      throw new Error(`Unfortunately the theme "${theme}" is not set. Something goes wrong.`);
+    }
+  };
 
   useEffect(() => {
     const code = oAuthCode || getUrlParam('code');
@@ -38,35 +51,22 @@ export default function App() {
   }, [dispatch, isLoggedIn, oAuthCode]);
 
   useEffect(() => {
-    if (login) {
-      (async () => {
-        try {
-          const userThemeRes = await ThemeAPI.getUserTheme(login);
-          const themeRes = await ThemeAPI.getTheme({ id: userThemeRes.themeId });
-          updateTheme(themeRes.theme as TTheme);
-        } catch (e) {
-          showSnackbar(`Unfortunately the theme "${theme}" is not set. Something goes wrong.`, 'danger');
-        }
+    setTheme(login)
+      .then(
+        (data) => {
+          const themeData = data as SiteThemeResponse;
+          updateTheme(themeData.theme as TTheme);
+        },
+        (err) => {
+          updateTheme('dark');
 
-        /**
-         * прелоадер открывается на сервере, либо при аутентификации,
-         * а закрывается после присвоения темы
-         */
-        hideLoading();
-      })();
-    } else {
-      updateTheme('dark');
-      hideLoading();
-    }
+          if (err.message) {
+            showSnackbar(err.message, 'danger');
+          }
+        },
+      )
+      .then(() => hideLoading());
   }, [login]);
-
-  useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.removeAttribute('theme');
-    } else {
-      document.documentElement.setAttribute('theme', 'light');
-    }
-  }, [theme]);
 
   return (
     <Switch>

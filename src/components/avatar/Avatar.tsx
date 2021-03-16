@@ -35,8 +35,7 @@ const Avatar: FC<Props> = ({
       className={toClassNames(
         'profile-avatar',
         {
-          'profile-avatar_size_xs': size === 'xs',
-          'profile-avatar_size_l': size === 'l',
+          [`profile-avatar_size_${size}`]: size,
         },
         rest.className,
       )}
