@@ -40,8 +40,7 @@ const Snackbar: FC = () => {
         className={toClassNames(
           'snackbar',
           {
-            snackbar_color_danger: snackbar.type === 'danger',
-            snackbar_color_success: snackbar.type === 'success',
+            [`snackbar_color_${snackbar.type}`]: snackbar.type,
           },
         )}
       >

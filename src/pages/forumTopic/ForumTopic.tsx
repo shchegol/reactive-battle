@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { Topic } from '@root/store/types';
@@ -16,12 +16,10 @@ import userSelector from '@store/selectors/user';
 export default function ForumTopic() {
   const history = useHistory();
   const params = useParams<{ id: string }>();
-
-  const topicId = Number.parseInt(params.id, 10);
   const { topics } = useSelector(forumSelector);
   const { login } = useSelector(userSelector);
-  const topic = topics.find((f) => f.id === topicId) || {} as Topic;
-
+  const topicId = Number.parseInt(params.id, 10);
+  const topic = useMemo(() => topics.find((f) => f.id === topicId) || {} as Topic, [topicId, topics]);
   const comments = topic?.comments || [];
 
   const dispatch = useDispatch();

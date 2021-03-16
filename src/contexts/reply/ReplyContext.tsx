@@ -8,12 +8,8 @@ export const ReplyProvider: React.FC<React.ReactNode> = ({
 }) => {
   const [reply, setReply] = React.useState<TReply>(null);
 
-  const updateReply = (newReply: TReply) => {
-    setReply(newReply);
-  };
-
   return (
-    <ReplyContext.Provider value={{ reply, updateReply }}>
+    <ReplyContext.Provider value={{ reply, updateReply: setReply }}>
       {children}
     </ReplyContext.Provider>
   );

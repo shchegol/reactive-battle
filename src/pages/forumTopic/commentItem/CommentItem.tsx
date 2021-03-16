@@ -1,9 +1,10 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useMemo } from 'react';
 import { Comment } from '@store/types';
 import Comments from '@pages/forumTopic/comments';
 import Button from '@components/button';
 import Icon from '@components/icon';
 import { ReplyContext, TReplyContext, TReply } from '@root/contexts/reply';
+import isValidDate from '@utils/isValidDate';
 import { Props } from './types';
 import './commentItem.scss';
 
@@ -21,6 +22,13 @@ const CommentItem: FC<Props> = ({
   topicComments = [],
 }) => {
   const { updateReply } = useContext(ReplyContext) as TReplyContext;
+  const getDate = useMemo(() => {
+    const commentDate = new Date(comment.createdAt.replace(' ', 'T'));
+
+    if (!isValidDate(commentDate)) return '';
+
+    return commentDate.toLocaleString();
+  }, [comment.createdAt]);
 
   return (
     <li className="comment-item">
@@ -44,7 +52,7 @@ const CommentItem: FC<Props> = ({
 
         <div className="col-auto text-align-right text-color-gray-500">
           <data className="text-size-s">
-            {new Date(comment.createdAt.replace(' ', 'T')).toLocaleString()}
+            {getDate}
           </data>
         </div>
       </div>

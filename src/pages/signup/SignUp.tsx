@@ -11,7 +11,6 @@ export default function SignUp() {
 
   const submitHandler = async (event: React.FormEvent, userData: SignUpRequest) => {
     event.preventDefault();
-    console.log(1);
     signup(userData);
   };
 

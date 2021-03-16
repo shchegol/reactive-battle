@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { camelToSnakeCase } from '@root/utils/stringUtils';
+import { camelToSnakeCase } from '@utils/stringUtils';
 
 export const objectKeysToSnakeCase = (obj: any) => {
   if (!obj || !Object.keys(obj).length) {

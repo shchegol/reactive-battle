@@ -14,17 +14,31 @@ import './comments.scss';
 const Comments: FC<Props> = (
   { topicComments = [], parentCommentId = null },
 ) => (
-  <ul className="messages">
-    {topicComments
-      .filter(((comment) => comment.comment_id === parentCommentId))
-      .map((comment) => (
-        <MessageItem
-          key={comment.id}
-          comment={comment}
-          topicComments={topicComments}
-        />
-      ))}
-  </ul>
+  <>
+    {
+      topicComments.length !== 0
+        ? (
+          <ul className="messages">
+            {topicComments
+              .filter(((comment) => comment.comment_id === parentCommentId))
+              .map((comment) => (
+                <MessageItem
+                  key={comment.id}
+                  comment={comment}
+                  topicComments={topicComments}
+                />
+              ))}
+          </ul>
+        )
+        : (
+          <div className="text-color-gray-500 text-align-center mt-40">
+            <p>There are no comments here yet</p>
+            <p>Be first ;)</p>
+          </div>
+
+        )
+    }
+  </>
 );
 
 export default Comments;

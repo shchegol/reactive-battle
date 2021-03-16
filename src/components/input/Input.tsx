@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import toClassNames from '@root/utils/toClassNames';
+import toClassNames from '@utils/toClassNames';
 
 import './input.scss';
 import { Props } from './types';

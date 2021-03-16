@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import toClassNames from '@root/utils/toClassNames';
+import toClassNames from '@utils/toClassNames';
 import './mainTitle.scss';
 import { API_YANDEX_URL } from '@root/constants';
 import { Props } from './types';
@@ -33,21 +33,20 @@ const MainTitle: FC<Props> = ({
   }, [imgSrc]);
 
   const renderAvatar = () => {
-    if (hasImg) {
-      if (avatar) {
-        return (
-          <img
-            src={avatar}
-            alt={subtitleText}
-            className="main-title__img"
-          />
+    if (!hasImg) return null;
 
-        );
-      }
-      return <div className="main-title__img" />;
+    if (avatar) {
+      return (
+        <img
+          src={avatar}
+          alt={subtitleText}
+          className="main-title__img"
+        />
+
+      );
     }
 
-    return null;
+    return <div className="main-title__img" />;
   };
 
   return (

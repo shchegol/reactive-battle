@@ -1,26 +1,20 @@
-import apiAxios from '@root/utils/apiRequest';
+import apiAxios from '@utils/apiRequest';
 import { SiteThemeResponse, UserThemeResponse } from '@api/types';
 
-class ThemeAPI {
-  static prefixThemes = '/themes';
+const prefixThemes = '/themes';
+const prefixUserThemes = '/user-themes';
 
-  static prefixUserThemes = '/user-themes';
+export const getTheme = (params: {id?: number, name?: string}): Promise<SiteThemeResponse> => apiAxios.get(`${prefixThemes}`, { params });
+export const setUserTheme = (data: {themeId: number, ownerLogin: string}) => apiAxios.post(`${prefixUserThemes}`, data);
+export const getUserTheme = (login: string): Promise<UserThemeResponse> => apiAxios.get(`${prefixUserThemes}/${login}`);
+export const updateUserTheme = (login: string, themeId: number) => apiAxios.patch(`${prefixUserThemes}/${login}`, { themeId });
 
-  static getTheme(params: {id?: number, name?: string}): Promise<SiteThemeResponse> {
-    return apiAxios.get(`${ThemeAPI.prefixThemes}`, { params });
-  }
+export default {
+  prefixThemes,
+  prefixUserThemes,
 
-  static setUserTheme(data: {themeId: number, ownerLogin: string}) {
-    return apiAxios.post(`${ThemeAPI.prefixUserThemes}`, data);
-  }
-
-  static getUserTheme(login: string): Promise<UserThemeResponse> {
-    return apiAxios.get(`${ThemeAPI.prefixUserThemes}/${login}`);
-  }
-
-  static updateUserTheme(login: string, themeId: number) {
-    return apiAxios.patch(`${ThemeAPI.prefixUserThemes}/${login}`, { themeId });
-  }
-}
-
-export default ThemeAPI;
+  getTheme,
+  setUserTheme,
+  getUserTheme,
+  updateUserTheme,
+};

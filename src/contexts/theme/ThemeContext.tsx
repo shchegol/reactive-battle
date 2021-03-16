@@ -9,11 +9,14 @@ export const ThemeProvider: React.FC<React.ReactNode> = ({
   const [theme, setTheme] = React.useState<TTheme>('dark');
 
   const updateTheme = (themeName?: TTheme) => {
-    if (!themeName) {
-      setTheme(theme === 'dark' ? 'light' : 'dark');
-    } else {
-      setTheme(themeName);
+    let newThemeName = themeName;
+
+    if (!newThemeName) {
+      newThemeName = theme === 'dark' ? 'light' : 'dark';
     }
+
+    setTheme(newThemeName);
+    document.documentElement.setAttribute('theme', newThemeName);
   };
 
   return (
