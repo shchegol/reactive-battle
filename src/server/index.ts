@@ -24,12 +24,12 @@ const info = `
 
 (async () => {
   try {
-    await sequelize.sync({ force: true });
+    await sequelize.sync();
     // Main themes creating
     await SiteTheme.bulkCreate<Model<Partial<SiteTheme>>>([
       { theme: 'dark', description: 'Default dark theme' },
       { theme: 'light', description: 'Light theme' },
-    ]);
+    ], { updateOnDuplicate: ['theme', 'description'] });
     console.log('\x1b[32mPostgreSQL is connected\x1b[0m');
     await mongooseConnect();
     console.log('\x1b[32mMongoDB is connected\x1b[0m');
