@@ -5,16 +5,16 @@ html {
 body {
   font-family: $font-primary;
   font-weight: 900;
-  color: map_get($colors, primary);
-  background-color: black;
+  color: var(--color-primary);
+  background-color: var(--color-background);
 }
 
 a {
-  color: map_get($colors, secondary);
+  color: var(--color-secondary);
   text-decoration: none;
 
   &:hover,
   &:active {
-    color: map_get($colors, primary);
+    color: var(--color-primary);
   }
 }

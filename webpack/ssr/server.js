@@ -2,9 +2,9 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpackNodeExternals = require('webpack-node-externals');
 const util = require('../webpack.utils');
 
-module.exports = (env) => ({
+module.exports = {
   target: 'node',
-  mode: env.NODE_ENV || 'development',
+  mode: process.env.NODE_ENV || 'development',
   entry: '/src/server/index.ts',
   externals: [webpackNodeExternals()],
   output: {
@@ -20,6 +20,7 @@ module.exports = (env) => ({
       '@engine': util.resolve('src/engine'),
       '@pages': util.resolve('src/pages'),
       '@root': util.resolve('src'),
+      '@server': util.resolve('src/server'),
       '@store': util.resolve('src/store'),
       '@styles': util.resolve('src/styles'),
       '@utils': util.resolve('src/utils'),
@@ -46,4 +47,4 @@ module.exports = (env) => ({
   plugins: [
     new CleanWebpackPlugin(),
   ],
-});
+};

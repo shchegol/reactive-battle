@@ -1,4 +1,4 @@
 export enum SnackbarActions {
-  SNACKBAR_SHOW = 'SNACKBAR/SHOW',
-  SNACKBAR_HIDE = 'SNACKBAR/HIDE',
+  SHOW = 'SNACKBAR/SHOW',
+  HIDE = 'SNACKBAR/HIDE',
 }

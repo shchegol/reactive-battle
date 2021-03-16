@@ -1,3 +1,4 @@
+// Auth
 export interface SignUpRequest {
   first_name: string;
   second_name: string;
@@ -12,6 +13,7 @@ export interface SignInRequest {
   password: string;
 }
 
+// User
 export interface UserResponse {
   id: number;
   first_name: string;
@@ -34,24 +36,28 @@ export interface YaServiceResponse {
   service_id: string
 }
 
+// Leaderboard
 /**
- * @param {Number} - player position
  * @param {String} - player name
  * @param {Number} - player score
  */
 export interface LeaderboardData {
-  name: string;
+  login: string;
   score: number;
 }
 
 /**
- * @param {*} ratingFieldName - Leaderboard data object, any type
+ * @param {LeaderboardData} data - Leaderboard data object
  * @param {string} ratingFieldName - Which field is used to sort
  * (if new value of the field more than old, data is stored)
  */
 export interface LeaderboardNewLeaderRequest {
   data: LeaderboardData;
   ratingFieldName: string;
+}
+
+export interface LeaderboardResponsePlayer {
+  data: LeaderboardData
 }
 
 /**
@@ -63,4 +69,17 @@ export interface LeaderboardRequest {
   ratingFieldName: string,
   cursor: number,
   limit: number,
+}
+
+// Themes
+export interface UserThemeResponse {
+  id: number;
+  themeId: number;
+  ownerLogin: string;
+}
+
+export interface SiteThemeResponse {
+  id: number;
+  theme: string;
+  description: string;
 }

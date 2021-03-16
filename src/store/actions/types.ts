@@ -3,6 +3,9 @@ import { UserActions } from '@store/actions/user';
 import { UserResponse } from '@api/types';
 import { AuthActions } from '@store/actions/auth';
 import { ForumActions } from '@store/actions/forum';
+import { Comment, Topic, Review } from '@store/types';
+import { FeedbackActions } from '@store/actions/feedback';
+import { LoadingActions } from '@store/actions/loading';
 import { GameActions } from './game';
 
 export type TPayload<T, P> = {
@@ -27,17 +30,22 @@ export interface UserPayload {
 export type UserAction = TPayload<UserActions, UserPayload>;
 
 // Forum
-export interface AddThreadActionType {
-  type: ForumActions.ADD_THREAD;
-  name: string;
+export interface ForumPayload {
+  topics?: Topic[];
+  topic?: Topic;
+  comment?: Comment;
+  error?: string;
 }
-export interface AddMessageActionType {
-  type: ForumActions.ADD_MESSAGE;
-  threadId: number;
-  author: string;
-  text: string;
+
+export type ForumAction = TPayload<ForumActions, ForumPayload>;
+
+// Feedback
+export interface FeedbackPayload {
+  review?: Review;
+  error?: string;
 }
-export type ForumActionTypes = AddThreadActionType | AddMessageActionType;
+
+export type FeedbackAction = TPayload<FeedbackActions, FeedbackPayload>;
 
 // Snackbar
 export interface SnackbarPayload {
@@ -49,8 +57,17 @@ export interface SnackbarPayload {
 export type SnackbarAction = TPayload<SnackbarActions, SnackbarPayload>;
 
 // Game
-export interface UpdateScoreActionType {
-  type: GameActions.UPDATE_SCORE;
+export type TankTypes = 'basic' | 'fast' | 'armor' | 'power';
+
+export interface GamePayload {
+  tankType?: TankTypes,
+  level?: number,
+  enemies?: number,
 }
 
-export type GameAction = UpdateScoreActionType;
+export type GameAction = Required<TPayload<GameActions, GamePayload>>;
+
+// Loading
+export interface LoadingAction {
+  type: LoadingActions;
+}

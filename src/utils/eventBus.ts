@@ -13,9 +13,9 @@ export default class EventBus {
     this.listeners.get(event)?.push(callback);
   }
 
-  off(event: string, callback: () => void): void {
+  off(event: string, callback: any): void {
     if (!this.listeners.get(event)) {
-      throw new Error(`Нет события: ${event}`);
+      return;
     }
 
     const newListeners = this.listeners.get(event)?.filter(

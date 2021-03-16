@@ -3,7 +3,7 @@ import EnemyTank from './EnemyTank';
 
 export default class FastTank extends EnemyTank {
   constructor(x: number, y: number) {
-    super(x, y, 13, 15);
+    super('fast', x, y, 13, 15);
   }
 
   protected GetSprite() {

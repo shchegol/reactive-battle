@@ -87,3 +87,5 @@ export const changePassword = (data: PasswordRequest) => {
       });
   };
 };
+
+export const clearProfile = () => ({ type: UserActions.CLEAR });

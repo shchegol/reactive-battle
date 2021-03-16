@@ -20,7 +20,7 @@ export default function SignUp() {
 
   return (
     <div className="container">
-      <div className="row">
+      <div className="row mt-40">
         <div className="col">
           <MainTitle />
         </div>

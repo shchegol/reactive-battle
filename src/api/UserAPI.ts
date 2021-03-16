@@ -1,31 +1,25 @@
 import { PasswordRequest, UserRequest, UserResponse } from '@api/types';
-import axios from '@utils/apiRequest';
+import axios from '@utils/yandexApiRequest';
 
-class UserAPI {
-  static prefix = '/user';
+const prefix = '/user';
 
-  static changeProfile(data: UserRequest): Promise<UserResponse> {
-    return axios.put(`${UserAPI.prefix}/profile`, data);
-  }
+export const changeProfile = (data: UserRequest): Promise<UserResponse> => axios.put(`${prefix}/profile`, data);
+export const changeAvatar = (avatar: File): Promise<UserResponse> => {
+  const formData = new FormData();
+  formData.append('avatar', avatar);
 
-  static changeAvatar(avatar: File): Promise<UserResponse> {
-    const formData = new FormData();
-    formData.append('avatar', avatar);
+  return axios.put(`${prefix}/profile/avatar`, formData);
+};
+export const changePassword = (data: PasswordRequest) => axios.put(`${prefix}/password`, data);
+export const getUser = (id: string) => axios.get(`${prefix}/${id}`);
+export const findUser = (login: string) => axios.post(`${prefix}/search`, login);
 
-    return axios.put(`${UserAPI.prefix}/profile/avatar`, formData);
-  }
+export default {
+  prefix,
 
-  static changePassword(data: PasswordRequest) {
-    return axios.put(`${UserAPI.prefix}/password`, data);
-  }
-
-  static getUser(id: string) {
-    return axios.get(`${UserAPI.prefix}/${id}`);
-  }
-
-  static findUser(login: string) {
-    return axios.post(`${UserAPI.prefix}/search`, login);
-  }
-}
-
-export default UserAPI;
+  changeProfile,
+  changeAvatar,
+  changePassword,
+  getUser,
+  findUser,
+};

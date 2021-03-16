@@ -1,5 +1,5 @@
 import {
-  EngineBus, GAME_PAUSE, GAME_RESUME, GAME_START,
+  EngineBus, GAME_OVER, GAME_PAUSE, GAME_RESUME, GAME_START, GAME_WIN,
 } from './EngineBus';
 import { GameStates } from './types/GameStates';
 
@@ -18,6 +18,8 @@ export default class GameControl {
     EngineBus.on(GAME_START, () => this.onStart());
     EngineBus.on(GAME_PAUSE, () => this.onPause());
     EngineBus.on(GAME_RESUME, () => this.onResume());
+    EngineBus.on(GAME_OVER, () => this.onGameOver());
+    EngineBus.on(GAME_WIN, () => this.onGameOver());
 
     this.wasInit = true;
   }
@@ -32,6 +34,10 @@ export default class GameControl {
 
   private onResume() {
     this.state = GameStates.Play;
+  }
+
+  private onGameOver() {
+    this.state = GameStates.GameOver;
   }
 
   public pause() {

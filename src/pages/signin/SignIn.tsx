@@ -5,14 +5,14 @@ import { Link, Redirect } from 'react-router-dom';
 import { SignInRequest } from '@api/types';
 import Button from '@components/button';
 import AuthAPI from '@api/AuthAPI';
-import { API_YANDEX_OAUTH_URL } from '@root/constants';
+import { API_YANDEX_OAUTH_URL, API_YANDEX_REDIRECT_URI } from '@root/constants';
 import { Helmet } from 'react-helmet';
 import useAuth from '@root/hooks/useAuth';
 import useSnackbar from '@root/hooks/useSnackbar';
 
 export default function SignIn() {
   const { isLoggedIn, signin } = useAuth();
-  const [showSnackbar] = useSnackbar();
+  const { showSnackbar } = useSnackbar();
 
   const submitHandler = (event: React.FormEvent, userData: SignInRequest) => {
     event.preventDefault();
@@ -20,7 +20,7 @@ export default function SignIn() {
   };
 
   const yandexOauthHandler = () => {
-    const getOAuthUrl = (serviceId: string): string => `${API_YANDEX_OAUTH_URL}?response_type=code&client_id=${serviceId}`;
+    const getOAuthUrl = (serviceId: string): string => `${API_YANDEX_OAUTH_URL}?response_type=code&client_id=${serviceId}&redirect_uri=${API_YANDEX_REDIRECT_URI}`;
 
     AuthAPI.yaGetServiceId()
       .then((res) => {
@@ -38,7 +38,7 @@ export default function SignIn() {
   return (
     <div className="container">
       <Helmet title="Signin" />
-      <div className="row">
+      <div className="row mt-40">
         <div className="col">
           <MainTitle />
         </div>

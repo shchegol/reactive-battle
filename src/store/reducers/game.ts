@@ -1,4 +1,4 @@
-import { GameAction } from '@store/actions/types';
+import { GameAction, TankTypes } from '@store/actions/types';
 import { GameState } from '@store/types';
 import { GameActions } from '../actions/game';
 
@@ -10,6 +10,20 @@ const defaultState: GameState = {
     kills: 0,
   },
   enemies: 20,
+  level: 1,
+};
+
+const scoring = (prevScore: number, tankType: TankTypes): number => {
+  const scores = {
+    basic: 100,
+    fast: 200,
+    armor: 300,
+    power: 400,
+  };
+
+  console.log(prevScore, tankType);
+
+  return scores[tankType] + prevScore;
 };
 
 export default function game(
@@ -23,9 +37,20 @@ export default function game(
         player: {
           ...state.player,
           kills: state.player.kills + 1,
-          score: state.player.score + 300,
+          score: scoring(state.player.score, action.payload.tankType || 'basic'),
         },
-        enemies: state.enemies - 1,
+        enemies: state.enemies > 0 ? state.enemies - 1 : 0,
+      };
+    case GameActions.CLEAR_SCORE:
+      return {
+        ...state,
+        ...defaultState,
+      };
+    case GameActions.UPDATE_LEVEL:
+      return {
+        ...state,
+        level: action.payload.level || 1,
+        enemies: 20,
       };
     default:
       return state;

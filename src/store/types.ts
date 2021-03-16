@@ -6,6 +6,7 @@ export interface ApplicationState {
   forum: ForumState;
   snackbar: SnackbarState;
   game: GameState;
+  loading: LoadingState;
 }
 
 // Auth
@@ -14,7 +15,6 @@ export interface AuthRootState {
 }
 
 export interface AuthState {
-  isLoading: boolean,
   isLoggedIn: boolean,
   isOAuth: boolean,
   oAuthCode: string,
@@ -22,6 +22,10 @@ export interface AuthState {
 }
 
 // User
+export interface UserRootState {
+  user: UserState;
+}
+
 export interface UserState {
   info: UserResponse,
   error: string,
@@ -30,26 +34,44 @@ export interface UserState {
 // Leaderboard
 export interface Player {
   position: number;
-  name: string;
+  login: string;
   score: number;
 }
 
 // Forum
-export interface Message {
-  id: number;
-  author: string;
-  date: Date;
-  text: string;
-}
-
-export interface Thread {
-  id: number;
-  name: string;
-  messages: Message[];
+export interface ForumRootState {
+  forum: ForumState;
 }
 
 export interface ForumState {
-  threads: Thread[];
+  topics: Topic[];
+  error: string;
+}
+
+export interface Topic {
+  id: number;
+  name: string;
+  description: string;
+  login: string;
+  createdAt: string;
+  comments: Comment[];
+}
+
+export interface Comment {
+  id: number;
+  topic_id: number;
+  comment_id: number | null;
+  login: string;
+  body: string;
+  createdAt: string;
+}
+
+export interface Review {
+  login: string;
+  name: string;
+  email: string;
+  text: string;
+  createdAt: string;
 }
 
 /**
@@ -76,4 +98,14 @@ export interface PlayerState {
 export interface GameState {
   player: PlayerState,
   enemies: number,
+  level: number,
+}
+
+// loading
+export interface LoadingRootState {
+  loading: LoadingState;
+}
+
+export interface LoadingState {
+  isShow: boolean,
 }

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import toClassNames from '@root/utils/toClassNames';
+import toClassNames from '@utils/toClassNames';
 import './button.scss';
 import { Props } from './types';
 
@@ -7,6 +7,7 @@ import { Props } from './types';
  * Button
  * @param {*} [children=undefined] - content inside the button
  * @param {'danger'|'success'|'cancel'|'link'|undefined} [color=undefined] - button color
+ * @param {'s'|'l'|'xl'|'icon'|undefined} [size=undefined] - button size
  * @param {'full'} [width=undefined] - button width
  * @param {boolean} [icon=false] - button with icon
  * @param {*} rest - rest params
@@ -16,6 +17,7 @@ import { Props } from './types';
 const Button: FC<Props> = ({
   children = undefined,
   color = undefined,
+  size = undefined,
   width = undefined,
   icon = false,
   ...rest
@@ -26,11 +28,9 @@ const Button: FC<Props> = ({
     className={toClassNames(
       'button',
       {
-        button_color_danger: color === 'danger',
-        button_color_success: color === 'success',
-        button_color_link: color === 'link',
-        button_color_cancel: color === 'cancel',
-        button_width_full: width === 'full',
+        [`button_color_${color}`]: color,
+        [`button_size_${size}`]: size,
+        [`button_width_${width}`]: width,
         button_icon: icon,
       },
       rest.className,
@@ -38,6 +38,8 @@ const Button: FC<Props> = ({
     title={rest.title}
     disabled={rest.disabled}
     onClick={rest.onClick}
+    onMouseEnter={rest.onMouseEnter}
+    onMouseLeave={rest.onMouseLeave}
   >
     {children}
   </button>

@@ -8,7 +8,9 @@ export default class ConcreteWall extends Wall {
   constructor(x: number = 0, y: number = 0) {
     super(x, y);
 
-    EngineBus.on(SPRITE_COLLIDED, (sprite1: Sprite, sprite2: Sprite) => this.onSpriteCollided(sprite1, sprite2));
+    this.onSpriteCollided = this.onSpriteCollided.bind(this);
+
+    EngineBus.on(SPRITE_COLLIDED, this.onSpriteCollided);
   }
 
   protected GetSprite() {
@@ -23,5 +25,10 @@ export default class ConcreteWall extends Wall {
 
       EngineBus.emit(SPRITE_DESTROYED, bullet);
     }
+  }
+
+  public detach() {
+    super.detach();
+    EngineBus.off(SPRITE_COLLIDED, this.onSpriteCollided);
   }
 }

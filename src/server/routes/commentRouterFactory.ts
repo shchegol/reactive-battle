@@ -1,0 +1,22 @@
+import { Router } from 'express';
+import { API_URL } from '@root/constants';
+import { auth } from '@server/middlewares/auth';
+import { Comment } from '@server/models/comment';
+
+export const commentRouterFactory = (router: Router) => router
+
+  .get(`${API_URL}/comments`, auth, (_req, res, next) => Comment.findAll()
+    .then((comment) => res.json(comment))
+    .catch(next))
+
+  .get(`${API_URL}/comments/:id`, auth, (req, res, next) => Comment.findByPk(req.params.id)
+    .then((comment) => (comment
+      ? res.json(comment)
+      : next({ status: 404, message: `Comment id:${req.params.id} did not found` })))
+    .catch(next))
+
+  .post(`${API_URL}/comments`, auth, (req, res, next) => {
+    Comment.create(req.body)
+      .then((comment) => res.json(comment))
+      .catch(next);
+  });

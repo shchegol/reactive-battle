@@ -20,6 +20,7 @@ module.exports = {
       '@engine': util.resolve('src/engine'),
       '@pages': util.resolve('src/pages'),
       '@root': util.resolve('src'),
+      '@server': util.resolve('src/server'),
       '@store': util.resolve('src/store'),
       '@styles': util.resolve('src/styles'),
       '@utils': util.resolve('src/utils'),
@@ -73,20 +74,8 @@ module.exports = {
     new ESLintPlugin(),
     new ImageMinimizerPlugin({
       minimizerOptions: {
-        plugins: [
-          ['jpegtran', { progressive: true }],
-          ['optipng', { optimizationLevel: 5 }],
-          [
-            'svgo',
-            {
-              plugins: [
-                {
-                  removeViewBox: false,
-                },
-              ],
-            },
-          ],
-        ],
+        loader: false,
+        plugins: ['jpegtran', 'optipng', 'svgo'],
       },
     }),
   ],

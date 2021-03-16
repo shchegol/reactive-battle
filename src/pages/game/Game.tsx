@@ -1,34 +1,113 @@
-import React, { useEffect } from 'react';
+import React, {
+  useState, useCallback, useEffect, useContext,
+} from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationState } from '@store/types';
 import Interface from '@pages/game/interface/Interface';
-import { EngineBus, SPRITE_DESTROYED } from '@engine/EngineBus';
-import BasicTank from '@engine/sprites/enemies/BasicTank';
+import {
+  EngineBus,
+  SPRITE_DESTROYED,
+  GAME_OVER,
+  GAME_WIN,
+  LEVEL_WIN,
+} from '@engine/EngineBus';
 import Bullet from '@engine/sprites/Bullet';
+import Button from '@components/button';
 import EnemyTank from '@engine/sprites/enemies/EnemyTank';
-import { updateScore } from '@root/store/actionsCreators/game';
+import userSelector from '@store/selectors/user';
+import Avatar from '@components/avatar';
+import Icon from '@components/icon';
+import { ThemeContext, TThemeContext } from '@root/contexts/theme';
+import { updateScore, clearScore, updateLevel } from '@root/store/actionsCreators/game';
+import LeaderboardAPI from '@api/LeaderboardAPI';
+import ThemeAPI from '@api/ThemeAPI';
+import useSnackbar from '@root/hooks/useSnackbar';
 
 export default function Game() {
-  const login = useSelector((state: ApplicationState) => state.user.info.login);
+  const { login, avatar } = useSelector(userSelector);
+  const { theme, updateTheme } = useContext(ThemeContext) as TThemeContext;
   const game = useSelector((state: ApplicationState) => state.game);
+  const { showSnackbar } = useSnackbar();
+  const [themeIcon, setThemeIcon] = useState('mode_night');
 
   const dispatch = useDispatch();
 
-  const playerShot = (ctx: BasicTank | Bullet) => {
+  /**
+   * Players shot handler
+   * @param {EnemyTank | Bullet} ctx - shot context
+   */
+  const playerShot = useCallback((ctx?: EnemyTank | Bullet) => {
     if (ctx instanceof EnemyTank) {
-      dispatch(updateScore());
+      dispatch(updateScore({ tankType: ctx.Type }));
+    }
+  }, [dispatch]);
+
+  const addPlayerScore = useCallback(() => {
+    LeaderboardAPI.addNewLeader({
+      data: {
+        login,
+        score: game.player.score,
+      },
+      ratingFieldName: 'score',
+    }).then(() => dispatch(clearScore()));
+  }, [dispatch, game.player, login]);
+
+  const updateLevelHandler = useCallback(() => {
+    dispatch(updateLevel({ level: game.level + 1, enemies: 20 }));
+  }, [dispatch, game.level]);
+
+  const changeThemeHandler = async () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    const newThemeIcon = theme === 'dark' ? 'wb_sunny' : 'mode_night';
+
+    try {
+      const themeRes = await ThemeAPI.getTheme({ name: newTheme });
+      await ThemeAPI.updateUserTheme(login, themeRes.id);
+
+      updateTheme(newTheme);
+      setThemeIcon(newThemeIcon);
+      showSnackbar(`Set ${newTheme} theme`);
+    } catch (e) {
+      console.error(e);
+      showSnackbar(`Unfortunately the theme "${newTheme}" is not set. Something goes wrong.`, 'danger');
     }
   };
 
   useEffect(() => {
+    const newThemeIcon = theme === 'dark' ? 'mode_night' : 'wb_sunny';
+    setThemeIcon(newThemeIcon);
+  }, [theme]);
+
+  useEffect(() => {
     EngineBus.on(SPRITE_DESTROYED, playerShot);
-  }, []);
+
+    return () => EngineBus.off(SPRITE_DESTROYED, playerShot);
+  }, [playerShot]);
+
+  useEffect(() => {
+    EngineBus.on(GAME_OVER, addPlayerScore);
+    EngineBus.on(GAME_WIN, addPlayerScore);
+    EngineBus.on(LEVEL_WIN, updateLevelHandler);
+
+    return () => {
+      EngineBus.off(GAME_OVER, addPlayerScore);
+      EngineBus.off(GAME_WIN, addPlayerScore);
+      EngineBus.off(LEVEL_WIN, updateLevelHandler);
+    };
+  }, [addPlayerScore, updateLevelHandler, game]);
 
   return (
-    <div className="container">
-      <div className="row mt-10">
-        <div className="col-auto">
+    <div className="container-fluid">
+      <div className="row align-items-center mt-20">
+        <div className="col-auto pr-0">
+          <Avatar
+            src={avatar}
+            size="xs"
+          />
+        </div>
+
+        <div className="col-auto pl-0">
           <Link
             to={`/users/${login}`}
             className="button button_color_link"
@@ -38,7 +117,20 @@ export default function Game() {
         </div>
 
         <div className="col">
-          <div className="row justify-content-end">
+          <div className="row justify-content-end align-items-center">
+            <div className="col-auto pr-0">
+              THEME
+            </div>
+            <div className="col-auto pl-4">
+              <Button
+                color="link"
+                icon
+                onClick={changeThemeHandler}
+              >
+                <Icon name={themeIcon} />
+              </Button>
+            </div>
+
             <div className="col-auto">
               <Link
                 to="/leaderboard"
@@ -47,12 +139,22 @@ export default function Game() {
                 Leaderboard
               </Link>
             </div>
+
             <div className="col-auto pl-0">
               <Link
                 to="/forum"
                 className="button button_color_link"
               >
                 Forum
+              </Link>
+            </div>
+
+            <div className="col-auto pl-0">
+              <Link
+                to="/feedback"
+                className="button button_color_link"
+              >
+                Feedback
               </Link>
             </div>
           </div>
@@ -62,6 +164,7 @@ export default function Game() {
       <Interface
         enemies={game.enemies}
         player={game.player}
+        level={game.level}
       />
     </div>
   );

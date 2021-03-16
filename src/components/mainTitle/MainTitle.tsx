@@ -1,16 +1,15 @@
-import React, { FC } from 'react';
-import toClassNames from '@root/utils/toClassNames';
-
+import React, { FC, useEffect, useState } from 'react';
+import toClassNames from '@utils/toClassNames';
 import './mainTitle.scss';
+import { API_YANDEX_URL } from '@root/constants';
 import { Props } from './types';
-
-const avatarTmpl = require('@root/images/engine/tanks/player-0.svg').default;
 
 /**
  * Main title
  * @param {string} [titleText='REACTIVE BATTLE'] - title text
  * @param {string} [subtitleText=''] - subtitle text
  * @param [imgSrc=logo] - img file
+ * @param [hasImg=true] - need for a picture
  * @param {*} rest - rest parameters
  * @constructor
  */
@@ -18,29 +17,58 @@ const avatarTmpl = require('@root/images/engine/tanks/player-0.svg').default;
 const MainTitle: FC<Props> = ({
   titleText = 'REACTIVE BATTLE',
   subtitleText = '',
-  imgSrc = avatarTmpl,
+  imgSrc = undefined,
+  hasImg = true,
   ...rest
-}) => (
-  <header
-    className={toClassNames(
-      'main-title',
-      rest.className,
-    )}
-  >
-    <img
-      src={imgSrc}
-      alt={subtitleText}
-      className="main-title__img"
-    />
+}) => {
+  const [avatar, setAvatar] = useState('');
 
-    <h1 className="main-title__text">
-      {titleText}
-    </h1>
+  useEffect(() => {
+    if (imgSrc) {
+      setAvatar(new URL(imgSrc, API_YANDEX_URL).href);
+    } else {
+      // eslint-disable-next-line global-require
+      setAvatar(require('@root/images/engine/tanks/player-0.svg').default);
+    }
+  }, [imgSrc]);
 
-    <p className="main-title__subtitle">
-      {subtitleText}
-    </p>
-  </header>
-);
+  const renderAvatar = () => {
+    if (!hasImg) return null;
+
+    if (avatar) {
+      return (
+        <img
+          src={avatar}
+          alt={subtitleText}
+          className="main-title__img"
+        />
+
+      );
+    }
+
+    return <div className="main-title__img" />;
+  };
+
+  return (
+    <header
+      className={toClassNames(
+        'main-title',
+        rest.className,
+      )}
+    >
+      {
+        renderAvatar()
+      }
+
+      <h1 className="main-title__text">
+        {titleText}
+      </h1>
+
+      <p className="main-title__subtitle">
+        {subtitleText}
+      </p>
+    </header>
+  );
+};
 
 export default MainTitle;

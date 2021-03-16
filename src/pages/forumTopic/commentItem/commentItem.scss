@@ -1,0 +1,7 @@
+@import "@styles/utilities/variables";
+
+.comment-item {
+  &:not(:first-child) {
+    margin-top: 1rem;
+  }
+}

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
     "rootDir": "src",
     "baseUrl": "./",
     "module": "commonjs",
@@ -22,6 +23,7 @@
       "@engine/*": ["src/engine/*"],
       "@pages/*": ["src/pages/*"],
       "@root/*": ["src/*"],
+      "@server/*": ["src/server/*"],
       "@store/*": ["src/store/*"],
       "@styles/*": ["src/styles/*"],
       "@utils/*": ["src/utils/*"]
