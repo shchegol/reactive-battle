@@ -7,6 +7,7 @@ import {
   timestamps: false,
   paranoid: true,
   tableName: 'site_themes',
+  modelName: 'SiteTheme',
 })
 export class SiteTheme extends Model<SiteTheme> {
   @Column({

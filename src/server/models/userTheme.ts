@@ -8,6 +8,7 @@ import { SiteTheme } from '@server/models/siteTheme';
   timestamps: false,
   paranoid: true,
   tableName: 'user_themes',
+  modelName: 'UserTheme',
 })
 export class UserTheme extends Model<UserTheme> {
   @Column({

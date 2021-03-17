@@ -10,6 +10,7 @@ import { Comment } from './comment';
   timestamps: true,
   paranoid: false,
   tableName: 'topics',
+  modelName: 'Topic',
 })
 export class Topic extends Model {
   @Column({
