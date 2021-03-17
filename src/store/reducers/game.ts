@@ -21,8 +21,6 @@ const scoring = (prevScore: number, tankType: TankTypes): number => {
     power: 400,
   };
 
-  console.log(prevScore, tankType);
-
   return scores[tankType] + prevScore;
 };
 
