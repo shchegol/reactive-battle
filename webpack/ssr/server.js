@@ -1,6 +1,15 @@
+const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpackNodeExternals = require('webpack-node-externals');
 const util = require('../webpack.utils');
+
+require('dotenv').config(
+  {
+    path: process.env.NODE_ENV === 'production'
+      ? '.env'
+      : '.env.local',
+  },
+);
 
 module.exports = {
   target: 'node',
@@ -46,5 +55,8 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env),
+    }),
   ],
 };

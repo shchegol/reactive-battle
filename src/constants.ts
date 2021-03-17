@@ -1,9 +1,17 @@
-export const API_YANDEX_VERSION = 'v2';
-export const API_YANDEX_URL = 'https://ya-praktikum.tech';
-export const API_YANDEX_OAUTH_URL = 'https://oauth.yandex.ru/authorize';
-export const API_YANDEX_REDIRECT_URI = 'https://local.ya-praktikum.tech:5000';
+const {
+  CLIENT_API_YANDEX_VERSION,
+  CLIENT_API_YANDEX_URL,
+  CLIENT_API_YANDEX_OAUTH_URL,
+  CLIENT_API_YANDEX_REDIRECT_URI,
+  CLIENT_API_VERSION,
+} = process.env;
 
-export const API_VERSION = 'v1';
+export const API_YANDEX_VERSION = CLIENT_API_YANDEX_VERSION;
+export const API_YANDEX_URL = CLIENT_API_YANDEX_URL;
+export const API_YANDEX_OAUTH_URL = CLIENT_API_YANDEX_OAUTH_URL;
+export const API_YANDEX_REDIRECT_URI = CLIENT_API_YANDEX_REDIRECT_URI;
+
+export const API_VERSION = CLIENT_API_VERSION;
 export const API_URL = `/api/${API_VERSION}`;
 
 export const IS_SERVER = !(
@@ -11,3 +19,13 @@ export const IS_SERVER = !(
   && window.document
   && window.document.createElement
 );
+
+export default {
+  API_YANDEX_VERSION,
+  API_YANDEX_URL,
+  API_YANDEX_OAUTH_URL,
+  API_YANDEX_REDIRECT_URI,
+  API_VERSION,
+  API_URL,
+  IS_SERVER,
+};
