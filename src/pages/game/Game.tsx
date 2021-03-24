@@ -148,15 +148,6 @@ export default function Game() {
                 Forum
               </Link>
             </div>
-
-            <div className="col-auto pl-0">
-              <Link
-                to="/feedback"
-                className="button button_color_link"
-              >
-                Feedback
-              </Link>
-            </div>
           </div>
         </div>
       </div>

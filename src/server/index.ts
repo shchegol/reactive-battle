@@ -1,7 +1,6 @@
 import { app } from '@server/server';
 import { sequelize } from '@server/database/sequelize';
 import { SiteTheme } from '@server/models/siteTheme';
-import mongooseConnect from '@server/database/mongoose';
 import { Model } from 'sequelize-typescript';
 
 const fs = require('fs');
@@ -31,8 +30,6 @@ const info = `
       { theme: 'light', description: 'Light theme' },
     ], { updateOnDuplicate: ['theme', 'description'] });
     console.log('\x1b[32mPostgreSQL is connected\x1b[0m');
-    await mongooseConnect();
-    console.log('\x1b[32mMongoDB is connected\x1b[0m');
 
     server.listen(PORT, () => {
       console.log(info);

@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
@@ -7,6 +8,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const common = require('./webpack.common.js');
 const util = require('./webpack.utils');
+
+require('dotenv').config({ path: '.env' });
 
 module.exports = merge(common, {
   mode: 'production',
@@ -67,6 +70,9 @@ module.exports = merge(common, {
     new InjectManifest({
       swSrc: util.resolve('src/service-worker.js'),
       maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
+    }),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env),
     }),
   ],
 });

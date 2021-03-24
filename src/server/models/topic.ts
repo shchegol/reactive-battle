@@ -2,9 +2,10 @@
 
 import { DataTypes } from 'sequelize';
 import {
-  Column, Table, Model, HasMany,
+  Column, Table, Model, HasMany, ForeignKey, BelongsTo,
 } from 'sequelize-typescript';
 import { Comment } from './comment';
+import { User } from './user';
 
 @Table({
   timestamps: true,
@@ -34,11 +35,16 @@ export class Topic extends Model {
   description: string;
 
   @Column({
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     allowNull: false,
-    field: 'login',
+    field: 'user_id',
   })
-  login: string;
+
+  @ForeignKey(() => User)
+  userId: number;
+
+  @BelongsTo(() => User)
+  user: User;
 
   @HasMany(() => Comment)
   comments: Comment[];

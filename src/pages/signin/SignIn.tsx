@@ -3,33 +3,33 @@ import MainTitle from '@root/components/mainTitle';
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { SignInRequest } from '@api/types';
-import Button from '@components/button';
-import AuthAPI from '@api/AuthAPI';
-import { API_YANDEX_OAUTH_URL, API_YANDEX_REDIRECT_URI } from '@root/constants';
+// import Button from '@components/button';
+// import AuthAPI from '@api/AuthAPI';
+// import { API_YANDEX_OAUTH_URL, API_YANDEX_REDIRECT_URI } from '@root/constants';
 import { Helmet } from 'react-helmet';
 import useAuth from '@root/hooks/useAuth';
-import useSnackbar from '@root/hooks/useSnackbar';
+// import useSnackbar from '@root/hooks/useSnackbar';
 
 export default function SignIn() {
   const { isLoggedIn, signin } = useAuth();
-  const { showSnackbar } = useSnackbar();
+  // const { showSnackbar } = useSnackbar();
 
   const submitHandler = (event: React.FormEvent, userData: SignInRequest) => {
     event.preventDefault();
     signin(userData);
   };
 
-  const yandexOauthHandler = () => {
-    const getOAuthUrl = (serviceId: string): string => `${API_YANDEX_OAUTH_URL}?response_type=code&client_id=${serviceId}&redirect_uri=${API_YANDEX_REDIRECT_URI}`;
-
-    AuthAPI.yaGetServiceId()
-      .then((res) => {
-        window.location.assign(getOAuthUrl(res.service_id));
-      })
-      .catch((err) => {
-        showSnackbar(err, 'danger');
-      });
-  };
+  // const yandexOauthHandler = () => {
+  //   const getOAuthUrl = (serviceId: string): string => `${API_YANDEX_OAUTH_URL}?response_type=code&client_id=${serviceId}&redirect_uri=${API_YANDEX_REDIRECT_URI}`;
+  //
+  //   AuthAPI.yaGetServiceId()
+  //     .then((res) => {
+  //       window.location.assign(getOAuthUrl(res.service_id));
+  //     })
+  //     .catch((err) => {
+  //       showSnackbar(err, 'danger');
+  //     });
+  // };
 
   if (isLoggedIn) {
     return <Redirect to="/" />;
@@ -50,16 +50,16 @@ export default function SignIn() {
             handleSubmit={submitHandler}
           />
 
-          <div className="text-align-center mt-10">
-            <Button
-              color="danger"
-              title="via Yandex"
-              width="full"
-              onClick={yandexOauthHandler}
-            >
-              YANDEX
-            </Button>
-          </div>
+          {/* <div className="text-align-center mt-10"> */}
+          {/*  <Button */}
+          {/*    color="danger" */}
+          {/*    title="via Yandex" */}
+          {/*    width="full" */}
+          {/*    onClick={yandexOauthHandler} */}
+          {/*  > */}
+          {/*    YANDEX */}
+          {/*  </Button> */}
+          {/* </div> */}
 
           <div className="text-align-center mt-40">
             <Link to="/signup">

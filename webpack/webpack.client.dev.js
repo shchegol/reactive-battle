@@ -1,8 +1,11 @@
+const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const common = require('./webpack.common.js');
 const util = require('./webpack.utils');
+
+require('dotenv').config({ path: '.env.local' });
 
 module.exports = merge(common, {
   mode: 'development',
@@ -45,6 +48,9 @@ module.exports = merge(common, {
       template: util.resolve('src/index.html'),
       favicon: util.resolve('src/favicon.ico'),
       filename: 'index.html',
+    }),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env),
     }),
   ],
 });

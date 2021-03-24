@@ -1,8 +1,9 @@
 import { DataTypes } from 'sequelize';
 import {
-  Column, Table, Model, ForeignKey,
+  Column, Table, Model, ForeignKey, BelongsTo,
 } from 'sequelize-typescript';
 import { SiteTheme } from '@server/models/siteTheme';
+import { User } from '@server/models/user';
 
 @Table({
   timestamps: false,
@@ -22,13 +23,18 @@ export class UserTheme extends Model<UserTheme> {
   @Column({
     type: DataTypes.INTEGER,
     allowNull: false,
+    field: 'theme_id',
   })
   themeId: number;
 
+  @ForeignKey(() => User)
   @Column({
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     allowNull: false,
-    unique: true,
+    field: 'user_id',
   })
-  ownerLogin: string;
+  userId: number;
+
+  @BelongsTo(() => User)
+  user: User;
 }

@@ -1,11 +1,10 @@
-version: "3"
+version: "4"
 services:
   app:
     build:
       context: .
     depends_on:
       - postgres
-      - mongo
     restart: always
     env_file:
       - .env
@@ -21,27 +20,5 @@ services:
       - ./postgresdata:/var/lib/postgresql/data
     ports:
       - 5432:5432
-  pgadmin:
-    container_name: pgadmin
-    image: dpage/pgadmin4:latest
-    restart: always
-    env_file:
-      - .env
-    volumes:
-      - pgadmin-data:/var/lib/pgadmin
-    ports:
-      - 8080:80
-  mongo:
-    container_name: mongodb
-    image: mongo:bionic
-    restart: always
-    env_file:
-      - .env
-    volumes:
-      - ./mongodata:/data/db
-      - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh
-    ports:
-      - 27017:27017
 volumes:
-    mongo-data:
     pgadmin-data:

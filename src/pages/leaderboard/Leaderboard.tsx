@@ -30,11 +30,13 @@ export default function Leaderboard() {
     LeaderboardAPI
       .getAllLeaderboard({ ratingFieldName: 'score', limit, cursor })
       .then((rPlayers) => {
-        const newPlayers = rPlayers.map((rPlayer, i) => ({
-          position: i + 1,
-          login: rPlayer.data.login,
-          score: rPlayer.data.score,
-        }));
+        const newPlayers = rPlayers
+          .filter((rPlayer) => rPlayer.data.login && rPlayer.data.score)
+          .map((rPlayer, i) => ({
+            position: i + 1,
+            login: rPlayer.data.login,
+            score: rPlayer.data.score,
+          }));
 
         setPlayers(newPlayers);
         setSearchedPlayers(newPlayers);
