@@ -1,13 +1,16 @@
 import { AuthActions } from '@store/actions/auth';
 import { AuthAction } from '@store/actions/types';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 
-const login = Cookies.get('userLogin');
-const isOAuth = Cookies.get('isOAuth');
+// todo переписать
+// const login = Cookies.get('userLogin');
+// const isOAuth = Cookies.get('isOAuth');
+//
+// console.log(login, isOAuth);
 
 const initialState = {
-  isLoggedIn: !!login,
-  isOAuth: !!isOAuth,
+  isLoggedIn: false,
+  isOAuth: false,
   oAuthCode: '',
   error: '',
 };

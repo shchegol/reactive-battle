@@ -1,8 +1,9 @@
 /* eslint-disable import/no-cycle */
 
+import bcrypt from 'bcrypt';
 import { DataTypes } from 'sequelize';
 import {
-  Column, Table, Model, HasMany,
+  Column, Table, Model, HasMany, BeforeCreate, Length, IsEmail,
 } from 'sequelize-typescript';
 import { Comment } from '@server/models/comment';
 import { Topic } from './topic';
@@ -23,12 +24,14 @@ export class User extends Model {
   })
   id: number;
 
+  @Length({ min: 3, max: 15 })
   @Column({
-    type: DataTypes.STRING(128),
+    type: DataTypes.STRING,
     allowNull: false,
   })
   login: string;
 
+  @IsEmail
   @Column({
     type: DataTypes.STRING(128),
     allowNull: false,
@@ -58,4 +61,34 @@ export class User extends Model {
 
   @HasMany(() => Topic)
   topics: Topic[];
+
+  // @Is('validPassword', (password: string) => {
+  //   // todo понять почему this может быть undefined
+  //   // @ts-ignore
+  //   if (!password || !bcrypt.compareSync(password, this.password)) {
+  //     throw new Error('Password is not valid.');
+  //   }
+  // })
+  @Column({
+    type: DataTypes.STRING(128),
+    allowNull: false,
+  })
+  password: string;
+
+  // @Column({
+  //   type: DataTypes.STRING(128),
+  //   allowNull: false,
+  // })
+  // cookie: string;
+
+  @BeforeCreate
+  static addSalt(user: User) {
+    const salt = bcrypt.genSaltSync();
+    // eslint-disable-next-line no-param-reassign
+    user.password = bcrypt.hashSync(user.password, salt);
+  }
+
+  validPassword(password: string) {
+    return bcrypt.compareSync(password, this.password);
+  }
 }

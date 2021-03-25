@@ -64,14 +64,15 @@ export default (req: Request, res: Response) => {
     store.dispatch({ type: AuthActions.YAAUTH_REQUEST, payload: { oAuthCode } });
   }
 
-  const { userLogin: login, isOAuth } = req.cookies;
-  if (login) {
-    if (isOAuth === 'true') {
-      store.dispatch({ type: AuthActions.YAAUTH_SUCCESS });
-    } else {
-      store.dispatch({ type: AuthActions.SIGNIN_SUCCESS });
-    }
-    store.dispatch({ type: UserActions.FETCH_SUCCESS, payload: { info: { login } } });
+  // const { userLogin: login, isOAuth } = req.cookies;
+
+  if (req.session.user && req.cookies.ssid) {
+    // if (isOAuth === 'true') {
+    //   store.dispatch({ type: AuthActions.YAAUTH_SUCCESS });
+    // } else {
+    store.dispatch({ type: AuthActions.SIGNIN_SUCCESS });
+    // }
+    store.dispatch({ type: UserActions.FETCH_SUCCESS, payload: { info: req.session.user } });
   }
 
   // show preloader

@@ -23,8 +23,9 @@ export const signup = (data: SignUpRequest) => {
 
     return AuthAPI
       .signup(data)
-      .then((userData) => {
-        Cookies.set('userLogin', userData.login, { expires: 7 });
+      .then(() => {
+        // Cookies.set('userLogin', userData.login, { expires: 7 });
+        // todo переписать
         dispatch(success());
         dispatch(fetchUser());
         dispatch(showLoading());
@@ -47,8 +48,8 @@ export const signin = (data: UserRequest) => {
 
     AuthAPI
       .signin(data)
-      .then((userData) => {
-        Cookies.set('userLogin', userData.login || '', { expires: 7 });
+      .then(() => {
+        // Cookies.set('userLogin', userData.login || '', { expires: 7 });
         dispatch(showLoading());
         dispatch(success());
         dispatch(fetchUser());

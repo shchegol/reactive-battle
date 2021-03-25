@@ -1,5 +1,5 @@
 import { PasswordRequest, UserRequest, UserResponse } from '@api/types';
-import axios from '@utils/yandexApiRequest';
+import axios from '@utils/apiRequest';
 
 const prefix = '/user';
 

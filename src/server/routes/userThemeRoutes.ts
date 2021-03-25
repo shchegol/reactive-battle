@@ -20,29 +20,35 @@ export const userThemeRoutes = (router: Router) => {
 
   /**
    * Get theme by user login
-   * @param login - user login
+   * @param id - user id
    */
   userThemeRouter.get('/:login',
-    (req, res, next) => UserTheme
-      .findOrCreate({
-        where: { ownerLogin: req.params.login },
-        defaults: {
-          themeId: 1,
-          ownerLogin: req.params.login,
-        } as UserTheme,
-      })
-      .then((userTheme) => res.json(userTheme[0]))
-      .catch(next));
+    (req, res, next) => {
+      const userId = req.session.user?.id;
+
+      UserTheme
+        .findOrCreate({
+          where: { userId },
+          defaults: {
+            themeId: 1,
+            userId,
+          } as UserTheme,
+        })
+        .then((userTheme) => res.json(userTheme[0]))
+        .catch(next);
+    });
 
   /**
-   * Update theme by user login
-   * @param login - user login
+   * Update theme by user id
+   * @param id - user id
    * @property {number} themeId - theme id
    */
-  userThemeRouter.patch('/:login', (req, res, next) => {
+  userThemeRouter.patch('/:id', (req, res, next) => {
+    const userId = req.session.user?.id;
+
     UserTheme.update(
       { themeId: req.body.themeId },
-      { where: { ownerLogin: req.params.login } },
+      { where: { userId } },
     )
       .then((userTheme) => res.json(userTheme))
       .catch(next);

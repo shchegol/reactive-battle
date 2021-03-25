@@ -3,6 +3,7 @@ import { Topic } from '@server/models/topic';
 import { Comment } from '@server/models/comment';
 import { SiteTheme } from '@server/models/siteTheme';
 import { UserTheme } from '@server/models/userTheme';
+import { User } from '@server/models/user';
 
 const {
   POSTGRES_HOST: host,
@@ -19,7 +20,13 @@ const sequelizeOptions: SequelizeOptions = {
   host,
   port: parseInt(<string>port, 10),
   dialect: 'postgres',
-  models: [Topic, Comment, SiteTheme, UserTheme],
+  models: [
+    User,
+    Topic,
+    Comment,
+    SiteTheme,
+    UserTheme,
+  ],
 };
 
 export const sequelize = new Sequelize(sequelizeOptions);
