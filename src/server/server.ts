@@ -7,6 +7,7 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import router from '@server/routes';
 import renderMiddleware from '@server/middlewares/render';
 import logger from '@server/middlewares/logger';
+import { SESSION_EXPIRES, SESSION_SECRET } from '@root/constants';
 
 const bodyParser = require('body-parser');
 const session = require('express-session');
@@ -43,11 +44,14 @@ if (!ifProd) {
 app
   .use(session({
     key: 'ssid',
-    secret: 'somerandonstuffs',
+    secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
-      expires: 600000,
+      expires: SESSION_EXPIRES,
+      httpOnly: true,
+      sameSite: true,
+      secure: true,
     },
   }))
   .use(cookieParser())

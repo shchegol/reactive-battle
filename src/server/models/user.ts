@@ -9,21 +9,11 @@ import { Comment } from '@server/models/comment';
 import { Topic } from './topic';
 
 @Table({
-  timestamps: true,
-  paranoid: false,
   tableName: 'users',
   modelName: 'User',
 })
 
 export class User extends Model {
-  @Column({
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-    allowNull: false,
-  })
-  id: number;
-
   @Length({ min: 3, max: 15 })
   @Column({
     type: DataTypes.STRING,

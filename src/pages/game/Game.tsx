@@ -44,18 +44,21 @@ export default function Game() {
   }, [dispatch]);
 
   const addPlayerScore = useCallback(() => {
-    LeaderboardAPI.addNewLeader({
-      data: {
-        login,
-        score: game.player.score,
-      },
-      ratingFieldName: 'score',
-    }).then(() => dispatch(clearScore()));
-  }, [dispatch, game.player, login]);
+    const { score } = game.player;
+
+    if (score < 1) return;
+
+    LeaderboardAPI
+      .addNewLeader(score)
+      .then(() => {
+        dispatch(clearScore());
+        showSnackbar('Congratulations, you are on the leaderboard!', 'success');
+      });
+  }, [game.player]);
 
   const updateLevelHandler = useCallback(() => {
     dispatch(updateLevel({ level: game.level + 1, enemies: 20 }));
-  }, [dispatch, game.level]);
+  }, [game.level]);
 
   const changeThemeHandler = async () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';

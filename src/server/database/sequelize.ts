@@ -4,6 +4,7 @@ import { Comment } from '@server/models/comment';
 import { SiteTheme } from '@server/models/siteTheme';
 import { UserTheme } from '@server/models/userTheme';
 import { User } from '@server/models/user';
+import { Leaderboard } from '@server/models/leaderboard';
 
 const {
   POSTGRES_HOST: host,
@@ -26,6 +27,7 @@ const sequelizeOptions: SequelizeOptions = {
     Comment,
     SiteTheme,
     UserTheme,
+    Leaderboard,
   ],
 };
 

@@ -15,14 +15,6 @@ import { User } from './user';
 })
 export class Topic extends Model {
   @Column({
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-    allowNull: false,
-  })
-  id: number;
-
-  @Column({
     type: DataTypes.STRING,
     allowNull: false,
   })

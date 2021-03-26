@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
 import toClassNames from '@utils/toClassNames';
-import { API_YANDEX_URL } from '@root/constants';
 import { Props } from './types';
 import './avatar.scss';
 
@@ -22,7 +21,7 @@ const Avatar: FC<Props> = ({
 
   useEffect(() => {
     if (src) {
-      setAvatar(new URL(src, API_YANDEX_URL).href);
+      setAvatar(src);
     } else {
       // eslint-disable-next-line global-require
       setAvatar(require('@root/images/engine/tanks/player-0.svg').default);

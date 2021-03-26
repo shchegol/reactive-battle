@@ -23,19 +23,16 @@ export default function Leaderboard() {
   /**
    * Get leaders from API
    * Not organized through redux because it is used only here
-   * @param {number} cursor - current page number
-   * @param {number} limit - amount of users on the page
    */
-  const getLeaders = (cursor: number, limit: number) => {
+  const getLeaders = () => {
     LeaderboardAPI
-      .getAllLeaderboard({ ratingFieldName: 'score', limit, cursor })
+      .getAllLeaderboard()
       .then((rPlayers) => {
         const newPlayers = rPlayers
-          .filter((rPlayer) => rPlayer.data.login && rPlayer.data.score)
           .map((rPlayer, i) => ({
             position: i + 1,
-            login: rPlayer.data.login,
-            score: rPlayer.data.score,
+            login: rPlayer.user.login,
+            score: rPlayer.score,
           }));
 
         setPlayers(newPlayers);
@@ -55,7 +52,7 @@ export default function Leaderboard() {
   };
 
   useEffect(() => {
-    getLeaders(0, 1000);
+    getLeaders();
   }, []);
 
   return (

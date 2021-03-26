@@ -2,23 +2,18 @@ import { DataTypes } from 'sequelize';
 import {
   Column, Table, Model, ForeignKey, BelongsTo,
 } from 'sequelize-typescript';
-import { SiteTheme } from '@server/models/siteTheme';
 import { User } from '@server/models/user';
 
 @Table({
-  timestamps: false,
-  paranoid: true,
-  tableName: 'user_themes',
-  modelName: 'UserTheme',
+  tableName: 'leaderboard',
+  modelName: 'Leaderboard',
 })
-export class UserTheme extends Model<UserTheme> {
-  @ForeignKey(() => SiteTheme)
+export class Leaderboard extends Model<Leaderboard> {
   @Column({
     type: DataTypes.INTEGER,
     allowNull: false,
-    field: 'theme_id',
   })
-  themeId: number;
+  score: number;
 
   @ForeignKey(() => User)
   @Column({

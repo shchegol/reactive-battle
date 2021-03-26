@@ -7,6 +7,7 @@ import { commentRouterFactory } from './commentRouterFactory';
 import { topicRouterFactory } from './topicRouterFactory';
 import { themesRoutes } from './themesRoutes';
 import { userThemeRoutes } from './userThemeRoutes';
+import { leaderboardRoutes } from './leaderboardRoutes';
 
 const router: Router = Router();
 
@@ -16,6 +17,7 @@ commentRouterFactory(router);
 topicRouterFactory(router);
 themesRoutes(router);
 userThemeRoutes(router);
+leaderboardRoutes(router);
 
 router.use(`${API_URL}/*`, errorsHandle);
 

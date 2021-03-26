@@ -17,13 +17,14 @@ export const authRoutes = (router: Router) => {
       throw new ErrorHandler(400, 'Password length must be longer than 3 symbols');
     }
 
-    User.create({
-      login,
-      email,
-      first_name,
-      second_name,
-      password,
-    })
+    User
+      .create({
+        login,
+        email,
+        first_name,
+        second_name,
+        password,
+      })
       .then((user) => {
         const { id: userId, login: userLogin } = user;
         req.session.user = { id: userId, login: userLogin };
