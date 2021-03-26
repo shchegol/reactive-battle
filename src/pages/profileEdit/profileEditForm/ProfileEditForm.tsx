@@ -14,50 +14,9 @@ const ProfileEditForm: FC<Props> = ({
     className={rest.className}
     onSubmit={rest.onSubmit}
   >
-    <div className="row">
-      <div className="col pr-4">
-        <Input
-          labelText="LOGIN"
-          value={userData.login}
-          name="login"
-          placeholder="LOGIN"
-          onChange={onInputChange}
-        />
-      </div>
-      <div className="col pl-4">
-        <Input
-          labelText="DISPLAY NAME"
-          value={userData.display_name}
-          name="display_name"
-          placeholder="DISPLAY NAME"
-          onChange={onInputChange}
-        />
-      </div>
-    </div>
 
     <div className="row">
-      <div className="col pr-4">
-        <Input
-          labelText="FIRST NAME"
-          value={userData.first_name}
-          name="first_name"
-          placeholder="FIRST NAME"
-          onChange={onInputChange}
-        />
-      </div>
-      <div className="col pl-4">
-        <Input
-          labelText="SECOND NAME"
-          value={userData.second_name}
-          name="second_name"
-          placeholder="SECOND NAME"
-          onChange={onInputChange}
-        />
-      </div>
-    </div>
-
-    <div className="row">
-      <div className="col pr-4">
+      <div className="col-12">
         <Input
           labelText="EMAIL"
           value={userData.email}
@@ -66,20 +25,30 @@ const ProfileEditForm: FC<Props> = ({
           onChange={onInputChange}
         />
       </div>
-      <div className="col pl-4">
+
+      <div className="col-12">
         <Input
-          labelText="PHONE"
-          value={userData.phone}
-          name="phone"
-          placeholder="PHONE"
+          labelText="FIRST NAME"
+          value={userData.first_name}
+          name="first_name"
+          placeholder="FIRST NAME"
           onChange={onInputChange}
         />
       </div>
-    </div>
 
-    { !isOAuth && (
-      <div className="row">
-        <div className="col pr-4">
+      <div className="col-12">
+        <Input
+          labelText="SECOND NAME"
+          value={userData.second_name}
+          name="second_name"
+          placeholder="SECOND NAME"
+          onChange={onInputChange}
+        />
+      </div>
+
+      { !isOAuth && (
+      <>
+        <div className="col-12 mt-40">
           <Input
             labelText="OLD PASSWORD"
             type="password"
@@ -89,7 +58,8 @@ const ProfileEditForm: FC<Props> = ({
             onChange={onInputChange}
           />
         </div>
-        <div className="col pl-4">
+
+        <div className="col-12">
           <Input
             labelText="NEW PASSWORD"
             type="password"
@@ -99,8 +69,9 @@ const ProfileEditForm: FC<Props> = ({
             onChange={onInputChange}
           />
         </div>
-      </div>
-    ) }
+      </>
+      ) }
+    </div>
 
     { !!errorMsg && (
       <div className="text-color-danger mt-20">

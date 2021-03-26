@@ -6,7 +6,6 @@ import UserAPI from '@api/UserAPI';
 import { showSnackbar } from '@store/actionsCreators/snackbar';
 import { Dispatch } from 'react';
 import { DispatchSnackbar } from '@store/actionsCreators/types';
-// import Cookies from 'js-cookie';
 
 export const fetchUser = () => {
   const request = () => ({ type: UserActions.FETCH_REQUEST });
@@ -18,10 +17,6 @@ export const fetchUser = () => {
 
     return AuthAPI.fetchUser()
       .then((userData) => {
-        // if (!Cookies.get('userLogin')) {
-        //   Cookies.set('userLogin', userData.login || '', { expires: 7 });
-        // }
-
         dispatch(success(userData));
       })
       .catch((error) => {

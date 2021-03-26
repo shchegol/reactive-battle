@@ -1,52 +1,68 @@
 import { Router } from 'express';
-import { SiteTheme } from '@server/models/siteTheme';
 import { API_URL } from '@root/constants';
+import { auth } from '@server/middlewares/auth';
+import { User } from '@server/models/user';
+import { ErrorHandler } from '@server/middlewares/errors';
 
-export const themesRoutes = (router: Router) => {
-  const themesRouter: Router = Router();
+export const profileRoutes = (router: Router) => {
+  const profileRouter: Router = Router();
 
-  /**
-   * Get themes
-   * By default returns array of all themes
-   *
-   * @property {number|undefined} id - theme id
-   * @property {string|undefined} name - theme name
-   *
-   * @return {SiteTheme | SiteTheme[]}
-   */
-  themesRouter.get('/', async (req, res, next) => {
-    const { id, name } = req.query;
-    let resDB;
+  profileRouter.put('/profile', (req, res, next) => {
+    const id = req.session.user?.id;
+    const {
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      email, first_name, second_name,
+    } = req.body;
+
+    User.update(
+      {
+        email, first_name, second_name,
+      },
+      {
+        where: { id },
+        returning: true,
+      },
+    )
+      .then((user) => res.json(user[1][0]))
+      .catch(next);
+  });
+
+  // profileRouter.put('/profile/avatar', (req, res, next) => {
+  // });
+
+  profileRouter.put('/password', async (req, res, next) => {
+    const id = req.session.user?.id;
+    const { oldPassword, newPassword } = req.body;
 
     try {
-      if (id) {
-        resDB = await SiteTheme.findByPk(`${id}`);
-      } else if (name) {
-        resDB = await SiteTheme.findOne({
-          where: {
-            theme: `${name}`,
-          },
-        });
-      } else {
-        resDB = await SiteTheme.findAll();
+      const user = await User.findOne({ where: { id } });
+
+      if (!user) {
+        throw new ErrorHandler(404, 'User is not found');
       }
 
-      res.json(resDB);
+      if (!user.isValidPassword(oldPassword)) {
+        throw new ErrorHandler(400, 'Old password is not valid');
+      }
+
+      if (!User.isSavePassword(newPassword)) {
+        throw new ErrorHandler(400, 'Password length must be longer than 3 symbols');
+      }
+
+      if (oldPassword === newPassword) {
+        throw new ErrorHandler(400, 'The old password is the same as the new one');
+      }
+
+      await user.update(
+        { oldPassword, newPassword },
+        { where: { id } },
+      );
+
+      res.send('ok');
     } catch (error) {
       next(error);
     }
   });
 
-  /**
-   * Create new theme
-   * @property {string} theme - theme name
-   * @property {string} description - theme description
-   */
-  themesRouter.post('/', (req, res, next) => {
-    SiteTheme.create(req.body)
-      .then((siteTheme) => res.json(siteTheme))
-      .catch(next);
-  });
-
-  router.use(`${API_URL}/themes`, themesRouter);
+  router.use(`${API_URL}/user`, auth, profileRouter);
 };

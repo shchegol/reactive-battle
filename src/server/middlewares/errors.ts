@@ -1,16 +1,42 @@
 import { Request, Response, NextFunction } from 'express';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default (err: any, _req: Request, _res: Response, _next: NextFunction) => {
-  _res.status(err.status || 501);
+class ErrorHandler extends Error {
+  statusCode: number;
 
-  if (process.env.NODE_ENV === 'production') {
-    _res.send('Something went wrong...');
-  } else {
-    _res.json({
-      status: err.status || err.statusCode,
-      message: err.message,
-      stack: err.stack,
-    });
+  message: string;
+
+  constructor(statusCode: number, message: string) {
+    super();
+    this.statusCode = statusCode;
+    this.message = message;
   }
+}
+
+const handleError = (err: ErrorHandler, res: Response) => {
+  const { statusCode, message } = err;
+
+  console.log(err);
+
+  res
+    .status(statusCode)
+    .json({
+      status: 'error',
+      statusCode,
+      message,
+    });
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default (err: any, _req: Request, res: Response, _next: NextFunction) => {
+  if (process.env.NODE_ENV === 'production') {
+    const fakeError = new ErrorHandler(500, 'Internal server error');
+    handleError(fakeError, res);
+  } else {
+    handleError(err, res);
+  }
+};
+
+export {
+  ErrorHandler,
+  handleError,
 };

@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { User } from '@server/models/user';
 import { API_URL } from '@root/constants';
 import { auth } from '@server/middlewares/auth';
+import { ErrorHandler } from '@server/middlewares/errors';
 
 export const authRoutes = (router: Router) => {
   const authRouter: Router = Router();
@@ -12,6 +13,10 @@ export const authRoutes = (router: Router) => {
       login, email, first_name, second_name, password,
     } = req.body;
 
+    if (!User.isSavePassword(password)) {
+      throw new ErrorHandler(400, 'Password length must be longer than 3 symbols');
+    }
+
     User.create({
       login,
       email,
@@ -20,9 +25,8 @@ export const authRoutes = (router: Router) => {
       password,
     })
       .then((user) => {
-        console.log('signup then', user.get('id'));
-        console.log('signup session', req.session);
-        req.session.user = { id: user.get('id') };
+        const { id: userId, login: userLogin } = user;
+        req.session.user = { id: userId, login: userLogin };
 
         res.send('ok');
       })
@@ -35,24 +39,20 @@ export const authRoutes = (router: Router) => {
     User
       .findOne({ where: { login } })
       .then((user) => {
-        console.log('signin then', user);
-
-        if (!user) {
-          next({ status: 404, message: 'Not found' });
-        } else if (!user.validPassword(password)) {
-          next({ status: 400, message: 'Login or password is not valid' });
-        } else {
-          req.session.user = { id: user.get('id') };
-
-          res.send('ok');
+        if (!user || !user.isValidPassword(password)) {
+          throw new ErrorHandler(400, 'Login or password is not valid');
         }
+
+        const { id: userId, login: userLogin } = user;
+        req.session.user = { id: userId, login: userLogin };
+
+        res.send('ok');
       })
       .catch(next);
   });
   //
   authRouter.get('/user', auth, (req, res, next) => {
-    // @ts-ignore
-    const { id } = req.session.user;
+    const id = req.session.user?.id;
 
     User
       .findOne({ where: { id } })

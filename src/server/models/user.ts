@@ -40,6 +40,12 @@ export class User extends Model {
 
   @Column({
     type: DataTypes.STRING(128),
+    allowNull: false,
+  })
+  password: string;
+
+  @Column({
+    type: DataTypes.STRING(128),
     allowNull: true,
   })
   first_name: string;
@@ -50,36 +56,11 @@ export class User extends Model {
   })
   second_name: string;
 
-  @Column({
-    type: DataTypes.STRING(128),
-    allowNull: true,
-  })
-  display_name: string;
-
   @HasMany(() => Comment)
   comments: Comment[];
 
   @HasMany(() => Topic)
   topics: Topic[];
-
-  // @Is('validPassword', (password: string) => {
-  //   // todo понять почему this может быть undefined
-  //   // @ts-ignore
-  //   if (!password || !bcrypt.compareSync(password, this.password)) {
-  //     throw new Error('Password is not valid.');
-  //   }
-  // })
-  @Column({
-    type: DataTypes.STRING(128),
-    allowNull: false,
-  })
-  password: string;
-
-  // @Column({
-  //   type: DataTypes.STRING(128),
-  //   allowNull: false,
-  // })
-  // cookie: string;
 
   @BeforeCreate
   static addSalt(user: User) {
@@ -88,7 +69,11 @@ export class User extends Model {
     user.password = bcrypt.hashSync(user.password, salt);
   }
 
-  validPassword(password: string) {
+  isValidPassword(password: string) {
     return bcrypt.compareSync(password, this.password);
+  }
+
+  static isSavePassword(password: unknown) {
+    return typeof password === 'string' && password.length > 3;
   }
 }

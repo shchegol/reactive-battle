@@ -29,23 +29,6 @@ const SignUpForm = ({
       }}
     >
       <Input
-        className="mt-60"
-        labelText="FIRST NAME"
-        value={firstName}
-        onChange={(event) => setFirstName(event.target.value)}
-        placeholder="FIRST NAME"
-        required
-      />
-
-      <Input
-        labelText="SECOND NAME"
-        value={secondName}
-        onChange={(event) => setSecondName(event.target.value)}
-        placeholder="SECOND NAME"
-        required
-      />
-
-      <Input
         labelText="LOGIN"
         value={login}
         onChange={(event) => setLogin(event.target.value)}
@@ -71,11 +54,24 @@ const SignUpForm = ({
       />
 
       <Input
+        labelText="FIRST NAME"
+        value={firstName}
+        onChange={(event) => setFirstName(event.target.value)}
+        placeholder="FIRST NAME"
+      />
+
+      <Input
+        labelText="SECOND NAME"
+        value={secondName}
+        onChange={(event) => setSecondName(event.target.value)}
+        placeholder="SECOND NAME"
+      />
+
+      <Input
         labelText="PHONE"
         value={phone}
         onChange={(event) => setPhone(event.target.value)}
         placeholder="PHONE"
-        required
       />
 
       { !!errorMsg && (

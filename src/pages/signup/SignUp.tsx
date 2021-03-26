@@ -27,7 +27,7 @@ export default function SignUp() {
       </div>
 
       <div className="row justify-content-center">
-        <div className="col-12 col-sm-8 col-md-6 col-lg-4">
+        <div className="col-12 col-sm-8 col-md-6 col-lg-4 pt-60">
           <SignUpForm
             handleSubmit={submitHandler}
           />
