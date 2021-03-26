@@ -3,7 +3,7 @@
 import bcrypt from 'bcrypt';
 import { DataTypes } from 'sequelize';
 import {
-  Column, Table, Model, HasMany, BeforeCreate, Length, IsEmail,
+  Column, Table, Model, HasMany, BeforeCreate, Length, IsEmail, IsUrl,
 } from 'sequelize-typescript';
 import { Comment } from '@server/models/comment';
 import { Topic } from './topic';
@@ -55,6 +55,13 @@ export class User extends Model {
     allowNull: true,
   })
   second_name: string;
+
+  @IsUrl
+  @Column({
+    type: DataTypes.STRING,
+    allowNull: true,
+  })
+  avatar: string;
 
   @HasMany(() => Comment)
   comments: Comment[];

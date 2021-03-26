@@ -31,8 +31,8 @@ export const signup = (data: SignUpRequest) => {
         dispatch(showLoading());
         dispatch(showSnackbar({ type: 'success', message: 'registration completed successfully' }));
       }, (error) => {
-        dispatch(failure(error.toString()));
-        dispatch(showSnackbar({ type: 'danger', message: `${error.toString()}` }));
+        dispatch(failure(error.message));
+        dispatch(showSnackbar({ type: 'danger', message: error.message }));
       })
       .then(() => dispatch(hideLoading()));
   };
@@ -55,8 +55,8 @@ export const signin = (data: UserRequest) => {
         dispatch(fetchUser());
         dispatch(showSnackbar({ type: 'success', message: 'authorization completed successfully' }));
       }, (error) => {
-        dispatch(failure(error.toString()));
-        dispatch(showSnackbar({ type: 'danger', message: `${error.toString()}` }));
+        dispatch(failure(error.message));
+        dispatch(showSnackbar({ type: 'danger', message: error.message }));
       });
   };
 };
@@ -77,8 +77,8 @@ export const yaOauth = (code: string) => {
         dispatch(success());
         dispatch(showSnackbar({ type: 'success', message: 'authorization completed successfully' }));
       }, (error) => {
-        dispatch(failure(error.toString()));
-        dispatch(showSnackbar({ type: 'danger', message: `${error.toString()}` }));
+        dispatch(failure(error.message));
+        dispatch(showSnackbar({ type: 'danger', message: error.message }));
       });
   };
 };

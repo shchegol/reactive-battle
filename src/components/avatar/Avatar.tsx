@@ -16,7 +16,6 @@ import './avatar.scss';
 const Avatar: FC<Props> = ({
   src = undefined,
   size = undefined,
-  onInputChange = undefined,
   ...rest
 }) => {
   const [avatar, setAvatar] = useState('');
@@ -40,14 +39,6 @@ const Avatar: FC<Props> = ({
         rest.className,
       )}
     >
-      {onInputChange && (
-        <input
-          type="file"
-          className="profile-avatar__input"
-          onChange={onInputChange}
-        />
-      )}
-
       {
         avatar
           ? (

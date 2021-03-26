@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { changeProfile, changeAvatar, changePassword } from '@store/actionsCreators/user';
+import { changeProfile, changePassword } from '@store/actionsCreators/user';
 import ProfileEditForm from '@pages/profileEdit/profileEditForm';
 import { UserProfile } from '@pages/profileEdit/profileEditForm/types';
 import Button from '@components/button';
@@ -24,23 +24,14 @@ export default function ProfileEdit() {
   const [userData, setUserData] = useState({
     first_name: '',
     second_name: '',
-    display_name: '',
     login: '',
     email: '',
-    phone: '',
     oldPassword: '',
     newPassword: '',
   } as Partial<UserProfile>);
 
   useEffect(() => {
-    if (!user.display_name) {
-      setUserData({
-        ...user,
-        display_name: user.login,
-      });
-    } else {
-      setUserData(user);
-    }
+    setUserData(user);
   }, []);
 
   const handleGoBack = useCallback(() => history.goBack(), [history]);
@@ -53,16 +44,6 @@ export default function ProfileEdit() {
     };
     setUserData(newValue);
   }, [userData]);
-
-  const handleAvatarChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = event.currentTarget;
-    if (!files) return;
-
-    const avatarFile = files[0];
-    if (avatarFile) {
-      dispatch(changeAvatar(avatarFile));
-    }
-  }, [dispatch]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -100,7 +81,6 @@ export default function ProfileEdit() {
                 src={user.avatar}
                 alt="CHANGE AVATAR"
                 size="l"
-                onInputChange={handleAvatarChange}
               />
             </div>
           </div>

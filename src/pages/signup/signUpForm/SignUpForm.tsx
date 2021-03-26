@@ -13,7 +13,6 @@ const SignUpForm = ({
   const [login, setLogin] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [phone, setPhone] = useState('');
 
   return (
     <form
@@ -24,7 +23,6 @@ const SignUpForm = ({
           login,
           email,
           password,
-          phone,
         });
       }}
     >
@@ -65,13 +63,6 @@ const SignUpForm = ({
         value={secondName}
         onChange={(event) => setSecondName(event.target.value)}
         placeholder="SECOND NAME"
-      />
-
-      <Input
-        labelText="PHONE"
-        value={phone}
-        onChange={(event) => setPhone(event.target.value)}
-        placeholder="PHONE"
       />
 
       { !!errorMsg && (

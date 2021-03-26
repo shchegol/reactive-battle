@@ -7,8 +7,6 @@ import authSelector from '@store/selectors/auth';
 const PrivateRoute = (props: RouteProps) => {
   const { isLoggedIn } = useSelector(authSelector);
 
-  console.log('isLoggedIn', isLoggedIn);
-
   return isLoggedIn ? <Route {...props} /> : <Redirect to={{ pathname: '/signin' }} />;
 };
 

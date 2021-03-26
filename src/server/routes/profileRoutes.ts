@@ -11,12 +11,12 @@ export const profileRoutes = (router: Router) => {
     const id = req.session.user?.id;
     const {
       // eslint-disable-next-line @typescript-eslint/naming-convention
-      email, first_name, second_name,
+      email, first_name, second_name, avatar,
     } = req.body;
 
     User.update(
       {
-        email, first_name, second_name,
+        email, first_name, second_name, avatar,
       },
       {
         where: { id },
@@ -26,9 +26,6 @@ export const profileRoutes = (router: Router) => {
       .then((user) => res.json(user[1][0]))
       .catch(next);
   });
-
-  // profileRouter.put('/profile/avatar', (req, res, next) => {
-  // });
 
   profileRouter.put('/password', async (req, res, next) => {
     const id = req.session.user?.id;

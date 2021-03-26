@@ -18,6 +18,16 @@ const ProfileEditForm: FC<Props> = ({
     <div className="row">
       <div className="col-12">
         <Input
+          labelText="AVATAR URL"
+          value={userData.avatar}
+          name="avatar"
+          placeholder="URL"
+          onChange={onInputChange}
+        />
+      </div>
+
+      <div className="col-12 mt-40">
+        <Input
           labelText="EMAIL"
           value={userData.email}
           name="email"

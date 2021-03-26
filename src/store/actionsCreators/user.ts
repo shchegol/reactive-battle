@@ -20,8 +20,8 @@ export const fetchUser = () => {
         dispatch(success(userData));
       })
       .catch((error) => {
-        dispatch(showSnackbar({ type: 'danger', message: `Something went wrong. ${error.toString()}` }));
-        dispatch(failure(error.toString()));
+        dispatch(showSnackbar({ type: 'danger', message: `Something went wrong. ${error.message}` }));
+        dispatch(failure(error.message));
       });
   };
 };
@@ -40,8 +40,8 @@ export const changeProfile = (data: UserRequest) => {
         dispatch(showSnackbar({ type: 'success', message: 'Profile updated successfully' }));
       })
       .catch((error) => {
-        dispatch(failure(error.toString()));
-        dispatch(showSnackbar({ type: 'danger', message: `Something went wrong. ${error.toString()}` }));
+        dispatch(failure(error.message));
+        dispatch(showSnackbar({ type: 'danger', message: `Something went wrong. ${error.message}` }));
       });
   };
 };
@@ -57,8 +57,8 @@ export const changeAvatar = (data: File) => {
     return UserAPI.changeAvatar(data)
       .then((userData) => dispatch(success(userData)))
       .catch((error) => {
-        dispatch(failure(error.toString()));
-        dispatch(showSnackbar({ type: 'danger', message: `Something went wrong. ${error.toString()}` }));
+        dispatch(failure(error.message));
+        dispatch(showSnackbar({ type: 'danger', message: `Something went wrong. ${error.message}` }));
       });
   };
 };
@@ -77,8 +77,8 @@ export const changePassword = (data: PasswordRequest) => {
         dispatch(showSnackbar({ type: 'success', message: 'Password updated successfully' }));
       })
       .catch((error) => {
-        dispatch(failure(error.toString()));
-        dispatch(showSnackbar({ type: 'danger', message: `Something went wrong. ${error.toString()}` }));
+        dispatch(failure(error.message));
+        dispatch(showSnackbar({ type: 'danger', message: `Something went wrong. ${error.message}` }));
       });
   };
 };
