@@ -36,6 +36,9 @@ const info = `
     console.log('\x1b[32mPostgreSQL is connected\x1b[0m');
 
     server.listen(PORT, () => {
+      console.log(process.env);
+      console.log(process.env.HOST);
+      console.log(process.env.PORT);
       console.log(info);
     });
   } catch (e) {
