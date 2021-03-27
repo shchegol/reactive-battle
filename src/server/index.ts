@@ -14,7 +14,7 @@ const http = require('http');
 const server = http.createServer(app);
 
 const HOST = process.env.HOST || '0.0.0.0';
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 80;
 
 const info = `
   \x1b[32m######### SERVER IS RUNNING #########\x1b[0m
