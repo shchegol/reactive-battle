@@ -21,7 +21,7 @@ const sequelizeOptions: SequelizeOptions = {
   host,
   port: parseInt(<string>port, 10),
   dialect: 'postgres',
-  ssl: process.env.NODE_ENV === 'production',
+  native: process.env.NODE_ENV === 'production',
   models: [
     User,
     Topic,
