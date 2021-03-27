@@ -1,1 +1,1 @@
-web: npm run ssr:start:prod
+web: node dist/server.js
