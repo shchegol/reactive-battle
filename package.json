@@ -9,7 +9,7 @@
     "build:prod": "webpack --config ./webpack/webpack.client.prod.js",
     "build:dev": "webpack --config ./webpack/webpack.client.dev.js",
     "ssr:build:server:dev": "webpack --config ./webpack/ssr/server.js",
-    "ssr:build:server:prod": "cross-env HOST=$HOST webpack --config ./webpack/ssr/server.js",
+    "ssr:build:server:prod": "cross-env PORT=$PORT webpack --config ./webpack/ssr/server.js",
     "ssr:build:client:prod": "webpack --config ./webpack/ssr/client.prod.js",
     "ssr:start:dev": "npm run ssr:build:server:dev && node dist/server.js",
     "ssr:start:prod": "npm run ssr:build:server:prod && npm run ssr:build:client:prod && node dist/server.js",
