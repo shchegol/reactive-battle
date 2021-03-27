@@ -23,7 +23,10 @@ const sequelizeOptions: SequelizeOptions = {
   dialect: 'postgres',
   protocol: 'postgres',
   dialectOptions: {
-    ssl: true,
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
   },
   models: [
     User,
