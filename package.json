@@ -5,7 +5,7 @@
   "main": "src/index.tsx",
   "scripts": {
     "start": "webpack serve --config ./webpack/webpack.client.dev.js",
-    "build": "npm run ssr:build:client:prod",
+    "build": "cross-env PORT=$PORT npm run ssr:build:server:prod && npm run ssr:build:client:prod",
     "build:prod": "webpack --config ./webpack/webpack.client.prod.js",
     "build:dev": "webpack --config ./webpack/webpack.client.dev.js",
     "ssr:build:server:dev": "webpack --config ./webpack/ssr/server.js",
@@ -55,7 +55,7 @@
     "ie >= 11",
     "Edge >= 12"
   ],
-  "dependencies": {
+  "devDependencies": {
     "@babel/core": "7.12.13",
     "@babel/preset-env": "7.12.13",
     "@babel/preset-react": "7.12.13",
@@ -106,7 +106,11 @@
     "sass-loader": "11.0.0",
     "style-loader": "2.0.0",
     "ts-jest": "26.5.0",
-    "webpack-dev-server": "3.11.2",
+    "ts-loader": "8.0.15",
+    "typescript": "4.1.3",
+    "webpack-dev-server": "3.11.2"
+  },
+  "dependencies": {
     "autoprefixer": "10.2.4",
     "axios": "0.21.1",
     "babel-loader": "8.2.2",
@@ -145,8 +149,6 @@
     "sequelize": "6.5.0",
     "sequelize-typescript": "2.1.0",
     "serialize-javascript": "5.0.1",
-    "ts-loader": "8.0.15",
-    "typescript": "4.1.3",
     "webpack": "5.20.2",
     "webpack-cli": "4.5.0",
     "webpack-dev-middleware": "3.7.3",
