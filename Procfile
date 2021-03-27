@@ -1,1 +1,1 @@
-web: PORT=$PORT HOST=$HOST node dist/server.js
+web: PORT=$PORT node dist/server.js

@@ -13,7 +13,7 @@ const http = require('http');
 // const server = https.createServer({ key, cert }, app);
 const server = http.createServer(app);
 
-const HOST = process.env.HOST || 'localhost';
+const HOST = process.env.HOST || '0.0.0.0';
 const PORT = process.env.PORT || 5000;
 
 const info = `

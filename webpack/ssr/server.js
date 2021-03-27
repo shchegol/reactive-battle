@@ -16,6 +16,9 @@ module.exports = {
   mode: process.env.NODE_ENV || 'development',
   entry: '/src/server/index.ts',
   externals: [webpackNodeExternals()],
+  optimization: {
+    minimize: false,
+  },
   output: {
     filename: 'server.js',
     path: util.resolve('dist'),
