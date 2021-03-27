@@ -26,13 +26,12 @@ export class Topic extends Model {
   })
   description: string;
 
+  @ForeignKey(() => User)
   @Column({
     type: DataTypes.INTEGER,
     allowNull: false,
     field: 'user_id',
   })
-
-  @ForeignKey(() => User)
   userId: number;
 
   @BelongsTo(() => User)

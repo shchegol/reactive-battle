@@ -5,17 +5,24 @@ class ErrorHandler extends Error {
 
   message: string;
 
-  constructor(statusCode: number, message: string) {
+  canShow: boolean;
+
+  constructor(statusCode: number, message: string, canShow?: boolean) {
     super();
     this.statusCode = statusCode;
     this.message = message;
+    this.canShow = !!canShow;
   }
 }
 
 const handleError = (err: ErrorHandler, res: Response) => {
-  const { statusCode, message } = err;
+  // eslint-disable-next-line prefer-const
+  let { statusCode, message, canShow } = err;
 
-  console.log(err);
+  if (process.env.NODE_ENV === 'production' && !canShow) {
+    statusCode = 500;
+    message = 'Internal server error';
+  }
 
   res
     .status(statusCode)
@@ -28,12 +35,7 @@ const handleError = (err: ErrorHandler, res: Response) => {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default (err: any, _req: Request, res: Response, _next: NextFunction) => {
-  if (process.env.NODE_ENV === 'production') {
-    const fakeError = new ErrorHandler(500, 'Internal server error');
-    handleError(fakeError, res);
-  } else {
-    handleError(err, res);
-  }
+  handleError(err, res);
 };
 
 export {

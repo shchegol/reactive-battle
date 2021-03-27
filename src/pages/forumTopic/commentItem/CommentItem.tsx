@@ -35,7 +35,7 @@ const CommentItem: FC<Props> = ({
       <div className="row align-items-center">
         <div className="col">
           <h5 className="text-color-secondary">
-            {comment.login}
+            {comment.user.login}
           </h5>
         </div>
 

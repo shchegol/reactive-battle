@@ -23,9 +23,9 @@ const info = `
 
 (async () => {
   try {
-    // todo не забыть заменить
     // await sequelize.sync({ force: true });
     await sequelize.sync();
+
     // Main themes creating
     await SiteTheme.bulkCreate<Model<Partial<SiteTheme>>>([
       { theme: 'dark', description: 'Default dark theme' },

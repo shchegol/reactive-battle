@@ -5,10 +5,10 @@ const topicsPrefix = '/topics';
 const commentsPrefix = '/comments';
 
 export const fetchTopics = (): Promise<Topic[]> => apiAxios.get(`${topicsPrefix}`);
-export const addTopic = (name: string, description: string, login: string): Promise<Topic> => apiAxios.post(`${topicsPrefix}`, { name, description, login });
-export const fetchTopic = (topic_id: number): Promise<Topic> => apiAxios.get(`${topicsPrefix}/${topic_id}`);
-export const addComment = (topic_id: number, body: string, login: string, comment_id: number | null): Promise<Comment> => apiAxios.post(`${commentsPrefix}`, {
-  topic_id, body, login, comment_id,
+export const addTopic = (name: string, description: string): Promise<Topic> => apiAxios.post(`${topicsPrefix}`, { name, description });
+export const fetchTopic = (topicId: number): Promise<Topic> => apiAxios.get(`${topicsPrefix}/${topicId}`);
+export const addComment = (topicId: number, body: string, commentId: number | null): Promise<Comment> => apiAxios.post(`${commentsPrefix}`, {
+  topicId, body, commentId,
 });
 
 export default {

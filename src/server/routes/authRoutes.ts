@@ -14,7 +14,7 @@ export const authRoutes = (router: Router) => {
     } = req.body;
 
     if (!User.isSavePassword(password)) {
-      throw new ErrorHandler(400, 'Password length must be longer than 3 symbols');
+      throw new ErrorHandler(400, 'Password length must be longer than 3 symbols', true);
     }
 
     User
@@ -41,7 +41,7 @@ export const authRoutes = (router: Router) => {
       .findOne({ where: { login } })
       .then((user) => {
         if (!user || !user.isValidPassword(password)) {
-          throw new ErrorHandler(400, 'Login or password is not valid');
+          throw new ErrorHandler(400, 'Login or password is not valid', true);
         }
 
         const { id: userId, login: userLogin } = user;
@@ -51,12 +51,15 @@ export const authRoutes = (router: Router) => {
       })
       .catch(next);
   });
-  //
+
   authRouter.get('/user', auth, (req, res, next) => {
     const id = req.session.user?.id;
 
     User
-      .findOne({ where: { id } })
+      .findOne({
+        attributes: ['id', 'email', 'login', 'first_name', 'second_name', 'avatar'],
+        where: { id },
+      })
       .then((user) => {
         if (!user) {
           next({ status: 404, message: 'Not found' });

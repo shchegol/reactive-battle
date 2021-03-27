@@ -1,24 +1,10 @@
-version: "4"
+version: "3"
 services:
   app:
     build:
       context: .
-    depends_on:
-      - postgres
     restart: always
     env_file:
       - .env
     ports:
       - 5000:5000
-  postgres:
-    container_name: psql
-    image: postgres:13
-    restart: always
-    env_file:
-      - .env
-    volumes:
-      - ./postgresdata:/var/lib/postgresql/data
-    ports:
-      - 5432:5432
-volumes:
-    pgadmin-data:

@@ -3,10 +3,8 @@
 import bcrypt from 'bcrypt';
 import { DataTypes } from 'sequelize';
 import {
-  Column, Table, Model, HasMany, BeforeCreate, Length, IsEmail, IsUrl,
+  Column, Table, Model, BeforeCreate, Length, IsEmail, IsUrl,
 } from 'sequelize-typescript';
-import { Comment } from '@server/models/comment';
-import { Topic } from './topic';
 
 @Table({
   tableName: 'users',
@@ -52,12 +50,6 @@ export class User extends Model {
     allowNull: true,
   })
   avatar: string;
-
-  @HasMany(() => Comment)
-  comments: Comment[];
-
-  @HasMany(() => Topic)
-  topics: Topic[];
 
   @BeforeCreate
   static addSalt(user: User) {

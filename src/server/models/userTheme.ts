@@ -1,13 +1,12 @@
 import { DataTypes } from 'sequelize';
 import {
-  Column, Table, Model, ForeignKey, BelongsTo,
+  Column, Table, Model, ForeignKey,
 } from 'sequelize-typescript';
 import { SiteTheme } from '@server/models/siteTheme';
 import { User } from '@server/models/user';
 
 @Table({
   timestamps: false,
-  paranoid: true,
   tableName: 'user_themes',
   modelName: 'UserTheme',
 })
@@ -27,7 +26,4 @@ export class UserTheme extends Model<UserTheme> {
     field: 'user_id',
   })
   userId: number;
-
-  @BelongsTo(() => User)
-  user: User;
 }

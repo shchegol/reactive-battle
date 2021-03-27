@@ -11,13 +11,11 @@ import forumSelector from '@store/selectors/forum';
 import { ReplyProvider } from '@root/contexts/reply';
 import { Helmet } from 'react-helmet';
 import { addComment, fetchTopic } from '@root/store/actionsCreators/forum';
-import userSelector from '@store/selectors/user';
 
 export default function ForumTopic() {
   const history = useHistory();
   const params = useParams<{ id: string }>();
   const { topics } = useSelector(forumSelector);
-  const { login } = useSelector(userSelector);
   const topicId = Number.parseInt(params.id, 10);
   const topic = useMemo(() => topics.find((f) => f.id === topicId) || {} as Topic, [topicId, topics]);
   const comments = topic?.comments || [];
@@ -72,7 +70,7 @@ export default function ForumTopic() {
         </div>
 
         <Reply
-          onOk={(text, commentId) => dispatch(addComment(topicId, commentId, text, login))}
+          onOk={(text, commentId) => dispatch(addComment(topicId, commentId, text))}
         />
       </ReplyProvider>
     </>

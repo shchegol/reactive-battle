@@ -23,7 +23,17 @@ export const profileRoutes = (router: Router) => {
         returning: true,
       },
     )
-      .then((user) => res.json(user[1][0]))
+      .then((user) => {
+        const resUser = user[1][0];
+        res.json({
+          id: resUser.id,
+          email: resUser.email,
+          login: resUser.login,
+          first_name: resUser.first_name,
+          second_name: resUser.second_name,
+          avatar: resUser.avatar,
+        });
+      })
       .catch(next);
   });
 
@@ -39,15 +49,15 @@ export const profileRoutes = (router: Router) => {
       }
 
       if (!user.isValidPassword(oldPassword)) {
-        throw new ErrorHandler(400, 'Old password is not valid');
+        throw new ErrorHandler(400, 'Old password is not valid', true);
       }
 
       if (!User.isSavePassword(newPassword)) {
-        throw new ErrorHandler(400, 'Password length must be longer than 3 symbols');
+        throw new ErrorHandler(400, 'Password length must be longer than 3 symbols', true);
       }
 
       if (oldPassword === newPassword) {
-        throw new ErrorHandler(400, 'The old password is the same as the new one');
+        throw new ErrorHandler(400, 'The old password is the same as the new one', true);
       }
 
       await user.update(

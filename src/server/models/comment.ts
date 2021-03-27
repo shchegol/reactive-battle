@@ -56,5 +56,5 @@ export class Comment extends Model {
     allowNull: true,
     field: 'comment_id',
   })
-  comment_id: number | null;
+  commentId: number | null;
 }

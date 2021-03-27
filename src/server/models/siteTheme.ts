@@ -4,6 +4,7 @@ import {
 } from 'sequelize-typescript';
 
 @Table({
+  timestamps: false,
   tableName: 'site_themes',
   modelName: 'SiteTheme',
 })

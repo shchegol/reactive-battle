@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import { API_URL } from '@root/constants';
 import { auth } from '@server/middlewares/auth';
-import { ErrorHandler } from '@server/middlewares/errors';
 import { Leaderboard } from '@server/models/leaderboard';
 import { User } from '@server/models/user';
 
@@ -16,10 +15,6 @@ export const leaderboardRoutes = (router: Router) => {
     const { score } = req.body;
 
     try {
-      if (!userId) {
-        throw new ErrorHandler(500, 'Session lost');
-      }
-
       if (!score) {
         return next();
       }
@@ -49,8 +44,9 @@ export const leaderboardRoutes = (router: Router) => {
   /**
    * Get all leaderboard
    */
-  leaderboardRouter.post('/all', async (_req, res, next) => {
+  leaderboardRouter.post('/all', (_req, res, next) => {
     Leaderboard.findAll({
+      attributes: ['score'],
       include: [
         {
           model: User,
