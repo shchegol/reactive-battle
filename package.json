@@ -5,6 +5,7 @@
   "main": "src/index.tsx",
   "scripts": {
     "start": "webpack serve --config ./webpack/webpack.client.dev.js",
+    "build": "npm run ssr:start:prod",
     "build:prod": "webpack --config ./webpack/webpack.client.prod.js",
     "build:dev": "webpack --config ./webpack/webpack.client.dev.js",
     "ssr:build:server:dev": "webpack --config ./webpack/ssr/server.js",
