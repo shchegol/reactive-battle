@@ -1,15 +1,22 @@
-// const webpack = require('webpack');
+const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpackNodeExternals = require('webpack-node-externals');
+const dotenv = require('dotenv');
 const util = require('../webpack.utils');
 
-// require('dotenv').config(
-//   {
-//     path: process.env.NODE_ENV === 'production'
-//       ? '.env'
-//       : '.env.local',
-//   },
-// );
+const isProd = process.env.NODE_ENV === 'production';
+const plugins = [
+  new CleanWebpackPlugin(),
+];
+
+if (!isProd) {
+  dotenv.config({ path: '.env.local' });
+  plugins.push(
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env),
+    }),
+  );
+}
 
 module.exports = {
   target: 'node',
@@ -26,17 +33,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js', '.scss'],
-    alias: {
-      '@api': util.resolve('src/api'),
-      '@components': util.resolve('src/components'),
-      '@engine': util.resolve('src/engine'),
-      '@pages': util.resolve('src/pages'),
-      '@root': util.resolve('src'),
-      '@server': util.resolve('src/server'),
-      '@store': util.resolve('src/store'),
-      '@styles': util.resolve('src/styles'),
-      '@utils': util.resolve('src/utils'),
-    },
+    alias: util.aliases,
   },
   module: {
     rules: [
@@ -56,10 +53,5 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new CleanWebpackPlugin(),
-    // new webpack.DefinePlugin({
-    //   'process.env': JSON.stringify(process.env),
-    // }),
-  ],
+  plugins,
 };

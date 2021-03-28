@@ -14,7 +14,7 @@ const session = require('express-session');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackConfig = require('../../webpack/ssr/client.dev.js');
 
-const ifProd = process.env.NODE_ENV === 'production';
+const isProd = process.env.NODE_ENV === 'production';
 const app = express();
 const compiler = webpack(webpackConfig);
 
@@ -27,7 +27,7 @@ declare module 'express-session' {
   }
 }
 
-if (!ifProd) {
+if (!isProd) {
   app
     .use(
       webpackDevMiddleware(compiler, {
@@ -51,7 +51,7 @@ app
       expires: SESSION_EXPIRES,
       httpOnly: true,
       sameSite: true,
-      // secure: true,
+      secure: true,
     },
   }))
   .use(cookieParser())

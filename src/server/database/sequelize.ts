@@ -6,17 +6,8 @@ import { UserTheme } from '@server/models/userTheme';
 import { User } from '@server/models/user';
 import { Leaderboard } from '@server/models/leaderboard';
 
-console.log('DATABASE_URL', process.env.DATABASE_URL);
-
 const sequelizeOptions: SequelizeOptions = {
   dialect: 'postgres',
-  protocol: 'postgres',
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  },
   models: [
     User,
     Topic,
@@ -27,31 +18,14 @@ const sequelizeOptions: SequelizeOptions = {
   ],
 };
 
-export const sequelize = new Sequelize(`${process.env.DATABASE_URL}`, sequelizeOptions);
+if (process.env.NODE_ENV === 'production') {
+  sequelizeOptions.protocol = 'postgres';
+  sequelizeOptions.dialectOptions = {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  };
+}
 
-// const {
-//   POSTGRES_HOST: host,
-//   POSTGRES_PORT: port,
-//   POSTGRES_USER: username,
-//   POSTGRES_PASSWORD: password,
-//   POSTGRES_DB: database,
-// } = process.env;
-//
-// const sequelizeOptions: SequelizeOptions = {
-//   username,
-//   password,
-//   database,
-//   host,
-//   port: parseInt(<string>port, 10),
-//   dialect: 'postgres',
-//   models: [
-//     User,
-//     Topic,
-//     Comment,
-//     SiteTheme,
-//     UserTheme,
-//     Leaderboard,
-//   ],
-// };
-//
-// export const sequelize = new Sequelize(sequelizeOptions);
+export const sequelize = new Sequelize(`${process.env.DATABASE_URI}`, sequelizeOptions);

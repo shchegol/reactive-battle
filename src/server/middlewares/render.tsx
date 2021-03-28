@@ -64,9 +64,8 @@ export default (req: Request, res: Response) => {
     store.dispatch({ type: AuthActions.YAAUTH_REQUEST, payload: { oAuthCode } });
   }
 
+  // todo разобраться тут при подключении oauth
   // const { userLogin: login, isOAuth } = req.cookies;
-
-  // console.log('isLoggingIn', req.session.user && req.cookies.ssid);
 
   if (req.session.user && req.cookies.ssid) {
     // if (isOAuth === 'true') {
