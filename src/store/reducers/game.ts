@@ -5,7 +5,7 @@ import { GameActions } from '../actions/game';
 const defaultState: GameState = {
   player: {
     name: 'PLAYER 1',
-    lives: 2,
+    lives: 3,
     score: 0,
     kills: 0,
   },
@@ -49,6 +49,14 @@ export default function game(
         ...state,
         level: action.payload.level || 1,
         enemies: 20,
+      };
+    case GameActions.UPDATE_LIVES:
+      return {
+        ...state,
+        player: {
+          ...state.player,
+          lives: action.payload.lives || 3,
+        },
       };
     default:
       return state;

@@ -11,6 +11,7 @@ import {
   GAME_OVER,
   GAME_WIN,
   LEVEL_WIN,
+  PLAYER_DEAD,
 } from '@engine/EngineBus';
 import Bullet from '@engine/sprites/Bullet';
 import Button from '@components/button';
@@ -19,10 +20,16 @@ import userSelector from '@store/selectors/user';
 import Avatar from '@components/avatar';
 import Icon from '@components/icon';
 import { ThemeContext, TThemeContext } from '@root/contexts/theme';
-import { updateScore, clearScore, updateLevel } from '@root/store/actionsCreators/game';
+import {
+  updateScore,
+  clearScore,
+  updateLevel,
+  updateLives,
+} from '@root/store/actionsCreators/game';
 import LeaderboardAPI from '@api/LeaderboardAPI';
 import ThemeAPI from '@api/ThemeAPI';
 import useSnackbar from '@root/hooks/useSnackbar';
+import Player from '@engine/sprites/Player';
 
 export default function Game() {
   const { login, avatar } = useSelector(userSelector);
@@ -40,6 +47,12 @@ export default function Game() {
   const playerShot = useCallback((ctx?: EnemyTank | Bullet) => {
     if (ctx instanceof EnemyTank) {
       dispatch(updateScore({ tankType: ctx.Type }));
+    }
+  }, [dispatch]);
+
+  const playerDead = useCallback((ctx?: Player) => {
+    if (ctx instanceof Player) {
+      dispatch(updateLives({ lives: ctx.Lives }));
     }
   }, [dispatch]);
 
@@ -72,7 +85,6 @@ export default function Game() {
       setThemeIcon(newThemeIcon);
       showSnackbar(`Set ${newTheme} theme`);
     } catch (e) {
-      console.error(e);
       showSnackbar(`Unfortunately the theme "${newTheme}" is not set. Something goes wrong.`, 'danger');
     }
   };
@@ -87,6 +99,12 @@ export default function Game() {
 
     return () => EngineBus.off(SPRITE_DESTROYED, playerShot);
   }, [playerShot]);
+
+  useEffect(() => {
+    EngineBus.on(PLAYER_DEAD, playerDead);
+
+    return () => EngineBus.off(PLAYER_DEAD, playerDead);
+  }, [playerDead]);
 
   useEffect(() => {
     EngineBus.on(GAME_OVER, addPlayerScore);

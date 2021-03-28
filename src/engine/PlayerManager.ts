@@ -7,6 +7,7 @@ import {
   PLAYER_MOVE_LEFT,
   PLAYER_MOVE_RIGHT,
   PLAYER_SHOT,
+  PLAYER_DEAD,
   PLAYER_STOP_BACKWARD,
   PLAYER_STOP_FORWARD,
   PLAYER_STOP_LEFT,
@@ -42,6 +43,7 @@ export default class PlayerManager {
     EngineBus.on(PLAYER_STOP_BACKWARD, () => this.stopBackward());
 
     EngineBus.on(PLAYER_SHOT, () => this.shot());
+    EngineBus.on(PLAYER_DEAD, () => this.dead());
   }
 
   public stop() {
@@ -100,6 +102,14 @@ export default class PlayerManager {
 
   private shot() {
     this.player?.shot();
+  }
+
+  private dead() {
+    this.MovePlayerToStartLocation();
+  }
+
+  private MovePlayerToStartLocation() {
+    this.player?.changeLocation(132, 386, Direction.Up);
   }
 }
 

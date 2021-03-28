@@ -14,3 +14,8 @@ export const updateLevel = (payload: GamePayload) => ({
   type: GameActions.UPDATE_LEVEL,
   payload,
 });
+
+export const updateLives = (payload: GamePayload) => ({
+  type: GameActions.UPDATE_LIVES,
+  payload,
+});

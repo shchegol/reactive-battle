@@ -153,7 +153,7 @@ const Interface: FC<Props> = ({
                   <tbody>
                     <tr>
                       <td>
-                        {player.name}
+                        LIVES
                       </td>
                       <td className="player-info__col-2">
                         {player.lives}
