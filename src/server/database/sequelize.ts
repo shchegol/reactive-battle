@@ -28,4 +28,4 @@ if (process.env.NODE_ENV === 'production') {
   };
 }
 
-export const sequelize = new Sequelize(`${process.env.DATABASE_URI}`, sequelizeOptions);
+export const sequelize = new Sequelize(`${process.env.DATABASE_URL}`, sequelizeOptions);
