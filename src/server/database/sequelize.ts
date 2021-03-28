@@ -3,23 +3,29 @@ import { Topic } from '@server/models/topic';
 import { Comment } from '@server/models/comment';
 import { SiteTheme } from '@server/models/siteTheme';
 import { UserTheme } from '@server/models/userTheme';
-
-const {
-  POSTGRES_HOST: host,
-  POSTGRES_PORT: port,
-  POSTGRES_USER: username,
-  POSTGRES_PASSWORD: password,
-  POSTGRES_DB: database,
-} = process.env;
+import { User } from '@server/models/user';
+import { Leaderboard } from '@server/models/leaderboard';
 
 const sequelizeOptions: SequelizeOptions = {
-  username,
-  password,
-  database,
-  host,
-  port: parseInt(<string>port, 10),
   dialect: 'postgres',
-  models: [Topic, Comment, SiteTheme, UserTheme],
+  models: [
+    User,
+    Topic,
+    Comment,
+    SiteTheme,
+    UserTheme,
+    Leaderboard,
+  ],
 };
 
-export const sequelize = new Sequelize(sequelizeOptions);
+if (process.env.NODE_ENV === 'production') {
+  sequelizeOptions.protocol = 'postgres';
+  sequelizeOptions.dialectOptions = {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  };
+}
+
+export const sequelize = new Sequelize(`${process.env.DATABASE_URL}`, sequelizeOptions);

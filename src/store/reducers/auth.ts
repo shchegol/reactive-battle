@@ -2,12 +2,10 @@ import { AuthActions } from '@store/actions/auth';
 import { AuthAction } from '@store/actions/types';
 import Cookies from 'js-cookie';
 
-const login = Cookies.get('userLogin');
-const isOAuth = Cookies.get('isOAuth');
-
+const hasSession = !!Cookies.get('ssid');
 const initialState = {
-  isLoggedIn: !!login,
-  isOAuth: !!isOAuth,
+  isLoggedIn: hasSession,
+  isOAuth: false,
   oAuthCode: '',
   error: '',
 };

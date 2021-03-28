@@ -5,7 +5,7 @@ import { GameActions } from '../actions/game';
 const defaultState: GameState = {
   player: {
     name: 'PLAYER 1',
-    lives: 2,
+    lives: 3,
     score: 0,
     kills: 0,
   },
@@ -20,8 +20,6 @@ const scoring = (prevScore: number, tankType: TankTypes): number => {
     armor: 300,
     power: 400,
   };
-
-  console.log(prevScore, tankType);
 
   return scores[tankType] + prevScore;
 };
@@ -51,6 +49,14 @@ export default function game(
         ...state,
         level: action.payload.level || 1,
         enemies: 20,
+      };
+    case GameActions.UPDATE_LIVES:
+      return {
+        ...state,
+        player: {
+          ...state.player,
+          lives: action.payload.lives || 3,
+        },
       };
     default:
       return state;

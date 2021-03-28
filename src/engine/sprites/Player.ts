@@ -2,14 +2,25 @@
 import Direction from '@engine/Direction';
 import SpritesSheet from '@engine/SpritesSheet';
 import Tank from '@engine/sprites/Tank';
-import { EngineBus, SPRITE_DESTROYED } from '@engine/EngineBus';
+import {
+  EngineBus,
+  GAME_OVER,
+  PLAYER_DEAD,
+  SPRITE_DESTROYED,
+} from '@engine/EngineBus';
 import Bullet from './Bullet';
 
 export default class Player extends Tank {
+  private lives: number = 3;
+
   constructor(x: number, y: number) {
     super(x, y, 13, 13);
 
     this.isPlayer = true;
+  }
+
+  public get Lives() {
+    return this.lives;
   }
 
   public GetSprite() {
@@ -32,8 +43,13 @@ export default class Player extends Tank {
   }
 
   protected onBulletHit(bullet: Bullet) {
-    // GOD MODE
-    // EngineBus.emit(SPRITE_DESTROYED, this);
     EngineBus.emit(SPRITE_DESTROYED, bullet);
+
+    this.lives -= 1;
+    EngineBus.emit(PLAYER_DEAD, this);
+
+    if (this.lives === 0) {
+      EngineBus.emit(GAME_OVER);
+    }
   }
 }

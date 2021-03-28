@@ -5,17 +5,10 @@ import {
 
 @Table({
   timestamps: false,
-  paranoid: true,
   tableName: 'site_themes',
+  modelName: 'SiteTheme',
 })
 export class SiteTheme extends Model<SiteTheme> {
-  @Column({
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  })
-  id: number;
-
   @Index
   @Column({
     type: DataTypes.STRING,

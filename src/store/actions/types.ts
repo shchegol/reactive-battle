@@ -63,6 +63,7 @@ export interface GamePayload {
   tankType?: TankTypes,
   level?: number,
   enemies?: number,
+  lives?: number;
 }
 
 export type GameAction = Required<TPayload<GameActions, GamePayload>>;

@@ -2,7 +2,7 @@ import React, { FormHTMLAttributes } from 'react';
 import { PasswordRequest, UserRequest } from '@api/types';
 
 export type UserProfile = {
-  avatar: File | string;
+  avatar: string;
   display_name: string;
 } & UserRequest & PasswordRequest;
 

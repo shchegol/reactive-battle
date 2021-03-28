@@ -52,17 +52,16 @@ export interface Topic {
   id: number;
   name: string;
   description: string;
-  login: string;
   createdAt: string;
   comments: Comment[];
 }
 
 export interface Comment {
   id: number;
-  topic_id: number;
-  comment_id: number | null;
-  login: string;
+  topicId: number;
+  commentId: number | null;
   body: string;
+  user: { login: string };
   createdAt: string;
 }
 

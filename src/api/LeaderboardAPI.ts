@@ -1,14 +1,10 @@
-import { LeaderboardNewLeaderRequest, LeaderboardRequest, LeaderboardResponsePlayer } from '@api/types';
-import axios from '@utils/yandexApiRequest';
+import { LeaderboardResponsePlayer } from '@api/types';
+import axios from '@utils/apiRequest';
 
 const prefix = '/leaderboard';
 
-export const addNewLeader = (data: LeaderboardNewLeaderRequest) => axios.post(`${prefix}`, data);
-export const getAllLeaderboard = (options: LeaderboardRequest = {
-  ratingFieldName: 'score',
-  cursor: 0,
-  limit: 20,
-}): Promise<LeaderboardResponsePlayer[]> => axios.post(`${prefix}/all`, options);
+export const addNewLeader = (score: number) => axios.post(`${prefix}`, { score });
+export const getAllLeaderboard = (): Promise<LeaderboardResponsePlayer[]> => axios.post(`${prefix}/all`);
 
 export default {
   prefix,

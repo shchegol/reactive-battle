@@ -81,7 +81,7 @@ export function forumReducer(
       return {
         ...state,
         topics: state.topics.map((topic) => {
-          if (action.payload.comment && topic.id === action.payload.comment?.topic_id) {
+          if (action.payload.comment && topic.id === action.payload.comment?.topicId) {
             return {
               ...topic,
               comments: [...topic.comments, action.payload.comment],

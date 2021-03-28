@@ -35,5 +35,8 @@ module.exports = merge(common, {
     new MiniCssExtractPlugin({
       filename: 'bundle.css',
     }),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env),
+    }),
   ],
 });

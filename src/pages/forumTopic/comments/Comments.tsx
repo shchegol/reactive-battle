@@ -20,7 +20,7 @@ const Comments: FC<Props> = (
         ? (
           <ul className="messages">
             {topicComments
-              .filter(((comment) => comment.comment_id === parentCommentId))
+              .filter(((comment) => comment.commentId === parentCommentId))
               .map((comment) => (
                 <MessageItem
                   key={comment.id}

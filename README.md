@@ -1,22 +1,39 @@
-# [Reactive Battle](https://reactive-battle.herokuapp.com/) [![License](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
+# [Reactive Battle](https://reactivebattle.herokuapp.com/) [![License](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
 
-Где смотреть:    
-:eyes: https://reactive-battle.herokuapp.com/
+Где смотреть :eyes:     
+https://reactivebattle.herokuapp.com/
 
-:pray: Поддержи проект :point_up_2::star::relieved:
+Поддержи проект :pray: :star: :point_up_2: :relieved:
 
 ## Описание
-Попытка создать легендарную игру Battle City в браузере.
+Проект для совместного обучения и попытка создать легендарную игру Battle City в браузере.
 
 ## Технологии
-TypeScript, React.js, Redux, Canvas, Express.js, PostgreSQL, MongoDB, Docker, Webpack, ESLint, Jest и многое другое...
+TypeScript, React.js, Redux, Canvas, Express.js, PostgreSQL, Docker, Webpack, ESLint, Jest и многое другое...
 
 ## Управление
-:boom: (кнопка пробел) - стрельба   
-:arrow_up: (кнопка вверх) - вверх    
-:arrow_right: (кнопка вправо) - вправо    
-:arrow_down: (кнопка вниз) - вниз    
-:arrow_left: (кнопка влево) - влево
+:boom: (кнопка пробел) – стрельба   
+:arrow_up: (кнопка вверх) – вверх    
+:arrow_right: (кнопка вправо) – вправо    
+:arrow_down: (кнопка вниз) – вниз    
+:arrow_left: (кнопка влево) – влево
+
+## Сборка   
+Для правильной работы приложения необходимо:
+1. Запустить БД PostgreSQL
+2. Правильно настроить env файлы
+3. Собрать приложение
+
+__DOCKER__   
+`docker-compose up` – полностью развернёт приложение    
+
+__SSR__    
+`ssr:start:dev` – запуск версии c SSR для разработки  
+`ssr:start:prod` – сборка продуктовой версии c SSR   
+
+__Остальное__    
+`npm test` – запуск тестов    
+`npm eslint` – запуск eslint
 
 ## Сертификат для разработки
 Для запуска локального сервера нужен сертификат. Сертификат можно создать так:
@@ -30,19 +47,6 @@ https://medium.com/@nitinpatel_20236/how-to-create-an-https-server-on-localhost-
 
 Файлы key.pem и cert.pem нужно положить в папку ssl в корне проекта.
 
-## Сборка
-`npm i` — установка стабильной версии    
-`npm start` — запуск версии для разработки    
-`build:prod` — сборка продуктовой версии    
-
-__SSR__    
-`ssr:start:dev` — запуск версии c SSR для разработки    
-`ssr:start:prod` — сборка продуктовой версии c SSR    
-
-__Остальное__    
-`npm test` — запуск тестов    
-`npm eslint` — запуск eslint
-
 ## Environment
 Для корректного запуска проекта необходимо скопировать файлы `.env.example` и `.env.local.example`, убрав расширение `.example` у них.
 
@@ -55,5 +59,5 @@ https://yarnthen.github.io/yarnthencohosking/tutorials/2018/03/10/battle-city-un
 
 ## Разработчики
 [![zemer](https://avatars.githubusercontent.com/u/897766?s=100)](https://github.com/zemer)
-[![alexch365](https://avatars.githubusercontent.com/u/16709337?s=100)](https://github.com/alexch365)
 [![shchegol](https://avatars.githubusercontent.com/u/10686186?s=100)](https://github.com/shchegol)
+[![alexch365](https://avatars.githubusercontent.com/u/16709337?s=100)](https://github.com/alexch365)

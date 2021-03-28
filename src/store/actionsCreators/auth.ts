@@ -23,15 +23,16 @@ export const signup = (data: SignUpRequest) => {
 
     return AuthAPI
       .signup(data)
-      .then((userData) => {
-        Cookies.set('userLogin', userData.login, { expires: 7 });
+      .then(() => {
+        // Cookies.set('userLogin', userData.login, { expires: 7 });
+        // todo переписать
         dispatch(success());
         dispatch(fetchUser());
         dispatch(showLoading());
         dispatch(showSnackbar({ type: 'success', message: 'registration completed successfully' }));
       }, (error) => {
-        dispatch(failure(error.toString()));
-        dispatch(showSnackbar({ type: 'danger', message: `${error.toString()}` }));
+        dispatch(failure(error.message));
+        dispatch(showSnackbar({ type: 'danger', message: error.message }));
       })
       .then(() => dispatch(hideLoading()));
   };
@@ -47,15 +48,15 @@ export const signin = (data: UserRequest) => {
 
     AuthAPI
       .signin(data)
-      .then((userData) => {
-        Cookies.set('userLogin', userData.login || '', { expires: 7 });
+      .then(() => {
+        // Cookies.set('userLogin', userData.login || '', { expires: 7 });
         dispatch(showLoading());
         dispatch(success());
         dispatch(fetchUser());
         dispatch(showSnackbar({ type: 'success', message: 'authorization completed successfully' }));
       }, (error) => {
-        dispatch(failure(error.toString()));
-        dispatch(showSnackbar({ type: 'danger', message: `${error.toString()}` }));
+        dispatch(failure(error.message));
+        dispatch(showSnackbar({ type: 'danger', message: error.message }));
       });
   };
 };
@@ -76,8 +77,8 @@ export const yaOauth = (code: string) => {
         dispatch(success());
         dispatch(showSnackbar({ type: 'success', message: 'authorization completed successfully' }));
       }, (error) => {
-        dispatch(failure(error.toString()));
-        dispatch(showSnackbar({ type: 'danger', message: `${error.toString()}` }));
+        dispatch(failure(error.message));
+        dispatch(showSnackbar({ type: 'danger', message: error.message }));
       });
   };
 };

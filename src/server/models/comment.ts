@@ -4,12 +4,14 @@ import { DataTypes } from 'sequelize';
 import {
   Column, Table, Model, ForeignKey, BelongsTo,
 } from 'sequelize-typescript';
+import { User } from '@server/models/user';
 import { Topic } from './topic';
 
 @Table({
   timestamps: true,
   paranoid: false,
   tableName: 'comments',
+  modelName: 'Comment',
 })
 export class Comment extends Model {
   @Column({
@@ -26,12 +28,16 @@ export class Comment extends Model {
   })
   body: string;
 
+  @ForeignKey(() => User)
   @Column({
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     allowNull: false,
-    field: 'login',
+    field: 'user_id',
   })
-  login: string;
+  userId: number;
+
+  @BelongsTo(() => User)
+  user: User;
 
   @ForeignKey(() => Topic)
   @Column({
@@ -39,7 +45,7 @@ export class Comment extends Model {
     allowNull: false,
     field: 'topic_id',
   })
-  topic_id: number;
+  topicId: number;
 
   @BelongsTo(() => Topic)
   topic: Topic;
@@ -50,5 +56,5 @@ export class Comment extends Model {
     allowNull: true,
     field: 'comment_id',
   })
-  comment_id: number | null;
+  commentId: number | null;
 }

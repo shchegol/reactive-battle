@@ -67,24 +67,6 @@ export default function Profile() {
             </div>
           </div>
 
-          <div className="row mt-10">
-            <div className="col text-align-right text-color-secondary pr-4">
-              NICKNAME
-            </div>
-            <div className="col pl-4">
-              {user.display_name}
-            </div>
-          </div>
-
-          <div className="row mt-10">
-            <div className="col text-align-right text-color-secondary pr-4">
-              PHONE
-            </div>
-            <div className="col pl-4">
-              {user.phone}
-            </div>
-          </div>
-
           <div className="row justify-content-center mt-60">
             <div className="col-4">
               <Link

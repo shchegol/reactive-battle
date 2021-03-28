@@ -13,7 +13,6 @@ const SignUpForm = ({
   const [login, setLogin] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [phone, setPhone] = useState('');
 
   return (
     <form
@@ -24,27 +23,9 @@ const SignUpForm = ({
           login,
           email,
           password,
-          phone,
         });
       }}
     >
-      <Input
-        className="mt-60"
-        labelText="FIRST NAME"
-        value={firstName}
-        onChange={(event) => setFirstName(event.target.value)}
-        placeholder="FIRST NAME"
-        required
-      />
-
-      <Input
-        labelText="SECOND NAME"
-        value={secondName}
-        onChange={(event) => setSecondName(event.target.value)}
-        placeholder="SECOND NAME"
-        required
-      />
-
       <Input
         labelText="LOGIN"
         value={login}
@@ -71,11 +52,17 @@ const SignUpForm = ({
       />
 
       <Input
-        labelText="PHONE"
-        value={phone}
-        onChange={(event) => setPhone(event.target.value)}
-        placeholder="PHONE"
-        required
+        labelText="FIRST NAME"
+        value={firstName}
+        onChange={(event) => setFirstName(event.target.value)}
+        placeholder="FIRST NAME"
+      />
+
+      <Input
+        labelText="SECOND NAME"
+        value={secondName}
+        onChange={(event) => setSecondName(event.target.value)}
+        placeholder="SECOND NAME"
       />
 
       { !!errorMsg && (

@@ -9,6 +9,10 @@ import {
   GAME_OVER,
   GAME_WIN,
   LEVEL_WIN,
+  PLAYER_STOP_BACKWARD,
+  PLAYER_STOP_FORWARD,
+  PLAYER_STOP_LEFT,
+  PLAYER_STOP_RIGHT,
   SPRITE_CREATED,
 } from './EngineBus';
 import { GameStates } from './types/GameStates';
@@ -58,6 +62,11 @@ export default class Scene {
   }
 
   public onGameOver() {
+    EngineBus.emit(PLAYER_STOP_RIGHT);
+    EngineBus.emit(PLAYER_STOP_LEFT);
+    EngineBus.emit(PLAYER_STOP_BACKWARD);
+    EngineBus.emit(PLAYER_STOP_FORWARD);
+
     this.stage?.gameOver();
     this.stage = null;
 

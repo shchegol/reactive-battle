@@ -47,7 +47,6 @@ export const fetchTopic = (topicId: number) => {
 export const addTopic = (
   name: string,
   description: string,
-  login: string,
 ) => {
   const request = () => ({ type: ForumActions.ADD_TOPIC_REQUEST });
   const success = (topic: Topic) => ({ type: ForumActions.ADD_TOPIC_SUCCESS, payload: { topic } });
@@ -56,7 +55,7 @@ export const addTopic = (
   return (dispatch: Dispatch<ForumAction>) => {
     dispatch(request());
 
-    return ForumAPI.addTopic(name, description, login)
+    return ForumAPI.addTopic(name, description)
       .then((topic) => {
         dispatch(success(topic));
       })
@@ -70,7 +69,6 @@ export const addComment = (
   topicId: number,
   commentId: number | null,
   body: string,
-  login: string,
 ) => {
   const request = () => ({ type: ForumActions.ADD_COMMENT_REQUEST });
   const success = (comment: Comment) => ({ type: ForumActions.ADD_COMMENT_SUCCESS, payload: { comment } });
@@ -79,7 +77,7 @@ export const addComment = (
   return (dispatch: Dispatch<ForumAction>) => {
     dispatch(request());
 
-    return ForumAPI.addComment(topicId, body, login, commentId)
+    return ForumAPI.addComment(topicId, body, commentId)
       .then((comment) => {
         dispatch(success(comment));
       })
