@@ -6,6 +6,8 @@ import { UserTheme } from '@server/models/userTheme';
 import { User } from '@server/models/user';
 import { Leaderboard } from '@server/models/leaderboard';
 
+console.log('DATABASE_URL', process.env.DATABASE_URL);
+
 const sequelizeOptions: SequelizeOptions = {
   dialect: 'postgres',
   protocol: 'postgres',
