@@ -13,7 +13,7 @@ const http = require('http');
 // const server = https.createServer({ key, cert }, app);
 const server = http.createServer(app);
 
-const HOST = process.env.HOST || 'localhost';
+const HOST = process.env.HOST || '0.0.0.0';
 const PORT = process.env.PORT || 5000;
 
 const info = `
@@ -34,6 +34,10 @@ const info = `
       { theme: 'light', description: 'Light theme' },
     ], { updateOnDuplicate: ['theme', 'description'] });
     console.log('\x1b[32mPostgreSQL is connected\x1b[0m');
+
+    console.log('env', process.env);
+    console.log('HOST', process.env.HOST);
+    console.log('PORT', process.env.PORT);
 
     server.listen(PORT, () => {
       console.log(info);

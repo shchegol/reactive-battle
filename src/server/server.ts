@@ -51,7 +51,7 @@ app
       expires: SESSION_EXPIRES,
       httpOnly: true,
       sameSite: true,
-      secure: true,
+      // secure: true,
     },
   }))
   .use(cookieParser())

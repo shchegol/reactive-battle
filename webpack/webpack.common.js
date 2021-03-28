@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const util = require('./webpack.utils');
