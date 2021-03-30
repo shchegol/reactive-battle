@@ -54,6 +54,10 @@ export const leaderboardRoutes = (router: Router) => {
         },
       ],
     })
+      .then((leaders) => leaders.sort((a, b) => {
+        if (a.score === b.score) return 0;
+        return a.score < b.score ? 1 : -1;
+      }))
       .then((leaders) => res.json(leaders))
       .catch(next);
   });
