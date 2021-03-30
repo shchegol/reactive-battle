@@ -23,7 +23,7 @@ const Reply: FC<Props> = ({
 
   return (
     <div className="reply">
-      <div className="container">
+      <div className="container pb-60">
 
         {reply && (
         <div className="row align-items-center mb-4">

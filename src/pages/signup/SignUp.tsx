@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import SignUpForm from '@root/pages/signup/signUpForm';
 import MainTitle from '@root/components/mainTitle';
 import { SignUpRequest } from '@api/types';
 import useAuth from '@root/hooks/useAuth';
 import './signup.scss';
+import useLoading from '@root/hooks/useLoading';
 
 export default function SignUp() {
   const { isLoggedIn, signup } = useAuth();
+  const { hideLoading } = useLoading();
+
+  useEffect(() => {
+    hideLoading();
+  }, []);
 
   const submitHandler = async (event: React.FormEvent, userData: SignUpRequest) => {
     event.preventDefault();
@@ -19,7 +25,7 @@ export default function SignUp() {
   }
 
   return (
-    <div className="container">
+    <div className="container pb-60">
       <div className="row mt-40">
         <div className="col">
           <MainTitle />

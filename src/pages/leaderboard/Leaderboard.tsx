@@ -56,7 +56,7 @@ export default function Leaderboard() {
   }, []);
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid pb-60">
       <Helmet title="Leaderboard" />
 
       <div className="row mt-20">

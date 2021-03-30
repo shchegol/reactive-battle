@@ -22,7 +22,7 @@ export default function Forum() {
   const handleGoBack = () => history.goBack();
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid pb-60">
       <Helmet
         title="Forum"
       />

@@ -29,7 +29,7 @@ export default function ForumTopic() {
 
   return (
     <>
-      <div className="container-fluid">
+      <div className="container-fluid pb-60">
         <Helmet
           title={`${topic.name} - Forum`}
         />
@@ -58,7 +58,7 @@ export default function ForumTopic() {
       </div>
 
       <ReplyProvider>
-        <div className="container mt-40">
+        <div className="container mt-40 pb-60">
           <div className="row">
             <div className="col">
               <Comments
