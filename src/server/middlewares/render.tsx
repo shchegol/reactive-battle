@@ -23,6 +23,7 @@ function getHtml(
   reduxState = {},
   helmetData: HelmetData,
 ) {
+  // @ts-ignore
   return `
     <!DOCTYPE html>
     <html lang="en">
@@ -45,7 +46,7 @@ function getHtml(
           <div id="root">${reactHtml}</div>
           <div id="snackbar"></div>
           <script>
-              ${isProd ? 'window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {}' : ''}
+              ${isProd && typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__ === 'object' ? 'window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {}' : ''}
               window.__PRELOADED_STATE__ = ${serialize(reduxState, { isJSON: true })}
           </script>
           <script src="/bundle.js"></script>
