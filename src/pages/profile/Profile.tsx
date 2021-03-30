@@ -26,7 +26,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid pb-60">
       <Helmet title="Profile" />
 
       <div className="row mt-20">

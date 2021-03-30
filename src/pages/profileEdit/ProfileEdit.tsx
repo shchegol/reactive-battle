@@ -58,7 +58,7 @@ export default function ProfileEdit() {
   };
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid pb-60">
       <Helmet title="Change profile" />
 
       <div className="row mt-20">

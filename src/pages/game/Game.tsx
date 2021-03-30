@@ -119,7 +119,7 @@ export default function Game() {
   }, [addPlayerScore, updateLevelHandler, game]);
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid pb-60">
       <div className="row align-items-center mt-20">
         <div className="col-auto pr-0">
           <Avatar

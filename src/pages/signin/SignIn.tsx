@@ -1,6 +1,6 @@
 import SignInForm from '@root/pages/signin/signInForm';
 import MainTitle from '@root/components/mainTitle';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { SignInRequest } from '@api/types';
 // import Button from '@components/button';
@@ -8,11 +8,17 @@ import { SignInRequest } from '@api/types';
 // import { API_YANDEX_OAUTH_URL, API_YANDEX_REDIRECT_URI } from '@root/constants';
 import { Helmet } from 'react-helmet';
 import useAuth from '@root/hooks/useAuth';
+import useLoading from '@root/hooks/useLoading';
 // import useSnackbar from '@root/hooks/useSnackbar';
 
 export default function SignIn() {
   const { isLoggedIn, signin } = useAuth();
+  const { hideLoading } = useLoading();
   // const { showSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    hideLoading();
+  }, []);
 
   const submitHandler = (event: React.FormEvent, userData: SignInRequest) => {
     event.preventDefault();
@@ -36,7 +42,7 @@ export default function SignIn() {
   }
 
   return (
-    <div className="container">
+    <div className="container pb-60">
       <Helmet title="Signin" />
       <div className="row mt-40">
         <div className="col">
