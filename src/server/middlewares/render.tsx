@@ -16,7 +16,8 @@ import { withLoading } from '@root/hocs/withLoading';
 const serialize = require('serialize-javascript');
 
 const AppWithLoading = withLoading(App);
-const isProd = process.env.NODE_ENV === 'production';
+// const isProd = process.env.NODE_ENV === 'production';
+// ${isProd && !!window && typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__ === 'object' ? 'window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {}' : ''}
 
 function getHtml(
   reactHtml: string,
@@ -46,7 +47,6 @@ function getHtml(
           <div id="root">${reactHtml}</div>
           <div id="snackbar"></div>
           <script>
-              ${isProd && !!window && typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__ === 'object' ? 'window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {}' : ''}
               window.__PRELOADED_STATE__ = ${serialize(reduxState, { isJSON: true })}
           </script>
           <script src="/bundle.js"></script>
