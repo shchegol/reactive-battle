@@ -170,6 +170,7 @@ export default class Tank extends Sprite {
     }
   }
 
+  // обработка столкновений
   private onSpriteCollided(movedSprite: Sprite, collideWith: Sprite, oldX: number, oldY: number) {
     if (movedSprite === this) {
       if (collideWith instanceof Wall) {
@@ -215,11 +216,13 @@ export default class Tank extends Sprite {
     }
   }
 
+  // столкновение с танком
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected onTankHit(_tank: Tank, oldX: number, oldY: number): void {
     this.undoMove(oldX, oldY);
   }
 
+  // столкновение с пулей
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected onBulletHit(_bullet: Bullet): void { }
 }

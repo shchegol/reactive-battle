@@ -3,6 +3,7 @@ import MainTitle from '@root/components/mainTitle';
 import React, { useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { SignInRequest } from '@api/types';
+import { FormattedMessage } from 'react-intl';
 // import Button from '@components/button';
 // import AuthAPI from '@api/AuthAPI';
 // import { API_YANDEX_OAUTH_URL, API_YANDEX_REDIRECT_URI } from '@root/constants';
@@ -69,7 +70,10 @@ export default function SignIn() {
 
           <div className="text-align-center mt-40">
             <Link to="/signup">
-              REGISTER
+              <FormattedMessage
+                id="signin.form.register"
+                defaultMessage="REGISTER"
+              />
             </Link>
           </div>
         </div>

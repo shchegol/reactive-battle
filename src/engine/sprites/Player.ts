@@ -42,6 +42,7 @@ export default class Player extends Tank {
     }
   }
 
+  // обработка попаданий пули
   protected onBulletHit(bullet: Bullet) {
     EngineBus.emit(SPRITE_DESTROYED, bullet);
 

@@ -11,13 +11,21 @@ import { Helmet } from 'react-helmet';
 import { ApplicationState } from '@store/types';
 import createHistory from '@store/history';
 import { ThemeProvider } from '@root/contexts/theme';
+
 import '@styles/index.scss';
+import { IntlProvider } from 'react-intl';
+import messages_ru from '@root/lang/ru.json';
+import messages_en from '@root/lang/en.json';
 
 const initialState = window.__PRELOADED_STATE__;
 delete window.__PRELOADED_STATE__;
 const store = configureStore(initialState as ApplicationState);
 const history = createHistory();
 const AppWithLoading = withLoading(App);
+const messages = {
+  ru: messages_ru,
+  en: messages_en,
+};
 
 const markup = (
   <ErrorBoundary>
@@ -28,7 +36,12 @@ const markup = (
       />
       <ConnectedRouter history={history}>
         <ThemeProvider>
-          <AppWithLoading />
+          <IntlProvider
+            locale="ru"
+            messages={messages.ru}
+          >
+            <AppWithLoading />
+          </IntlProvider>
         </ThemeProvider>
       </ConnectedRouter>
       <Snackbar />
