@@ -1,4 +1,12 @@
 {
-  "signin.form.login": "LOGIN",
-  "signin.form.register": "REGISTER"
+  "loading.text": "LOADING...",
+
+  "button.login": "LOGIN",
+  "button.register": "REGISTER",
+
+  "input.login": "LOGIN",
+  "input.password": "PASSWORD",
+  "input.email": "EMAIL",
+  "input.firstName": "FIRST NAME",
+  "input.secondName": "SECOND NAME"
 }

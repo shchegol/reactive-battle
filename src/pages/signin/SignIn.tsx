@@ -68,10 +68,10 @@ export default function SignIn() {
           {/*  </Button> */}
           {/* </div> */}
 
-          <div className="text-align-center mt-40">
+          <div className="text-align-center mt-20">
             <Link to="/signup">
               <FormattedMessage
-                id="signin.form.register"
+                id="button.register"
                 defaultMessage="REGISTER"
               />
             </Link>

@@ -8,8 +8,8 @@ const Loading: FC = () => (
     <div className="loading__img" />
     <p className="loading__text">
       <FormattedMessage
-        id="signin.form.register"
-        defaultMessage="REGISTER"
+        id="loading.text"
+        defaultMessage="LOADING..."
       />
     </p>
   </div>

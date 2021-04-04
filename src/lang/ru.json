@@ -1,4 +1,12 @@
 {
-  "signin.form.login": "ВОЙТИ",
-  "signin.form.register": "ЗАРЕГИСТРИРОВАТЬСЯ"
+  "loading.text": "ЗАГРУЗКА...",
+
+  "button.login": "ВОЙТИ",
+  "button.register": "ЗАРЕГИСТРИРОВАТЬСЯ",
+
+  "input.login": "ЛОГИН",
+  "input.password": "ПАРОЛЬ",
+  "input.email": "EMAIL",
+  "input.firstName": "ИМЯ",
+  "input.secondName": "ФАМИЛИЯ"
 }

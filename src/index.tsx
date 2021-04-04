@@ -5,7 +5,7 @@ import ErrorBoundary from '@components/errorBoundary';
 import { Provider } from 'react-redux';
 import configureStore from '@store/store';
 import Snackbar from '@components/snackbar/Snackbar';
-import { withLoading } from '@root/hocs/withLoading';
+import { withAppHOCs } from '@root/hocs/withAppHOCs';
 import { ConnectedRouter } from 'connected-react-router';
 import { Helmet } from 'react-helmet';
 import { ApplicationState } from '@store/types';
@@ -13,19 +13,12 @@ import createHistory from '@store/history';
 import { ThemeProvider } from '@root/contexts/theme';
 
 import '@styles/index.scss';
-import { IntlProvider } from 'react-intl';
-import messages_ru from '@root/lang/ru.json';
-import messages_en from '@root/lang/en.json';
 
 const initialState = window.__PRELOADED_STATE__;
 delete window.__PRELOADED_STATE__;
 const store = configureStore(initialState as ApplicationState);
 const history = createHistory();
-const AppWithLoading = withLoading(App);
-const messages = {
-  ru: messages_ru,
-  en: messages_en,
-};
+const AppWithHOCs = withAppHOCs(App);
 
 const markup = (
   <ErrorBoundary>
@@ -36,12 +29,7 @@ const markup = (
       />
       <ConnectedRouter history={history}>
         <ThemeProvider>
-          <IntlProvider
-            locale="ru"
-            messages={messages.ru}
-          >
-            <AppWithLoading />
-          </IntlProvider>
+          <AppWithHOCs />
         </ThemeProvider>
       </ConnectedRouter>
       <Snackbar />

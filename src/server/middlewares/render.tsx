@@ -11,11 +11,11 @@ import { ApplicationState } from '@store/types';
 import { AuthActions } from '@store/actions/auth';
 import { UserActions } from '@store/actions/user';
 import { LoadingActions } from '@store/actions/loading';
-import { withLoading } from '@root/hocs/withLoading';
+import { withAppHOCs } from '@root/hocs/withAppHOCs';
 
 const serialize = require('serialize-javascript');
 
-const AppWithLoading = withLoading(App);
+const AppWithHOCs = withAppHOCs(App);
 // const isProd = process.env.NODE_ENV === 'production';
 // ${isProd && !!window && typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__ === 'object' ? 'window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {}' : ''}
 
@@ -86,7 +86,7 @@ export default (req: Request, res: Response) => {
         location={location}
         context={context}
       >
-        <AppWithLoading />
+        <AppWithHOCs />
       </StaticRouter>
     </Provider>,
   );
