@@ -4,7 +4,7 @@ import messages_ru from '@root/lang/ru.json';
 import messages_en from '@root/lang/en.json';
 // import { IS_SERVER } from '@root/constants';
 
-enum Locales {
+export enum Locales {
   ru = 'ru',
   en = 'en',
 }

@@ -10,6 +10,7 @@ import { FormattedMessage } from 'react-intl';
 import { Helmet } from 'react-helmet';
 import useAuth from '@root/hooks/useAuth';
 import useLoading from '@root/hooks/useLoading';
+import TopMenu from '@components/topMenu';
 // import useSnackbar from '@root/hooks/useSnackbar';
 
 export default function SignIn() {
@@ -45,6 +46,8 @@ export default function SignIn() {
   return (
     <div className="container pb-60">
       <Helmet title="Signin" />
+
+      <TopMenu />
       <div className="row mt-40">
         <div className="col">
           <MainTitle />
