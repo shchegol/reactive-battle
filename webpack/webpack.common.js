@@ -1,5 +1,6 @@
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const util = require('./webpack.utils');
 
 module.exports = {
@@ -78,5 +79,14 @@ module.exports = {
         plugins: ['jpegtran', 'optipng', 'svgo'],
       },
     }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: util.resolve('src/favicon.ico'),
+          to: util.resolve('dist'),
+        },
+      ],
+    }),
+
   ],
 };

@@ -34,9 +34,9 @@ function getHtml(
           ${helmetData.link.toString()}
           <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
           <link
-            rel="icon"
-            type="image/png"
-            href="/dist/favicon.ico"
+            rel="shortcut icon"
+            type="image/x-icon"
+            href="favicon.ico"
           />
           <link rel="preconnect" href="https://fonts.gstatic.com">
           <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">

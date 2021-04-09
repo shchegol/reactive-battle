@@ -20,16 +20,13 @@ export const signup = (data: SignUpRequest) => {
 
   return (dispatch: DispatchWithFetch<AuthAction | DispatchSnackbar | DispatchLoading>) => {
     dispatch(request());
+    dispatch(showLoading());
 
     return AuthAPI
       .signup(data)
       .then(() => {
-        // Cookies.set('userLogin', userData.login, { expires: 7 });
-        // todo переписать
         dispatch(success());
         dispatch(fetchUser());
-        dispatch(showLoading());
-        dispatch(showSnackbar({ type: 'success', message: 'registration completed successfully' }));
       }, (error) => {
         dispatch(failure(error.message));
         dispatch(showSnackbar({ type: 'danger', message: error.message }));
@@ -45,19 +42,17 @@ export const signin = (data: UserRequest) => {
 
   return (dispatch: DispatchWithFetch<AuthAction | DispatchSnackbar | DispatchLoading>) => {
     dispatch(request());
+    dispatch(showLoading());
 
     AuthAPI
       .signin(data)
       .then(() => {
-        // Cookies.set('userLogin', userData.login || '', { expires: 7 });
-        dispatch(showLoading());
         dispatch(success());
         dispatch(fetchUser());
-        dispatch(showSnackbar({ type: 'success', message: 'authorization completed successfully' }));
       }, (error) => {
         dispatch(failure(error.message));
         dispatch(showSnackbar({ type: 'danger', message: error.message }));
-      });
+      }).then(() => dispatch(hideLoading()));
   };
 };
 
@@ -72,7 +67,6 @@ export const yaOauth = (code: string) => {
     AuthAPI
       .yaLogin(code)
       .then(() => {
-        Cookies.set('isOAuth', 'true', { expires: 7 });
         dispatch(showLoading());
         dispatch(success());
         dispatch(showSnackbar({ type: 'success', message: 'authorization completed successfully' }));

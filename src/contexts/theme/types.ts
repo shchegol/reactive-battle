@@ -1,6 +1,9 @@
-export type TTheme = 'dark' | 'light';
+export enum Themes {
+  dark = 'dark',
+  light = 'light',
+}
 
 export type TThemeContext = {
-  theme: TTheme;
-  updateTheme: (themeName?: TTheme) => void;
+  theme: Themes;
+  updateTheme: (themeName: string) => void;
 };

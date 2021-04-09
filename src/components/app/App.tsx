@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from '@components/privateRoute';
 import SignIn from '@root/pages/signin/SignIn';
@@ -17,31 +17,13 @@ import { getUrlParam } from '@utils/getUrlParams';
 import { yaOauth } from '@store/actionsCreators/auth';
 import authSelector from '@store/selectors/auth';
 import userSelector from '@store/selectors/user';
-import { ThemeContext, TTheme, TThemeContext } from '@root/contexts/theme';
-import { getUserTheme, getTheme } from '@api/ThemeAPI';
-import useSnackbar from '@root/hooks/useSnackbar';
 import useLoading from '@root/hooks/useLoading';
-import { SiteThemeResponse } from '@api/types';
 
 export default function App() {
   const dispatch = useDispatch();
   const { isLoggedIn, oAuthCode } = useSelector(authSelector);
   const { login } = useSelector(userSelector);
-  const { theme, updateTheme } = useContext(ThemeContext) as TThemeContext;
-  const { showSnackbar } = useSnackbar();
   const { hideLoading } = useLoading();
-  const setTheme = async (userLogin: string) => {
-    if (!userLogin) {
-      throw new Error();
-    }
-
-    try {
-      const userThemeRes = await getUserTheme(login);
-      return await getTheme({ id: userThemeRes.themeId });
-    } catch (e) {
-      throw new Error(`Unfortunately the theme "${theme}" is not set. Something goes wrong.`);
-    }
-  };
 
   useEffect(() => {
     const code = oAuthCode || getUrlParam('code');
@@ -50,22 +32,8 @@ export default function App() {
   }, [dispatch, isLoggedIn, oAuthCode]);
 
   useEffect(() => {
-    setTheme(login)
-      .then(
-        (data) => {
-          const themeData = data as SiteThemeResponse;
-          updateTheme(themeData.theme as TTheme);
-        },
-        (err) => {
-          updateTheme('dark');
-
-          if (err.message) {
-            showSnackbar(err.message, 'danger');
-          }
-        },
-      )
-      .then(() => hideLoading());
-  }, [login]);
+    hideLoading();
+  }, []);
 
   return (
     <Switch>
