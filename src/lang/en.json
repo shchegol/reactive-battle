@@ -8,5 +8,24 @@
   "input.password": "PASSWORD",
   "input.email": "EMAIL",
   "input.firstName": "FIRST NAME",
-  "input.secondName": "SECOND NAME"
+  "input.secondName": "SECOND NAME",
+
+  "component.topMenu.themeTitle": "theme",
+  "component.topMenu.langTitle": "lang",
+
+  "page.game.menu.leaderboard": "LEADERBOARD",
+  "page.game.menu.forum": "FORUM",
+
+  "page.game.interface.successAddToLeaderboard": "Congratulations, you are on the leaderboard!",
+
+  "page.game.interface.pause": "PAUSE",
+  "page.game.interface.resume": "RESUME",
+  "page.game.interface.play": "PLAY!",
+  "page.game.interface.playAgain": "PLAY AGAIN!",
+  "page.game.interface.fullscreen": "Full Screen",
+  "page.game.interface.lives": "LIVES",
+  "page.game.interface.score": "SCORE",
+  "page.game.interface.kills": "KILLS",
+  "page.game.interface.enemies": "ENEMIES",
+  "page.game.interface.level": "LEVEL"
 }

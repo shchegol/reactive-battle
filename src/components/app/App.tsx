@@ -13,27 +13,31 @@ import Forum from '@root/pages/forum/Forum';
 import ForumTopic from '@root/pages/forumTopic/ForumTopic';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUser } from '@store/actionsCreators/user';
-import { getUrlParam } from '@utils/getUrlParams';
-import { yaOauth } from '@store/actionsCreators/auth';
 import authSelector from '@store/selectors/auth';
 import userSelector from '@store/selectors/user';
 import useLoading from '@root/hooks/useLoading';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
+import { ApplicationState } from '@store/types';
+import { push } from 'connected-react-router';
+
+type AppDispatch = ThunkDispatch<ApplicationState, any, AnyAction>;
 
 export default function App() {
-  const dispatch = useDispatch();
-  const { isLoggedIn, oAuthCode } = useSelector(authSelector);
+  const dispatch: AppDispatch = useDispatch();
+  const { isLoggedIn } = useSelector(authSelector);
   const { login } = useSelector(userSelector);
   const { hideLoading } = useLoading();
 
   useEffect(() => {
-    const code = oAuthCode || getUrlParam('code');
-    if (code) dispatch(yaOauth(code));
-    if (isLoggedIn) dispatch(fetchUser());
-  }, [dispatch, isLoggedIn, oAuthCode]);
-
-  useEffect(() => {
-    hideLoading();
-  }, []);
+    if (isLoggedIn) {
+      dispatch(fetchUser())
+        .then(() => dispatch(push('/')))
+        .then(() => hideLoading());
+    } else {
+      hideLoading();
+    }
+  }, [isLoggedIn]);
 
   return (
     <Switch>

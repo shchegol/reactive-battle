@@ -27,6 +27,7 @@ export const signup = (data: SignUpRequest) => {
       .then(() => {
         dispatch(success());
         dispatch(fetchUser());
+        push('/');
       }, (error) => {
         dispatch(failure(error.message));
         dispatch(showSnackbar({ type: 'danger', message: error.message }));
@@ -47,8 +48,10 @@ export const signin = (data: UserRequest) => {
     AuthAPI
       .signin(data)
       .then(() => {
+        console.log('signin success');
         dispatch(success());
         dispatch(fetchUser());
+        push('/');
       }, (error) => {
         dispatch(failure(error.message));
         dispatch(showSnackbar({ type: 'danger', message: error.message }));

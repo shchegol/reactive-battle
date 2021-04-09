@@ -4,6 +4,7 @@ import Select from '@components/select';
 import { Locales, IntlContext, TIntlContext } from '@root/hocs/withMultilingual';
 import { Option } from '@components/select/types';
 import { ThemeContext, TThemeContext, Themes } from '@root/contexts/theme';
+import { FormattedMessage } from 'react-intl';
 import { Props } from './types';
 
 /**
@@ -53,7 +54,10 @@ const TopMenu: FC<Props> = ({
       <div className="col-auto">
         <div className="row align-items-center">
           <div className="col pr-4">
-            theme
+            <FormattedMessage
+              id="component.topMenu.themeTitle"
+              defaultMessage="theme"
+            />
           </div>
           <div className="col pl-4">
             <Select
@@ -68,7 +72,10 @@ const TopMenu: FC<Props> = ({
       <div className="col-auto">
         <div className="row align-items-center">
           <div className="col pr-4">
-            lang
+            <FormattedMessage
+              id="component.topMenu.langTitle"
+              defaultMessage="lang"
+            />
           </div>
           <div className="col pl-4">
             <Select

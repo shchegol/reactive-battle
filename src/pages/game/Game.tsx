@@ -28,12 +28,14 @@ import LeaderboardAPI from '@api/LeaderboardAPI';
 import useSnackbar from '@root/hooks/useSnackbar';
 import Player from '@engine/sprites/Player';
 import TopMenu from '@components/topMenu';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 export default function Game() {
   const dispatch = useDispatch();
   const { login, avatar } = useSelector(userSelector);
   const { showSnackbar } = useSnackbar();
   const game = useSelector((state: ApplicationState) => state.game);
+  const intl = useIntl();
 
   /**
    * Players shot handler
@@ -60,7 +62,10 @@ export default function Game() {
       .addNewLeader(score)
       .then(() => {
         dispatch(clearScore());
-        showSnackbar('Congratulations, you are on the leaderboard!', 'success');
+        showSnackbar(intl.formatMessage({
+          id: 'page.game.interface.successAddToLeaderboard',
+          defaultMessage: 'Congratulations, you are on the leaderboard!',
+        }), 'success');
       });
   }, [game.player]);
 
@@ -116,7 +121,10 @@ export default function Game() {
             to="/leaderboard"
             className="button button_color_link"
           >
-            Leaderboard
+            <FormattedMessage
+              id="page.game.menu.leaderboard"
+              defaultMessage="LEADERBOARD"
+            />
           </Link>
         </div>
 
@@ -125,7 +133,10 @@ export default function Game() {
             to="/forum"
             className="button button_color_link"
           >
-            Forum
+            <FormattedMessage
+              id="page.game.menu.forum"
+              defaultMessage="FORUM"
+            />
           </Link>
         </div>
 
