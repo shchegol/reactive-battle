@@ -8,6 +8,7 @@ import LeaderboardAPI from '@api/LeaderboardAPI';
 import { Player } from '@store/types';
 import SearchBox from '@components/searchBox';
 import Icon from '@components/icon';
+import { useIntl } from 'react-intl';
 
 /**
  * Leaderboard page
@@ -19,6 +20,7 @@ export default function Leaderboard() {
   const [players, setPlayers] = useState([] as Player[]);
   const [searchValue, setSearchValue] = useState('');
   const [searchedPlayers, setSearchedPlayers] = useState([] as Player[]);
+  const intl = useIntl();
 
   /**
    * Get leaders from API
@@ -57,7 +59,14 @@ export default function Leaderboard() {
 
   return (
     <div className="container-fluid pb-60">
-      <Helmet title="Leaderboard" />
+      <Helmet
+        title={
+        intl.formatMessage({
+          id: 'page.game.menu.leaderboard',
+          defaultMessage: 'LEADERBOARD',
+        })
+      }
+      />
 
       <div className="row mt-20">
         <div className="col-12 col-md-2 col-lg-3">
@@ -75,7 +84,14 @@ export default function Leaderboard() {
         <div className="col-12 col-md-8 col-lg-6">
           <div className="row">
             <div className="col">
-              <MainTitle subtitleText="LEADERBOARD" />
+              <MainTitle
+                subtitleText={
+                intl.formatMessage({
+                  id: 'page.game.menu.leaderboard',
+                  defaultMessage: 'LEADERBOARD',
+                })
+              }
+              />
             </div>
           </div>
 

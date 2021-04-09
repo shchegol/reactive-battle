@@ -3,6 +3,7 @@ import Button from '@components/button';
 import Input from '@components/input';
 import Icon from '@components/icon';
 import { ReplyContext, TReplyContext } from '@root/contexts/reply';
+import { useIntl } from 'react-intl';
 import { Props } from './types';
 import './reply.scss';
 
@@ -11,6 +12,7 @@ const Reply: FC<Props> = ({
 }) => {
   const [text, setText] = useState('');
   const { reply, updateReply } = useContext(ReplyContext) as TReplyContext;
+  const intl = useIntl();
 
   const handleSend = (event: React.FormEvent) => {
     event.preventDefault();
@@ -66,7 +68,12 @@ const Reply: FC<Props> = ({
               <Input
                 value={text}
                 onChange={(event) => setText(event.target.value)}
-                placeholder="MESSAGE"
+                placeholder={
+                  intl.formatMessage({
+                    id: 'input.message',
+                    defaultMessage: 'MESSAGE',
+                  })
+                }
               />
             </div>
 

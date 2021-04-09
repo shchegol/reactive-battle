@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from '@components/privateRoute';
 import SignIn from '@root/pages/signin/SignIn';
 import SignUp from '@root/pages/signup/SignUp';
+import About from '@pages/about/About';
 import Game from '@root/pages/game/Game';
 import Profile from '@root/pages/profile/Profile';
 import ProfileEdit from '@root/pages/profileEdit/ProfileEdit';
@@ -75,6 +76,10 @@ export default function App() {
       <Route
         path="/forum/:id"
         component={ForumTopic}
+      />
+      <Route
+        path="/about"
+        component={About}
       />
       <Route
         path="**"

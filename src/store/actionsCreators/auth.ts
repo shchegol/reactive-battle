@@ -48,7 +48,6 @@ export const signin = (data: UserRequest) => {
     AuthAPI
       .signin(data)
       .then(() => {
-        console.log('signin success');
         dispatch(success());
         dispatch(fetchUser());
         push('/');
