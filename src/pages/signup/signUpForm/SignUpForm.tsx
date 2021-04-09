@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Input from '@components/input';
 import Button from '@components/button';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Props } from '@pages/signup/signUpForm/types';
 
 const SignUpForm = ({
@@ -13,6 +14,7 @@ const SignUpForm = ({
   const [login, setLogin] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const intl = useIntl();
 
   return (
     <form
@@ -27,42 +29,42 @@ const SignUpForm = ({
       }}
     >
       <Input
-        labelText="LOGIN"
         value={login}
         onChange={(event) => setLogin(event.target.value)}
-        placeholder="LOGIN"
+        labelText={intl.formatMessage({ id: 'input.login', defaultMessage: 'LOGIN' })}
+        placeholder={intl.formatMessage({ id: 'input.login', defaultMessage: 'LOGIN' })}
         required
       />
 
       <Input
-        labelText="EMAIL"
         value={email}
         onChange={(event) => setEmail(event.target.value)}
-        placeholder="EMAIL"
+        labelText={intl.formatMessage({ id: 'input.email', defaultMessage: 'EMAIL' })}
+        placeholder={intl.formatMessage({ id: 'input.email', defaultMessage: 'EMAIL' })}
         required
       />
 
       <Input
-        labelText="PASSWORD"
         type="password"
         value={password}
         onChange={(event) => setPassword(event.target.value)}
-        placeholder="PASSWORD"
+        labelText={intl.formatMessage({ id: 'input.password', defaultMessage: 'PASSWORD' })}
+        placeholder={intl.formatMessage({ id: 'input.password', defaultMessage: 'PASSWORD' })}
         required
       />
 
       <Input
-        labelText="FIRST NAME"
         value={firstName}
         onChange={(event) => setFirstName(event.target.value)}
-        placeholder="FIRST NAME"
+        labelText={intl.formatMessage({ id: 'input.firstName', defaultMessage: 'FIRST NAME' })}
+        placeholder={intl.formatMessage({ id: 'input.firstName', defaultMessage: 'FIRST NAME' })}
       />
 
       <Input
-        labelText="SECOND NAME"
         value={secondName}
         onChange={(event) => setSecondName(event.target.value)}
-        placeholder="SECOND NAME"
+        labelText={intl.formatMessage({ id: 'input.secondName', defaultMessage: 'SECOND NAME' })}
+        placeholder={intl.formatMessage({ id: 'input.secondName', defaultMessage: 'SECOND NAME' })}
       />
 
       { !!errorMsg && (
@@ -76,11 +78,19 @@ const SignUpForm = ({
         width="full"
         className="mt-40"
       >
-        REGISTER
+        <FormattedMessage
+          id="button.register"
+          defaultMessage="REGISTER"
+        />
       </Button>
 
       <div className="text-align-center mt-20">
-        <Link to="/signin">SIGN IN</Link>
+        <Link to="/signin">
+          <FormattedMessage
+            id="button.login"
+            defaultMessage="LOGIN"
+          />
+        </Link>
       </div>
     </form>
   );

@@ -1,0 +1,31 @@
+{
+  "loading.text": "ЗАГРУЗКА...",
+
+  "button.login": "ВОЙТИ",
+  "button.register": "ЗАРЕГИСТРИРОВАТЬСЯ",
+
+  "input.login": "ЛОГИН",
+  "input.password": "ПАРОЛЬ",
+  "input.email": "EMAIL",
+  "input.firstName": "ИМЯ",
+  "input.secondName": "ФАМИЛИЯ",
+
+  "component.topMenu.themeTitle": "тема",
+  "component.topMenu.langTitle": "язык",
+
+  "page.game.menu.leaderboard": "ЛИДЕРЫ",
+  "page.game.menu.forum": "ФОРУМ",
+
+  "page.game.interface.successAddToLeaderboard": "Поздравляем! Вы подняли свой рейтинг в таблице лидеров.",
+
+  "page.game.interface.pause": "ПАУЗА",
+  "page.game.interface.resume": "ПРОДОЛЖИТЬ",
+  "page.game.interface.play": "ИГРАТЬ!",
+  "page.game.interface.playAgain": "ИГРАТЬ ЕЩЁ!",
+  "page.game.interface.fullscreen": "На весь экран",
+  "page.game.interface.lives": "ЖИЗНИ",
+  "page.game.interface.score": "СЧЁТ",
+  "page.game.interface.kills": "УБИЙСТВ",
+  "page.game.interface.enemies": "ПРОТИВНИКИ",
+  "page.game.interface.level": "УРОВЕНЬ"
+}

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from '@components/privateRoute';
 import SignIn from '@root/pages/signin/SignIn';
@@ -13,59 +13,31 @@ import Forum from '@root/pages/forum/Forum';
 import ForumTopic from '@root/pages/forumTopic/ForumTopic';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUser } from '@store/actionsCreators/user';
-import { getUrlParam } from '@utils/getUrlParams';
-import { yaOauth } from '@store/actionsCreators/auth';
 import authSelector from '@store/selectors/auth';
 import userSelector from '@store/selectors/user';
-import { ThemeContext, TTheme, TThemeContext } from '@root/contexts/theme';
-import { getUserTheme, getTheme } from '@api/ThemeAPI';
-import useSnackbar from '@root/hooks/useSnackbar';
 import useLoading from '@root/hooks/useLoading';
-import { SiteThemeResponse } from '@api/types';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
+import { ApplicationState } from '@store/types';
+import { push } from 'connected-react-router';
+
+type AppDispatch = ThunkDispatch<ApplicationState, any, AnyAction>;
 
 export default function App() {
-  const dispatch = useDispatch();
-  const { isLoggedIn, oAuthCode } = useSelector(authSelector);
+  const dispatch: AppDispatch = useDispatch();
+  const { isLoggedIn } = useSelector(authSelector);
   const { login } = useSelector(userSelector);
-  const { theme, updateTheme } = useContext(ThemeContext) as TThemeContext;
-  const { showSnackbar } = useSnackbar();
   const { hideLoading } = useLoading();
-  const setTheme = async (userLogin: string) => {
-    if (!userLogin) {
-      throw new Error();
-    }
-
-    try {
-      const userThemeRes = await getUserTheme(login);
-      return await getTheme({ id: userThemeRes.themeId });
-    } catch (e) {
-      throw new Error(`Unfortunately the theme "${theme}" is not set. Something goes wrong.`);
-    }
-  };
 
   useEffect(() => {
-    const code = oAuthCode || getUrlParam('code');
-    if (code) dispatch(yaOauth(code));
-    if (isLoggedIn) dispatch(fetchUser());
-  }, [dispatch, isLoggedIn, oAuthCode]);
-
-  useEffect(() => {
-    setTheme(login)
-      .then(
-        (data) => {
-          const themeData = data as SiteThemeResponse;
-          updateTheme(themeData.theme as TTheme);
-        },
-        (err) => {
-          updateTheme('dark');
-
-          if (err.message) {
-            showSnackbar(err.message, 'danger');
-          }
-        },
-      )
-      .then(() => hideLoading());
-  }, [login]);
+    if (isLoggedIn) {
+      dispatch(fetchUser())
+        .then(() => dispatch(push('/')))
+        .then(() => hideLoading());
+    } else {
+      hideLoading();
+    }
+  }, [isLoggedIn]);
 
   return (
     <Switch>

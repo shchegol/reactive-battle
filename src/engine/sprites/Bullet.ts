@@ -116,6 +116,7 @@ export default class Bullet extends Sprite {
     EngineBus.emit(SPRITE_DESTROYED, this);
   }
 
+  // столкновение
   private onSpriteCollided(movedSprite: Sprite, collideWith: Sprite) {
     if (movedSprite === this) {
       if (collideWith instanceof Bullet) {

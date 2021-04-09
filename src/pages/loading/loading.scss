@@ -15,8 +15,7 @@
   padding: 2rem;
   background-color: var(--color-background);
 
-  &::before {
-    content: '';
+  &__img {
     display: block;
     width: 10rem;
     height: 10rem;
@@ -26,8 +25,7 @@
     animation: tankMove .1s linear infinite;
   }
 
-  &::after {
-    content: 'Loading...';
+  &__text {
     margin-top: 2rem;
     font-size: 2rem;
   }
