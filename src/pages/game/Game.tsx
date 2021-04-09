@@ -140,6 +140,18 @@ export default function Game() {
           </Link>
         </div>
 
+        <div className="col-auto pr-0">
+          <Link
+            to="/about"
+            className="button button_color_link"
+          >
+            <FormattedMessage
+              id="page.game.menu.about"
+              defaultMessage="ABOUT"
+            />
+          </Link>
+        </div>
+
         <div className="col">
           <TopMenu />
         </div>

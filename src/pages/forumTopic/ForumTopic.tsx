@@ -11,6 +11,7 @@ import forumSelector from '@store/selectors/forum';
 import { ReplyProvider } from '@root/contexts/reply';
 import { Helmet } from 'react-helmet';
 import { addComment, fetchTopic } from '@root/store/actionsCreators/forum';
+import { useIntl } from 'react-intl';
 
 export default function ForumTopic() {
   const history = useHistory();
@@ -19,6 +20,7 @@ export default function ForumTopic() {
   const topicId = Number.parseInt(params.id, 10);
   const topic = useMemo(() => topics.find((f) => f.id === topicId) || {} as Topic, [topicId, topics]);
   const comments = topic?.comments || [];
+  const intl = useIntl();
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -31,7 +33,12 @@ export default function ForumTopic() {
     <>
       <div className="container-fluid pb-60">
         <Helmet
-          title={`${topic.name} - Forum`}
+          title={`${topic.name} - ${
+            intl.formatMessage({
+              id: 'page.game.menu.forum',
+              defaultMessage: 'FORUM',
+            })
+          }`}
         />
 
         <div className="row mt-20">
@@ -49,7 +56,12 @@ export default function ForumTopic() {
 
           <div className="col-12 col-md-8 col-lg-6">
             <MainTitle
-              titleText="FORUM"
+              titleText={
+                intl.formatMessage({
+                  id: 'page.game.menu.forum',
+                  defaultMessage: 'FORUM',
+                })
+              }
               subtitleText={topic.name}
               hasImg={false}
             />

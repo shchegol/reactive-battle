@@ -3,18 +3,26 @@
 
   "button.login": "LOGIN",
   "button.register": "REGISTER",
+  "button.ok": "OK",
+  "button.cancel": "CANCEL",
+  "button.save": "SAVE",
+  "button.reply": "REPLY",
 
   "input.login": "LOGIN",
   "input.password": "PASSWORD",
   "input.email": "EMAIL",
   "input.firstName": "FIRST NAME",
   "input.secondName": "SECOND NAME",
+  "input.topicName": "TOPIC NAME",
+  "input.message": "MESSAGE",
+  "input.search": "SEARCH",
 
   "component.topMenu.themeTitle": "theme",
   "component.topMenu.langTitle": "lang",
 
   "page.game.menu.leaderboard": "LEADERBOARD",
   "page.game.menu.forum": "FORUM",
+  "page.game.menu.about": "ABOUT",
 
   "page.game.interface.successAddToLeaderboard": "Congratulations, you are on the leaderboard!",
 
@@ -27,5 +35,9 @@
   "page.game.interface.score": "SCORE",
   "page.game.interface.kills": "KILLS",
   "page.game.interface.enemies": "ENEMIES",
-  "page.game.interface.level": "LEVEL"
+  "page.game.interface.level": "LEVEL",
+
+  "page.forum.newTopic": "NEW TOPIC",
+
+  "page.about.text": "Hello!"
 }
