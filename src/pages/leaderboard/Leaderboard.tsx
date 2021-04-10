@@ -33,6 +33,7 @@ export default function Leaderboard() {
         const newPlayers = rPlayers
           .map((rPlayer, i) => ({
             position: i + 1,
+            avatar: rPlayer.user.avatar,
             login: rPlayer.user.login,
             score: rPlayer.score,
           }));

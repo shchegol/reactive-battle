@@ -50,7 +50,7 @@ export const leaderboardRoutes = (router: Router) => {
       include: [
         {
           model: User,
-          attributes: ['login'],
+          attributes: ['login', 'avatar'],
         },
       ],
     })
