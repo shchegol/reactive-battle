@@ -7,12 +7,17 @@
   "button.cancel": "CANCEL",
   "button.save": "SAVE",
   "button.reply": "REPLY",
+  "button.change": "CHANGE",
+  "button.logout": "LOGOUT",
 
   "input.login": "LOGIN",
   "input.password": "PASSWORD",
+  "input.oldPassword": "OLD PASSWORD",
+  "input.newPassword": "NEW PASSWORD",
   "input.email": "EMAIL",
   "input.firstName": "FIRST NAME",
   "input.secondName": "SECOND NAME",
+  "input.avatarURL": "AVATAR URL",
   "input.topicName": "TOPIC NAME",
   "input.message": "MESSAGE",
   "input.search": "SEARCH",
@@ -37,7 +42,12 @@
   "page.game.interface.enemies": "ENEMIES",
   "page.game.interface.level": "LEVEL",
 
+  "page.profile.name": "NAME",
+  "page.profile.surname": "SURNAME",
+
   "page.forum.newTopic": "NEW TOPIC",
+  "page.forum.noTopicMessage": "<p>There are no topics here yet</p><p>Be first ;)</p>",
+  "page.forum.noCommentMessage": "<p>There are no comments here yet</p><p>Be first ;)</p>",
 
   "page.about.text": "Hello!"
 }

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import MessageItem from '@pages/forumTopic/commentItem';
+import { FormattedMessage } from 'react-intl';
 import { Props } from './types';
-
 import './comments.scss';
 
 /**
@@ -32,8 +32,13 @@ const Comments: FC<Props> = (
         )
         : (
           <div className="text-color-gray-500 text-align-center mt-40">
-            <p>There are no comments here yet</p>
-            <p>Be first ;)</p>
+            <FormattedMessage
+              id="page.forum.noCommentMessage"
+              defaultMessage="<p>There are no comments here yet</p><p>Be first ;)</p>"
+              values={{
+                p: (chunks: string) => <p>{chunks}</p>,
+              }}
+            />
           </div>
 
         )

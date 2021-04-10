@@ -8,12 +8,17 @@
   "button.save": "СОХРАНИТЬ",
   "button.reply": "ОТВЕТИТЬ",
   "input.search": "ПОИСК",
+  "button.change": "ИЗМЕНИТЬ",
+  "button.logout": "ВЫЙТИ",
 
   "input.login": "ЛОГИН",
   "input.password": "ПАРОЛЬ",
+  "input.oldPassword": "ТЕКУЩИЙ ПАРОЛЬ",
+  "input.newPassword": "НОВЫЙ ПАРОЛЬ",
   "input.email": "EMAIL",
   "input.firstName": "ИМЯ",
   "input.secondName": "ФАМИЛИЯ",
+  "input.avatarURL": "URL АВАТАРА",
   "input.topicName": "НАЗВАНИЕ ТЕМЫ",
   "input.message": "СООБЩЕНИЕ",
 
@@ -37,7 +42,12 @@
   "page.game.interface.enemies": "ПРОТИВНИКИ",
   "page.game.interface.level": "УРОВЕНЬ",
 
+  "page.profile.name": "ИМЯ",
+  "page.profile.surname": "ФАМИЛИЯ",
+
   "page.forum.newTopic": "НОВАЯ ТЕМА",
+  "page.forum.noTopicMessage": "<p>Здесь ещё никто ничего не написал</p><p>Будь первым ;)</p>",
+  "page.forum.noCommentMessage": "<p>Здесь ещё никто ничего не написал</p><p>Будь первым ;)</p>",
 
   "page.about.text": "Привет!"
 }
