@@ -15,6 +15,7 @@ export class User extends Model {
   @Length({ min: 3, max: 15 })
   @Column({
     type: DataTypes.STRING,
+    unique: true,
     allowNull: false,
   })
   login: string;
@@ -22,6 +23,7 @@ export class User extends Model {
   @IsEmail
   @Column({
     type: DataTypes.STRING(128),
+    unique: true,
     allowNull: false,
   })
   email: string;
