@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import userSelector from '@store/selectors/user';
 import Icon from '@components/icon';
+import { FormattedMessage } from 'react-intl';
 
 /**
  * User profile page
@@ -51,7 +52,10 @@ export default function Profile() {
 
           <div className="row mt-40">
             <div className="col text-align-right text-color-secondary pr-4">
-              NAME
+              <FormattedMessage
+                id="page.profile.name"
+                defaultMessage="NAME"
+              />
             </div>
             <div className="col pl-4">
               {user.first_name}
@@ -60,7 +64,10 @@ export default function Profile() {
 
           <div className="row mt-10">
             <div className="col text-align-right text-color-secondary pr-4">
-              SURNAME
+              <FormattedMessage
+                id="page.profile.surname"
+                defaultMessage="SURNAME"
+              />
             </div>
             <div className="col pl-4">
               {user.second_name}
@@ -73,7 +80,10 @@ export default function Profile() {
                 to={`${url}/edit`}
                 className="button button_width_full"
               >
-                Change
+                <FormattedMessage
+                  id="button.change"
+                  defaultMessage="CHANGE"
+                />
               </Link>
 
               <div className="mt-20">
@@ -83,7 +93,10 @@ export default function Profile() {
                   width="full"
                   onClick={handleLogout}
                 >
-                  LOGOUT
+                  <FormattedMessage
+                    id="button.logout"
+                    defaultMessage="LOGOUT"
+                  />
                 </Button>
               </div>
             </div>
