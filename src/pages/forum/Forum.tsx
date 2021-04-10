@@ -33,6 +33,7 @@ export default function About() {
           })
         }
       />
+
       <div className="row justify-content-left mt-20">
         <div className="col-12 col-md-2 col-lg-3">
           <Button

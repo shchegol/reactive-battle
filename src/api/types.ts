@@ -55,6 +55,7 @@ export interface LeaderboardResponsePlayer {
   score: number;
   user: {
     login: string
+    avatar: string
   }
 }
 

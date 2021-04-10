@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import toClassNames from '@utils/toClassNames';
+import Avatar from '@components/avatar';
 import { Props } from './types';
 import './playersListItem.scss';
 
@@ -12,7 +13,9 @@ import './playersListItem.scss';
  * @constructor
  */
 const PlayersListItem: FC<Props> = ({
-  player = { position: 0, login: '', score: 0 },
+  player = {
+    position: 0, login: '', avatar: '', score: 0,
+  },
 }: Props) => (
   <li
     className={toClassNames(
@@ -22,9 +25,15 @@ const PlayersListItem: FC<Props> = ({
       { 'leaders-item_color_third': player.position === 3 },
     )}
   >
-    <span className="leaders-item__position">{player.position}</span>
-    <span className="leaders-item__user">{player.login}</span>
-    <span className="leaders-item__score">{player.score}</span>
+    <div className="leaders-item__position">{player.position}</div>
+    <div className="leaders-item__avatar">
+      <Avatar
+        src={player.avatar}
+        size="xs"
+      />
+    </div>
+    <div className="leaders-item__user">{player.login}</div>
+    <div className="leaders-item__score">{player.score}</div>
   </li>
 );
 

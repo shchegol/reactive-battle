@@ -1,6 +1,9 @@
-.profile-avatar {
+.avatar {
+  height: 3rem;
+
   &__image {
-    width: 100%;
+    width: auto;
+    height: 100%;
   }
   &__input {
     opacity: 0;
@@ -13,12 +16,10 @@
 
   &_size {
     &_xs {
-      width: 1.5rem;
       height: 1.5rem;
     }
 
     &_l {
-      width: 10rem;
       height: 10rem;
     }
   }

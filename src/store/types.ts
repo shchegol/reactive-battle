@@ -36,6 +36,7 @@ export interface Player {
   position: number;
   login: string;
   score: number;
+  avatar: string;
 }
 
 // Forum

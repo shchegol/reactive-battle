@@ -31,9 +31,9 @@ const Avatar: FC<Props> = ({
   return (
     <div
       className={toClassNames(
-        'profile-avatar',
+        'avatar',
         {
-          [`profile-avatar_size_${size}`]: size,
+          [`avatar_size_${size}`]: size,
         },
         rest.className,
       )}
@@ -42,14 +42,13 @@ const Avatar: FC<Props> = ({
         avatar
           ? (
             <img
-              className="profile-avatar__image"
+              className="avatar__image"
               src={avatar}
               alt={rest.alt}
             />
-
           )
           : (
-            <div className="profile-avatar__image" />
+            <div className="avatar__image" />
           )
       }
 
