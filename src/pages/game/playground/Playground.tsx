@@ -1,6 +1,3 @@
-/* eslint-disable */
-// @ts-nocheck
-// todo не забыть убрать
 import React, { FC, useEffect, useRef } from 'react';
 import { CANVAS_HEIGHT, CANVAS_WIDTH, scene } from '@engine/Scene';
 import { spritesSheet } from '@engine/SpritesSheet';
@@ -14,7 +11,7 @@ import {
   GAME_PAUSE,
   GAME_RESUME,
   GAMEPAD_CONNECTED,
-  GAMEPAD_DISCONNECTED
+  GAMEPAD_DISCONNECTED,
 } from '@engine/EngineBus';
 import { gameControl } from '@engine/GameControl';
 import useSnackbar from '@root/hooks/useSnackbar';
@@ -49,8 +46,8 @@ const Playground: FC<PlaygroundProps> = ({ state = GameStates.NotStarted }) => {
     KeyboardManager.init();
     gamepadManager.init();
 
-    EngineBus.on(GAMEPAD_CONNECTED, (e) => {showSnackbar(`Controller ${e.id} connected`)});
-    EngineBus.on(GAMEPAD_DISCONNECTED, (e) => {showSnackbar(`Controller ${e.id} disconnected`)});
+    EngineBus.on(GAMEPAD_CONNECTED, (e: Gamepad) => { showSnackbar(`Controller ${e.id} connected`); });
+    EngineBus.on(GAMEPAD_DISCONNECTED, (e: Gamepad) => { showSnackbar(`Controller ${e.id} disconnected`); });
 
     return () => {
       KeyboardManager.destroy();
@@ -68,7 +65,7 @@ const Playground: FC<PlaygroundProps> = ({ state = GameStates.NotStarted }) => {
       }
 
       if (gamepadManager.hasGamepads) {
-        gamepadManager.updateState()
+        gamepadManager.updateState();
       }
 
       requestId = requestAnimationFrame(render);

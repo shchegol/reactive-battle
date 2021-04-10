@@ -3,7 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import loadingSelector from '@store/selectors/loading';
 
-export const withLoading = (WrappedComponent: any) => () => {
+export const withLoading = (WrappedComponent: React.FC) => () => {
   const selector = useSelector(loadingSelector);
 
   return (

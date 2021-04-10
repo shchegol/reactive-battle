@@ -2,11 +2,13 @@ import React, { FC, useEffect, useState } from 'react';
 import Button from '@components/button';
 import Input from '@components/input';
 import Icon from '@components/icon';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Props } from './types';
 
 const NewTopic: FC<Props> = (
   { onOk = () => { } },
 ) => {
+  const intl = useIntl();
   const [newTopicVisible, setNewTopicVisible] = useState(false);
   const [name, setName] = useState('');
 
@@ -20,7 +22,12 @@ const NewTopic: FC<Props> = (
             <Input
               value={name}
               onChange={(event) => setName(event.target.value)}
-              placeholder="TOPIC NAME"
+              placeholder={
+                intl.formatMessage({
+                  id: 'input.topicName',
+                  defaultMessage: 'TOPIC NAME',
+                })
+              }
             />
           </div>
         </div>
@@ -40,7 +47,10 @@ const NewTopic: FC<Props> = (
                 }
               }}
             >
-              OK
+              <FormattedMessage
+                id="button.ok"
+                defaultMessage="OK"
+              />
             </Button>
           </div>
 
@@ -50,7 +60,10 @@ const NewTopic: FC<Props> = (
               color="cancel"
               onClick={() => { setNewTopicVisible(false); }}
             >
-              cancel
+              <FormattedMessage
+                id="button.cancel"
+                defaultMessage="CANCEL"
+              />
             </Button>
           </div>
         </div>
@@ -67,7 +80,10 @@ const NewTopic: FC<Props> = (
           onClick={() => { setNewTopicVisible(true); }}
         >
           <Icon name="add" />
-          NEW TOPIC
+          <FormattedMessage
+            id="page.forum.newTopic"
+            defaultMessage="NEW TOPIC"
+          />
         </Button>
       </div>
     </div>

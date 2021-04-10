@@ -1,0 +1,53 @@
+{
+  "loading.text": "LOADING...",
+
+  "button.login": "LOGIN",
+  "button.register": "REGISTER",
+  "button.ok": "OK",
+  "button.cancel": "CANCEL",
+  "button.save": "SAVE",
+  "button.reply": "REPLY",
+  "button.change": "CHANGE",
+  "button.logout": "LOGOUT",
+
+  "input.login": "LOGIN",
+  "input.password": "PASSWORD",
+  "input.oldPassword": "OLD PASSWORD",
+  "input.newPassword": "NEW PASSWORD",
+  "input.email": "EMAIL",
+  "input.firstName": "FIRST NAME",
+  "input.secondName": "SECOND NAME",
+  "input.avatarURL": "AVATAR URL",
+  "input.topicName": "TOPIC NAME",
+  "input.message": "MESSAGE",
+  "input.search": "SEARCH",
+
+  "component.topMenu.themeTitle": "theme",
+  "component.topMenu.langTitle": "lang",
+
+  "page.game.menu.leaderboard": "LEADERBOARD",
+  "page.game.menu.forum": "FORUM",
+  "page.game.menu.about": "ABOUT",
+
+  "page.game.interface.successAddToLeaderboard": "Congratulations, you are on the leaderboard!",
+
+  "page.game.interface.pause": "PAUSE",
+  "page.game.interface.resume": "RESUME",
+  "page.game.interface.play": "PLAY!",
+  "page.game.interface.playAgain": "PLAY AGAIN!",
+  "page.game.interface.fullscreen": "Full Screen",
+  "page.game.interface.lives": "LIVES",
+  "page.game.interface.score": "SCORE",
+  "page.game.interface.kills": "KILLS",
+  "page.game.interface.enemies": "ENEMIES",
+  "page.game.interface.level": "LEVEL",
+
+  "page.profile.name": "NAME",
+  "page.profile.surname": "SURNAME",
+
+  "page.forum.newTopic": "NEW TOPIC",
+  "page.forum.noTopicMessage": "<p>There are no topics here yet</p><p>Be first ;)</p>",
+  "page.forum.noCommentMessage": "<p>There are no comments here yet</p><p>Be first ;)</p>",
+
+  "page.about.text": "Hello!"
+}

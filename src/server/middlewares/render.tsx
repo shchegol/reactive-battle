@@ -11,11 +11,11 @@ import { ApplicationState } from '@store/types';
 import { AuthActions } from '@store/actions/auth';
 import { UserActions } from '@store/actions/user';
 import { LoadingActions } from '@store/actions/loading';
-import { withLoading } from '@root/hocs/withLoading';
+import { withAppHOCs } from '@root/hocs/withAppHOCs';
 
 const serialize = require('serialize-javascript');
 
-const AppWithLoading = withLoading(App);
+const AppWithHOCs = withAppHOCs(App);
 // const isProd = process.env.NODE_ENV === 'production';
 // ${isProd && !!window && typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__ === 'object' ? 'window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {}' : ''}
 
@@ -34,9 +34,9 @@ function getHtml(
           ${helmetData.link.toString()}
           <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
           <link
-            rel="icon"
-            type="image/png"
-            href="/dist/favicon.ico"
+            rel="shortcut icon"
+            type="image/x-icon"
+            href="favicon.ico"
           />
           <link rel="preconnect" href="https://fonts.gstatic.com">
           <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
@@ -86,7 +86,7 @@ export default (req: Request, res: Response) => {
         location={location}
         context={context}
       >
-        <AppWithLoading />
+        <AppWithHOCs />
       </StaticRouter>
     </Provider>,
   );

@@ -17,6 +17,10 @@ export const authRoutes = (router: Router) => {
       throw new ErrorHandler(400, 'Password length must be longer than 3 symbols', true);
     }
 
+    if (login.length < 3 && login.length > 15) {
+      throw new ErrorHandler(400, 'Login length must be longer than 3 and shorter than 15 symbols', true);
+    }
+
     User
       .create({
         login,

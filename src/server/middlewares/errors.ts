@@ -24,6 +24,10 @@ const handleError = (err: ErrorHandler, res: Response) => {
     message = 'Internal server error';
   }
 
+  if (!statusCode) {
+    statusCode = 500;
+  }
+
   res
     .status(statusCode)
     .json({

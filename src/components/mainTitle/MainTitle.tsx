@@ -1,4 +1,6 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, {
+  FC, useCallback, useEffect, useState,
+} from 'react';
 import toClassNames from '@utils/toClassNames';
 import './mainTitle.scss';
 import { Props } from './types';
@@ -29,9 +31,9 @@ const MainTitle: FC<Props> = ({
       // eslint-disable-next-line global-require
       setAvatar(require('@root/images/engine/tanks/player-0.svg').default);
     }
-  }, [imgSrc]);
+  }, []);
 
-  const renderAvatar = () => {
+  const renderAvatar = useCallback(() => {
     if (!hasImg) return null;
 
     if (avatar) {
@@ -46,7 +48,7 @@ const MainTitle: FC<Props> = ({
     }
 
     return <div className="main-title__img" />;
-  };
+  }, [avatar, hasImg, subtitleText]);
 
   return (
     <header

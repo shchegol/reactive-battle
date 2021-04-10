@@ -14,7 +14,6 @@ apiAxios.interceptors.response.use(
     if (error?.response) {
       // Unauthorized
       if (error.response.status === 401) {
-        // Cookies.remove('userLogin');
         push('/signin');
       }
 

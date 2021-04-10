@@ -1,0 +1,53 @@
+{
+  "loading.text": "ЗАГРУЗКА...",
+
+  "button.login": "ВОЙТИ",
+  "button.register": "ЗАРЕГИСТРИРОВАТЬСЯ",
+  "button.ok": "OK",
+  "button.cancel": "ОТМЕНА",
+  "button.save": "СОХРАНИТЬ",
+  "button.reply": "ОТВЕТИТЬ",
+  "input.search": "ПОИСК",
+  "button.change": "ИЗМЕНИТЬ",
+  "button.logout": "ВЫЙТИ",
+
+  "input.login": "ЛОГИН",
+  "input.password": "ПАРОЛЬ",
+  "input.oldPassword": "ТЕКУЩИЙ ПАРОЛЬ",
+  "input.newPassword": "НОВЫЙ ПАРОЛЬ",
+  "input.email": "EMAIL",
+  "input.firstName": "ИМЯ",
+  "input.secondName": "ФАМИЛИЯ",
+  "input.avatarURL": "URL АВАТАРА",
+  "input.topicName": "НАЗВАНИЕ ТЕМЫ",
+  "input.message": "СООБЩЕНИЕ",
+
+  "component.topMenu.themeTitle": "тема",
+  "component.topMenu.langTitle": "язык",
+
+  "page.game.menu.leaderboard": "ЛИДЕРЫ",
+  "page.game.menu.forum": "ФОРУМ",
+  "page.game.menu.about": "О НАС",
+
+  "page.game.interface.successAddToLeaderboard": "Поздравляем! Вы подняли свой рейтинг в таблице лидеров.",
+
+  "page.game.interface.pause": "ПАУЗА",
+  "page.game.interface.resume": "ПРОДОЛЖИТЬ",
+  "page.game.interface.play": "ИГРАТЬ!",
+  "page.game.interface.playAgain": "ИГРАТЬ ЕЩЁ!",
+  "page.game.interface.fullscreen": "На весь экран",
+  "page.game.interface.lives": "ЖИЗНИ",
+  "page.game.interface.score": "СЧЁТ",
+  "page.game.interface.kills": "УБИЙСТВ",
+  "page.game.interface.enemies": "ПРОТИВНИКИ",
+  "page.game.interface.level": "УРОВЕНЬ",
+
+  "page.profile.name": "ИМЯ",
+  "page.profile.surname": "ФАМИЛИЯ",
+
+  "page.forum.newTopic": "НОВАЯ ТЕМА",
+  "page.forum.noTopicMessage": "<p>Здесь ещё никто ничего не написал</p><p>Будь первым ;)</p>",
+  "page.forum.noCommentMessage": "<p>Здесь ещё никто ничего не написал</p><p>Будь первым ;)</p>",
+
+  "page.about.text": "Привет!"
+}

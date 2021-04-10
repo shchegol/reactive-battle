@@ -13,6 +13,7 @@ import {
   EngineBus, GAME_OVER, GAME_PAUSE, GAME_RESUME, GAME_START, GAME_WIN,
 } from '@engine/EngineBus';
 import useSnackbar from '@root/hooks/useSnackbar';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 /**
  * @param {number} [enemies=20] - number of enemies
@@ -34,6 +35,7 @@ const Interface: FC<Props> = ({
   const [fullScreenBtnIcon, setFullScreenBtnIcon] = useState('fullscreen');
   const [gameState, setGameState] = useState<GameStates>(GameStates.NotStarted);
   const { showSnackbar } = useSnackbar();
+  const intl = useIntl();
 
   useEffect(() => {
     EngineBus.on(GAME_START, () => setGameState(GameStates.Play));
@@ -81,11 +83,25 @@ const Interface: FC<Props> = ({
         return <Playground state={gameState} />;
 
       case GameStates.GameOver:
-        return <Button onClick={() => setGameState(GameStates.Play)}>PLAY AGAIN!</Button>;
+        return (
+          <Button onClick={() => setGameState(GameStates.Play)}>
+            <FormattedMessage
+              id="page.game.interface.play"
+              defaultMessage="PLAY AGAIN!"
+            />
+          </Button>
+        );
 
       case GameStates.NotStarted:
       default:
-        return <Button onClick={() => setGameState(GameStates.Play)}>PLAY!</Button>;
+        return (
+          <Button onClick={() => setGameState(GameStates.Play)}>
+            <FormattedMessage
+              id="page.game.interface.play"
+              defaultMessage="PLAY!"
+            />
+          </Button>
+        );
     }
   };
 
@@ -95,12 +111,18 @@ const Interface: FC<Props> = ({
 
     switch (gameState) {
       case GameStates.Pause:
-        caption = 'RESUME';
+        caption = intl.formatMessage({
+          id: 'page.game.interface.resume',
+          defaultMessage: 'RESUME',
+        });
         newState = GameStates.Play;
         break;
 
       case GameStates.Play:
-        caption = 'PAUSE';
+        caption = intl.formatMessage({
+          id: 'page.game.interface.pause',
+          defaultMessage: 'PAUSE',
+        });
         newState = GameStates.Pause;
         break;
 
@@ -129,7 +151,10 @@ const Interface: FC<Props> = ({
           <div className="game-interface__settings">
             <Button
               color="link"
-              title="Full Screen"
+              title={intl.formatMessage({
+                id: 'page.game.interface.fullscreen',
+                defaultMessage: 'Full Screen',
+              })}
               onClick={handleFullScreen}
               icon
             >
@@ -153,7 +178,11 @@ const Interface: FC<Props> = ({
                   <tbody>
                     <tr>
                       <td>
-                        LIVES
+                        <FormattedMessage
+                          id="page.game.interface.lives"
+                          defaultMessage="LIVES"
+                        />
+
                       </td>
                       <td className="player-info__col-2">
                         {player.lives}
@@ -161,14 +190,26 @@ const Interface: FC<Props> = ({
                     </tr>
 
                     <tr>
-                      <td>SCORE</td>
+                      <td>
+                        <FormattedMessage
+                          id="page.game.interface.score"
+                          defaultMessage="SCORE"
+                        />
+
+                      </td>
                       <td className="player-info__col-2">
                         {player.score}
                       </td>
                     </tr>
 
                     <tr>
-                      <td>KILLS</td>
+                      <td>
+                        <FormattedMessage
+                          id="page.game.interface.kills"
+                          defaultMessage="KILLS"
+                        />
+
+                      </td>
                       <td className="player-info__col-2">
                         {player.kills}
                       </td>
@@ -176,7 +217,13 @@ const Interface: FC<Props> = ({
                   </tbody>
                 </table>
 
-                <p className="mt-20">ENEMIES</p>
+                <p className="mt-20">
+                  <FormattedMessage
+                    id="page.game.interface.enemies"
+                    defaultMessage="ENEMIES"
+                  />
+
+                </p>
                 <div className="enemy-icons">
                   {renderEnemies(enemies)}
                 </div>
@@ -186,7 +233,12 @@ const Interface: FC<Props> = ({
                 <table className="player-info">
                   <tbody>
                     <tr>
-                      <td>LEVEL</td>
+                      <td>
+                        <FormattedMessage
+                          id="page.game.interface.level"
+                          defaultMessage="LEVEL"
+                        />
+                      </td>
                       <td className="player-info__col-2">
                         {level}
                       </td>

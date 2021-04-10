@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Input from '@components/input';
 import Button from '@components/button';
 import { Props } from '@pages/signin/signInForm/types';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 const SignInForm = ({
   handleSubmit,
@@ -9,6 +10,7 @@ const SignInForm = ({
 }: Props) => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+  const intl = useIntl();
 
   return (
     <form
@@ -16,10 +18,10 @@ const SignInForm = ({
     >
       <Input
         className="mt-60"
-        labelText="LOGIN"
         value={login}
+        labelText={intl.formatMessage({ id: 'input.login', defaultMessage: 'LOGIN' })}
+        placeholder={intl.formatMessage({ id: 'input.login', defaultMessage: 'LOGIN' })}
         onChange={(event) => setLogin(event.target.value)}
-        placeholder="LOGIN"
         required
       />
 
@@ -27,9 +29,9 @@ const SignInForm = ({
         type="password"
         className="input"
         value={password}
+        labelText={intl.formatMessage({ id: 'input.password', defaultMessage: 'PASSWORD' })}
+        placeholder={intl.formatMessage({ id: 'input.password', defaultMessage: 'PASSWORD' })}
         onChange={(event) => setPassword(event.target.value)}
-        labelText="PASSWORD"
-        placeholder="PASSWORD"
         required
       />
 
@@ -42,9 +44,12 @@ const SignInForm = ({
       <Button
         type="submit"
         width="full"
-        className="mt-20"
+        className="mt-40"
       >
-        LOGIN
+        <FormattedMessage
+          id="button.login"
+          defaultMessage="LOGIN"
+        />
       </Button>
     </form>
   );

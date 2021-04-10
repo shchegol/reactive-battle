@@ -4,6 +4,7 @@ import Comments from '@pages/forumTopic/comments';
 import Button from '@components/button';
 import Icon from '@components/icon';
 import { ReplyContext, TReplyContext, TReply } from '@root/contexts/reply';
+import { FormattedMessage } from 'react-intl';
 import isValidDate from '@utils/isValidDate';
 import { Props } from './types';
 import './commentItem.scss';
@@ -46,7 +47,11 @@ const CommentItem: FC<Props> = ({
             onClick={() => updateReply(comment as TReply)}
           >
             <Icon name="reply" />
-            &nbsp;Reply
+            &nbsp;
+            <FormattedMessage
+              id="button.reply"
+              defaultMessage="ABOUT"
+            />
           </Button>
         </div>
 

@@ -9,10 +9,12 @@ import { Helmet } from 'react-helmet';
 import Icon from '@components/icon';
 import forumSelector from '@store/selectors/forum';
 import { addTopic, fetchTopicsList } from '@root/store/actionsCreators/forum';
+import { useIntl } from 'react-intl';
 
-export default function Forum() {
+export default function About() {
   const history = useHistory();
   const { topics } = useSelector(forumSelector);
+  const intl = useIntl();
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -24,8 +26,14 @@ export default function Forum() {
   return (
     <div className="container-fluid pb-60">
       <Helmet
-        title="Forum"
+        title={
+          intl.formatMessage({
+            id: 'page.game.menu.forum',
+            defaultMessage: 'FORUM',
+          })
+        }
       />
+
       <div className="row justify-content-left mt-20">
         <div className="col-12 col-md-2 col-lg-3">
           <Button
@@ -43,7 +51,12 @@ export default function Forum() {
           <div className="row mb-40">
             <div className="col">
               <MainTitle
-                subtitleText="Forum"
+                subtitleText={
+                  intl.formatMessage({
+                    id: 'page.game.menu.forum',
+                    defaultMessage: 'FORUM',
+                  })
+                }
               />
             </div>
           </div>

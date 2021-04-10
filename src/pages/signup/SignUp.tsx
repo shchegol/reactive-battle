@@ -1,31 +1,23 @@
-import React, { useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import React from 'react';
 import SignUpForm from '@root/pages/signup/signUpForm';
 import MainTitle from '@root/components/mainTitle';
 import { SignUpRequest } from '@api/types';
 import useAuth from '@root/hooks/useAuth';
 import './signup.scss';
-import useLoading from '@root/hooks/useLoading';
+import TopMenu from '@components/topMenu';
 
 export default function SignUp() {
-  const { isLoggedIn, signup } = useAuth();
-  const { hideLoading } = useLoading();
-
-  useEffect(() => {
-    hideLoading();
-  }, []);
+  const { signup } = useAuth();
 
   const submitHandler = async (event: React.FormEvent, userData: SignUpRequest) => {
     event.preventDefault();
     signup(userData);
   };
 
-  if (isLoggedIn) {
-    return <Redirect to="/" />;
-  }
-
   return (
-    <div className="container pb-60">
+    <div className="container-fluid pb-60">
+      <TopMenu className="mt-20" />
+
       <div className="row mt-40">
         <div className="col">
           <MainTitle />

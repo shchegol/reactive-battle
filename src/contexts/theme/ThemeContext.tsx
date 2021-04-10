@@ -1,23 +1,30 @@
 import * as React from 'react';
-import { TTheme, TThemeContext } from './types';
+import { useEffect } from 'react';
+import { Themes, TThemeContext } from './types';
 
-export const ThemeContext = React.createContext<TThemeContext>({ theme: 'dark', updateTheme: () => {} });
+export const ThemeContext = React.createContext<TThemeContext>({ theme: Themes.dark, updateTheme: () => {} });
 
 export const ThemeProvider: React.FC<React.ReactNode> = ({
   children,
 }) => {
-  const [theme, setTheme] = React.useState<TTheme>('dark');
+  const [theme, setTheme] = React.useState<Themes>(Themes.dark);
 
-  const updateTheme = (themeName?: TTheme) => {
-    let newThemeName = themeName;
+  const updateTheme = async (newTheme: string) => {
+    const enumTheme: Themes = Themes[newTheme as keyof typeof Themes];
 
-    if (!newThemeName) {
-      newThemeName = theme === 'dark' ? 'light' : 'dark';
-    }
+    if (!Object.keys(Themes).includes(newTheme)) return;
 
-    setTheme(newThemeName);
-    document.documentElement.setAttribute('theme', newThemeName);
+    localStorage.setItem('theme', newTheme);
+    setTheme(Themes[enumTheme]);
+    document.documentElement.setAttribute('theme', newTheme);
   };
+
+  useEffect(() => {
+    const currentTheme = localStorage.getItem('theme');
+
+    if (!currentTheme) return;
+    updateTheme(currentTheme);
+  }, []);
 
   return (
     <ThemeContext.Provider value={{ theme, updateTheme }}>
